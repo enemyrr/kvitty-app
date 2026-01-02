@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Check, GithubLogo, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 const features = [
@@ -9,6 +10,18 @@ const features = [
   "Obegränsad lagring",
   "Exportera till SIE-fil",
   "Bjud in teammedlemmar",
+];
+
+const hostedBenefits = [
+  "Automatiska säkerhetskopior",
+  "Uppdateringar ingår",
+  "Teknisk support",
+];
+
+const selfHostedBenefits = [
+  "Full kontroll över data",
+  "Anpassningsbar",
+  "Inga begränsningar",
 ];
 
 export function Pricing() {
@@ -28,7 +41,10 @@ export function Pricing() {
         {/* Pricing cards */}
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {/* Hosted plan */}
-          <div className="ring-1 ring-border rounded-2xl p-8 bg-card">
+          <div className="ring-1 ring-border rounded-2xl p-8 bg-card relative">
+            <Badge variant="default" className="absolute top-6 right-6">
+              Rekommenderas
+            </Badge>
             <div className="mb-6">
               <h3 className="font-medium text-lg mb-4">Kvitty Online</h3>
               <div className="flex items-baseline gap-1">
@@ -40,7 +56,7 @@ export function Pricing() {
               </p>
             </div>
 
-            <ul className="space-y-3 mb-8">
+            <ul className="space-y-3 mb-6">
               {features.map((feature) => (
                 <li
                   key={feature}
@@ -51,6 +67,22 @@ export function Pricing() {
                 </li>
               ))}
             </ul>
+
+            <div className="mb-8 pt-6 border-t border-border">
+              <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+                Ytterligare fördelar
+              </p>
+              <ul className="space-y-2.5">
+                {hostedBenefits.map((benefit) => (
+                  <li
+                    key={benefit}
+                    className="text-sm text-muted-foreground"
+                  >
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <Button asChild className="w-full gap-1.5" size="lg">
               <Link href="/login">
@@ -77,7 +109,7 @@ export function Pricing() {
               </p>
             </div>
 
-            <ul className="space-y-3 mb-8">
+            <ul className="space-y-3 mb-6">
               {features.map((feature) => (
                 <li
                   key={feature}
@@ -88,6 +120,22 @@ export function Pricing() {
                 </li>
               ))}
             </ul>
+
+            <div className="mb-8 pt-6 border-t border-border">
+              <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+                Ytterligare fördelar
+              </p>
+              <ul className="space-y-2.5">
+                {selfHostedBenefits.map((benefit) => (
+                  <li
+                    key={benefit}
+                    className="text-sm text-muted-foreground"
+                  >
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <Button asChild variant="outline" className="w-full gap-1.5" size="lg">
               <a
