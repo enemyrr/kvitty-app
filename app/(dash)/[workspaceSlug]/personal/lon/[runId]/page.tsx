@@ -8,7 +8,6 @@ import {
   Check,
   Download,
   FileCode,
-  Trash,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,14 +17,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -42,6 +33,7 @@ import { trpc } from "@/lib/trpc/client";
 import { useWorkspace } from "@/components/workspace-provider";
 import { AddPayrollEntryDialog } from "@/components/payroll/add-payroll-entry-dialog";
 import { AgiPreviewDialog } from "@/components/payroll/agi-preview-dialog";
+import { PayrollRunEntriesTable } from "@/components/payroll/payroll-run-entries-table";
 
 const statusLabels: Record<string, { label: string; color: string }> = {
   draft: { label: "Utkast", color: "bg-gray-100 text-gray-700" },
@@ -270,7 +262,7 @@ export default function PayrollRunPage() {
       {/* Entries Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Anställda</CardTitle>
+          <CardTitle>Personal</CardTitle>
         </CardHeader>
         <CardContent>
           {run.entries.length === 0 ? (
@@ -288,52 +280,22 @@ export default function PayrollRunPage() {
               )}
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Anställd</TableHead>
-                  <TableHead className="text-right">Bruttolön</TableHead>
-                  <TableHead className="text-right">Skatteavdrag</TableHead>
-                  <TableHead className="text-right">Arb.avg</TableHead>
-                  <TableHead className="text-right">Nettolön</TableHead>
-                  {isDraft && <TableHead className="w-[50px]"></TableHead>}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {run.entries.map((entry) => (
-                  <TableRow key={entry.id}>
-                    <TableCell className="font-medium">
-                      {entry.employee.firstName} {entry.employee.lastName}
-                    </TableCell>
-                    <TableCell className="text-right font-mono">
-                      {formatCurrency(entry.grossSalary)}
-                    </TableCell>
-                    <TableCell className="text-right font-mono">
-                      {formatCurrency(entry.taxDeduction)}
-                    </TableCell>
-                    <TableCell className="text-right font-mono">
-                      {formatCurrency(entry.employerContributions)}
-                    </TableCell>
-                    <TableCell className="text-right font-mono">
-                      {formatCurrency(entry.netSalary)}
-                    </TableCell>
-                    {isDraft && (
-                      <TableCell>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => removeEntry.mutate({ id: entry.id, workspaceId: workspace.id })}
-                          disabled={removeEntry.isPending}
-                          className="text-muted-foreground hover:text-destructive"
-                        >
-                          <Trash className="size-4" />
-                        </Button>
-                      </TableCell>
-                    )}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <PayrollRunEntriesTable
+              entries={run.entries.map((entry) => ({
+                id: entry.id,
+                employee: {
+                  firstName: entry.employee.firstName,
+                  lastName: entry.employee.lastName,
+                },
+                grossSalary: entry.grossSalary,
+                taxDeduction: entry.taxDeduction,
+                employerContributions: entry.employerContributions,
+                netSalary: entry.netSalary,
+              }))}
+              isDraft={isDraft}
+              onRemove={(entryId) => removeEntry.mutate({ id: entryId, workspaceId: workspace.id })}
+              isRemoving={removeEntry.isPending}
+            />
           )}
         </CardContent>
       </Card>

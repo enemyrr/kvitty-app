@@ -174,11 +174,11 @@ export function FullModeSidebar({
                 <SidebarMenuButton
                   asChild
                   isActive={pathname === `/${workspace.slug}/personal`}
-                  tooltip="Anställda"
+                  tooltip="Personal"
                 >
                   <Link href={`/${workspace.slug}/personal`}>
                     <UserList className="size-4" weight="duotone" />
-                    <span>Anställda</span>
+                    <span>Personal</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

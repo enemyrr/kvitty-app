@@ -10,21 +10,15 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Spinner } from "@/components/ui/spinner";
 import { trpc } from "@/lib/trpc/client";
 import { useWorkspace } from "@/components/workspace-provider";
 import Link from "next/link";
+import { AccountTransactionsTable } from "@/components/bank/account-transactions-table";
 
 const PAGE_SIZE = 50;
 
@@ -62,15 +56,6 @@ export default function AccountDetailPage() {
       offset,
     });
 
-  const formatCurrency = (value: string | null) => {
-    if (!value) return "0 kr";
-    const num = parseFloat(value);
-    return `${num.toLocaleString("sv-SE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} kr`;
-  };
-
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString("sv-SE");
-  };
 
   if (accountLoading) {
     return (
@@ -112,6 +97,7 @@ export default function AccountDetailPage() {
                   <Link href={`/${workspace.slug}/bank`}>Bankkonton</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
+              <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbPage>
                   {account.accountNumber} - {account.name}
@@ -132,60 +118,24 @@ export default function AccountDetailPage() {
           )}
         </div>
 
-        <div className="bg-background rounded-xl border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Datum</TableHead>
-                <TableHead>Verifikation</TableHead>
-                <TableHead>Beskrivning</TableHead>
-                <TableHead className="text-right">Debet</TableHead>
-                <TableHead className="text-right">Kredit</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {entriesLoading ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center">
-                    <Spinner className="size-6 mx-auto" />
-                  </TableCell>
-                </TableRow>
-              ) : entries.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center text-muted-foreground">
-                    Inga transaktioner hittades för detta konto
-                  </TableCell>
-                </TableRow>
-              ) : (
-                entries.map((item) => {
-                  const debit = item.line.debit ? parseFloat(item.line.debit) : 0;
-                  const credit = item.line.credit ? parseFloat(item.line.credit) : 0;
-
-                  return (
-                    <TableRow key={`${item.entry.id}-${item.line.id}`}>
-                      <TableCell>{formatDate(item.entry.entryDate)}</TableCell>
-                      <TableCell>
-                        V{item.entry.verificationNumber}
-                      </TableCell>
-                      <TableCell>
-                        {item.line.description || item.entry.description}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {debit > 0 ? formatCurrency(item.line.debit) : "-"}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {credit > 0 ? formatCurrency(item.line.credit) : "-"}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })
-              )}
-            </TableBody>
-          </Table>
-        </div>
+        <AccountTransactionsTable
+          entries={entries.map((item) => ({
+            id: item.entry.id,
+            entryDate: item.entry.entryDate,
+            verificationNumber: item.entry.verificationNumber,
+            description: item.entry.description,
+            line: {
+              id: item.line.id,
+              description: item.line.description,
+              debit: item.line.debit,
+              credit: item.line.credit,
+            },
+          }))}
+          isLoading={entriesLoading}
+        />
 
         {totalPages > 1 && (
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between pb-6">
             <div className="text-sm text-muted-foreground">
               Visar {offset + 1}-{Math.min(offset + PAGE_SIZE, total)} av {total} transaktioner
             </div>

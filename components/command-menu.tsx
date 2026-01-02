@@ -76,7 +76,7 @@ export function CommandMenu() {
             items.push(
                 {
                     id: "employees",
-                    label: "Anställda",
+                    label: "Personal",
                     icon: UserList,
                     href: `/${workspace.slug}/personal`,
                     group: "Personal & Löner",

@@ -1,24 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { Plus, UserCircle, ArrowRight } from "@phosphor-icons/react";
+import { Plus, UserCircle } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,11 +16,10 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
-import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc/client";
 import { useWorkspace } from "@/components/workspace-provider";
-import { calculateAgeFromPersonnummer } from "@/lib/utils";
 import { AddEmployeeDialog } from "@/components/employees/add-employee-dialog";
+import { EmployeesTable } from "@/components/employees/employees-table";
 
 export default function PersonalPage() {
   const { workspace } = useWorkspace();
@@ -67,7 +54,7 @@ export default function PersonalPage() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbPage>Anställda</BreadcrumbPage>
+                <BreadcrumbPage>Personal</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -77,7 +64,7 @@ export default function PersonalPage() {
       <div className="flex flex-1 flex-col gap-6 p-6 pt-0">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Anställda</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Personal</h1>
             <p className="text-muted-foreground text-sm">
               Hantera anställda för lönekörningar
             </p>
@@ -104,59 +91,10 @@ export default function PersonalPage() {
           </Card>
         ) : (
           <Card>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="px-4">Namn</TableHead>
-                  <TableHead className="px-4">Personnummer</TableHead>
-                  <TableHead className="px-4">E-post</TableHead>
-                  <TableHead className="px-4">Telefon</TableHead>
-                  <TableHead className="px-4">Status</TableHead>
-                  <TableHead className="w-[100px] px-4"></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {employees?.map((employee) => (
-                  <TableRow key={employee.id}>
-                    <TableCell className="px-4 font-medium">
-                      <Link
-                        href={`/${workspace.slug}/personal/${employee.id}`}
-                        className="hover:underline"
-                      >
-                        {employee.firstName} {employee.lastName}
-                      </Link>
-                    </TableCell>
-                    <TableCell className="px-4 font-mono text-sm">
-                      {employee.personalNumber}
-                      {(() => {
-                        const age = calculateAgeFromPersonnummer(employee.personalNumber);
-                        return age !== null ? ` (${age} år)` : null;
-                      })()}
-                    </TableCell>
-                    <TableCell className="px-4">{employee.email || "-"}</TableCell>
-                    <TableCell className="px-4">{employee.phone || "-"}</TableCell>
-                    <TableCell className="px-4">
-                      {employee.isActive ? (
-                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                          Aktiv
-                        </Badge>
-                      ) : (
-                        <Badge variant="outline" className="bg-gray-50 text-gray-700">
-                          Arkiverad
-                        </Badge>
-                      )}
-                    </TableCell>
-                    <TableCell className="px-4">
-                      <Link href={`/${workspace.slug}/personal/${employee.id}`}>
-                        <Button variant="ghost" size="icon">
-                          <ArrowRight className="size-4" />
-                        </Button>
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <EmployeesTable
+              employees={employees || []}
+              workspaceSlug={workspace.slug}
+            />
           </Card>
         )}
 

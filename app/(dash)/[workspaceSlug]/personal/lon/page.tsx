@@ -1,24 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { Plus, Money, Play, FileCode, Download, Check } from "@phosphor-icons/react";
+import { Plus, Money } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -30,18 +18,11 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
-import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc/client";
 import { useWorkspace } from "@/components/workspace-provider";
 import { CreatePayrollRunDialog } from "@/components/payroll/create-payroll-run-dialog";
+import { PayrollRunsTable } from "@/components/payroll/payroll-runs-table";
 
-const statusLabels: Record<string, { label: string; color: string }> = {
-  draft: { label: "Utkast", color: "bg-gray-100 text-gray-700" },
-  calculated: { label: "Beräknad", color: "bg-blue-100 text-blue-700" },
-  approved: { label: "Godkänd", color: "bg-green-100 text-green-700" },
-  paid: { label: "Utbetald", color: "bg-purple-100 text-purple-700" },
-  reported: { label: "Rapporterad", color: "bg-teal-100 text-teal-700" },
-};
 
 export default function PayrollPage() {
   const { workspace, periods } = useWorkspace();
@@ -52,10 +33,6 @@ export default function PayrollPage() {
     workspaceId: workspace.id,
   });
 
-  const formatCurrency = (value: string | null) => {
-    if (!value) return "0 kr";
-    return `${parseFloat(value).toLocaleString("sv-SE")} kr`;
-  };
 
   if (isLoading) {
     return (
@@ -120,51 +97,10 @@ export default function PayrollPage() {
         </Card>
       ) : (
         <Card>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Period</TableHead>
-                <TableHead>Körning</TableHead>
-                <TableHead>Utbetalningsdatum</TableHead>
-                <TableHead className="text-right">Bruttolön</TableHead>
-                <TableHead className="text-right">Arbetsgivaravgift</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="w-[100px]"></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {runs?.map((run) => {
-                const status = statusLabels[run.status] || statusLabels.draft;
-                return (
-                  <TableRow key={run.id}>
-                    <TableCell className="font-medium">
-                      {run.period.substring(0, 4)}-{run.period.substring(4)}
-                    </TableCell>
-                    <TableCell>Körning {run.runNumber}</TableCell>
-                    <TableCell>{run.paymentDate}</TableCell>
-                    <TableCell className="text-right font-mono">
-                      {formatCurrency(run.totalGrossSalary)}
-                    </TableCell>
-                    <TableCell className="text-right font-mono">
-                      {formatCurrency(run.totalEmployerContributions)}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className={status.color}>
-                        {status.label}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Link href={`/${workspace.slug}/personal/lon/${run.id}`}>
-                        <Button variant="ghost" size="sm">
-                          Öppna
-                        </Button>
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+          <PayrollRunsTable
+            runs={runs || []}
+            workspaceSlug={workspace.slug}
+          />
         </Card>
       )}
 

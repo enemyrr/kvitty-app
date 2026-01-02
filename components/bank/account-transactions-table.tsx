@@ -1,0 +1,102 @@
+"use client";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Spinner } from "@/components/ui/spinner";
+
+interface JournalEntry {
+  id: string;
+  entryDate: string;
+  verificationNumber: number;
+  description: string | null;
+  line: {
+    id: string;
+    description: string | null;
+    debit: string | null;
+    credit: string | null;
+  };
+}
+
+interface AccountTransactionsTableProps {
+  entries: JournalEntry[];
+  isLoading: boolean;
+}
+
+export function AccountTransactionsTable({
+  entries,
+  isLoading,
+}: AccountTransactionsTableProps) {
+  const formatCurrency = (value: string | null) => {
+    if (!value) return "0 kr";
+    const num = parseFloat(value);
+    return `${num.toLocaleString("sv-SE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} kr`;
+  };
+
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString("sv-SE");
+  };
+
+  return (
+    <div className="bg-background rounded-xl border">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Datum</TableHead>
+            <TableHead>Verifikation</TableHead>
+            <TableHead>Beskrivning</TableHead>
+            <TableHead className="text-right">Summa</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {isLoading ? (
+            <TableRow>
+              <TableCell colSpan={4} className="h-24 text-center">
+                <Spinner className="size-6 mx-auto" />
+              </TableCell>
+            </TableRow>
+          ) : entries.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={4} className="h-24 text-center text-muted-foreground">
+                Inga transaktioner hittades för detta konto
+              </TableCell>
+            </TableRow>
+          ) : (
+            entries.map((item) => {
+              const debit = item.line.debit ? parseFloat(item.line.debit) : 0;
+              const credit = item.line.credit ? parseFloat(item.line.credit) : 0;
+
+              let amountDisplay = "-";
+              if (debit > 0) {
+                amountDisplay = `+${formatCurrency(item.line.debit!)}`;
+              } else if (credit > 0) {
+                amountDisplay = `-${formatCurrency(item.line.credit!)}`;
+              }
+
+              return (
+                <TableRow key={`${item.id}-${item.line.id}`}>
+                  <TableCell>{formatDate(item.entryDate)}</TableCell>
+                  <TableCell>
+                    V{item.verificationNumber}
+                  </TableCell>
+                  <TableCell>
+                    {item.line.description || item.description}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {amountDisplay}
+                  </TableCell>
+                </TableRow>
+              );
+            })
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
+
