@@ -1,7 +1,42 @@
 import { z } from "zod";
 
+// Workspace mode enum values
+export const workspaceModes = ["simple", "full_bookkeeping"] as const;
+export type WorkspaceMode = (typeof workspaceModes)[number];
+
+// Business type enum values
+export const businessTypes = [
+  "aktiebolag",
+  "enskild_firma",
+  "handelsbolag",
+  "kommanditbolag",
+  "ekonomisk_forening",
+  "ideell_forening",
+  "stiftelse",
+  "other",
+] as const;
+export type BusinessType = (typeof businessTypes)[number];
+
+// Swedish organization number validation (10 or 12 digits)
+const orgNumberSchema = z
+  .string()
+  .regex(/^\d{10,12}$/, "Organisationsnummer måste vara 10-12 siffror")
+  .optional()
+  .or(z.literal(""));
+
 export const createWorkspaceSchema = z.object({
   name: z.string().min(1, "Namn krävs").max(100, "Namn får max vara 100 tecken"),
+  mode: z.enum(workspaceModes).default("simple"),
+  businessType: z.enum(businessTypes).optional(),
+  // Organization info
+  orgNumber: orgNumberSchema,
+  orgName: z.string().max(200, "Företagsnamn får max vara 200 tecken").optional(),
+  contactName: z.string().max(100).optional(),
+  contactPhone: z.string().max(20).optional(),
+  contactEmail: z.string().email("Ogiltig e-postadress").optional().or(z.literal("")),
+  address: z.string().max(200).optional(),
+  postalCode: z.string().max(10).optional(),
+  city: z.string().max(100).optional(),
 });
 
 export const updateWorkspaceSchema = z.object({
@@ -11,6 +46,17 @@ export const updateWorkspaceSchema = z.object({
     .length(4, "Slug måste vara exakt 4 tecken")
     .regex(/^[a-z0-9]+$/, "Endast små bokstäver och siffror")
     .optional(),
+  mode: z.enum(workspaceModes).optional(),
+  businessType: z.enum(businessTypes).optional().nullable(),
+  // Organization info
+  orgNumber: orgNumberSchema,
+  orgName: z.string().max(200, "Företagsnamn får max vara 200 tecken").optional().nullable(),
+  contactName: z.string().max(100).optional().nullable(),
+  contactPhone: z.string().max(20).optional().nullable(),
+  contactEmail: z.string().email("Ogiltig e-postadress").optional().nullable().or(z.literal("")),
+  address: z.string().max(200).optional().nullable(),
+  postalCode: z.string().max(10).optional().nullable(),
+  city: z.string().max(100).optional().nullable(),
 });
 
 export type CreateWorkspaceInput = z.infer<typeof createWorkspaceSchema>;

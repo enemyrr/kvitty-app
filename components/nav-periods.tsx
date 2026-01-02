@@ -29,18 +29,20 @@ export function NavPeriods({
   workspaceSlug,
   onAddPeriod,
   onAddVerification,
+  isFullMode = false,
 }: {
   periods: FiscalPeriod[];
   workspaceSlug: string;
   onAddPeriod?: () => void;
   onAddVerification?: () => void;
+  isFullMode?: boolean;
 }) {
   const pathname = usePathname();
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Verifikationer</SidebarGroupLabel>
-      <SidebarGroupAction title="Lägg till verifikationer" onClick={onAddVerification}>
+      <SidebarGroupLabel>{isFullMode ? "Bokföring" : "Verifikationer"}</SidebarGroupLabel>
+      <SidebarGroupAction title={isFullMode ? "Ny verifikation" : "Lägg till verifikationer"} onClick={onAddVerification}>
         <Plus className="size-4" />
         <span className="sr-only">Lägg till verifikationer</span>
       </SidebarGroupAction>

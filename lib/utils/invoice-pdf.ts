@@ -1,0 +1,183 @@
+import { jsPDF } from "jspdf";
+import type { Workspace, Invoice, InvoiceLine, Customer } from "@/lib/db/schema";
+
+interface InvoicePdfData {
+  workspace: Workspace;
+  invoice: Invoice;
+  customer: Customer;
+  lines: InvoiceLine[];
+}
+
+export function generateInvoicePdf(data: InvoicePdfData): jsPDF {
+  const { workspace, invoice, customer, lines } = data;
+  const doc = new jsPDF();
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const margin = 20;
+  let y = margin;
+
+  // Header - Company info (left)
+  doc.setFontSize(18);
+  doc.setFont("helvetica", "bold");
+  doc.text(workspace.orgName || workspace.name, margin, y);
+
+  y += 7;
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "normal");
+
+  if (workspace.orgNumber) {
+    doc.text(`Org.nr: ${workspace.orgNumber}`, margin, y);
+    y += 5;
+  }
+  if (workspace.address) {
+    doc.text(workspace.address, margin, y);
+    y += 5;
+  }
+  if (workspace.postalCode || workspace.city) {
+    doc.text(`${workspace.postalCode || ""} ${workspace.city || ""}`.trim(), margin, y);
+    y += 5;
+  }
+  if (workspace.contactEmail) {
+    doc.text(workspace.contactEmail, margin, y);
+    y += 5;
+  }
+  if (workspace.contactPhone) {
+    doc.text(workspace.contactPhone, margin, y);
+  }
+
+  // Header - Invoice info (right)
+  const rightX = pageWidth - margin;
+  let rightY = margin;
+
+  doc.setFontSize(24);
+  doc.setFont("helvetica", "bold");
+  doc.text("FAKTURA", rightX, rightY, { align: "right" });
+
+  rightY += 10;
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
+  doc.text(`Fakturanummer: ${invoice.invoiceNumber}`, rightX, rightY, { align: "right" });
+
+  rightY += 6;
+  doc.text(`Fakturadatum: ${formatDate(invoice.invoiceDate)}`, rightX, rightY, { align: "right" });
+
+  rightY += 6;
+  doc.text(`Förfallodatum: ${formatDate(invoice.dueDate)}`, rightX, rightY, { align: "right" });
+
+  if (invoice.reference) {
+    rightY += 6;
+    doc.text(`Referens: ${invoice.reference}`, rightX, rightY, { align: "right" });
+  }
+
+  // Customer info
+  y = 70;
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "bold");
+  doc.text("Kund", margin, y);
+
+  y += 6;
+  doc.setFont("helvetica", "normal");
+  doc.text(customer.name, margin, y);
+
+  if (customer.orgNumber) {
+    y += 5;
+    doc.text(`Org.nr: ${customer.orgNumber}`, margin, y);
+  }
+  if (customer.address) {
+    y += 5;
+    doc.text(customer.address, margin, y);
+  }
+  if (customer.postalCode || customer.city) {
+    y += 5;
+    doc.text(`${customer.postalCode || ""} ${customer.city || ""}`.trim(), margin, y);
+  }
+
+  // Line items table
+  y = 110;
+  const colWidths = {
+    desc: 80,
+    qty: 25,
+    price: 30,
+    vat: 20,
+    amount: 30,
+  };
+
+  // Table header
+  doc.setFillColor(245, 245, 245);
+  doc.rect(margin, y - 5, pageWidth - 2 * margin, 8, "F");
+
+  doc.setFontSize(9);
+  doc.setFont("helvetica", "bold");
+  doc.text("Beskrivning", margin + 2, y);
+  doc.text("Antal", margin + colWidths.desc + 2, y);
+  doc.text("À-pris", margin + colWidths.desc + colWidths.qty + 2, y);
+  doc.text("Moms", margin + colWidths.desc + colWidths.qty + colWidths.price + 2, y);
+  doc.text("Belopp", pageWidth - margin - 2, y, { align: "right" });
+
+  y += 8;
+  doc.setFont("helvetica", "normal");
+
+  // Table rows
+  for (const line of lines) {
+    // Check if we need a new page
+    if (y > 250) {
+      doc.addPage();
+      y = margin;
+    }
+
+    doc.text(truncate(line.description, 45), margin + 2, y);
+    doc.text(formatNumber(parseFloat(line.quantity)), margin + colWidths.desc + 2, y);
+    doc.text(formatCurrency(parseFloat(line.unitPrice)), margin + colWidths.desc + colWidths.qty + 2, y);
+    doc.text(`${line.vatRate}%`, margin + colWidths.desc + colWidths.qty + colWidths.price + 2, y);
+    doc.text(formatCurrency(parseFloat(line.amount)), pageWidth - margin - 2, y, { align: "right" });
+
+    y += 6;
+  }
+
+  // Totals
+  y += 10;
+  const totalsX = pageWidth - margin - 60;
+
+  doc.setFont("helvetica", "normal");
+  doc.text("Summa exkl. moms:", totalsX, y);
+  doc.text(formatCurrency(parseFloat(invoice.subtotal)), pageWidth - margin - 2, y, { align: "right" });
+
+  y += 6;
+  doc.text("Moms:", totalsX, y);
+  doc.text(formatCurrency(parseFloat(invoice.vatAmount)), pageWidth - margin - 2, y, { align: "right" });
+
+  y += 8;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text("Att betala:", totalsX, y);
+  doc.text(formatCurrency(parseFloat(invoice.total)) + " kr", pageWidth - margin - 2, y, { align: "right" });
+
+  // Payment info footer
+  y = 270;
+  doc.setFontSize(9);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(100);
+
+  const footerText = `Betalningsvillkor: 30 dagar netto. Vid försenad betalning debiteras dröjsmålsränta.`;
+  doc.text(footerText, pageWidth / 2, y, { align: "center" });
+
+
+  return doc;
+}
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("sv-SE");
+}
+
+function formatCurrency(value: number): string {
+  return value.toLocaleString("sv-SE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function formatNumber(value: number): string {
+  return value.toLocaleString("sv-SE", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+function truncate(str: string, maxLength: number): string {
+  return str.length > maxLength ? str.slice(0, maxLength - 3) + "..." : str;
+}

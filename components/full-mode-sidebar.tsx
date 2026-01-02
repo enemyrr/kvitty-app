@@ -1,7 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { House, Gear, Users, SignOut, User } from "@phosphor-icons/react";
+import {
+  House,
+  Gear,
+  Users,
+  SignOut,
+  User,
+  Bank,
+  Money,
+  UserList,
+  Receipt,
+  Plus,
+  Lock,
+  AddressBook,
+  Invoice,
+} from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,6 +31,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
   SidebarRail,
 } from "@/components/ui/sidebar";
 import {
@@ -26,18 +43,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AddPeriodDialog } from "@/components/periods/add-period-dialog";
-import { AddVerificationDialog } from "@/components/verifications/add-verification-dialog";
-import { FullModeSidebar } from "@/components/full-mode-sidebar";
-import type { Workspace } from "@/lib/db/schema";
+import { AddJournalEntryDialog } from "@/components/journal-entry/add-journal-entry-dialog";
+import type { Workspace, BankAccount } from "@/lib/db/schema";
 import type { fiscalPeriods } from "@/lib/db/schema";
 import { signOut } from "@/lib/auth-client";
 import { clearUserCookie } from "@/lib/user-cookie";
+import { trpc } from "@/lib/trpc/client";
 
 type FiscalPeriod = typeof fiscalPeriods.$inferSelect;
 
-interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+interface FullModeSidebarProps extends React.ComponentProps<typeof Sidebar> {
   workspace: Workspace;
   workspaces: Workspace[];
   periods: FiscalPeriod[];
@@ -48,49 +70,22 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   };
 }
 
-export function AppSidebar({
+export function FullModeSidebar({
   workspace,
   workspaces,
   periods,
   user,
   ...props
-}: AppSidebarProps) {
-  // Use full mode sidebar for full_bookkeeping workspaces
-  if (workspace.mode === "full_bookkeeping") {
-    return (
-      <FullModeSidebar
-        workspace={workspace}
-        workspaces={workspaces}
-        periods={periods}
-        user={user}
-        {...props}
-      />
-    );
-  }
-
-  // Simple mode sidebar (original)
-  return (
-    <SimpleSidebar
-      workspace={workspace}
-      workspaces={workspaces}
-      periods={periods}
-      user={user}
-      {...props}
-    />
-  );
-}
-
-// Original sidebar for simple mode
-function SimpleSidebar({
-  workspace,
-  workspaces,
-  periods,
-  user,
-  ...props
-}: AppSidebarProps) {
+}: FullModeSidebarProps) {
   const pathname = usePathname();
   const [addPeriodOpen, setAddPeriodOpen] = useState(false);
-  const [addVerificationOpen, setAddVerificationOpen] = useState(false);
+  const [addEntryOpen, setAddEntryOpen] = useState(false);
+  const [bankExpanded, setBankExpanded] = useState(true);
+
+  const { data: bankAccounts } = trpc.bankAccounts.list.useQuery(
+    { workspaceId: workspace.id },
+    { enabled: workspace.mode === "full_bookkeeping" }
+  );
 
   const initials = user.name
     ? user.name
@@ -111,6 +106,7 @@ function SimpleSidebar({
           />
         </SidebarHeader>
         <SidebarContent>
+          {/* Main Menu */}
           <SidebarGroup>
             <SidebarGroupLabel>Meny</SidebarGroupLabel>
             <SidebarMenu>
@@ -129,13 +125,118 @@ function SimpleSidebar({
             </SidebarMenu>
           </SidebarGroup>
 
+          {/* Personal & Löner */}
+          <SidebarGroup>
+            <SidebarGroupLabel>Personal & Löner</SidebarGroupLabel>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === `/${workspace.slug}/personal`}
+                  tooltip="Anställda"
+                >
+                  <Link href={`/${workspace.slug}/personal`}>
+                    <UserList className="size-4" weight="duotone" />
+                    <span>Anställda</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname.startsWith(`/${workspace.slug}/personal/lon`)}
+                  tooltip="Lönekörningar"
+                >
+                  <Link href={`/${workspace.slug}/personal/lon`}>
+                    <Money className="size-4" weight="duotone" />
+                    <span>Lönekörningar</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+
+          {/* Bank */}
+          <SidebarGroup>
+            <Collapsible open={bankExpanded} onOpenChange={setBankExpanded}>
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="w-full flex items-center justify-between group">
+                  <span>Bank</span>
+                  <Plus className="size-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+              <CollapsibleContent>
+                <SidebarMenu>
+                  {bankAccounts?.map((account) => (
+                    <SidebarMenuItem key={account.id}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={pathname === `/${workspace.slug}/bank/${account.accountNumber}`}
+                        tooltip={account.name}
+                      >
+                        <Link href={`/${workspace.slug}/bank/${account.accountNumber}`}>
+                          <Bank className="size-4" weight="duotone" />
+                          <span className="truncate">
+                            {account.accountNumber} {account.name}
+                          </span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild tooltip="Lägg till konto">
+                      <Link href={`/${workspace.slug}/bank`}>
+                        <Plus className="size-4" />
+                        <span>Hantera konton</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </CollapsibleContent>
+            </Collapsible>
+          </SidebarGroup>
+
+          {/* Försäljning */}
+          <SidebarGroup>
+            <SidebarGroupLabel>Försäljning</SidebarGroupLabel>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === `/${workspace.slug}/kunder`}
+                  tooltip="Kunder"
+                >
+                  <Link href={`/${workspace.slug}/kunder`}>
+                    <AddressBook className="size-4" weight="duotone" />
+                    <span>Kunder</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === `/${workspace.slug}/fakturor`}
+                  tooltip="Fakturor"
+                >
+                  <Link href={`/${workspace.slug}/fakturor`}>
+                    <Invoice className="size-4" weight="duotone" />
+                    <span>Fakturor</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+
+          {/* Bokföring */}
           <NavPeriods
             periods={periods}
             workspaceSlug={workspace.slug}
             onAddPeriod={() => setAddPeriodOpen(true)}
-            onAddVerification={() => setAddVerificationOpen(true)}
+            onAddVerification={() => setAddEntryOpen(true)}
+            isFullMode
           />
 
+          {/* Settings */}
           <SidebarGroup className="mt-auto">
             <SidebarGroupLabel>Inställningar</SidebarGroupLabel>
             <SidebarMenu>
@@ -221,12 +322,14 @@ function SimpleSidebar({
         onOpenChange={setAddPeriodOpen}
       />
 
-      <AddVerificationDialog
-        workspaceId={workspace.id}
-        periods={periods}
-        open={addVerificationOpen}
-        onOpenChange={setAddVerificationOpen}
-      />
+      {addEntryOpen && (
+        <AddJournalEntryDialog
+          workspaceId={workspace.id}
+          periods={periods}
+          open={addEntryOpen}
+          onOpenChange={setAddEntryOpen}
+        />
+      )}
     </>
   );
 }

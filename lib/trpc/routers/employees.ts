@@ -1,0 +1,177 @@
+import { z } from "zod";
+import { TRPCError } from "@trpc/server";
+import { router, workspaceProcedure } from "../init";
+import { employees } from "@/lib/db/schema";
+import { eq, and } from "drizzle-orm";
+import {
+  createEmployeeSchema,
+  updateEmployeeSchema,
+} from "@/lib/validations/employee";
+
+export const employeesRouter = router({
+  list: workspaceProcedure
+    .input(
+      z.object({
+        includeInactive: z.boolean().optional().default(false),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const employeeList = await ctx.db.query.employees.findMany({
+        where: input.includeInactive
+          ? eq(employees.workspaceId, ctx.workspaceId)
+          : and(
+              eq(employees.workspaceId, ctx.workspaceId),
+              eq(employees.isActive, true)
+            ),
+        orderBy: (emp, { asc }) => [asc(emp.lastName), asc(emp.firstName)],
+      });
+
+      return employeeList;
+    }),
+
+  get: workspaceProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const employee = await ctx.db.query.employees.findFirst({
+        where: and(
+          eq(employees.id, input.id),
+          eq(employees.workspaceId, ctx.workspaceId)
+        ),
+        with: {
+          payrollEntries: {
+            orderBy: (entries, { desc }) => [desc(entries.createdAt)],
+            limit: 10,
+            with: {
+              payrollRun: true,
+            },
+          },
+        },
+      });
+
+      if (!employee) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      return employee;
+    }),
+
+  create: workspaceProcedure
+    .input(createEmployeeSchema)
+    .mutation(async ({ ctx, input }) => {
+      // Normalize personal number to 12 digits
+      let personalNumber = input.personalNumber.replace(/\D/g, "");
+      if (personalNumber.length === 10) {
+        const yearPart = parseInt(personalNumber.substring(0, 2), 10);
+        const currentYear = new Date().getFullYear();
+        const currentCentury = Math.floor(currentYear / 100);
+        if (yearPart + currentCentury * 100 > currentYear) {
+          personalNumber = `${currentCentury - 1}${personalNumber}`;
+        } else {
+          personalNumber = `${currentCentury}${personalNumber}`;
+        }
+      }
+
+      // Check for duplicate personal number
+      const existing = await ctx.db.query.employees.findFirst({
+        where: and(
+          eq(employees.workspaceId, ctx.workspaceId),
+          eq(employees.personalNumber, personalNumber)
+        ),
+      });
+
+      if (existing) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "En anställd med detta personnummer finns redan",
+        });
+      }
+
+      const [employee] = await ctx.db
+        .insert(employees)
+        .values({
+          workspaceId: ctx.workspaceId,
+          personalNumber,
+          firstName: input.firstName,
+          lastName: input.lastName,
+          email: input.email || null,
+          phone: input.phone || null,
+          address: input.address || null,
+          postalCode: input.postalCode || null,
+          city: input.city || null,
+          employmentStartDate: input.employmentStartDate || null,
+          taxTable: input.taxTable || null,
+          taxColumn: input.taxColumn || null,
+        })
+        .returning();
+
+      return employee;
+    }),
+
+  update: workspaceProcedure
+    .input(updateEmployeeSchema)
+    .mutation(async ({ ctx, input }) => {
+      const employee = await ctx.db.query.employees.findFirst({
+        where: and(
+          eq(employees.id, input.id),
+          eq(employees.workspaceId, ctx.workspaceId)
+        ),
+      });
+
+      if (!employee) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      const [updated] = await ctx.db
+        .update(employees)
+        .set({
+          ...(input.firstName && { firstName: input.firstName }),
+          ...(input.lastName && { lastName: input.lastName }),
+          ...(input.email !== undefined && { email: input.email || null }),
+          ...(input.phone !== undefined && { phone: input.phone || null }),
+          ...(input.address !== undefined && { address: input.address || null }),
+          ...(input.postalCode !== undefined && { postalCode: input.postalCode || null }),
+          ...(input.city !== undefined && { city: input.city || null }),
+          ...(input.employmentStartDate !== undefined && {
+            employmentStartDate: input.employmentStartDate || null,
+          }),
+          ...(input.employmentEndDate !== undefined && {
+            employmentEndDate: input.employmentEndDate || null,
+          }),
+          ...(input.taxTable !== undefined && { taxTable: input.taxTable || null }),
+          ...(input.taxColumn !== undefined && { taxColumn: input.taxColumn || null }),
+          ...(input.isActive !== undefined && { isActive: input.isActive }),
+          updatedAt: new Date(),
+        })
+        .where(eq(employees.id, input.id))
+        .returning();
+
+      return updated;
+    }),
+
+  archive: workspaceProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const employee = await ctx.db.query.employees.findFirst({
+        where: and(
+          eq(employees.id, input.id),
+          eq(employees.workspaceId, ctx.workspaceId)
+        ),
+      });
+
+      if (!employee) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      const [updated] = await ctx.db
+        .update(employees)
+        .set({
+          isActive: false,
+          employmentEndDate: new Date().toISOString().split("T")[0],
+          updatedAt: new Date(),
+        })
+        .where(eq(employees.id, input.id))
+        .returning();
+
+      return updated;
+    }),
+});

@@ -2,21 +2,93 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Receipt } from "@phosphor-icons/react";
+import { Receipt, Files, Calculator } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
+  FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc/client";
+import { WorkspaceModeSelector } from "./workspace-mode-selector";
+import type { WorkspaceMode, BusinessType } from "@/lib/validations/workspace";
+
+const businessTypeLabels: Record<BusinessType, string> = {
+  aktiebolag: "Aktiebolag (AB)",
+  enskild_firma: "Enskild firma",
+  handelsbolag: "Handelsbolag (HB)",
+  kommanditbolag: "Kommanditbolag (KB)",
+  ekonomisk_forening: "Ekonomisk förening",
+  ideell_forening: "Ideell förening",
+  stiftelse: "Stiftelse",
+  other: "Annat",
+};
+
+const modeInfo: Record<
+  WorkspaceMode,
+  {
+    title: string;
+    description: string;
+    icon: typeof Files;
+    price: string;
+    benefits: string[];
+  }
+> = {
+  simple: {
+    title: "Enkel",
+    description: "Samla underlag och kvitton för din externa bokförare",
+    icon: Files,
+    price: "29 kr/mån",
+    benefits: [
+      "Kvittohantering",
+      "Obegränsade verifikationer",
+      "Obegränsad lagring",
+      "Bjud in teammedlemmar",
+      "Automatiska säkerhetskopior",
+      "Uppdateringar ingår",
+      "Teknisk support",
+    ],
+  },
+  full_bookkeeping: {
+    title: "Bokföring",
+    description: "Komplett bokföringssystem med löner, moms och AGI-deklaration",
+    icon: Calculator,
+    price: "29 kr/mån",
+    benefits: [
+      "Traditionell bokföring",
+      "Kvittohantering",
+      "Obegränsade verifikationer",
+      "Obegränsad lagring",
+      "Exportera till SIE-fil",
+      "Bjud in teammedlemmar",
+      "Automatiska säkerhetskopior",
+      "Uppdateringar ingår",
+      "Teknisk support",
+    ],
+  },
+};
 
 export function CreateWorkspaceForm() {
   const router = useRouter();
+  const [step, setStep] = useState<1 | 2>(1);
   const [name, setName] = useState("");
+  const [mode, setMode] = useState<WorkspaceMode>("simple");
+  const [businessType, setBusinessType] = useState<BusinessType | undefined>();
+  const [orgNumber, setOrgNumber] = useState("");
+  const [orgName, setOrgName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
 
   const createWorkspace = trpc.workspaces.create.useMutation({
     onSuccess: (workspace) => {
@@ -26,12 +98,28 @@ export function CreateWorkspaceForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    createWorkspace.mutate({ name });
+    createWorkspace.mutate({
+      name,
+      mode,
+      businessType,
+      orgNumber: orgNumber || undefined,
+      orgName: orgName || undefined,
+      contactEmail: contactEmail || undefined,
+    });
   }
 
+  function handleContinue() {
+    setStep(2);
+  }
+
+  const isFullMode = mode === "full_bookkeeping";
+
+  const selectedModeInfo = modeInfo[mode];
+  const ModeIcon = selectedModeInfo.icon;
+
   return (
-    <div className="flex flex-col gap-6 max-w-sm w-full">
-      <form onSubmit={handleSubmit}>
+    <div className="flex flex-col gap-6 max-w-lg w-full">
+      {step === 1 ? (
         <FieldGroup>
           <div className="flex flex-col items-center gap-2 text-center">
             <div className="flex size-8 items-center justify-center rounded-md">
@@ -39,36 +127,166 @@ export function CreateWorkspaceForm() {
             </div>
             <h1 className="text-xl font-bold">Välkommen till Kvitty</h1>
             <FieldDescription>
-              Skapa din första arbetsyta för att komma igång
+              Skapa din arbetsyta för att komma igång
             </FieldDescription>
           </div>
+
           <Field>
-            <FieldLabel htmlFor="name">Namn på arbetsyta</FieldLabel>
-            <Input
-              id="name"
-              type="text"
-              placeholder="t.ex. Mitt Företag AB"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+            <FieldLabel>Välj typ av arbetsyta</FieldLabel>
+            <WorkspaceModeSelector
+              value={mode}
+              onChange={setMode}
               disabled={createWorkspace.isPending}
             />
           </Field>
-          {createWorkspace.error && (
-            <p className="text-sm text-red-500 text-center">
-              Kunde inte skapa arbetsyta. Försök igen.
-            </p>
-          )}
+
           <Field>
             <Button
-              type="submit"
-              disabled={createWorkspace.isPending || !name.trim()}
+              type="button"
+              onClick={handleContinue}
+              disabled={createWorkspace.isPending}
+              className="w-full"
             >
-              {createWorkspace.isPending ? <Spinner /> : "Skapa arbetsyta"}
+              Fortsätt
             </Button>
           </Field>
         </FieldGroup>
-      </form>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <FieldGroup>
+            <div className="flex flex-col items-center gap-2 text-center">
+              <div className="flex size-8 items-center justify-center rounded-md">
+                <Receipt className="size-6" weight="duotone" />
+              </div>
+              <h1 className="text-xl font-bold">Välkommen till Kvitty</h1>
+              <FieldDescription>
+                Skapa din arbetsyta för att komma igång
+              </FieldDescription>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <ModeIcon className="size-5" weight="duotone" />
+                  </div>
+                  <div>
+                    <CardTitle>{selectedModeInfo.title}</CardTitle>
+                    <CardDescription>{selectedModeInfo.description}</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+            </Card>
+
+            <Field>
+              <FieldLabel htmlFor="name">Namn på arbetsyta</FieldLabel>
+              <Input
+                id="name"
+                type="text"
+                placeholder="t.ex. Mitt Företag AB"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={createWorkspace.isPending}
+              />
+            </Field>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field>
+                <FieldLabel htmlFor="orgNumber">Organisationsnummer</FieldLabel>
+                <Input
+                  id="orgNumber"
+                  type="text"
+                  placeholder="XXXXXXXXXX"
+                  value={orgNumber}
+                  onChange={(e) => setOrgNumber(e.target.value.replace(/\D/g, ""))}
+                  disabled={createWorkspace.isPending}
+                  maxLength={12}
+                />
+              </Field>
+
+              <Field>
+                <FieldLabel htmlFor="orgName">Företagsnamn</FieldLabel>
+                <Input
+                  id="orgName"
+                  type="text"
+                  placeholder="Företaget AB"
+                  value={orgName}
+                  onChange={(e) => setOrgName(e.target.value)}
+                  disabled={createWorkspace.isPending}
+                />
+              </Field>
+            </div>
+
+            <Field>
+              <FieldLabel htmlFor="contactEmail">Kontakt e-post</FieldLabel>
+              <Input
+                id="contactEmail"
+                type="email"
+                placeholder="info@foretaget.se"
+                value={contactEmail}
+                onChange={(e) => setContactEmail(e.target.value)}
+                disabled={createWorkspace.isPending}
+              />
+            </Field>
+
+            {isFullMode && (
+              <>
+                <FieldSeparator>Företagsinformation</FieldSeparator>
+
+                <Field>
+                  <FieldLabel htmlFor="businessType">Företagsform</FieldLabel>
+                  <Select
+                    value={businessType}
+                    onValueChange={(v) => setBusinessType(v as BusinessType)}
+                    disabled={createWorkspace.isPending}
+                  >
+                    <SelectTrigger id="businessType">
+                      <SelectValue placeholder="Välj företagsform" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.entries(businessTypeLabels).map(([value, label]) => (
+                        <SelectItem key={value} value={value}>
+                          {label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Field>
+              </>
+            )}
+
+            {createWorkspace.error && (
+              <p className="text-sm text-red-500 text-center">
+                Kunde inte skapa arbetsyta. Försök igen.
+              </p>
+            )}
+
+            <div className="flex gap-3">
+              <Field className="flex-1">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep(1)}
+                  disabled={createWorkspace.isPending}
+                  className="w-full"
+                >
+                  Tillbaka
+                </Button>
+              </Field>
+              <Field className="flex-1">
+                <Button
+                  type="submit"
+                  disabled={createWorkspace.isPending || !name.trim()}
+                  className="w-full"
+                >
+                  {createWorkspace.isPending ? <Spinner /> : "Skapa arbetsyta"}
+                </Button>
+              </Field>
+            </div>
+          </FieldGroup>
+        </form>
+      )}
     </div>
   );
 }

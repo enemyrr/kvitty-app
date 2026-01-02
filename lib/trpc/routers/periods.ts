@@ -58,6 +58,7 @@ export const periodsRouter = router({
           urlSlug: input.urlSlug,
           startDate: input.startDate,
           endDate: input.endDate,
+          fiscalYearType: input.fiscalYearType,
         })
         .returning();
 

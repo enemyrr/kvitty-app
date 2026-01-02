@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GithubLogo } from "@phosphor-icons/react/dist/ssr";
 
-const footerLinks = {
+const footerLinks: Record<string, { label: string; href: string; external?: boolean }[]> = {
   Produkt: [
     { label: "Funktioner", href: "#funktioner" },
     { label: "Priser", href: "#priser" },

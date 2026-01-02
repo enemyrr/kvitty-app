@@ -7,6 +7,14 @@ import { commentsRouter } from "./routers/comments";
 import { invitesRouter } from "./routers/invites";
 import { membersRouter } from "./routers/members";
 import { usersRouter } from "./routers/users";
+// Full bookkeeping routers
+import { bankAccountsRouter } from "./routers/bank-accounts";
+import { journalEntriesRouter } from "./routers/journal-entries";
+import { employeesRouter } from "./routers/employees";
+import { payrollRouter } from "./routers/payroll";
+import { lockedPeriodsRouter } from "./routers/locked-periods";
+import { customersRouter } from "./routers/customers";
+import { invoicesRouter } from "./routers/invoices";
 
 export const appRouter = router({
   workspaces: workspacesRouter,
@@ -17,6 +25,14 @@ export const appRouter = router({
   invites: invitesRouter,
   members: membersRouter,
   users: usersRouter,
+  // Full bookkeeping routers
+  bankAccounts: bankAccountsRouter,
+  journalEntries: journalEntriesRouter,
+  employees: employeesRouter,
+  payroll: payrollRouter,
+  lockedPeriods: lockedPeriodsRouter,
+  customers: customersRouter,
+  invoices: invoicesRouter,
 });
 
 export type AppRouter = typeof appRouter;

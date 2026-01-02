@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export const fiscalYearTypeSchema = z.enum(["calendar", "broken"]);
+
 export const createPeriodSchema = z.object({
   label: z.string().min(1, "Etikett krävs").max(50, "Etikett får max vara 50 tecken"),
   urlSlug: z
@@ -9,6 +11,7 @@ export const createPeriodSchema = z.object({
     .regex(/^[a-z0-9-]+$/, "URL får bara innehålla a-z, 0-9 och bindestreck"),
   startDate: z.string().date("Ogiltigt startdatum"),
   endDate: z.string().date("Ogiltigt slutdatum"),
+  fiscalYearType: fiscalYearTypeSchema.optional().default("calendar"),
 }).refine((data) => new Date(data.startDate) < new Date(data.endDate), {
   message: "Startdatum måste vara före slutdatum",
   path: ["endDate"],

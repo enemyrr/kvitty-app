@@ -43,6 +43,16 @@ export const workspacesRouter = router({
         .values({
           name: input.name,
           slug,
+          mode: input.mode,
+          businessType: input.businessType,
+          orgNumber: input.orgNumber || null,
+          orgName: input.orgName || null,
+          contactName: input.contactName || null,
+          contactPhone: input.contactPhone || null,
+          contactEmail: input.contactEmail || null,
+          address: input.address || null,
+          postalCode: input.postalCode || null,
+          city: input.city || null,
           createdBy: ctx.session.user.id,
         })
         .returning();
@@ -81,6 +91,16 @@ export const workspacesRouter = router({
         .set({
           name: input.name,
           ...(input.slug && { slug: input.slug }),
+          ...(input.mode && { mode: input.mode }),
+          ...(input.businessType !== undefined && { businessType: input.businessType }),
+          ...(input.orgNumber !== undefined && { orgNumber: input.orgNumber || null }),
+          ...(input.orgName !== undefined && { orgName: input.orgName || null }),
+          ...(input.contactName !== undefined && { contactName: input.contactName || null }),
+          ...(input.contactPhone !== undefined && { contactPhone: input.contactPhone || null }),
+          ...(input.contactEmail !== undefined && { contactEmail: input.contactEmail || null }),
+          ...(input.address !== undefined && { address: input.address || null }),
+          ...(input.postalCode !== undefined && { postalCode: input.postalCode || null }),
+          ...(input.city !== undefined && { city: input.city || null }),
           updatedAt: new Date(),
         })
         .where(eq(workspaces.id, ctx.workspaceId))
