@@ -1,0 +1,101 @@
+import { notFound } from "next/navigation";
+import { db } from "@/lib/db";
+import { workspaces, fiscalPeriods, verifications } from "@/lib/db/schema";
+import { eq, and } from "drizzle-orm";
+import { getSession } from "@/lib/session";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { VerificationsTable } from "@/components/verifications/verifications-table";
+import { AddVerificationButton } from "@/components/verifications/add-verification-button";
+
+export default async function PeriodPage({
+  params,
+}: {
+  params: Promise<{ workspaceSlug: string; periodSlug: string }>;
+}) {
+  const session = await getSession();
+  if (!session) {
+    notFound();
+  }
+
+  const { workspaceSlug, periodSlug } = await params;
+
+  const workspace = await db.query.workspaces.findFirst({
+    where: eq(workspaces.slug, workspaceSlug),
+  });
+
+  if (!workspace) {
+    notFound();
+  }
+
+  const period = await db.query.fiscalPeriods.findFirst({
+    where: and(
+      eq(fiscalPeriods.workspaceId, workspace.id),
+      eq(fiscalPeriods.urlSlug, periodSlug)
+    ),
+  });
+
+  if (!period) {
+    notFound();
+  }
+
+  const data = await db.query.verifications.findMany({
+    where: eq(verifications.fiscalPeriodId, period.id),
+    orderBy: (v, { desc }) => [desc(v.accountingDate), desc(v.createdAt)],
+  });
+
+  return (
+    <>
+      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+        <div className="flex items-center gap-2 px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator
+            orientation="vertical"
+            className="mr-2 data-[orientation=vertical]:h-4"
+          />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink href={`/${workspaceSlug}`}>
+                  {workspace.name}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{period.label}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      </header>
+      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold">{period.label}</h1>
+            <p className="text-muted-foreground text-sm">
+              {period.startDate} — {period.endDate}
+            </p>
+          </div>
+          <AddVerificationButton
+            workspaceId={workspace.id}
+            periodId={period.id}
+          />
+        </div>
+        <div className="bg-background rounded-xl border">
+          <VerificationsTable
+            data={data}
+            workspaceId={workspace.id}
+          />
+        </div>
+      </div>
+    </>
+  );
+}

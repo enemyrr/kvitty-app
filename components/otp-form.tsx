@@ -1,49 +1,113 @@
-import { GalleryVerticalEnd } from "lucide-react"
+"use client";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Receipt } from "@phosphor-icons/react";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field"
+} from "@/components/ui/field";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/ui/input-otp"
+} from "@/components/ui/input-otp";
+import { authClient } from "@/lib/auth-client";
 
 export function OTPForm({ className, ...props }: React.ComponentProps<"div">) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email") || "";
+
+  const [otp, setOtp] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (otp.length !== 6) return;
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { error: verifyError } = await authClient.emailOtp.verifyEmail({
+        email,
+        otp,
+      });
+
+      if (verifyError) {
+        throw new Error(verifyError.message);
+      }
+
+      router.push("/");
+    } catch (err) {
+      setError("Ogiltig verifieringskod. Försök igen.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleResend() {
+    setIsResending(true);
+    setError(null);
+
+    try {
+      const { error: otpError } = await authClient.emailOtp.sendVerificationOtp({
+        email,
+        type: "email-verification",
+      });
+
+      if (otpError) {
+        throw new Error(otpError.message);
+      }
+    } catch (err) {
+      setError("Kunde inte skicka ny kod. Försök igen.");
+      console.error(err);
+    } finally {
+      setIsResending(false);
+    }
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FieldGroup>
           <div className="flex flex-col items-center gap-2 text-center">
             <a
-              href="#"
+              href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
               <div className="flex size-8 items-center justify-center rounded-md">
-                <GalleryVerticalEnd className="size-6" />
+                <Receipt className="size-6" weight="duotone" />
               </div>
-              <span className="sr-only">Acme Inc.</span>
+              <span className="sr-only">Kvitty</span>
             </a>
-            <h1 className="text-xl font-bold">Enter verification code</h1>
+            <h1 className="text-xl font-bold">Ange verifieringskod</h1>
             <FieldDescription>
-              We sent a 6-digit code to your email address
+              Vi skickade en 6-siffrig kod till {email}
             </FieldDescription>
           </div>
           <Field>
             <FieldLabel htmlFor="otp" className="sr-only">
-              Verification code
+              Verifieringskod
             </FieldLabel>
             <InputOTP
               maxLength={6}
               id="otp"
               required
               containerClassName="gap-4"
+              value={otp}
+              onChange={setOtp}
+              disabled={isLoading}
             >
               <InputOTPGroup className="gap-2.5 *:data-[slot=input-otp-slot]:h-16 *:data-[slot=input-otp-slot]:w-12 *:data-[slot=input-otp-slot]:rounded-md *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-xl">
                 <InputOTPSlot index={0} />
@@ -58,18 +122,32 @@ export function OTPForm({ className, ...props }: React.ComponentProps<"div">) {
               </InputOTPGroup>
             </InputOTP>
             <FieldDescription className="text-center">
-              Didn&apos;t receive the code? <a href="#">Resend</a>
+              Fick du ingen kod?{" "}
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={isResending}
+                className="underline"
+              >
+                {isResending ? "Skickar..." : "Skicka igen"}
+              </button>
             </FieldDescription>
           </Field>
+          {error && (
+            <p className="text-sm text-red-500 text-center">{error}</p>
+          )}
           <Field>
-            <Button type="submit">Verify</Button>
+            <Button type="submit" disabled={isLoading || otp.length !== 6}>
+              {isLoading ? "Verifierar..." : "Verifiera"}
+            </Button>
           </Field>
         </FieldGroup>
       </form>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        Genom att fortsätta godkänner du våra{" "}
+        <a href="/terms">användarvillkor</a> och{" "}
+        <a href="/privacy">integritetspolicy</a>.
       </FieldDescription>
     </div>
-  )
+  );
 }
