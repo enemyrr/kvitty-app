@@ -3,7 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, GithubLogo, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
-const features = [
+const verificationFeatures = [
+  "Kvittohantering",
+  "Obegränsade verifikationer",
+  "Obegränsad lagring",
+  "Bjud in teammedlemmar",
+];
+
+const fullFeatures = [
   "Traditionell bokföring",
   "Kvittohantering",
   "Obegränsade verifikationer",
@@ -39,12 +46,9 @@ export function Pricing() {
         </div>
 
         {/* Pricing cards */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          {/* Hosted plan */}
-          <div className="ring-1 ring-border rounded-2xl p-8 bg-card relative">
-            <Badge variant="default" className="absolute top-6 right-6">
-              Rekommenderas
-            </Badge>
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* Verification plan */}
+          <div className="ring-1 ring-border rounded-2xl p-8 bg-card flex flex-col">
             <div className="mb-6">
               <h3 className="font-medium text-lg mb-4">Kvitty Online</h3>
               <div className="flex items-baseline gap-1">
@@ -57,7 +61,7 @@ export function Pricing() {
             </div>
 
             <ul className="space-y-3 mb-6">
-              {features.map((feature) => (
+              {verificationFeatures.map((feature) => (
                 <li
                   key={feature}
                   className="flex items-center gap-3 text-sm"
@@ -84,20 +88,80 @@ export function Pricing() {
               </ul>
             </div>
 
-            <Button asChild className="w-full gap-1.5" size="lg">
-              <Link href="/login">
-                Kom igång
-                <ArrowRight weight="bold" className="size-4" />
-              </Link>
-            </Button>
+            <div className="mt-auto">
+              <Button asChild className="w-full gap-1.5" size="lg">
+                <Link href="/login">
+                  Kom igång
+                  <ArrowRight weight="bold" className="size-4" />
+                </Link>
+              </Button>
 
-            <p className="text-xs text-muted-foreground mt-4">
-              Ingen bindningstid. Avsluta när du vill.
-            </p>
+              <p className="text-xs text-muted-foreground mt-4">
+                Ingen bindningstid. Avsluta när du vill.
+              </p>
+            </div>
+          </div>
+
+          {/* Full system plan */}
+          <div className="ring-1 ring-border rounded-2xl p-8 bg-card relative flex flex-col">
+            <Badge variant="default" className="absolute top-6 right-6">
+              Rekommenderas
+            </Badge>
+            <div className="mb-6">
+              <h3 className="font-medium text-lg mb-4">Kvitty Online</h3>
+              <div className="flex items-baseline gap-1">
+                <span className="font-semibold text-5xl tracking-tight">129</span>
+                <span className="text-muted-foreground text-lg">kr/mån</span>
+              </div>
+              <p className="text-muted-foreground text-sm mt-2">
+                Exkl. moms.
+              </p>
+            </div>
+
+            <ul className="space-y-3 mb-6">
+              {fullFeatures.map((feature) => (
+                <li
+                  key={feature}
+                  className="flex items-center gap-3 text-sm"
+                >
+                  <Check weight="bold" className="size-4 text-green-600 shrink-0" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mb-8 pt-6 border-t border-border">
+              <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+                Ytterligare fördelar
+              </p>
+              <ul className="space-y-2.5">
+                {hostedBenefits.map((benefit) => (
+                  <li
+                    key={benefit}
+                    className="text-sm text-muted-foreground"
+                  >
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-auto">
+              <Button asChild className="w-full gap-1.5" size="lg">
+                <Link href="/login">
+                  Kom igång
+                  <ArrowRight weight="bold" className="size-4" />
+                </Link>
+              </Button>
+
+              <p className="text-xs text-muted-foreground mt-4">
+                Ingen bindningstid. Avsluta när du vill.
+              </p>
+            </div>
           </div>
 
           {/* Self-host plan */}
-          <div className="ring-1 ring-border rounded-2xl p-8 bg-card">
+          <div className="ring-1 ring-border rounded-2xl p-8 bg-card flex flex-col">
             <div className="mb-6">
               <h3 className="font-medium text-lg mb-4">Self-hosted</h3>
               <div className="flex items-baseline gap-1">
@@ -110,7 +174,7 @@ export function Pricing() {
             </div>
 
             <ul className="space-y-3 mb-6">
-              {features.map((feature) => (
+              {fullFeatures.map((feature) => (
                 <li
                   key={feature}
                   className="flex items-center gap-3 text-sm"
@@ -137,20 +201,22 @@ export function Pricing() {
               </ul>
             </div>
 
-            <Button asChild variant="outline" className="w-full gap-1.5" size="lg">
-              <a
-                href="https://github.com/sajn-se/kvitty-app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GithubLogo weight="fill" className="size-4" />
-                Visa på GitHub
-              </a>
-            </Button>
+            <div className="mt-auto">
+              <Button asChild variant="outline" className="w-full gap-1.5" size="lg">
+                <a
+                  href="https://github.com/sajn-se/kvitty-app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubLogo weight="fill" className="size-4" />
+                  Visa på GitHub
+                </a>
+              </Button>
 
-            <p className="text-xs text-muted-foreground mt-4">
-              Öppen källkod. MIT-licens.
-            </p>
+              <p className="text-xs text-muted-foreground mt-4">
+                Öppen källkod. MIT-licens.
+              </p>
+            </div>
           </div>
         </div>
       </div>
