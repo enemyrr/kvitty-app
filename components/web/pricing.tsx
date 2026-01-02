@@ -30,7 +30,7 @@ export function Pricing() {
           {/* Hosted plan */}
           <div className="ring-1 ring-border rounded-2xl p-8 bg-card">
             <div className="mb-6">
-              <h3 className="font-medium text-lg mb-4">Kvitty Cloud</h3>
+              <h3 className="font-medium text-lg mb-4">Kvitty Online</h3>
               <div className="flex items-baseline gap-1">
                 <span className="font-semibold text-5xl tracking-tight">29</span>
                 <span className="text-muted-foreground text-lg">kr/mån</span>
