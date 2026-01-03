@@ -231,11 +231,7 @@ export const employeesRouter = router({
       const allEntries = await ctx.db.query.payrollEntries.findMany({
         where: eq(payrollEntries.employeeId, input.employeeId),
         with: {
-          payrollRun: {
-            with: {
-              fiscalPeriod: true,
-            },
-          },
+          payrollRun: true,
         },
       });
 

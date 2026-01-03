@@ -7,12 +7,10 @@ import { AddBankTransactionDialog } from "./add-bank-transaction-dialog";
 
 interface AddBankTransactionButtonProps {
   workspaceId: string;
-  periodId: string;
 }
 
 export function AddBankTransactionButton({
   workspaceId,
-  periodId,
 }: AddBankTransactionButtonProps) {
   const [open, setOpen] = useState(false);
 
@@ -24,7 +22,6 @@ export function AddBankTransactionButton({
       </Button>
       <AddBankTransactionDialog
         workspaceId={workspaceId}
-        periodId={periodId}
         open={open}
         onOpenChange={setOpen}
       />

@@ -28,7 +28,7 @@ interface PayrollPageClientProps {
 }
 
 export function PayrollPageClient({ workspaceSlug }: PayrollPageClientProps) {
-  const { workspace, periods } = useWorkspace();
+  const { workspace } = useWorkspace();
   const [createOpen, setCreateOpen] = useState(false);
   const utils = trpc.useUtils();
 
@@ -110,7 +110,6 @@ export function PayrollPageClient({ workspaceSlug }: PayrollPageClientProps) {
         workspaceId={workspace.id}
         open={createOpen}
         onOpenChange={setCreateOpen}
-        periods={periods}
       />
       </div>
     </>

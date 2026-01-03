@@ -131,9 +131,7 @@ function SimpleSidebar({
           </SidebarGroup>
 
           <NavPeriods
-            periods={periods}
             workspaceSlug={workspace.slug}
-            onAddPeriod={() => setAddPeriodOpen(true)}
             onAddVerification={() => setAddBankTransactionOpen(true)}
           />
 
@@ -228,7 +226,6 @@ function SimpleSidebar({
 
       <AddBankTransactionDialog
         workspaceId={workspace.id}
-        periods={periods}
         open={addBankTransactionOpen}
         onOpenChange={setAddBankTransactionOpen}
       />

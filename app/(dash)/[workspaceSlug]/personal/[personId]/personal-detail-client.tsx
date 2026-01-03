@@ -34,10 +34,6 @@ interface PayrollEntry {
     runNumber: number;
     paymentDate: string;
     status: string;
-    fiscalPeriod: {
-      label: string;
-      urlSlug: string;
-    };
   };
 }
 

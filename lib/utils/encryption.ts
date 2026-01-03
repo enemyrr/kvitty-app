@@ -20,7 +20,14 @@ function getEncryptionKey(): Buffer {
     );
   }
 
-  return crypto.scryptSync(key, "salt", KEY_LENGTH);
+  // Security: Derive a proper salt from the key itself using SHA-256
+  // This avoids using a hardcoded salt while keeping the derived key deterministic
+  const derivedSalt = crypto
+    .createHash("sha256")
+    .update(key + "_derivation_salt")
+    .digest();
+
+  return crypto.scryptSync(key, derivedSalt, KEY_LENGTH);
 }
 
 export function encrypt(plaintext: string): string {

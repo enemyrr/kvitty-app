@@ -11,7 +11,6 @@ export type PayrollRunStatus = (typeof payrollRunStatuses)[number];
 
 export const createPayrollRunSchema = z.object({
   workspaceId: z.string(),
-  fiscalPeriodId: z.string(),
   period: z
     .string()
     .regex(/^\d{6}$/, "Period måste vara i format YYYYMM"),

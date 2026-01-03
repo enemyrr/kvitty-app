@@ -10,8 +10,9 @@ import {
   journalEntryLines,
   auditLogs,
   salaryStatements,
+  fiscalPeriods,
 } from "@/lib/db/schema";
-import { eq, and, sql, desc } from "drizzle-orm";
+import { eq, and, sql, desc, lte, gte } from "drizzle-orm";
 import {
   createPayrollRunSchema,
   addPayrollEntrySchema,
@@ -31,18 +32,12 @@ export const payrollRouter = router({
   listRuns: workspaceProcedure
     .input(
       z.object({
-        fiscalPeriodId: z.string().optional(),
         limit: z.number().min(1).max(100).default(20),
       })
     )
     .query(async ({ ctx, input }) => {
       const runs = await ctx.db.query.payrollRuns.findMany({
-        where: input.fiscalPeriodId
-          ? and(
-              eq(payrollRuns.workspaceId, ctx.workspaceId),
-              eq(payrollRuns.fiscalPeriodId, input.fiscalPeriodId)
-            )
-          : eq(payrollRuns.workspaceId, ctx.workspaceId),
+        where: eq(payrollRuns.workspaceId, ctx.workspaceId),
         with: {
           entries: {
             with: {
@@ -81,7 +76,6 @@ export const payrollRouter = router({
               employee: true,
             },
           },
-          fiscalPeriod: true,
           journalEntry: {
             with: {
               lines: true,
@@ -139,7 +133,6 @@ export const payrollRouter = router({
         .insert(payrollRuns)
         .values({
           workspaceId: ctx.workspaceId,
-          fiscalPeriodId: input.fiscalPeriodId,
           period: input.period,
           runNumber,
           paymentDate: input.paymentDate,
@@ -407,6 +400,22 @@ export const payrollRouter = router({
         });
       }
 
+      // Find fiscal period based on payment date
+      const fiscalPeriod = await ctx.db.query.fiscalPeriods.findFirst({
+        where: and(
+          eq(fiscalPeriods.workspaceId, ctx.workspaceId),
+          lte(fiscalPeriods.startDate, run.paymentDate),
+          gte(fiscalPeriods.endDate, run.paymentDate)
+        ),
+      });
+
+      if (!fiscalPeriod) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `Ingen räkenskapsperiod hittades för betalningsdatum ${run.paymentDate}. Skapa en period först.`,
+        });
+      }
+
       // Create journal entry for the payroll
       const nextNumber = await ctx.db
         .select({ maxNumber: sql<number>`MAX(${journalEntries.verificationNumber})` })
@@ -414,7 +423,7 @@ export const payrollRouter = router({
         .where(
           and(
             eq(journalEntries.workspaceId, ctx.workspaceId),
-            eq(journalEntries.fiscalPeriodId, run.fiscalPeriodId)
+            eq(journalEntries.fiscalPeriodId, fiscalPeriod.id)
           )
         );
 
@@ -429,7 +438,7 @@ export const payrollRouter = router({
         .insert(journalEntries)
         .values({
           workspaceId: ctx.workspaceId,
-          fiscalPeriodId: run.fiscalPeriodId,
+          fiscalPeriodId: fiscalPeriod.id,
           verificationNumber,
           entryDate: run.paymentDate,
           description: `Lönekörning ${run.period} - Körning ${run.runNumber}`,
@@ -743,6 +752,7 @@ export const payrollRouter = router({
       const blob = await put(filename, pdfBuffer, {
         access: "public",
         contentType: "application/pdf",
+        addRandomSuffix: true, // Security: Add random suffix to prevent URL guessing
       });
 
       // Check if statement already exists for this entry
@@ -885,6 +895,7 @@ export const payrollRouter = router({
           const blob = await put(filename, pdfBuffer, {
             access: "public",
             contentType: "application/pdf",
+            addRandomSuffix: true, // Security: Add random suffix to prevent URL guessing
           });
 
           // Check if statement already exists

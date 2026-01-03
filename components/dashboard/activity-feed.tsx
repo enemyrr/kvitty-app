@@ -2,13 +2,12 @@ import Link from "next/link";
 
 interface ActivityItem {
   id: string;
-  type: "verification" | "audit";
+  type: "transaction" | "audit";
   reference?: string | null;
   amount?: string | null;
   action?: string;
   entityType?: string;
-  periodLabel?: string;
-  periodSlug?: string;
+  bankAccountName?: string;
   userName?: string | null;
   timestamp: Date;
 }
@@ -90,15 +89,15 @@ export function ActivityFeed({ items, workspaceSlug }: ActivityFeedProps) {
         {items.map((item) => (
           <div key={item.id} className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
-              {item.type === "verification" ? (
+              {item.type === "transaction" ? (
                 <>
                   <p className="text-sm font-medium truncate">
                     {item.reference || "Utan referens"}
                   </p>
                   <p className="text-xs text-muted-foreground">
                     {item.amount ? formatCurrency(item.amount) : "—"}
-                    {item.periodLabel && (
-                      <> &middot; {item.periodLabel}</>
+                    {item.bankAccountName && (
+                      <> &middot; {item.bankAccountName}</>
                     )}
                   </p>
                 </>

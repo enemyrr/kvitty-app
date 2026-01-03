@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { db } from "@/lib/db";
-import { workspaces, fiscalPeriods, bankTransactions, auditLogs, user } from "@/lib/db/schema";
-import { eq, count, sum, desc, sql } from "drizzle-orm";
+import { workspaces, fiscalPeriods, bankTransactions, journalEntries, auditLogs } from "@/lib/db/schema";
+import { eq, count, sql, and, gte } from "drizzle-orm";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -27,7 +27,7 @@ export async function generateMetadata({
     where: eq(workspaces.slug, workspaceSlug),
   });
   return {
-    title: workspace ? `${workspace.name} — Kvitty` : "Översikt — Kvitty",
+    title: workspace ? `${workspace.name} — Kvitty` : "Oversikt — Kvitty",
   };
 }
 
@@ -46,21 +46,26 @@ export default async function WorkspaceDashboardPage({
     return null;
   }
 
+  // Get current date info
+  const today = new Date();
+  const todayStr = today.toISOString().split("T")[0];
+  const currentYearStart = `${today.getFullYear()}-01-01`;
+
   // Fetch all data in parallel
-  const [periods, recentBankTransactions, recentAuditLogs] = await Promise.all([
-    // Periods with verification counts
+  const [periods, recentBankTransactions, recentAuditLogs, periodStats] = await Promise.all([
+    // Periods
     db.query.fiscalPeriods.findMany({
       where: eq(fiscalPeriods.workspaceId, workspace.id),
       orderBy: (periods, { desc }) => [desc(periods.startDate)],
     }),
-    // Recent bank transactions
+    // Recent bank transactions (company-wide, no period filter)
     db.query.bankTransactions.findMany({
       where: eq(bankTransactions.workspaceId, workspace.id),
       orderBy: (v, { desc }) => [desc(v.createdAt)],
       limit: 6,
       with: {
         createdByUser: { columns: { id: true, name: true, email: true } },
-        fiscalPeriod: { columns: { label: true, urlSlug: true } },
+        bankAccount: { columns: { id: true, name: true, accountNumber: true } },
       },
     }),
     // Recent audit logs
@@ -72,87 +77,97 @@ export default async function WorkspaceDashboardPage({
         user: { columns: { id: true, name: true, email: true } },
       },
     }),
+    // Get journal entry counts per period (journal entries are still period-based)
+    db.query.fiscalPeriods.findMany({
+      where: eq(fiscalPeriods.workspaceId, workspace.id),
+      orderBy: (periods, { desc }) => [desc(periods.startDate)],
+    }).then(async (periods) => {
+      return Promise.all(
+        periods.map(async (period) => {
+          const [result] = await db
+            .select({ count: count() })
+            .from(journalEntries)
+            .where(eq(journalEntries.fiscalPeriodId, period.id));
+          return {
+            ...period,
+            verificationCount: result?.count || 0,
+          };
+        })
+      );
+    }),
   ]);
 
-  // Get bank transaction counts per period
-  const periodStats = await Promise.all(
-    periods.map(async (period) => {
-      const [result] = await db
-        .select({ count: count() })
-        .from(bankTransactions)
-        .where(eq(bankTransactions.fiscalPeriodId, period.id));
-      return {
-        ...period,
-        verificationCount: result?.count || 0,
-      };
-    })
+  // Get current period based on today's date
+  const currentPeriod = periods.find(
+    (p) => p.startDate <= todayStr && p.endDate >= todayStr
   );
 
-  // Calculate aggregate stats for current period
-  const currentPeriod = periodStats[0];
-  let stats = {
-    totalAmount: 0,
-    verificationCount: 0,
-    latestBalance: null as number | null,
+  // Use current period date range if available, otherwise current year
+  const statsDateFrom = currentPeriod?.startDate || currentYearStart;
+  const statsDateTo = currentPeriod?.endDate || todayStr;
+
+  // Calculate aggregate stats for the workspace
+  const [aggregates] = await db
+    .select({
+      totalAmount: sql<string>`COALESCE(SUM(CAST(${bankTransactions.amount} AS DECIMAL)), 0)`,
+      count: count(),
+    })
+    .from(bankTransactions)
+    .where(
+      and(
+        eq(bankTransactions.workspaceId, workspace.id),
+        gte(bankTransactions.accountingDate, statsDateFrom)
+      )
+    );
+
+  // Get latest balance
+  const latestTransaction = await db.query.bankTransactions.findFirst({
+    where: eq(bankTransactions.workspaceId, workspace.id),
+    orderBy: (v, { desc }) => [desc(v.accountingDate), desc(v.createdAt)],
+    columns: { bookedBalance: true },
+  });
+
+  const stats = {
+    totalAmount: parseFloat(aggregates?.totalAmount || "0"),
+    transactionCount: aggregates?.count || 0,
+    latestBalance: latestTransaction?.bookedBalance
+      ? parseFloat(latestTransaction.bookedBalance)
+      : null,
   };
 
-  if (currentPeriod) {
-    const [aggregates] = await db
-      .select({
-        totalAmount: sql<string>`COALESCE(SUM(CAST(${bankTransactions.amount} AS DECIMAL)), 0)`,
-        count: count(),
-      })
-      .from(bankTransactions)
-      .where(eq(bankTransactions.fiscalPeriodId, currentPeriod.id));
-
-    // Get latest balance
-    const latestTransaction = await db.query.bankTransactions.findFirst({
-      where: eq(bankTransactions.fiscalPeriodId, currentPeriod.id),
-      orderBy: (v, { desc }) => [desc(v.accountingDate), desc(v.createdAt)],
-      columns: { bookedBalance: true },
-    });
-
-    stats = {
-      totalAmount: parseFloat(aggregates?.totalAmount || "0"),
-      verificationCount: aggregates?.count || 0,
-      latestBalance: latestTransaction?.bookedBalance
-        ? parseFloat(latestTransaction.bookedBalance)
-        : null,
-    };
-  }
-
-  // Get chart data - monthly aggregation for current period
-  let chartData: { month: string; amount: number }[] = [];
-  if (currentPeriod) {
-    const monthlyData = await db
-      .select({
-        month: sql<string>`TO_CHAR(${bankTransactions.accountingDate}, 'Mon')`,
-        monthNum: sql<string>`TO_CHAR(${bankTransactions.accountingDate}, 'MM')`,
-        amount: sql<number>`COALESCE(SUM(ABS(CAST(${bankTransactions.amount} AS DECIMAL))), 0)`,
-      })
-      .from(bankTransactions)
-      .where(eq(bankTransactions.fiscalPeriodId, currentPeriod.id))
-      .groupBy(
-        sql`TO_CHAR(${bankTransactions.accountingDate}, 'Mon')`,
-        sql`TO_CHAR(${bankTransactions.accountingDate}, 'MM')`
+  // Get chart data - monthly aggregation for current period/year
+  const monthlyData = await db
+    .select({
+      month: sql<string>`TO_CHAR(${bankTransactions.accountingDate}, 'Mon')`,
+      monthNum: sql<string>`TO_CHAR(${bankTransactions.accountingDate}, 'MM')`,
+      amount: sql<number>`COALESCE(SUM(ABS(CAST(${bankTransactions.amount} AS DECIMAL))), 0)`,
+    })
+    .from(bankTransactions)
+    .where(
+      and(
+        eq(bankTransactions.workspaceId, workspace.id),
+        gte(bankTransactions.accountingDate, statsDateFrom)
       )
-      .orderBy(sql`TO_CHAR(${bankTransactions.accountingDate}, 'MM')`);
+    )
+    .groupBy(
+      sql`TO_CHAR(${bankTransactions.accountingDate}, 'Mon')`,
+      sql`TO_CHAR(${bankTransactions.accountingDate}, 'MM')`
+    )
+    .orderBy(sql`TO_CHAR(${bankTransactions.accountingDate}, 'MM')`);
 
-    chartData = monthlyData.map((d) => ({
-      month: d.month,
-      amount: Number(d.amount),
-    }));
-  }
+  const chartData = monthlyData.map((d) => ({
+    month: d.month,
+    amount: Number(d.amount),
+  }));
 
   // Combine activity items
   const activityItems = [
     ...recentBankTransactions.map((v) => ({
       id: v.id,
-      type: "verification" as const,
+      type: "transaction" as const,
       reference: v.reference,
       amount: v.amount,
-      periodLabel: v.fiscalPeriod?.label,
-      periodSlug: v.fiscalPeriod?.urlSlug,
+      bankAccountName: v.bankAccount?.name,
       userName: v.createdByUser?.name || v.createdByUser?.email,
       timestamp: v.createdAt,
     })),
@@ -190,15 +205,15 @@ export default async function WorkspaceDashboardPage({
       <div className="flex flex-1 flex-col gap-8 p-6 pt-0">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{workspace.name}</h1>
-          <p className="text-muted-foreground text-sm">Översikt</p>
+          <p className="text-muted-foreground text-sm">Oversikt</p>
         </div>
 
         {/* Metrics Row */}
         <DashboardMetrics
           totalAmount={stats.totalAmount}
-          verificationCount={stats.verificationCount}
+          verificationCount={stats.transactionCount}
           latestBalance={stats.latestBalance}
-          periodLabel={currentPeriod?.label}
+          periodLabel={currentPeriod?.label || today.getFullYear().toString()}
         />
 
         {/* Chart */}

@@ -11,7 +11,6 @@ export const bankTransactionSchema = z.object({
 });
 
 export const createBankTransactionsSchema = z.object({
-  fiscalPeriodId: z.string().min(1, "Period krävs"),
   bankAccountId: z.string().optional(),
   importedAt: z.string().optional(),
   bankTransactions: z

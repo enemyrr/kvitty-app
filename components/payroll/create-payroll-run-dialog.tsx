@@ -26,7 +26,6 @@ interface CreatePayrollRunDialogProps {
   workspaceId: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  periods: Array<{ id: string; label: string }>;
 }
 
 function generateMonthOptions() {
@@ -58,9 +57,7 @@ export function CreatePayrollRunDialog({
   workspaceId,
   open,
   onOpenChange,
-  periods,
 }: CreatePayrollRunDialogProps) {
-  const [selectedPeriod, setSelectedPeriod] = useState(periods[0]?.id || "");
   const [month, setMonth] = useState(() => {
     const now = new Date();
     return `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}`;
@@ -83,7 +80,6 @@ export function CreatePayrollRunDialog({
       const paymentDateNow = new Date();
       paymentDateNow.setDate(25);
       setPaymentDate(paymentDateNow.toISOString().split("T")[0]);
-      setSelectedPeriod(periods[0]?.id || "");
     },
   });
 
@@ -100,10 +96,9 @@ export function CreatePayrollRunDialog({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            if (selectedPeriod && month) {
+            if (month) {
               createRun.mutate({
                 workspaceId,
-                fiscalPeriodId: selectedPeriod,
                 period: month,
                 paymentDate,
               });
@@ -111,27 +106,6 @@ export function CreatePayrollRunDialog({
           }}
         >
           <FieldGroup className="pb-6">
-            <Field>
-              <FieldLabel htmlFor="period">Räkenskapsperiod</FieldLabel>
-              <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-                <SelectTrigger id="period">
-                  <SelectValue placeholder="Välj period" />
-                </SelectTrigger>
-                <SelectContent>
-                  {periods.map((period) => (
-                    <SelectItem key={period.id} value={period.id}>
-                      {period.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {periods.length === 0 && (
-                <p className="text-xs text-muted-foreground mt-1">
-                  Du måste skapa en räkenskapsperiod först
-                </p>
-              )}
-            </Field>
-
             <Field>
               <FieldLabel htmlFor="month">Lönemånad</FieldLabel>
               <Select value={month} onValueChange={setMonth}>
@@ -174,7 +148,7 @@ export function CreatePayrollRunDialog({
             </Button>
             <Button
               type="submit"
-              disabled={createRun.isPending || !selectedPeriod || !month}
+              disabled={createRun.isPending || !month}
             >
               {createRun.isPending ? <Spinner /> : "Skapa lönekörning"}
             </Button>

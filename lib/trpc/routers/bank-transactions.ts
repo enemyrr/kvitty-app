@@ -2,7 +2,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { generateObject } from "ai";
 import { router, workspaceProcedure } from "../init";
-import { bankTransactions, fiscalPeriods, auditLogs, bankAccounts, journalEntries, bankImportBatches } from "@/lib/db/schema";
+import { bankTransactions, auditLogs, bankAccounts, journalEntries, bankImportBatches } from "@/lib/db/schema";
 import { eq, and, isNull, inArray } from "drizzle-orm";
 import {
   createBankTransactionsSchema,
@@ -18,17 +18,14 @@ export const bankTransactionsRouter = router({
     .input(
       z.object({
         workspaceId: z.string(),
-        periodId: z.string().optional(),
         bankAccountId: z.string().optional(),
         unmappedOnly: z.boolean().optional(),
+        dateFrom: z.string().optional(),
+        dateTo: z.string().optional(),
       })
     )
     .query(async ({ ctx, input }) => {
       const conditions = [eq(bankTransactions.workspaceId, ctx.workspaceId)];
-
-      if (input.periodId) {
-        conditions.push(eq(bankTransactions.fiscalPeriodId, input.periodId));
-      }
 
       if (input.bankAccountId) {
         conditions.push(eq(bankTransactions.bankAccountId, input.bankAccountId));
@@ -89,21 +86,6 @@ export const bankTransactionsRouter = router({
   create: workspaceProcedure
     .input(createBankTransactionsSchema.extend({ workspaceId: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      // Verify period belongs to workspace
-      const period = await ctx.db.query.fiscalPeriods.findFirst({
-        where: and(
-          eq(fiscalPeriods.id, input.fiscalPeriodId),
-          eq(fiscalPeriods.workspaceId, ctx.workspaceId)
-        ),
-      });
-
-      if (!period) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Invalid period",
-        });
-      }
-
       // Verify bank account if provided
       if (input.bankAccountId) {
         const bankAccount = await ctx.db.query.bankAccounts.findFirst({
@@ -126,7 +108,6 @@ export const bankTransactionsRouter = router({
         .values(
           input.bankTransactions.map((v) => ({
             workspaceId: ctx.workspaceId,
-            fiscalPeriodId: input.fiscalPeriodId,
             bankAccountId: input.bankAccountId || null,
             office: v.office,
             accountingDate: v.accountingDate,
@@ -367,27 +348,12 @@ ${input.content}`,
     .input(
       z.object({
         workspaceId: z.string(),
-        fiscalPeriodId: z.string(),
         bankAccountId: z.string().optional(),
         fileContent: z.string(),
         fileName: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const period = await ctx.db.query.fiscalPeriods.findFirst({
-        where: and(
-          eq(fiscalPeriods.id, input.fiscalPeriodId),
-          eq(fiscalPeriods.workspaceId, ctx.workspaceId)
-        ),
-      });
-
-      if (!period) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Invalid period",
-        });
-      }
-
       if (input.bankAccountId) {
         const bankAccount = await ctx.db.query.bankAccounts.findFirst({
           where: and(
@@ -443,7 +409,6 @@ ${input.content}`,
         .values(
           parsedTransactions.map((t) => ({
             workspaceId: ctx.workspaceId,
-            fiscalPeriodId: input.fiscalPeriodId,
             bankAccountId: input.bankAccountId || null,
             accountingDate: t.accountingDate,
             reference: t.reference || null,
@@ -473,7 +438,6 @@ ${input.content}`,
     .input(
       z.object({
         workspaceId: z.string(),
-        fiscalPeriodId: z.string(),
         bankAccountId: z.string().optional(),
         fileContent: z.string(),
         fileName: z.string(),
@@ -481,21 +445,6 @@ ${input.content}`,
       })
     )
     .mutation(async ({ ctx, input }) => {
-      // Verify period belongs to workspace
-      const period = await ctx.db.query.fiscalPeriods.findFirst({
-        where: and(
-          eq(fiscalPeriods.id, input.fiscalPeriodId),
-          eq(fiscalPeriods.workspaceId, ctx.workspaceId)
-        ),
-      });
-
-      if (!period) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Ogiltig period",
-        });
-      }
-
       // Verify bank account if provided
       if (input.bankAccountId) {
         const bankAccount = await ctx.db.query.bankAccounts.findFirst({
@@ -553,7 +502,6 @@ ${input.content}`,
         .insert(bankImportBatches)
         .values({
           workspaceId: ctx.workspaceId,
-          fiscalPeriodId: input.fiscalPeriodId,
           bankAccountId: input.bankAccountId || null,
           fileName: input.fileName,
           fileFormat: "sie4",
@@ -614,7 +562,6 @@ ${input.content}`,
           .values(
             newTransactions.map((t) => ({
               workspaceId: ctx.workspaceId,
-              fiscalPeriodId: input.fiscalPeriodId,
               bankAccountId: input.bankAccountId || null,
               importBatchId: importBatch.id,
               accountingDate: t.accountingDate,

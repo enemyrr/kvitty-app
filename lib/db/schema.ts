@@ -250,9 +250,6 @@ export const bankImportBatches = pgTable("bank_import_batches", {
   workspaceId: text("workspace_id")
     .notNull()
     .references(() => workspaces.id, { onDelete: "cascade" }),
-  fiscalPeriodId: text("fiscal_period_id")
-    .notNull()
-    .references(() => fiscalPeriods.id, { onDelete: "cascade" }),
   bankAccountId: text("bank_account_id").references(() => bankAccounts.id, { onDelete: "set null" }),
   fileName: text("file_name").notNull(),
   fileFormat: text("file_format").notNull(), // 'csv', 'ofx', 'sie4', 'manual'
@@ -272,9 +269,6 @@ export const bankTransactions = pgTable("bank_transactions", {
   workspaceId: text("workspace_id")
     .notNull()
     .references(() => workspaces.id, { onDelete: "cascade" }),
-  fiscalPeriodId: text("fiscal_period_id")
-    .notNull()
-    .references(() => fiscalPeriods.id, { onDelete: "cascade" }),
   bankAccountId: text("bank_account_id").references(() => bankAccounts.id, { onDelete: "set null" }),
   importBatchId: text("import_batch_id").references(() => bankImportBatches.id, { onDelete: "set null" }),
   office: text("office"), // Kontor
@@ -449,9 +443,6 @@ export const payrollRuns = pgTable("payroll_runs", {
   workspaceId: text("workspace_id")
     .notNull()
     .references(() => workspaces.id, { onDelete: "cascade" }),
-  fiscalPeriodId: text("fiscal_period_id")
-    .notNull()
-    .references(() => fiscalPeriods.id, { onDelete: "cascade" }),
   period: text("period").notNull(), // Format: YYYYMM (e.g., "202511")
   runNumber: integer("run_number").notNull(), // 1, 2, etc. for multiple runs per month
   paymentDate: date("payment_date").notNull(),
@@ -730,9 +721,7 @@ export const fiscalPeriodsRelations = relations(
       fields: [fiscalPeriods.workspaceId],
       references: [workspaces.id],
     }),
-    bankTransactions: many(bankTransactions),
     journalEntries: many(journalEntries),
-    payrollRuns: many(payrollRuns),
     lockedPeriods: many(lockedPeriods),
   })
 );
@@ -743,10 +732,6 @@ export const bankImportBatchesRelations = relations(
     workspace: one(workspaces, {
       fields: [bankImportBatches.workspaceId],
       references: [workspaces.id],
-    }),
-    fiscalPeriod: one(fiscalPeriods, {
-      fields: [bankImportBatches.fiscalPeriodId],
-      references: [fiscalPeriods.id],
     }),
     bankAccount: one(bankAccounts, {
       fields: [bankImportBatches.bankAccountId],
@@ -766,10 +751,6 @@ export const bankTransactionsRelations = relations(
     workspace: one(workspaces, {
       fields: [bankTransactions.workspaceId],
       references: [workspaces.id],
-    }),
-    fiscalPeriod: one(fiscalPeriods, {
-      fields: [bankTransactions.fiscalPeriodId],
-      references: [fiscalPeriods.id],
     }),
     bankAccount: one(bankAccounts, {
       fields: [bankTransactions.bankAccountId],
@@ -896,10 +877,6 @@ export const payrollRunsRelations = relations(
     workspace: one(workspaces, {
       fields: [payrollRuns.workspaceId],
       references: [workspaces.id],
-    }),
-    fiscalPeriod: one(fiscalPeriods, {
-      fields: [payrollRuns.fiscalPeriodId],
-      references: [fiscalPeriods.id],
     }),
     createdByUser: one(user, {
       fields: [payrollRuns.createdBy],

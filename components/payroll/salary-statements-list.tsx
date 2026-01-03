@@ -151,10 +151,9 @@ export function SalaryStatementsList({
                           asChild
                         >
                           <a
-                            href={item.statement.pdfUrl}
+                            href={`/api/salary-statements/${item.statement.id}/download`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            download
                           >
                             <Download className="size-4 mr-1" />
                             Ladda ner

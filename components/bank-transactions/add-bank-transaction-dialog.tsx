@@ -16,25 +16,12 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Spinner } from "@/components/ui/spinner";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Field, FieldLabel } from "@/components/ui/field";
 import { DatePicker } from "@/components/ui/date-picker";
 import { trpc } from "@/lib/trpc/client";
-import type { fiscalPeriods } from "@/lib/db/schema";
 import { createCuid } from "@/lib/utils/cuid";
-
-type FiscalPeriod = typeof fiscalPeriods.$inferSelect;
 
 interface AddBankTransactionDialogProps {
   workspaceId: string;
-  periodId?: string;
-  periods?: FiscalPeriod[];
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
@@ -59,8 +46,6 @@ function createEmptyRow(): BankTransactionRow {
 
 export function AddBankTransactionDialog({
   workspaceId,
-  periodId: initialPeriodId,
-  periods = [],
   open,
   onOpenChange,
 }: AddBankTransactionDialogProps) {
@@ -68,17 +53,13 @@ export function AddBankTransactionDialog({
   const utils = trpc.useUtils();
   const [rows, setRows] = useState<BankTransactionRow[]>([createEmptyRow()]);
   const [pastedContent, setPastedContent] = useState("");
-  const [selectedPeriodId, setSelectedPeriodId] = useState(initialPeriodId || "");
-
-  const periodId = initialPeriodId || selectedPeriodId;
-  const showPeriodSelector = !initialPeriodId && periods.length > 0;
 
   const createBankTransactions = trpc.bankTransactions.create.useMutation({
     onSuccess: () => {
       setRows([createEmptyRow()]);
       setPastedContent("");
       onOpenChange(false);
-      utils.bankTransactions.list.invalidate({ workspaceId, periodId });
+      utils.bankTransactions.list.invalidate({ workspaceId });
       router.refresh();
     },
   });
@@ -138,7 +119,6 @@ export function AddBankTransactionDialog({
 
     createBankTransactions.mutate({
       workspaceId,
-      fiscalPeriodId: periodId,
       bankTransactions: validRows.map((row) => ({
         office: row.account || null,
         accountingDate: row.accountingDate || null,
@@ -160,30 +140,6 @@ export function AddBankTransactionDialog({
             Lägg till upp till 50 transaktioner åt gången.
           </DialogDescription>
         </DialogHeader>
-
-        {showPeriodSelector && (
-          <Field>
-            <FieldLabel>Period</FieldLabel>
-            <Select value={selectedPeriodId} onValueChange={setSelectedPeriodId}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Välj period" />
-              </SelectTrigger>
-              <SelectContent position="popper" className="z-[100]">
-                {periods.map((period) => (
-                  <SelectItem key={period.id} value={period.id}>
-                    {period.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </Field>
-        )}
-
-        {periods.length === 0 && !initialPeriodId && (
-          <p className="text-sm text-muted-foreground">
-            Du måste skapa en bokföringsperiod först innan du kan lägga till transaktioner.
-          </p>
-        )}
 
         <Tabs defaultValue="manual" className="flex-1 flex flex-col min-h-0">
           <TabsList className="grid w-full grid-cols-2">
@@ -307,7 +263,7 @@ AI:n analyserar innehållet och extraherar transaktioner automatiskt."
           </Button>
           <Button
             onClick={handleSubmit}
-            disabled={createBankTransactions.isPending || !periodId}
+            disabled={createBankTransactions.isPending}
           >
             {createBankTransactions.isPending ? (
               <Spinner />

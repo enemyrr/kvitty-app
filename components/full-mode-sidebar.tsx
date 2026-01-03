@@ -130,9 +130,7 @@ export function FullModeSidebar({
 
           {/* Bokföring */}
           <NavPeriods
-            periods={periods}
             workspaceSlug={workspace.slug}
-            onAddPeriod={() => setAddPeriodOpen(true)}
             onAddVerification={() => setAddEntryOpen(true)}
             isFullMode
           />

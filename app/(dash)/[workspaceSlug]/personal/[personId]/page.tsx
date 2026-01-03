@@ -75,11 +75,7 @@ export default async function PersonalDetailPage({
   const allEntries = await db.query.payrollEntries.findMany({
     where: eq(payrollEntries.employeeId, personId),
     with: {
-      payrollRun: {
-        with: {
-          fiscalPeriod: true,
-        },
-      },
+      payrollRun: true,
     },
   });
 
