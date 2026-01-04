@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
   HouseIcon,
-  Gear,
   Users,
   SignOut,
   User,
@@ -94,7 +93,6 @@ export function FullModeSidebar({
   const [reportsExpanded, setReportsExpanded] = useState(true);
   const [bookkeepingAnnualExpanded, setBookkeepingAnnualExpanded] = useState(true);
   const [bankExpanded, setBankExpanded] = useState(true);
-  const [settingsExpanded, setSettingsExpanded] = useState(true);
 
   const { data: bankAccounts } = trpc.bankAccounts.list.useQuery(
     { workspaceId: workspace.id },
@@ -379,41 +377,6 @@ export function FullModeSidebar({
                       <Link href={`/${workspace.slug}/bank`}>
                         <Plus className="size-4" />
                         <span>Hantera konton</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </CollapsibleContent>
-            </Collapsible>
-          </SidebarGroup>
-
-          {/* Settings */}
-          <SidebarGroup className="mt-auto">
-            <Collapsible open={settingsExpanded} onOpenChange={setSettingsExpanded} className="group/collapsible">
-              <SidebarGroupLabel asChild>
-                <CollapsibleTrigger className="w-full flex items-center justify-between group">
-                  <span>Inställningar</span>
-                  <div className="relative size-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Plus className={`absolute inset-0 size-3.5 transition-all duration-200 ${settingsExpanded ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
-                    <Minus className={`absolute inset-0 size-3.5 transition-all duration-200 ${settingsExpanded ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
-                  </div>
-                </CollapsibleTrigger>
-              </SidebarGroupLabel>
-              <CollapsibleContent>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild tooltip="Medlemmar">
-                      <Link href={`/${workspace.slug}/members`}>
-                        <Users className="size-4" weight="duotone" />
-                        <span>Medlemmar</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild tooltip="Inställningar">
-                      <Link href={`/${workspace.slug}/settings`}>
-                        <Gear className="size-4" weight="duotone" />
-                        <span>Inställningar</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
