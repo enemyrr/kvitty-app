@@ -13,6 +13,7 @@ const footerLinks: Record<string, { label: string; href: string; external?: bool
   ],
   Juridiskt: [
     { label: "Integritetspolicy", href: "/privacy" },
+    { label: "Datasäkerhet", href: "/datasecurity" },
     { label: "Villkor", href: "/terms" },
   ],
 };

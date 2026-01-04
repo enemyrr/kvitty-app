@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Plus, FileText, Swap, CalendarBlank } from "@phosphor-icons/react";
+import { Plus, Minus, FileText, Swap, CalendarBlank } from "@phosphor-icons/react";
 
 import {
   SidebarGroup,
@@ -12,69 +12,90 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 export function NavPeriods({
   workspaceSlug,
   onAddVerification,
   isFullMode = false,
+  expanded = true,
+  onExpandedChange,
 }: {
   workspaceSlug: string;
   onAddVerification?: () => void;
   isFullMode?: boolean;
+  expanded?: boolean;
+  onExpandedChange?: (expanded: boolean) => void;
 }) {
   const pathname = usePathname();
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{isFullMode ? "Bokföring" : "Transaktioner"}</SidebarGroupLabel>
-      {isFullMode && (
-        <SidebarGroupAction title="Ny verifikation" onClick={onAddVerification}>
-          <Plus className="size-4" />
-          <span className="sr-only">Ny verifikation</span>
-        </SidebarGroupAction>
-      )}
-      <SidebarMenu>
-        <SidebarMenuItem>
-          <SidebarMenuButton
-            asChild
-            tooltip="Transaktioner"
-            isActive={pathname === `/${workspaceSlug}/transaktioner`}
-          >
-            <Link href={`/${workspaceSlug}/transaktioner`}>
-              <Swap className="size-4" weight="duotone" />
-              <span>Transaktioner</span>
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-
+      <Collapsible open={expanded} onOpenChange={onExpandedChange} className="group/collapsible">
+        <SidebarGroupLabel asChild>
+          <CollapsibleTrigger className="w-full flex items-center justify-between group">
+            <span>{isFullMode ? "Bokföring" : "Transaktioner"}</span>
+            <div className="relative size-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Plus className={`absolute inset-0 size-3.5 transition-all duration-200 ${expanded ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
+              <Minus className={`absolute inset-0 size-3.5 transition-all duration-200 ${expanded ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+            </div>
+          </CollapsibleTrigger>
+        </SidebarGroupLabel>
         {isFullMode && (
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              tooltip="Verifikationer"
-              isActive={pathname === `/${workspaceSlug}/bokforing`}
-            >
-              <Link href={`/${workspaceSlug}/bokforing`}>
-                <FileText className="size-4" weight="duotone" />
-                <span>Verifikationer</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          <SidebarGroupAction title="Ny verifikation" onClick={onAddVerification}>
+            <Plus className="size-4" />
+            <span className="sr-only">Ny verifikation</span>
+          </SidebarGroupAction>
         )}
+        <CollapsibleContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                tooltip="Transaktioner"
+                isActive={pathname === `/${workspaceSlug}/transaktioner`}
+              >
+                <Link href={`/${workspaceSlug}/transaktioner`}>
+                  <Swap className="size-4" weight="duotone" />
+                  <span>Transaktioner</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
 
-        <SidebarMenuItem>
-          <SidebarMenuButton
-            asChild
-            tooltip="Perioder"
-            isActive={pathname === `/${workspaceSlug}/perioder`}
-          >
-            <Link href={`/${workspaceSlug}/perioder`}>
-              <CalendarBlank className="size-4" weight="duotone" />
-              <span>Perioder</span>
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
+            {isFullMode && (
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  tooltip="Verifikationer"
+                  isActive={pathname === `/${workspaceSlug}/bokforing`}
+                >
+                  <Link href={`/${workspaceSlug}/bokforing`}>
+                    <FileText className="size-4" weight="duotone" />
+                    <span>Verifikationer</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
+
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                tooltip="Perioder"
+                isActive={pathname === `/${workspaceSlug}/perioder`}
+              >
+                <Link href={`/${workspaceSlug}/perioder`}>
+                  <CalendarBlank className="size-4" weight="duotone" />
+                  <span>Perioder</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </CollapsibleContent>
+      </Collapsible>
     </SidebarGroup>
   );
 }

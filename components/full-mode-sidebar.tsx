@@ -87,7 +87,14 @@ export function FullModeSidebar({
   const router = useRouter();
   const [addPeriodOpen, setAddPeriodOpen] = useState(false);
   const [addEntryOpen, setAddEntryOpen] = useState(false);
+  const [menuExpanded, setMenuExpanded] = useState(true);
+  const [bookkeepingExpanded, setBookkeepingExpanded] = useState(true);
+  const [salesExpanded, setSalesExpanded] = useState(true);
+  const [personnelExpanded, setPersonnelExpanded] = useState(true);
+  const [reportsExpanded, setReportsExpanded] = useState(true);
+  const [bookkeepingAnnualExpanded, setBookkeepingAnnualExpanded] = useState(true);
   const [bankExpanded, setBankExpanded] = useState(true);
+  const [settingsExpanded, setSettingsExpanded] = useState(true);
 
   const { data: bankAccounts } = trpc.bankAccounts.list.useQuery(
     { workspaceId: workspace.id },
@@ -115,21 +122,33 @@ export function FullModeSidebar({
         <SidebarContent>
           {/* Main Menu */}
           <SidebarGroup>
-            <SidebarGroupLabel>Meny</SidebarGroupLabel>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === `/${workspace.slug}`}
-                  tooltip="Översikt"
-                >
-                  <Link href={`/${workspace.slug}`}>
-                    <HouseIcon className="size-4" weight="duotone" />
-                    <span>Översikt</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
+            <Collapsible open={menuExpanded} onOpenChange={setMenuExpanded} className="group/collapsible">
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="w-full flex items-center justify-between group">
+                  <span>Meny</span>
+                  <div className="relative size-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Plus className={`absolute inset-0 size-3.5 transition-all duration-200 ${menuExpanded ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
+                    <Minus className={`absolute inset-0 size-3.5 transition-all duration-200 ${menuExpanded ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+                  </div>
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+              <CollapsibleContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === `/${workspace.slug}`}
+                      tooltip="Översikt"
+                    >
+                      <Link href={`/${workspace.slug}`}>
+                        <HouseIcon className="size-4" weight="duotone" />
+                        <span>Översikt</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </CollapsibleContent>
+            </Collapsible>
           </SidebarGroup>
 
           {/* Bokföring */}
@@ -137,142 +156,192 @@ export function FullModeSidebar({
             workspaceSlug={workspace.slug}
             onAddVerification={() => setAddEntryOpen(true)}
             isFullMode
+            expanded={bookkeepingExpanded}
+            onExpandedChange={setBookkeepingExpanded}
           />
 
           {/* Försäljning */}
           <SidebarGroup>
-            <SidebarGroupLabel>Försäljning</SidebarGroupLabel>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === `/${workspace.slug}/kunder`}
-                  tooltip="Kunder"
-                >
-                  <Link href={`/${workspace.slug}/kunder`}>
-                    <AddressBook className="size-4" weight="duotone" />
-                    <span>Kunder</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === `/${workspace.slug}/fakturor`}
-                  tooltip="Fakturor"
-                >
-                  <Link href={`/${workspace.slug}/fakturor`}>
-                    <Invoice className="size-4" weight="duotone" />
-                    <span>Fakturor</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === `/${workspace.slug}/produkter`}
-                  tooltip="Produkter"
-                >
-                  <Link href={`/${workspace.slug}/produkter`}>
-                    <Package className="size-4" weight="duotone" />
-                    <span>Produkter</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
+            <Collapsible open={salesExpanded} onOpenChange={setSalesExpanded} className="group/collapsible">
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="w-full flex items-center justify-between group">
+                  <span>Försäljning</span>
+                  <div className="relative size-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Plus className={`absolute inset-0 size-3.5 transition-all duration-200 ${salesExpanded ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
+                    <Minus className={`absolute inset-0 size-3.5 transition-all duration-200 ${salesExpanded ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+                  </div>
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+              <CollapsibleContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === `/${workspace.slug}/kunder`}
+                      tooltip="Kunder"
+                    >
+                      <Link href={`/${workspace.slug}/kunder`}>
+                        <AddressBook className="size-4" weight="duotone" />
+                        <span>Kunder</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === `/${workspace.slug}/fakturor`}
+                      tooltip="Fakturor"
+                    >
+                      <Link href={`/${workspace.slug}/fakturor`}>
+                        <Invoice className="size-4" weight="duotone" />
+                        <span>Fakturor</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === `/${workspace.slug}/produkter`}
+                      tooltip="Produkter"
+                    >
+                      <Link href={`/${workspace.slug}/produkter`}>
+                        <Package className="size-4" weight="duotone" />
+                        <span>Produkter</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </CollapsibleContent>
+            </Collapsible>
           </SidebarGroup>
 
           {/* Personal & Löner */}
           <SidebarGroup>
-            <SidebarGroupLabel>Personal & Löner</SidebarGroupLabel>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === `/${workspace.slug}/personal`}
-                  tooltip="Personal"
-                >
-                  <Link href={`/${workspace.slug}/personal`}>
-                    <UserList className="size-4" weight="duotone" />
-                    <span>Personal</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname.startsWith(`/${workspace.slug}/personal/lon`)}
-                  tooltip="Lönekörningar"
-                >
-                  <Link href={`/${workspace.slug}/personal/lon`}>
-                    <Money className="size-4" weight="duotone" />
-                    <span>Lönekörningar</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
+            <Collapsible open={personnelExpanded} onOpenChange={setPersonnelExpanded} className="group/collapsible">
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="w-full flex items-center justify-between group">
+                  <span>Personal & Löner</span>
+                  <div className="relative size-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Plus className={`absolute inset-0 size-3.5 transition-all duration-200 ${personnelExpanded ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
+                    <Minus className={`absolute inset-0 size-3.5 transition-all duration-200 ${personnelExpanded ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+                  </div>
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+              <CollapsibleContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === `/${workspace.slug}/personal`}
+                      tooltip="Personal"
+                    >
+                      <Link href={`/${workspace.slug}/personal`}>
+                        <UserList className="size-4" weight="duotone" />
+                        <span>Personal</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname.startsWith(`/${workspace.slug}/personal/lon`)}
+                      tooltip="Lönekörningar"
+                    >
+                      <Link href={`/${workspace.slug}/personal/lon`}>
+                        <Money className="size-4" weight="duotone" />
+                        <span>Lönekörningar</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </CollapsibleContent>
+            </Collapsible>
           </SidebarGroup>
 
           {/* Rapporter */}
           <SidebarGroup>
-            <SidebarGroupLabel>Rapporter</SidebarGroupLabel>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === `/${workspace.slug}/rapporter/resultat`}
-                  tooltip="Resultatrapport"
-                >
-                  <Link href={`/${workspace.slug}/rapporter/resultat`}>
-                    <ChartLine className="size-4" weight="duotone" />
-                    <span>Resultatrapport</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === `/${workspace.slug}/rapporter/balans`}
-                  tooltip="Balansrapport"
-                >
-                  <Link href={`/${workspace.slug}/rapporter/balans`}>
-                    <Scales className="size-4" weight="duotone" />
-                    <span>Balansrapport</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === `/${workspace.slug}/rapporter/moms`}
-                  tooltip="Momsrapport"
-                >
-                  <Link href={`/${workspace.slug}/rapporter/moms`}>
-                    <Percent className="size-4" weight="duotone" />
-                    <span>Momsrapport</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
+            <Collapsible open={reportsExpanded} onOpenChange={setReportsExpanded} className="group/collapsible">
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="w-full flex items-center justify-between group">
+                  <span>Rapporter</span>
+                  <div className="relative size-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Plus className={`absolute inset-0 size-3.5 transition-all duration-200 ${reportsExpanded ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
+                    <Minus className={`absolute inset-0 size-3.5 transition-all duration-200 ${reportsExpanded ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+                  </div>
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+              <CollapsibleContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === `/${workspace.slug}/rapporter/resultat`}
+                      tooltip="Resultatrapport"
+                    >
+                      <Link href={`/${workspace.slug}/rapporter/resultat`}>
+                        <ChartLine className="size-4" weight="duotone" />
+                        <span>Resultatrapport</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === `/${workspace.slug}/rapporter/balans`}
+                      tooltip="Balansrapport"
+                    >
+                      <Link href={`/${workspace.slug}/rapporter/balans`}>
+                        <Scales className="size-4" weight="duotone" />
+                        <span>Balansrapport</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === `/${workspace.slug}/rapporter/moms`}
+                      tooltip="Momsrapport"
+                    >
+                      <Link href={`/${workspace.slug}/rapporter/moms`}>
+                        <Percent className="size-4" weight="duotone" />
+                        <span>Momsrapport</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </CollapsibleContent>
+            </Collapsible>
           </SidebarGroup>
 
           {/* Bokföring och bokslut */}
           <SidebarGroup>
-            <SidebarGroupLabel>Bokföring och bokslut</SidebarGroupLabel>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === `/${workspace.slug}/bokslut`}
-                  tooltip="Årsbokslut"
-                >
-                  <Link href={`/${workspace.slug}/bokslut`}>
-                    <BookOpen className="size-4" weight="duotone" />
-                    <span>Årsbokslut</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
+            <Collapsible open={bookkeepingAnnualExpanded} onOpenChange={setBookkeepingAnnualExpanded} className="group/collapsible">
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="w-full flex items-center justify-between group">
+                  <span>Bokföring och bokslut</span>
+                  <div className="relative size-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Plus className={`absolute inset-0 size-3.5 transition-all duration-200 ${bookkeepingAnnualExpanded ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
+                    <Minus className={`absolute inset-0 size-3.5 transition-all duration-200 ${bookkeepingAnnualExpanded ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+                  </div>
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+              <CollapsibleContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === `/${workspace.slug}/bokslut`}
+                      tooltip="Årsbokslut"
+                    >
+                      <Link href={`/${workspace.slug}/bokslut`}>
+                        <BookOpen className="size-4" weight="duotone" />
+                        <span>Årsbokslut</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </CollapsibleContent>
+            </Collapsible>
           </SidebarGroup>
 
           {/* Bank */}
@@ -287,7 +356,7 @@ export function FullModeSidebar({
                   </div>
                 </CollapsibleTrigger>
               </SidebarGroupLabel>
-              <CollapsibleContent className="overflow-hidden">
+              <CollapsibleContent>
                 <SidebarMenu>
                   {bankAccounts?.map((account) => (
                     <SidebarMenuItem key={account.id}>
@@ -320,25 +389,37 @@ export function FullModeSidebar({
 
           {/* Settings */}
           <SidebarGroup className="mt-auto">
-            <SidebarGroupLabel>Inställningar</SidebarGroupLabel>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Medlemmar">
-                  <Link href={`/${workspace.slug}/members`}>
-                    <Users className="size-4" weight="duotone" />
-                    <span>Medlemmar</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Inställningar">
-                  <Link href={`/${workspace.slug}/settings`}>
-                    <Gear className="size-4" weight="duotone" />
-                    <span>Inställningar</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
+            <Collapsible open={settingsExpanded} onOpenChange={setSettingsExpanded} className="group/collapsible">
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="w-full flex items-center justify-between group">
+                  <span>Inställningar</span>
+                  <div className="relative size-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Plus className={`absolute inset-0 size-3.5 transition-all duration-200 ${settingsExpanded ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
+                    <Minus className={`absolute inset-0 size-3.5 transition-all duration-200 ${settingsExpanded ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+                  </div>
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+              <CollapsibleContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild tooltip="Medlemmar">
+                      <Link href={`/${workspace.slug}/members`}>
+                        <Users className="size-4" weight="duotone" />
+                        <span>Medlemmar</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild tooltip="Inställningar">
+                      <Link href={`/${workspace.slug}/settings`}>
+                        <Gear className="size-4" weight="duotone" />
+                        <span>Inställningar</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </CollapsibleContent>
+            </Collapsible>
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>

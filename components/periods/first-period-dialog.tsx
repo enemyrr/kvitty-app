@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Calendar, CalendarDots, CaretDownIcon } from "@phosphor-icons/react";
 import {
   Dialog,
@@ -51,7 +50,6 @@ function generateYearOptions() {
 
 export function FirstPeriodDialog() {
   const { workspace, periods } = useWorkspace();
-  const router = useRouter();
   const utils = trpc.useUtils();
 
   const [fiscalYearType, setFiscalYearType] = useState<FiscalYearType>("calendar");
@@ -85,7 +83,6 @@ export function FirstPeriodDialog() {
   const createPeriod = trpc.periods.create.useMutation({
     onSuccess: () => {
       utils.periods.list.invalidate({ workspaceId: workspace.id });
-      router.push(`/${workspace.slug}/${urlSlug}`);
     },
   });
 

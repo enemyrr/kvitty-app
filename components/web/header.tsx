@@ -54,7 +54,7 @@ export function Header() {
                   <span className="invisible">Logga in</span>
                 </span>
               ) : isLoggedIn ? (
-                <Link href={`/${user.slug}`} className="flex items-center gap-1.5">
+                <Link href="/app" className="flex items-center gap-1.5">
                   Gå till appen
                   <span className="relative overflow-hidden size-3.5">
                     <MoveUpRight className="absolute size-3.5 transition-transform duration-300 group-hover:translate-x-full group-hover:-translate-y-full" />
