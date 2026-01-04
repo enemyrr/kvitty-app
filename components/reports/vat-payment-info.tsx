@@ -12,7 +12,6 @@ interface VatPaymentInfoProps {
   bankgiro: string;
   recipient: string;
   isPeriodLocked?: boolean;
-  isPeriodClosed?: boolean;
 }
 
 function formatCurrency(value: number): string {
@@ -30,7 +29,6 @@ export function VatPaymentInfo({
   bankgiro,
   recipient,
   isPeriodLocked,
-  isPeriodClosed,
 }: VatPaymentInfoProps) {
   const deadlineDate = new Date(deadline);
   const now = new Date();
@@ -52,24 +50,22 @@ export function VatPaymentInfo({
               Deadline: {format(deadlineDate, "d MMMM yyyy", { locale: sv })}
             </CardDescription>
           </div>
-          {isOverdue && !isPeriodClosed && (
-            <Badge variant="destructive" className="gap-1">
-              <Warning className="size-3" />
-              Förfallen
-            </Badge>
-          )}
-          {isUpcoming && !isOverdue && !isPeriodClosed && (
-            <Badge variant="outline" className="gap-1 border-yellow-500 text-yellow-600">
-              <Clock className="size-3" />
-              Snart deadline
-            </Badge>
-          )}
-          {isPeriodClosed && (
+          {isPeriodLocked ? (
             <Badge variant="secondary" className="gap-1">
               <CheckCircle className="size-3" />
               Stängd
             </Badge>
-          )}
+          ) : isOverdue ? (
+            <Badge variant="destructive" className="gap-1">
+              <Warning className="size-3" />
+              Förfallen
+            </Badge>
+          ) : isUpcoming ? (
+            <Badge variant="outline" className="gap-1 border-yellow-500 text-yellow-600">
+              <Clock className="size-3" />
+              Snart deadline
+            </Badge>
+          ) : null}
         </div>
       </CardHeader>
       <CardContent>
@@ -78,7 +74,7 @@ export function VatPaymentInfo({
             {formatCurrency(Math.abs(netVat))}
           </div>
 
-          {shouldPay && !isPeriodClosed && (
+          {shouldPay && !isPeriodLocked && (
             <div className="rounded-lg bg-muted p-4 space-y-2">
               <p className="text-sm text-muted-foreground">
                 Betala till {recipient}:
@@ -96,7 +92,7 @@ export function VatPaymentInfo({
             </div>
           )}
 
-          {shouldReclaim && !isPeriodClosed && (
+          {shouldReclaim && !isPeriodLocked && (
             <div className="rounded-lg bg-green-50 dark:bg-green-950 p-4">
               <p className="text-sm text-green-700 dark:text-green-300">
                 Du har {formatCurrency(Math.abs(netVat))} i ingående moms att dra av.

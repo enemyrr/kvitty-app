@@ -8,7 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { CheckCircle, Warning } from "@phosphor-icons/react";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, Warning, ArrowClockwise } from "@phosphor-icons/react";
 
 interface Period {
   id: string;
@@ -43,7 +44,7 @@ export function BalanceSheetClient({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { data, isLoading, isError, error } = trpc.reports.balanceSheet.useQuery(
+  const { data, isLoading, isError, error, refetch } = trpc.reports.balanceSheet.useQuery(
     {
       workspaceId,
       fiscalPeriodId: selectedPeriodId,
@@ -71,8 +72,17 @@ export function BalanceSheetClient({
       <Alert variant="destructive">
         <Warning className="size-4" />
         <AlertTitle>Kunde inte ladda balansräkning</AlertTitle>
-        <AlertDescription>
-          {error?.message || "Ett oväntat fel uppstod. Försök igen."}
+        <AlertDescription className="flex items-center justify-between">
+          <span>{error?.message || "Ett oväntat fel uppstod."}</span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => refetch()}
+            className="ml-4"
+          >
+            <ArrowClockwise className="mr-2 size-4" />
+            Försök igen
+          </Button>
         </AlertDescription>
       </Alert>
     );

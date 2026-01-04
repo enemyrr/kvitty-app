@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import {
   Table,
   TableBody,
@@ -59,9 +60,9 @@ export function ReportTable({
       </TableHeader>
       <TableBody>
         {groups.map((group, groupIndex) => (
-          <>
+          <Fragment key={groupIndex}>
             {/* Group header */}
-            <TableRow key={`group-${groupIndex}`} className="bg-muted/30">
+            <TableRow className="bg-muted/30">
               {showAccountNumbers && <TableCell />}
               <TableCell className="font-semibold">{group.name}</TableCell>
               <TableCell />
@@ -69,15 +70,15 @@ export function ReportTable({
 
             {/* Group rows */}
             {group.rows.map((row, rowIndex) => (
-              <TableRow key={`row-${groupIndex}-${rowIndex}`}>
+              <TableRow key={rowIndex}>
                 {showAccountNumbers && (
                   <TableCell className="font-mono text-muted-foreground">
                     {row.accountNumber}
                   </TableCell>
                 )}
                 <TableCell
+                  style={{ paddingLeft: row.indent ? `${row.indent}rem` : undefined }}
                   className={cn(
-                    row.indent && `pl-${row.indent * 4}`,
                     row.isSubtotal && "font-medium",
                     row.isTotal && "font-bold"
                   )}
@@ -99,7 +100,7 @@ export function ReportTable({
 
             {/* Group subtotal */}
             {group.rows.length > 0 && (
-              <TableRow key={`subtotal-${groupIndex}`} className="border-t-2">
+              <TableRow className="border-t-2">
                 {showAccountNumbers && <TableCell />}
                 <TableCell className="font-medium">
                   Summa {group.name.toLowerCase()}
@@ -114,7 +115,7 @@ export function ReportTable({
                 </TableCell>
               </TableRow>
             )}
-          </>
+          </Fragment>
         ))}
 
         {/* Total row */}

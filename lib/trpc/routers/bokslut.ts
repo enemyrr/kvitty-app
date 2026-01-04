@@ -142,9 +142,10 @@ export const bokslutRouter = router({
         }
       }
 
-      // Check balance (assets = equity + liabilities)
+      // Check balance (assets = equity + liabilities + current year profit/loss)
       let totalAssets = 0;
       let totalEquityLiabilities = 0;
+      let currentYearProfit = 0;
 
       for (const balance of balances) {
         const num = balance.accountNumber;
@@ -158,17 +159,26 @@ export const bokslutRouter = router({
           num <= ACCOUNT_RANGES.EQUITY_LIABILITIES.end
         ) {
           totalEquityLiabilities += credit - debit;
+        } else if (num >= ACCOUNT_RANGES.REVENUE.start && num <= ACCOUNT_RANGES.REVENUE.end) {
+          // Revenue: credit - debit = positive income
+          currentYearProfit += credit - debit;
+        } else if (num >= ACCOUNT_RANGES.EXPENSES.start && num <= ACCOUNT_RANGES.EXPENSES.end) {
+          // Expenses: debit - credit = positive expense, subtract from profit
+          currentYearProfit -= debit - credit;
         }
       }
 
-      const isBalanced = Math.abs(totalAssets - totalEquityLiabilities) < 0.01;
+      // Include current year profit in equity/liabilities for balance check
+      const adjustedEquityLiabilities = totalEquityLiabilities + currentYearProfit;
+      const isBalanced = Math.abs(totalAssets - adjustedEquityLiabilities) < 0.01;
 
       return {
         accountSummary,
         totalAssets,
-        totalEquityLiabilities,
+        totalEquityLiabilities: adjustedEquityLiabilities,
+        currentYearProfit,
         isBalanced,
-        difference: totalAssets - totalEquityLiabilities,
+        difference: totalAssets - adjustedEquityLiabilities,
       };
     }),
 
@@ -352,7 +362,12 @@ export const bokslutRouter = router({
 
   // Mark closing entries as created
   markClosingEntriesCreated: workspaceProcedure
-    .input(z.object({ fiscalPeriodId: z.string() }))
+    .input(
+      z.object({
+        fiscalPeriodId: z.string(),
+        acknowledgeNoEntries: z.boolean().optional(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const closing = await ctx.db.query.annualClosings.findFirst({
         where: and(
@@ -379,6 +394,37 @@ export const bokslutRouter = router({
         });
       }
 
+      // Get fiscal period to check for closing entries
+      const period = await ctx.db.query.fiscalPeriods.findFirst({
+        where: and(
+          eq(fiscalPeriods.id, input.fiscalPeriodId),
+          eq(fiscalPeriods.workspaceId, ctx.workspaceId)
+        ),
+      });
+
+      if (!period) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Period hittades inte" });
+      }
+
+      // Check for journal entries dated on the fiscal period end date (typical closing entries)
+      const closingEntries = await ctx.db.query.journalEntries.findMany({
+        where: and(
+          eq(journalEntries.workspaceId, ctx.workspaceId),
+          eq(journalEntries.fiscalPeriodId, input.fiscalPeriodId),
+          eq(journalEntries.entryDate, period.endDate)
+        ),
+      });
+
+      // Soft validation: warn if no entries exist on the closing date
+      // Allow proceeding if user explicitly acknowledges
+      if (closingEntries.length === 0 && !input.acknowledgeNoEntries) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "Inga bokslutsbokningar hittades på bokslutsdagen. Om inga justeringar behövs, bekräfta för att fortsätta.",
+        });
+      }
+
       // Conditional update to prevent race conditions
       const [updated] = await ctx.db
         .update(annualClosings)
@@ -402,7 +448,10 @@ export const bokslutRouter = router({
         });
       }
 
-      return updated;
+      return {
+        ...updated,
+        closingEntriesCount: closingEntries.length,
+      };
     }),
 
   // Save calculated tax

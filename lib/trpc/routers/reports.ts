@@ -7,9 +7,8 @@ import {
   fiscalPeriods,
   workspaces,
 } from "@/lib/db/schema";
-import { eq, and, sql, gte, lte, between } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 import {
-  ACCOUNT_RANGES,
   INCOME_STATEMENT_GROUPS,
   BALANCE_SHEET_GROUPS,
   isDebitAccount,
@@ -23,6 +22,7 @@ function getVatPeriodDates(
   periodIndex: number
 ): { start: string; end: string } {
   const startDate = new Date(fiscalYearStart);
+  const fiscalEnd = new Date(fiscalYearEnd);
 
   if (frequency === "yearly") {
     return { start: fiscalYearStart, end: fiscalYearEnd };
@@ -35,9 +35,12 @@ function getVatPeriodDates(
     quarterEnd.setMonth(quarterEnd.getMonth() + 3);
     quarterEnd.setDate(quarterEnd.getDate() - 1);
 
+    // Cap end date to fiscal year end for broken fiscal years
+    const cappedEnd = quarterEnd > fiscalEnd ? fiscalEnd : quarterEnd;
+
     return {
       start: quarterStart.toISOString().split("T")[0],
-      end: quarterEnd.toISOString().split("T")[0],
+      end: cappedEnd.toISOString().split("T")[0],
     };
   }
 
@@ -48,9 +51,12 @@ function getVatPeriodDates(
   monthEnd.setMonth(monthEnd.getMonth() + 1);
   monthEnd.setDate(monthEnd.getDate() - 1);
 
+  // Cap end date to fiscal year end for broken fiscal years
+  const cappedEnd = monthEnd > fiscalEnd ? fiscalEnd : monthEnd;
+
   return {
     start: monthStart.toISOString().split("T")[0],
-    end: monthEnd.toISOString().split("T")[0],
+    end: cappedEnd.toISOString().split("T")[0],
   };
 }
 
@@ -266,6 +272,46 @@ export const reportsRouter = router({
         )
         .orderBy(journalEntryLines.accountNumber);
 
+      // Get income/expense balances (3000-8999) to calculate current year profit/loss
+      const incomeExpenseBalances = await ctx.db
+        .select({
+          accountNumber: journalEntryLines.accountNumber,
+          totalDebit: sql<string>`COALESCE(SUM(${journalEntryLines.debit}), 0)`,
+          totalCredit: sql<string>`COALESCE(SUM(${journalEntryLines.credit}), 0)`,
+        })
+        .from(journalEntryLines)
+        .innerJoin(
+          journalEntries,
+          eq(journalEntryLines.journalEntryId, journalEntries.id)
+        )
+        .where(
+          and(
+            eq(journalEntries.workspaceId, ctx.workspaceId),
+            eq(journalEntries.fiscalPeriodId, input.fiscalPeriodId),
+            sql`${journalEntryLines.accountNumber} >= 3000`,
+            sql`${journalEntryLines.accountNumber} <= 8999`
+          )
+        )
+        .groupBy(journalEntryLines.accountNumber);
+
+      // Calculate current year profit/loss (Årets resultat)
+      // Revenue (3xxx): credit - debit = positive income
+      // Expenses (4xxx-8xxx): debit - credit = positive expense
+      let currentYearProfit = 0;
+      for (const acc of incomeExpenseBalances) {
+        const debit = parseFloat(acc.totalDebit);
+        const credit = parseFloat(acc.totalCredit);
+        // Income accounts (3xxx): balance is credit - debit
+        // Expense accounts (4xxx-8xxx): balance is debit - credit (as expense)
+        if (acc.accountNumber >= 3000 && acc.accountNumber <= 3999) {
+          // Revenue - add to profit
+          currentYearProfit += credit - debit;
+        } else {
+          // Expenses - subtract from profit
+          currentYearProfit -= debit - credit;
+        }
+      }
+
       // Helper to create group data
       const createGroup = (
         name: string,
@@ -307,6 +353,37 @@ export const reportsRouter = router({
       const equityLiabilityGroups = BALANCE_SHEET_GROUPS.equityLiabilities.map(
         (g) => createGroup(g.name, g.range)
       );
+
+      // Add "Årets resultat" as a special equity item if there's activity
+      if (Math.abs(currentYearProfit) > 0.01) {
+        // Find or create the equity group for current year profit
+        const equityGroupIndex = equityLiabilityGroups.findIndex(
+          (g) => g.name === "Eget kapital"
+        );
+        if (equityGroupIndex >= 0) {
+          // Add current year profit as a row in equity group
+          equityLiabilityGroups[equityGroupIndex].rows.push({
+            accountNumber: 2099,
+            accountName: "Årets resultat",
+            amount: currentYearProfit,
+          });
+          equityLiabilityGroups[equityGroupIndex].subtotal += currentYearProfit;
+        } else {
+          // Create a new group for current year profit
+          equityLiabilityGroups.push({
+            name: "Årets resultat",
+            rows: [
+              {
+                accountNumber: 2099,
+                accountName: "Årets resultat",
+                amount: currentYearProfit,
+              },
+            ],
+            subtotal: currentYearProfit,
+          });
+        }
+      }
+
       const totalEquityLiabilities = equityLiabilityGroups.reduce(
         (sum, g) => sum + g.subtotal,
         0
@@ -326,6 +403,7 @@ export const reportsRouter = router({
           groups: equityLiabilityGroups,
           total: totalEquityLiabilities,
         },
+        currentYearProfit,
         isBalanced: Math.abs(totalAssets - totalEquityLiabilities) < 0.01,
       };
     }),
@@ -396,30 +474,6 @@ export const reportsRouter = router({
           journalEntryLines.accountName
         )
         .orderBy(journalEntryLines.accountNumber);
-
-      // Also get sales amounts for VAT base calculation
-      const salesBalances = await ctx.db
-        .select({
-          vatCode: journalEntryLines.vatCode,
-          totalDebit: sql<string>`COALESCE(SUM(${journalEntryLines.debit}), 0)`,
-          totalCredit: sql<string>`COALESCE(SUM(${journalEntryLines.credit}), 0)`,
-        })
-        .from(journalEntryLines)
-        .innerJoin(
-          journalEntries,
-          eq(journalEntryLines.journalEntryId, journalEntries.id)
-        )
-        .where(
-          and(
-            eq(journalEntries.workspaceId, ctx.workspaceId),
-            eq(journalEntries.fiscalPeriodId, input.fiscalPeriodId),
-            sql`${journalEntries.entryDate} >= ${start}`,
-            sql`${journalEntries.entryDate} <= ${end}`,
-            sql`${journalEntryLines.accountNumber} >= 3000`,
-            sql`${journalEntryLines.accountNumber} <= 3999`
-          )
-        )
-        .groupBy(journalEntryLines.vatCode);
 
       // Calculate output VAT (utgående moms)
       const outputVat25 = vatBalances

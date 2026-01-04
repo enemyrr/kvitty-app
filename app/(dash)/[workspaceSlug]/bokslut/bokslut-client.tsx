@@ -26,6 +26,17 @@ import {
   AlertTitle,
 } from "@/components/ui/alert";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
   CheckCircle,
   Warning,
   LockSimple,
@@ -148,13 +159,22 @@ export function BokslutClient({
     },
   });
 
+  const [showNoEntriesWarning, setShowNoEntriesWarning] = useState(false);
+
   const markEntriesCreated = trpc.bokslut.markClosingEntriesCreated.useMutation({
     onSuccess: () => {
       utils.bokslut.getClosing.invalidate();
       toast.success("Bokslutsbokningar markerade som klara");
+      setShowNoEntriesWarning(false);
     },
     onError: (error) => {
-      toast.error(error.message || "Kunde inte markera bokslutsbokningar");
+      // Handle soft validation warning for no closing entries
+      if (error.data?.code === "PRECONDITION_FAILED") {
+        setShowNoEntriesWarning(true);
+        toast.warning(error.message);
+      } else {
+        toast.error(error.message || "Kunde inte markera bokslutsbokningar");
+      }
     },
   });
 
@@ -513,20 +533,49 @@ export function BokslutClient({
           </div>
 
           {getStepStatus("entries", closingStatus) === "active" && (
-            <div className="flex justify-end">
-              <Button
-                onClick={() =>
-                  markEntriesCreated.mutate({
-                    workspaceId,
-                    fiscalPeriodId: selectedPeriodId,
-                  })
-                }
-                disabled={markEntriesCreated.isPending}
-              >
-                {markEntriesCreated.isPending
-                  ? "Sparar..."
-                  : "Markera bokslutsbokningar som klara"}
-              </Button>
+            <div className="space-y-4">
+              {showNoEntriesWarning && (
+                <Alert variant="default" className="border-yellow-500 bg-yellow-50 dark:bg-yellow-950/20">
+                  <Warning className="size-4 text-yellow-600" />
+                  <AlertTitle>Inga bokslutsbokningar hittades</AlertTitle>
+                  <AlertDescription>
+                    Det finns inga verifikationer daterade på bokslutsdagen ({currentPeriod?.endDate}).
+                    Om inga periodiseringar, avskrivningar eller andra justeringar behövs kan du bekräfta och fortsätta.
+                  </AlertDescription>
+                </Alert>
+              )}
+              <div className="flex justify-end gap-2">
+                {showNoEntriesWarning && (
+                  <Button
+                    variant="outline"
+                    onClick={() =>
+                      markEntriesCreated.mutate({
+                        workspaceId,
+                        fiscalPeriodId: selectedPeriodId,
+                        acknowledgeNoEntries: true,
+                      })
+                    }
+                    disabled={markEntriesCreated.isPending}
+                  >
+                    {markEntriesCreated.isPending
+                      ? "Sparar..."
+                      : "Bekräfta och fortsätt ändå"}
+                  </Button>
+                )}
+                <Button
+                  onClick={() =>
+                    markEntriesCreated.mutate({
+                      workspaceId,
+                      fiscalPeriodId: selectedPeriodId,
+                    })
+                  }
+                  disabled={markEntriesCreated.isPending}
+                >
+                  {markEntriesCreated.isPending
+                    ? "Sparar..."
+                    : "Markera bokslutsbokningar som klara"}
+                </Button>
+              </div>
             </div>
           )}
         </div>
@@ -682,19 +731,37 @@ export function BokslutClient({
 
           {getStepStatus("finalize", closingStatus) === "active" && (
             <div className="flex justify-end">
-              <Button
-                variant="destructive"
-                onClick={() =>
-                  finalize.mutate({
-                    workspaceId,
-                    fiscalPeriodId: selectedPeriodId,
-                  })
-                }
-                disabled={finalize.isPending}
-              >
-                <LockSimple className="mr-2 size-4" />
-                {finalize.isPending ? "Låser..." : "Färdigställ och lås bokslut"}
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" disabled={finalize.isPending}>
+                    <LockSimple className="mr-2 size-4" />
+                    {finalize.isPending ? "Låser..." : "Färdigställ och lås bokslut"}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Färdigställ bokslutet?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Detta kommer att låsa räkenskapsåret {currentPeriod?.label} permanent.
+                      Inga fler bokningar kan göras efter detta. Åtgärden kan inte ångras.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Avbryt</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() =>
+                        finalize.mutate({
+                          workspaceId,
+                          fiscalPeriodId: selectedPeriodId,
+                        })
+                      }
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    >
+                      {finalize.isPending ? "Låser..." : "Ja, färdigställ"}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           )}
         </div>

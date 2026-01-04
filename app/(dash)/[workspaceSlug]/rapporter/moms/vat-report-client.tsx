@@ -23,7 +23,8 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Warning } from "@phosphor-icons/react";
+import { Button } from "@/components/ui/button";
+import { Warning, ArrowClockwise } from "@phosphor-icons/react";
 
 interface Period {
   id: string;
@@ -62,7 +63,7 @@ export function VatReportClient({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { data: vatPeriods, isLoading: periodsLoading, isError: periodsError, error: periodsErrorData } =
+  const { data: vatPeriods, isLoading: periodsLoading, isError: periodsError, error: periodsErrorData, refetch: refetchPeriods } =
     trpc.reports.vatPeriods.useQuery(
       {
         workspaceId,
@@ -71,7 +72,7 @@ export function VatReportClient({
       { enabled: !!selectedPeriodId }
     );
 
-  const { data: vatReport, isLoading: reportLoading, isError: reportError, error: reportErrorData } =
+  const { data: vatReport, isLoading: reportLoading, isError: reportError, error: reportErrorData, refetch: refetchReport } =
     trpc.reports.vatReport.useQuery(
       {
         workspaceId,
@@ -108,12 +109,26 @@ export function VatReportClient({
   }
 
   if (isError) {
+    const handleRetry = () => {
+      if (periodsError) refetchPeriods();
+      if (reportError) refetchReport();
+    };
+
     return (
       <Alert variant="destructive">
         <Warning className="size-4" />
         <AlertTitle>Kunde inte ladda momsrapport</AlertTitle>
-        <AlertDescription>
-          {error?.message || "Ett oväntat fel uppstod. Försök igen."}
+        <AlertDescription className="flex items-center justify-between">
+          <span>{error?.message || "Ett oväntat fel uppstod."}</span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleRetry}
+            className="ml-4"
+          >
+            <ArrowClockwise className="mr-2 size-4" />
+            Försök igen
+          </Button>
         </AlertDescription>
       </Alert>
     );

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, workspaceProcedure } from "../init";
-import { fiscalPeriods } from "@/lib/db/schema";
+import { fiscalPeriods, annualClosings } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
 import { createPeriodSchema, updatePeriodSchema } from "@/lib/validations/period";
 
@@ -191,7 +191,12 @@ export const periodsRouter = router({
     }),
 
   unlock: workspaceProcedure
-    .input(z.object({ periodId: z.string() }))
+    .input(
+      z.object({
+        periodId: z.string(),
+        acknowledgeFinalized: z.boolean().optional(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const period = await ctx.db.query.fiscalPeriods.findFirst({
         where: and(
@@ -211,17 +216,54 @@ export const periodsRouter = router({
         });
       }
 
-      const [updated] = await ctx.db
-        .update(fiscalPeriods)
-        .set({
-          isLocked: false,
-          lockedAt: null,
-          lockedBy: null,
-          updatedAt: new Date(),
-        })
-        .where(eq(fiscalPeriods.id, input.periodId))
-        .returning();
+      // Check for finalized bokslut
+      const bokslut = await ctx.db.query.annualClosings.findFirst({
+        where: and(
+          eq(annualClosings.fiscalPeriodId, input.periodId),
+          eq(annualClosings.workspaceId, ctx.workspaceId),
+          eq(annualClosings.status, "finalized")
+        ),
+      });
 
-      return updated;
+      if (bokslut && !input.acknowledgeFinalized) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "Denna period har ett färdigställt bokslut. Att låsa upp kan bryta mot bokföringslagen. Bekräfta att du förstår konsekvenserna.",
+        });
+      }
+
+      // Use transaction for atomicity - both updates must succeed or fail together
+      return await ctx.db.transaction(async (tx) => {
+        // If bokslut exists and acknowledged, reset its status
+        if (bokslut) {
+          await tx
+            .update(annualClosings)
+            .set({
+              status: "tax_calculated",
+              finalizedAt: null,
+              finalizedBy: null,
+            })
+            .where(eq(annualClosings.id, bokslut.id));
+        }
+
+        const [updated] = await tx
+          .update(fiscalPeriods)
+          .set({
+            isLocked: false,
+            lockedAt: null,
+            lockedBy: null,
+            updatedAt: new Date(),
+          })
+          .where(
+            and(
+              eq(fiscalPeriods.id, input.periodId),
+              eq(fiscalPeriods.workspaceId, ctx.workspaceId)
+            )
+          )
+          .returning();
+
+        return updated;
+      });
     }),
 });

@@ -17,6 +17,7 @@ export const ACCOUNT_RANGES = {
   CUSTOMER_RECEIVABLES: { start: 1500, end: 1599 },
   OTHER_RECEIVABLES: { start: 1600, end: 1699 },
   PREPAID_EXPENSES: { start: 1700, end: 1799 },
+  SHORT_TERM_INVESTMENTS: { start: 1800, end: 1899 },
   CASH_BANK: { start: 1900, end: 1999 },
 
   // Eget kapital och skulder (Equity & Liabilities) - 2000-2999
@@ -185,6 +186,7 @@ export const BALANCE_SHEET_GROUPS = {
     { name: "Kundfordringar", range: ACCOUNT_RANGES.CUSTOMER_RECEIVABLES },
     { name: "Övriga fordringar", range: ACCOUNT_RANGES.OTHER_RECEIVABLES },
     { name: "Förutbetalda kostnader", range: ACCOUNT_RANGES.PREPAID_EXPENSES },
+    { name: "Kortfristiga placeringar", range: ACCOUNT_RANGES.SHORT_TERM_INVESTMENTS },
     { name: "Kassa och bank", range: ACCOUNT_RANGES.CASH_BANK },
   ],
   equityLiabilities: [
