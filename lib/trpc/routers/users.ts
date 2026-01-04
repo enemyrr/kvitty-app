@@ -8,6 +8,7 @@ export const usersRouter = router({
     .input(
       z.object({
         name: z.string().min(1, "Namn krävs").max(100, "Namn får max vara 100 tecken"),
+        phone: z.string().optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -15,6 +16,7 @@ export const usersRouter = router({
         .update(user)
         .set({
           name: input.name,
+          phone: input.phone || null,
           updatedAt: new Date(),
         })
         .where(eq(user.id, ctx.session.user.id))

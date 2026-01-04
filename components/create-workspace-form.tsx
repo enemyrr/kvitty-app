@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Receipt, Files, Calculator, CaretDownIcon } from "@phosphor-icons/react";
+import { Files, Calculator, CaretDownIcon } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -80,11 +80,15 @@ const modeInfo: Record<
   },
 };
 
-export function CreateWorkspaceForm() {
+interface CreateWorkspaceFormProps {
+  userName?: string | null;
+}
+
+export function CreateWorkspaceForm({ userName }: CreateWorkspaceFormProps) {
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);
   const [name, setName] = useState("");
-  const [mode, setMode] = useState<WorkspaceMode>("simple");
+  const [mode, setMode] = useState<WorkspaceMode>("full_bookkeeping");
   const [businessType, setBusinessType] = useState<BusinessType | undefined>();
   const [orgNumber, setOrgNumber] = useState("");
   const [orgName, setOrgName] = useState("");
@@ -122,16 +126,6 @@ export function CreateWorkspaceForm() {
     <div className="flex flex-col gap-6 max-w-lg w-full">
       {step === 1 ? (
         <FieldGroup>
-          <div className="flex flex-col items-center gap-2 text-center">
-            <div className="flex size-8 items-center justify-center rounded-md">
-              <Receipt className="size-6" weight="duotone" />
-            </div>
-            <h1 className="text-xl font-bold">Välkommen till Kvitty</h1>
-            <FieldDescription>
-              Skapa din arbetsyta för att komma igång
-            </FieldDescription>
-          </div>
-
           <Field>
             <FieldLabel>Välj typ av arbetsyta</FieldLabel>
             <WorkspaceModeSelector
@@ -155,16 +149,6 @@ export function CreateWorkspaceForm() {
       ) : (
         <form onSubmit={handleSubmit}>
           <FieldGroup>
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="flex size-8 items-center justify-center rounded-md">
-                <Receipt className="size-6" weight="duotone" />
-              </div>
-              <h1 className="text-xl font-bold">Välkommen till Kvitty</h1>
-              <FieldDescription>
-                Skapa din arbetsyta för att komma igång
-              </FieldDescription>
-            </div>
-
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-3">

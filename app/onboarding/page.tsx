@@ -4,12 +4,13 @@ import { getSession } from "@/lib/session";
 import { db } from "@/lib/db";
 import { workspaceMembers } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { OnboardingForm } from "@/components/onboarding-form";
 
 export const metadata: Metadata = {
-  title: "App — Kvitty",
+  title: "Välkommen — Kvitty",
 };
 
-export default async function AppPage() {
+export default async function OnboardingPage() {
   const session = await getSession();
 
   if (!session) {
@@ -27,7 +28,14 @@ export default async function AppPage() {
     redirect(`/${memberships[0].workspace.slug}`);
   }
 
-  redirect("/onboarding");
+  return (
+    <div className="flex min-h-svh items-center justify-center p-6">
+      <OnboardingForm
+        initialName={session.user.name ?? ""}
+        email={session.user.email}
+        initialPhone={session.user.phone ?? ""}
+      />
+    </div>
+  );
 }
-
 

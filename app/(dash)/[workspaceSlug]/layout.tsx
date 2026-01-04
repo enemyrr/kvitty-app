@@ -28,19 +28,24 @@ export default async function WorkspaceLayout({
     where: eq(workspaces.slug, workspaceSlug),
   });
 
+  // Verify user has access - check membership before checking workspace existence
+  // to avoid information leakage (don't reveal if workspace exists)
+  const membership = workspace
+    ? await db.query.workspaceMembers.findFirst({
+        where: and(
+          eq(workspaceMembers.workspaceId, workspace.id),
+          eq(workspaceMembers.userId, session.user.id)
+        ),
+      })
+    : null;
+
+  // If workspace doesn't exist OR user doesn't have access, handle appropriately
   if (!workspace) {
     notFound();
   }
 
-  // Verify user has access
-  const membership = await db.query.workspaceMembers.findFirst({
-    where: and(
-      eq(workspaceMembers.workspaceId, workspace.id),
-      eq(workspaceMembers.userId, session.user.id)
-    ),
-  });
-
   if (!membership) {
+    // User doesn't have access - redirect instead of 404
     redirect("/app");
   }
 

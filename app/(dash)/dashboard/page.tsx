@@ -30,6 +30,6 @@ export default async function DashboardRootPage() {
     redirect(`/${memberships[0].workspace.slug}`);
   }
 
-  // Otherwise show create workspace form
-  return <CreateWorkspaceForm />;
+  // Otherwise redirect to onboarding
+  redirect("/onboarding");
 }

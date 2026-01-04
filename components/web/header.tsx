@@ -26,23 +26,25 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg px-5 sm:px-[5%]">
       <div className="mx-auto max-w-[1280px]">
         <div className="flex h-14 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="font-semibold text-lg tracking-tight">
-            Kvitty
-          </Link>
+          {/* Logo and Navigation */}
+          <div className="flex items-center gap-8">
+            <Link href="/" className="font-semibold text-lg tracking-tight">
+              Kvitty
+            </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
           {/* Auth Button */}
           <div className="flex items-center gap-3">
