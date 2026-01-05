@@ -23,7 +23,7 @@ export function ImageSection() {
                 }}
             >
                 <img
-                    src="/assets/SCR-20260102-kufd.png"
+                    src="/assets/SCR-20260105-mefx.webp"
                     alt="sajn product screenshot"
                     className="relative w-full rounded-t-md object-contain"
                 />
