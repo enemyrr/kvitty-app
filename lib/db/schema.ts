@@ -222,7 +222,7 @@ export const workspaces = pgTable("workspaces", {
   addOcrNumber: boolean("add_ocr_number").default(false), // Auto-generate OCR numbers
   vatReportingFrequency: vatReportingFrequencyEnum("vat_reporting_frequency").default("quarterly"),
   // Email inbox settings
-  inboxEmailSlug: text("inbox_email_slug").unique(), // e.g., "sajn.ys72" → sajn.ys72@inbox.kvitty.se
+  inboxEmailSlug: text("inbox_email_slug"), // e.g., "kvitty" → kvitty.{slug}@inbox.kvitty.se
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   createdBy: text("created_by").references(() => user.id),

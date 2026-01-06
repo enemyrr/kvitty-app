@@ -38,6 +38,12 @@ export const workspacesRouter = router({
     .mutation(async ({ ctx, input }) => {
       const slug = await generateUniqueSlug();
 
+      // Generate inbox email prefix from workspace name
+      const inboxEmailSlug = input.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "")
+        .slice(0, 20) || "inbox";
+
       const [workspace] = await ctx.db
         .insert(workspaces)
         .values({
@@ -53,6 +59,7 @@ export const workspacesRouter = router({
           address: input.address || null,
           postalCode: input.postalCode || null,
           city: input.city || null,
+          inboxEmailSlug,
           createdBy: ctx.session.user.id,
         })
         .returning();

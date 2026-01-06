@@ -607,21 +607,21 @@ export function WorkspaceSettingsForm({
             <FieldGroup>
               <Field data-invalid={!!errors.inboxEmailSlug}>
                 <FieldLabel htmlFor="inboxEmailSlug">Inkorgsadress</FieldLabel>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <Input
                     id="inboxEmailSlug"
-                    placeholder={`${workspace.name.toLowerCase().replace(/[^a-z0-9]/g, "")}.${workspace.slug}`}
-                    maxLength={50}
+                    placeholder={workspace.name.toLowerCase().replace(/[^a-z0-9]/g, "")}
+                    maxLength={30}
                     disabled={isSubmitting}
-                    className="flex-1"
+                    className="w-40"
                     {...register("inboxEmailSlug", {
                       onChange: (e) => {
-                        e.target.value = e.target.value.toLowerCase();
+                        e.target.value = e.target.value.toLowerCase().replace(/[^a-z0-9]/g, "");
                       },
                     })}
                   />
                   <span className="text-muted-foreground whitespace-nowrap">
-                    @inbox.kvitty.se
+                    .{workspace.slug}@inbox.kvitty.se
                   </span>
                 </div>
                 <FieldDescription>
@@ -629,11 +629,11 @@ export function WorkspaceSettingsForm({
                     <>
                       Skicka kvitton till{" "}
                       <code className="bg-muted px-1 py-0.5 rounded text-xs">
-                        {form.watch("inboxEmailSlug")}@inbox.kvitty.se
+                        {form.watch("inboxEmailSlug")}.{workspace.slug}@inbox.kvitty.se
                       </code>
                     </>
                   ) : (
-                    "Endast små bokstäver, siffror och en punkt tillåts (t.ex. 'företag.ab12')"
+                    "Endast små bokstäver och siffror tillåts"
                   )}
                 </FieldDescription>
                 {errors.inboxEmailSlug && (
