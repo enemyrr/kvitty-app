@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Trash, Warning } from "@phosphor-icons/react";
+import { Plus, Trash } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -21,7 +21,6 @@ import { trpc } from "@/lib/trpc/client";
 import { createCuid } from "@/lib/utils/cuid";
 import { useDuplicateCheck } from "@/hooks/use-duplicate-check";
 import { DuplicateBadge } from "./duplicate-badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 interface AddBankTransactionDialogProps {
   workspaceId: string;
@@ -75,7 +74,7 @@ export function AddBankTransactionDialog({
       }
       const parsed: BankTransactionRow[] = data.bankTransactions.slice(0, 50).map((v) => ({
         id: createCuid(),
-        account: v.office || "",
+        account: v.accountNumber || "",
         accountingDate: v.accountingDate || "",
         reference: v.reference || "",
         amount: v.amount?.toString() || "",
@@ -99,6 +98,10 @@ export function AddBankTransactionDialog({
 
   const duplicateCount = [...duplicateMap.values()].filter(
     (d) => d.isDuplicate
+  ).length;
+
+  const validTransactionCount = rows.filter(
+    (r) => r.reference || r.amount
   ).length;
 
   function updateRow(id: string, field: keyof BankTransactionRow, value: string) {
@@ -137,7 +140,7 @@ export function AddBankTransactionDialog({
     createBankTransactions.mutate({
       workspaceId,
       bankTransactions: validRows.map((row) => ({
-        office: row.account || null,
+        accountNumber: row.account || null,
         accountingDate: row.accountingDate || null,
         ledgerDate: null,
         currencyDate: null,
@@ -242,14 +245,14 @@ export function AddBankTransactionDialog({
             </div>
           </TabsContent>
 
-          <TabsContent value="paste" className="flex-1 flex flex-col gap-4">
+          <TabsContent value="paste" className="flex-1 flex flex-col gap-4 min-h-0">
             <Textarea
               placeholder="Klistra in data från Excel, bankutdrag, PDF-text, e-post eller annat format...
 
 AI:n analyserar innehållet och extraherar transaktioner automatiskt."
               value={pastedContent}
               onChange={(e) => setPastedContent(e.target.value)}
-              className="flex-1 min-h-[200px] font-mono text-sm"
+              className="flex-1 min-h-[200px] max-h-full overflow-auto resize-none font-mono text-sm"
             />
             <Button
               type="button"
@@ -277,18 +280,6 @@ AI:n analyserar innehållet och extraherar transaktioner automatiskt."
           </p>
         )}
 
-        {duplicateCount > 0 && (
-          <Alert className="bg-amber-50 border-amber-200 dark:bg-amber-950 dark:border-amber-800">
-            <Warning className="size-4 text-amber-600 dark:text-amber-400" />
-            <AlertTitle className="text-amber-800 dark:text-amber-200">
-              {duplicateCount} möjliga dubbletter hittades
-            </AlertTitle>
-            <AlertDescription className="text-amber-700 dark:text-amber-300">
-              Vissa transaktioner kan redan finnas i systemet. Granska raderna
-              markerade med varningssymbol.
-            </AlertDescription>
-          </Alert>
-        )}
 
         <div className="flex justify-end gap-2 pt-4 border-t">
           <Button
@@ -301,12 +292,12 @@ AI:n analyserar innehållet och extraherar transaktioner automatiskt."
           </Button>
           <Button
             onClick={handleSubmit}
-            disabled={createBankTransactions.isPending}
+            disabled={createBankTransactions.isPending || validTransactionCount === 0}
           >
             {createBankTransactions.isPending ? (
               <Spinner />
             ) : (
-              `Lägg till ${rows.filter((r) => r.reference || r.amount).length} transaktioner`
+              `Lägg till ${validTransactionCount} transaktioner`
             )}
           </Button>
         </div>

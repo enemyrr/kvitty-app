@@ -170,7 +170,7 @@ export function TransactionsPageClient({
     return transactions.filter((t) => {
       return (
         t.reference?.toLowerCase().includes(searchLower) ||
-        t.office?.toLowerCase().includes(searchLower) ||
+        t.accountNumber?.toLowerCase().includes(searchLower) ||
         t.bankAccount?.name?.toLowerCase().includes(searchLower) ||
         t.bankAccount?.accountNumber?.toString().includes(searchLower)
       );

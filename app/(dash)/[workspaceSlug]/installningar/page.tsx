@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { db } from "@/lib/db";
 import { workspaces } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { getSession } from "@/lib/session";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,22 +12,19 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { MembersList } from "@/components/members/members-list";
-import { PendingInvites } from "@/components/members/pending-invites";
-import { InviteForm } from "@/components/members/invite-form";
+import { WorkspaceSettingsForm } from "@/components/settings/workspace-settings-form";
 
 export const metadata: Metadata = {
-  title: "Medlemmar — Kvitty",
+  title: "Inställningar — Kvitty",
 };
 
-export default async function MembersPage({
+export default async function SettingsPage({
   params,
 }: {
   params: Promise<{ workspaceSlug: string }>;
 }) {
   const { workspaceSlug } = await params;
 
-  const session = await getSession();
   const workspace = await db.query.workspaces.findFirst({
     where: eq(workspaces.slug, workspaceSlug),
   });
@@ -44,7 +40,7 @@ export default async function MembersPage({
           <SidebarTrigger className="-ml-1" />
           <Separator
             orientation="vertical"
-            className="mr-2 data-[orientation=vertical]:h-4 mt-1.5"
+            className="mr-2 mt-1.5 data-[orientation=vertical]:h-4"
           />
           <Breadcrumb>
             <BreadcrumbList>
@@ -55,7 +51,7 @@ export default async function MembersPage({
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Medlemmar</BreadcrumbPage>
+                <BreadcrumbPage>Inställningar</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -63,16 +59,15 @@ export default async function MembersPage({
       </header>
       <div className="flex flex-1 flex-col gap-6 p-4 pt-0">
         <div>
-          <h1 className="text-2xl font-bold">Medlemmar</h1>
+          <h1 className="text-2xl font-bold">Inställningar</h1>
           <p className="text-muted-foreground text-sm">
-            Hantera medlemmar och inbjudningar
+            Hantera arbetsytans inställningar
           </p>
         </div>
 
-        <MembersList workspaceId={workspace.id} currentUserId={session?.user?.id} />
-        <PendingInvites workspaceId={workspace.id} />
-        <InviteForm workspaceId={workspace.id} workspaceSlug={workspaceSlug} />
+        <WorkspaceSettingsForm workspace={workspace} />
       </div>
     </>
   );
 }
+

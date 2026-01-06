@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CaretUpDown, Plus, Receipt, Users, Gear } from "@phosphor-icons/react";
+import { CaretUpDown, Plus, Receipt, Users, Gear, Check } from "@phosphor-icons/react";
 
 import {
   DropdownMenu,
@@ -62,7 +62,7 @@ export function WorkspaceSwitcher({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+              <div className="bg-sidebar-primary flex aspect-square size-8 items-center justify-center rounded-lg [&_svg]:text-sidebar-primary-foreground">
                 <Receipt className="size-4" weight="duotone" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -83,27 +83,32 @@ export function WorkspaceSwitcher({
             sideOffset={4}
           >
             <DropdownMenuLabel>Arbetsytor</DropdownMenuLabel>
-            {workspaces.map((workspace) => (
-              <DropdownMenuItem key={workspace.id} asChild>
-                <Link href={`/${workspace.slug}`}>
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground! flex aspect-square size-8 items-center justify-center rounded-lg">
-                    <Receipt className="size-4" weight="duotone" />
-                  </div>
-                  <div className="flex flex-col flex-1 min-w-0">
-                    <span className="truncate font-medium">{workspace.name}</span>
-                    {workspace.orgNumber && (
-                      <span className="truncate text-xs text-muted-foreground">
-                        {formatOrgNumber(workspace.orgNumber)}
-                      </span>
+            {workspaces.map((workspace) => {
+              const isActive = workspace.id === currentWorkspace.id;
+              return (
+                <DropdownMenuItem key={workspace.id} asChild>
+                  <Link href={`/${workspace.slug}`} className="flex items-center gap-2">
+                    <div className="bg-sidebar-primary flex aspect-square size-8 items-center justify-center rounded-lg isolate [&_svg]:text-sidebar-primary-foreground!">
+                      <Receipt className="size-4" weight="duotone" style={{ color: 'hsl(var(--sidebar-primary-foreground))', fill: 'currentColor' }} />
+                    </div>
+                    <div className="flex flex-col flex-1 min-w-0">
+                      <span className="truncate font-medium">{workspace.name}</span>
+                      {workspace.orgNumber && (
+                        <span className="truncate text-xs text-muted-foreground">
+                          {formatOrgNumber(workspace.orgNumber)}
+                        </span>
+                      )}
+                    </div>
+                    {isActive && (
+                      <Check className="size-4 ml-auto" weight="bold" />
                     )}
-                  </div>
-                </Link>
-              </DropdownMenuItem>
-            ))}
+                  </Link>
+                </DropdownMenuItem>
+              );
+            })}
             <DropdownMenuSeparator />
-            <DropdownMenuLabel>{currentWorkspace.name}</DropdownMenuLabel>
             <DropdownMenuItem asChild>
-              <Link href={`/${currentWorkspace.slug}/members`}>
+              <Link href={`/${currentWorkspace.slug}/medlemmar`} className="flex items-center gap-2">
                 <Users className="size-4" weight="duotone" />
                 <div className="flex flex-col flex-1 min-w-0">
                   <span className="font-medium">Medlemmar</span>
@@ -114,7 +119,7 @@ export function WorkspaceSwitcher({
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href={`/${currentWorkspace.slug}/settings`}>
+              <Link href={`/${currentWorkspace.slug}/installningar`} className="flex items-center gap-2">
                 <Gear className="size-4" weight="duotone" />
                 <div className="flex flex-col flex-1 min-w-0">
                   <span className="font-medium">Inställningar</span>
@@ -128,9 +133,9 @@ export function WorkspaceSwitcher({
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/new-workspace">
+              <Link href="/new-workspace" className="flex items-center gap-2">
                 <Plus className="size-4" />
-                <span className="font-medium">Ny arbetsyta</span>
+                <span>Ny arbetsyta</span>
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>

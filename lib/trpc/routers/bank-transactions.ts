@@ -44,6 +44,9 @@ export const bankTransactionsRouter = router({
           },
           bankAccount: true,
           mappedToJournalEntry: true,
+          attachments: {
+            columns: { id: true },
+          },
         },
       });
 
@@ -109,7 +112,7 @@ export const bankTransactionsRouter = router({
           input.bankTransactions.map((v) => ({
             workspaceId: ctx.workspaceId,
             bankAccountId: input.bankAccountId || null,
-            office: v.office,
+            accountNumber: v.accountNumber,
             accountingDate: v.accountingDate,
             ledgerDate: v.ledgerDate,
             currencyDate: v.currencyDate,
@@ -156,18 +159,21 @@ export const bankTransactionsRouter = router({
         throw new TRPCError({ code: "NOT_FOUND" });
       }
 
+      const updateData: Record<string, unknown> = {
+        updatedAt: new Date(),
+      };
+
+      if (input.accountNumber !== undefined) updateData.accountNumber = input.accountNumber;
+      if (input.accountingDate !== undefined) updateData.accountingDate = input.accountingDate;
+      if (input.ledgerDate !== undefined) updateData.ledgerDate = input.ledgerDate;
+      if (input.currencyDate !== undefined) updateData.currencyDate = input.currencyDate;
+      if (input.reference !== undefined) updateData.reference = input.reference;
+      if (input.amount !== undefined) updateData.amount = input.amount !== null ? input.amount.toString() : null;
+      if (input.bookedBalance !== undefined) updateData.bookedBalance = input.bookedBalance !== null ? input.bookedBalance.toString() : null;
+
       const [updated] = await ctx.db
         .update(bankTransactions)
-        .set({
-          office: input.office,
-          accountingDate: input.accountingDate,
-          ledgerDate: input.ledgerDate,
-          currencyDate: input.currencyDate,
-          reference: input.reference,
-          amount: input.amount?.toString(),
-          bookedBalance: input.bookedBalance?.toString(),
-          updatedAt: new Date(),
-        })
+        .set(updateData)
         .where(eq(bankTransactions.id, input.bankTransactionId))
         .returning();
 
@@ -442,7 +448,7 @@ export const bankTransactionsRouter = router({
         schema: z.object({
           bankTransactions: z.array(
             z.object({
-              office: z.string().nullable(),
+              accountNumber: z.string().nullable(),
               accountingDate: z.string().nullable(),
               reference: z.string().nullable(),
               amount: z.number().nullable(),
@@ -452,7 +458,7 @@ export const bankTransactionsRouter = router({
         prompt: `Extract bank transaction data from the following content.
 
 For each row/transaction found, extract:
-- office: Account number or office code (if present)
+- accountNumber: Account number or office code (if present)
 - accountingDate: Date in YYYY-MM-DD format (if present)
 - reference: Description, memo, or reference text
 - amount: Numeric amount (negative for debits/expenses, positive for credits)

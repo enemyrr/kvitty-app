@@ -1,9 +1,22 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { upload } from "@vercel/blob/client";
 import { useDropzone } from "react-dropzone";
-import { Plus, Receipt, Money, FileText, DotsThree, Check, ArrowLeft, CloudArrowUp, X, File } from "@phosphor-icons/react";
+import {
+  Plus,
+  Receipt,
+  Money,
+  FileText,
+  DotsThree,
+  Check,
+  ArrowLeft,
+  CloudArrowUp,
+  X,
+  File,
+  SidebarIcon,
+} from "@phosphor-icons/react";
 import {
   Dialog,
   DialogContent,
@@ -26,12 +39,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { JournalEntryLineRow } from "./journal-entry-line-row";
+import { TemplateSelector } from "./template-selector";
+import { TemplateInputForm } from "./template-input-form";
 import { AIChat } from "@/components/ai-chat";
 import { trpc } from "@/lib/trpc/client";
 import type { fiscalPeriods } from "@/lib/db/schema";
 import type { JournalEntryLineInput, JournalEntryType } from "@/lib/validations/journal-entry";
+import type { VerificationTemplate, ScaledTransaction } from "@/lib/types/templates";
+import { VERIFICATION_TEMPLATES, TEMPLATE_CATEGORIES } from "@/lib/consts/verification-templates";
 
 type FiscalPeriod = typeof fiscalPeriods.$inferSelect;
 
@@ -41,7 +63,14 @@ interface AddJournalEntryDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   defaultPeriodId?: string;
+  initialFiles?: File[];
+  initialDescription?: string;
+  initialLines?: JournalEntryLineInput[];
+  initialEntryDate?: string;
+  initialEntryType?: JournalEntryType;
 }
+
+type Step = 1 | 2 | "template-input" | 3;
 
 const entryTypes: { value: JournalEntryType; label: string; description: string; icon: typeof Receipt }[] = [
   { value: "kvitto", label: "Kvitto/Utgift", description: "Registrera inköp och utlägg", icon: Receipt },
@@ -57,27 +86,65 @@ const emptyLine: JournalEntryLineInput = {
   credit: undefined,
 };
 
+const AI_CHAT_STORAGE_KEY = "kvitty:ai-chat-visible";
+
 export function AddJournalEntryDialog({
   workspaceId,
   periods,
   open,
   onOpenChange,
   defaultPeriodId,
+  initialFiles,
+  initialDescription,
+  initialLines,
+  initialEntryDate,
+  initialEntryType,
 }: AddJournalEntryDialogProps) {
   const router = useRouter();
-  const [step, setStep] = useState<1 | 2>(1);
+  const [step, setStep] = useState<Step>(1);
   const [fiscalPeriodId, setFiscalPeriodId] = useState(defaultPeriodId || periods[0]?.id || "");
-  const [entryType, setEntryType] = useState<JournalEntryType>("kvitto");
-  const [entryDate, setEntryDate] = useState(new Date().toISOString().split("T")[0]);
-  const [description, setDescription] = useState("");
-  const [lines, setLines] = useState<JournalEntryLineInput[]>([
-    { ...emptyLine },
-    { ...emptyLine },
-  ]);
-  const [files, setFiles] = useState<File[]>([]);
+  const [entryType, setEntryType] = useState<JournalEntryType>(initialEntryType || "kvitto");
+  const [entryDate, setEntryDate] = useState(initialEntryDate || new Date().toISOString().split("T")[0]);
+  const [description, setDescription] = useState(initialDescription || "");
+  const [lines, setLines] = useState<JournalEntryLineInput[]>(
+    initialLines && initialLines.length > 0
+      ? initialLines
+      : [{ ...emptyLine }, { ...emptyLine }]
+  );
+  const [files, setFiles] = useState<File[]>(initialFiles || []);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Template state
+  const [selectedTemplate, setSelectedTemplate] = useState<VerificationTemplate | null>(null);
+
+  // AI Chat visibility
+  const [showAIChat, setShowAIChat] = useState(() => {
+    if (typeof window === "undefined") return true;
+    const stored = localStorage.getItem(AI_CHAT_STORAGE_KEY);
+    return stored !== "false";
+  });
+
+  // Persist AI chat visibility
+  const toggleAIChat = () => {
+    setShowAIChat((prev) => {
+      const next = !prev;
+      localStorage.setItem(AI_CHAT_STORAGE_KEY, String(next));
+      return next;
+    });
+  };
+
+  // Get direction filter based on entry type
+  const getDirectionFilter = (): "In" | "Out" | "all" => {
+    if (entryType === "kvitto" || entryType === "leverantorsfaktura") {
+      return "In";
+    }
+    if (entryType === "inkomst") {
+      return "Out";
+    }
+    return "all";
+  };
 
   const analyzeReceipt = async (file: File) => {
     setIsAnalyzing(true);
@@ -93,7 +160,6 @@ export function AddJournalEntryDialog({
       const result = await response.json();
 
       if (result.success && result.data) {
-        // Pre-fill the form with analyzed data
         if (result.data.date) {
           setEntryDate(result.data.date);
         }
@@ -114,8 +180,7 @@ export function AddJournalEntryDialog({
         } else if (result.data.description) {
           setDescription(result.data.description);
         }
-        // Move to step 2 to show the pre-filled form
-        setStep(2);
+        setStep(3);
       }
     } catch (err) {
       console.error("Failed to analyze receipt:", err);
@@ -126,7 +191,6 @@ export function AddJournalEntryDialog({
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles((prev) => [...prev, ...acceptedFiles]);
-    // Analyze the first image file
     const imageFile = acceptedFiles.find((f) => f.type.startsWith("image/"));
     if (imageFile) {
       analyzeReceipt(imageFile);
@@ -146,31 +210,20 @@ export function AddJournalEntryDialog({
   });
 
   const utils = trpc.useUtils();
-
   const addAttachment = trpc.journalEntries.addAttachment.useMutation();
 
   const uploadFiles = async (journalEntryId: string) => {
     for (const file of files) {
       try {
-        // Upload to blob storage
-        const res = await fetch(
-          `/api/upload?filename=${encodeURIComponent(file.name)}`,
-          {
-            method: "POST",
-            body: file,
-          }
-        );
-
-        if (!res.ok) continue;
-
-        const { url } = await res.json();
-
-        // Create attachment record
+        const blob = await upload(file.name, file, {
+          access: "public",
+          handleUploadUrl: "/api/upload",
+        });
         await addAttachment.mutateAsync({
           workspaceId,
           journalEntryId,
           fileName: file.name,
-          fileUrl: url,
+          fileUrl: blob.url,
           fileSize: file.size,
           mimeType: file.type,
         });
@@ -182,7 +235,6 @@ export function AddJournalEntryDialog({
 
   const createEntry = trpc.journalEntries.create.useMutation({
     onSuccess: async (data) => {
-      // Upload files if any
       if (files.length > 0) {
         setIsUploading(true);
         await uploadFiles(data.id);
@@ -199,6 +251,29 @@ export function AddJournalEntryDialog({
     },
   });
 
+  useEffect(() => {
+    if (open) {
+      if (initialFiles && initialFiles.length > 0) {
+        setFiles(initialFiles);
+      }
+      if (initialDescription) {
+        setDescription(initialDescription);
+      }
+      if (initialLines && initialLines.length > 0) {
+        setLines(initialLines);
+        setStep(3);
+      }
+      if (initialEntryDate) {
+        setEntryDate(initialEntryDate);
+      }
+      if (initialEntryType) {
+        setEntryType(initialEntryType);
+      }
+    } else {
+      resetForm();
+    }
+  }, [open]);
+
   const resetForm = () => {
     setStep(1);
     setEntryType("kvitto");
@@ -209,6 +284,7 @@ export function AddJournalEntryDialog({
     setIsAnalyzing(false);
     setIsUploading(false);
     setError(null);
+    setSelectedTemplate(null);
   };
 
   const handleLineChange = (index: number, line: JournalEntryLineInput) => {
@@ -236,7 +312,6 @@ export function AddJournalEntryDialog({
       credit: number;
     }>;
   }) => {
-    // Set lines from suggestion (convert 0 to undefined for the form)
     setLines(
       suggestion.lines.map((l) => ({
         accountNumber: l.accountNumber,
@@ -245,17 +320,41 @@ export function AddJournalEntryDialog({
         credit: l.credit || undefined,
       }))
     );
-    // Also set description if current is empty
     if (suggestion.description && !description) {
       setDescription(suggestion.description);
     }
+  };
+
+  const handleSelectTemplate = (template: VerificationTemplate) => {
+    setSelectedTemplate(template);
+    setStep("template-input");
+  };
+
+  const handleSelectManual = () => {
+    setStep(3);
+  };
+
+  const handleTemplateSubmit = (
+    transactions: ScaledTransaction[],
+    title: string,
+    comment?: string
+  ) => {
+    setDescription(title + (comment ? ` - ${comment}` : ""));
+    setLines(
+      transactions.map((t) => ({
+        accountNumber: t.accountNumber,
+        accountName: t.accountName,
+        debit: t.debit,
+        credit: t.credit,
+      }))
+    );
+    setStep(3);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    // Validate
     const validLines = lines.filter(
       (l) => l.accountNumber && l.accountName && (l.debit || l.credit)
     );
@@ -279,7 +378,7 @@ export function AddJournalEntryDialog({
       entryDate,
       description,
       entryType,
-      sourceType: "manual",
+      sourceType: selectedTemplate ? "manual" : "manual",
       lines: validLines,
     });
   };
@@ -288,20 +387,53 @@ export function AddJournalEntryDialog({
   const totalCredit = lines.reduce((sum, l) => sum + (l.credit || 0), 0);
   const isBalanced = Math.abs(totalDebit - totalCredit) < 0.01;
 
+  const getBackStep = (): Step => {
+    if (step === 2) return 1;
+    if (step === "template-input") return 2;
+    if (step === 3) return selectedTemplate ? "template-input" : 2;
+    return 1;
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="min-w-5xl max-h-[90vh] overflow-hidden flex flex-col">
+      <DialogContent className={cn(
+        "max-h-[70vh] overflow-hidden flex flex-col",
+        showAIChat ? "min-w-5xl" : "min-w-2xl"
+      )}>
         <DialogHeader>
           <DialogTitle>Ny verifikation</DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-hidden grid grid-cols-2 gap-4 mt-4">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              onClick={toggleAIChat}
+              className={cn(
+                "absolute top-2 right-12",
+                !showAIChat && "text-muted-foreground"
+              )}
+            >
+              <SidebarIcon className="size-4" weight={showAIChat ? "fill" : "regular"} />
+              <span className="sr-only">{showAIChat ? "Dölj AI-assistent" : "Visa AI-assistent"}</span>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            {showAIChat ? "Dölj AI-assistent" : "Visa AI-assistent"}
+          </TooltipContent>
+        </Tooltip>
+
+        <div className={cn(
+          "flex-1 overflow-hidden",
+          showAIChat ? "grid grid-cols-2 gap-4" : ""
+        )}>
           {/* Left side - Step content */}
           <div className="flex flex-col overflow-hidden">
-            {step === 1 ? (
+            {step === 1 && (
               /* Step 1: Entry Type Selection */
               <div className="flex flex-col h-full">
-                {/* Quick upload dropzone */}
                 <div
                   {...getRootProps()}
                   className={cn(
@@ -397,8 +529,35 @@ export function AddJournalEntryDialog({
                   </Button>
                 </div>
               </div>
-            ) : (
-              /* Step 2: Form Entry */
+            )}
+
+            {step === 2 && (
+              /* Step 2: Template Selection */
+              <TemplateSelector
+                templates={VERIFICATION_TEMPLATES}
+                categories={[...TEMPLATE_CATEGORIES]}
+                direction={getDirectionFilter()}
+                onSelectTemplate={handleSelectTemplate}
+                onSelectManual={handleSelectManual}
+                onBack={() => setStep(1)}
+              />
+            )}
+
+            {step === "template-input" && selectedTemplate && (
+              /* Step 2.5: Template Input */
+              <TemplateInputForm
+                template={selectedTemplate}
+                defaultDate={entryDate}
+                onSubmit={handleTemplateSubmit}
+                onBack={() => {
+                  setSelectedTemplate(null);
+                  setStep(2);
+                }}
+              />
+            )}
+
+            {step === 3 && (
+              /* Step 3: Form Entry */
               <form onSubmit={handleSubmit} className="flex flex-col h-full overflow-hidden">
                 <FieldGroup className="flex-1 overflow-y-auto">
                   <div className="grid grid-cols-2 gap-4">
@@ -442,7 +601,6 @@ export function AddJournalEntryDialog({
                     />
                   </Field>
 
-                  {/* Dropzone for underlag */}
                   <Field>
                     <FieldLabel>Underlag</FieldLabel>
                     <div
@@ -528,7 +686,6 @@ export function AddJournalEntryDialog({
                     </Button>
                   </div>
 
-                  {/* Summary */}
                   <div className="flex items-center justify-between text-sm border-t pt-4">
                     <span className="text-muted-foreground">Summa:</span>
                     <div className="flex gap-4">
@@ -555,7 +712,7 @@ export function AddJournalEntryDialog({
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => setStep(1)}
+                    onClick={() => setStep(getBackStep())}
                     disabled={createEntry.isPending}
                   >
                     <ArrowLeft className="size-4 mr-2" />
@@ -580,14 +737,16 @@ export function AddJournalEntryDialog({
             )}
           </div>
 
-          {/* Right side - AI Chat (always visible) */}
-          <div className="border-l pl-4 overflow-hidden">
-            <AIChat
-              onSuggestion={handleAISuggestion}
-              context={{ entryType, description }}
-              className="h-full"
-            />
-          </div>
+          {/* Right side - AI Chat (toggleable) */}
+          {showAIChat && (
+            <div className="border-l pl-4 overflow-hidden">
+              <AIChat
+                onSuggestion={handleAISuggestion}
+                context={{ entryType, description }}
+                className="h-full"
+              />
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>

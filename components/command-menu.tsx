@@ -139,21 +139,21 @@ export function CommandMenu() {
                 id: "members",
                 label: "Medlemmar",
                 icon: Users,
-                href: `/${workspace.slug}/members`,
+                href: `/${workspace.slug}/medlemmar`,
                 group: "Inställningar",
             },
             {
                 id: "workspace-settings",
                 label: "Inställningar",
                 icon: Gear,
-                href: `/${workspace.slug}/settings`,
+                href: `/${workspace.slug}/installningar`,
                 group: "Inställningar",
             },
             {
                 id: "user-settings",
                 label: "Användarinställningar",
                 icon: User,
-                href: "/user/settings",
+                href: "/user/installningar",
                 group: "Inställningar",
             }
         );

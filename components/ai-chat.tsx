@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { PaperPlaneRight, Robot, User, Check } from "@phosphor-icons/react";
+import { PaperPlaneRight, Robot, Check } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 
@@ -92,8 +92,8 @@ export function AIChat({ onSuggestion, context, className }: AIChatProps) {
   };
 
   return (
-    <div className={cn("flex flex-col h-full", className)}>
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+    <div className={cn("flex flex-col h-full relative", className)}>
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-0">
         {messages.length === 0 ? (
           <div className="text-center text-muted-foreground text-sm py-8">
             <Robot className="size-12 mx-auto mb-3 opacity-50" weight="duotone" />
@@ -107,20 +107,8 @@ export function AIChat({ onSuggestion, context, className }: AIChatProps) {
               <div className={cn("flex gap-3", message.role === "user" && "flex-row-reverse")}>
                 <div
                   className={cn(
-                    "flex size-8 shrink-0 items-center justify-center rounded-full",
-                    message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
-                  )}
-                >
-                  {message.role === "user" ? (
-                    <User className="size-4" weight="bold" />
-                  ) : (
-                    <Robot className="size-4" weight="duotone" />
-                  )}
-                </div>
-                <div
-                  className={cn(
                     "rounded-lg px-3 py-2 text-sm max-w-[85%]",
-                    message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
+                    message.role === "user" ? "bg-primary text-primary-foreground" : ""
                   )}
                 >
                   {message.content}
@@ -129,7 +117,7 @@ export function AIChat({ onSuggestion, context, className }: AIChatProps) {
 
               {/* Suggestion card */}
               {message.suggestion && (
-                <div className="ml-11">
+                <div className={message.role === "user" ? "mr-0" : "ml-0"}>
                   <SuggestionCard
                     suggestion={message.suggestion}
                     onUse={onSuggestion ? () => onSuggestion(message.suggestion!) : undefined}
@@ -142,10 +130,7 @@ export function AIChat({ onSuggestion, context, className }: AIChatProps) {
 
         {isLoading && (
           <div className="flex gap-3">
-            <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted">
-              <Robot className="size-4" weight="duotone" />
-            </div>
-            <div className="rounded-lg px-3 py-2 bg-muted">
+            <div className="rounded-lg px-3 py-2">
               <Spinner className="size-4" />
             </div>
           </div>
@@ -154,16 +139,31 @@ export function AIChat({ onSuggestion, context, className }: AIChatProps) {
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="p-4 border-t">
-        <div className="flex gap-2">
-          <Input
+      <form onSubmit={handleSubmit} className="px-4 mt-auto relative">
+        <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-t from-background to-transparent pointer-events-none -translate-y-full" />
+        <div className="relative">
+          <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                if (!isLoading && input.trim()) {
+                  handleSubmit(e as unknown as React.FormEvent);
+                }
+              }
+            }}
             placeholder="Beskriv transaktionen..."
             disabled={isLoading}
-            className="flex-1"
+            className="w-full resize-none pr-12 max-h-32"
+            rows={2}
           />
-          <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
+          <Button
+            type="submit"
+            size="icon-sm"
+            disabled={isLoading || !input.trim()}
+            className="absolute bottom-2 right-2"
+          >
             <PaperPlaneRight className="size-4" />
           </Button>
         </div>

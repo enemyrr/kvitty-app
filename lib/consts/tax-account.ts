@@ -1,5542 +1,5542 @@
 export interface TaxAccount {
-    Id: number
-    Text: string
+    id: number
+    text: string
 }
 
 export interface TaxSubCategory {
-    Id: number
-    Text: string
-    ParentId?: number
-    Accounts: TaxAccount[]
+    id: number
+    text: string
+    parentId?: number
+    accounts: TaxAccount[]
 }
 
 export interface TaxCategory {
-    Id: number
-    Text: string
-    SubCategories: TaxSubCategory[]
+    id: number
+    text: string
+    subCategories: TaxSubCategory[]
 }
 
 export const taxAccounts: TaxCategory[] = [
 
     {
-        "Id": 1,
-        "Text": "Tillgångar",
-        "SubCategories": [
+        "id": 1,
+        "text": "Tillgångar",
+        "subCategories": [
             {
-                "Id": 10,
-                "Text": "Immateriella anläggningstillgångar",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 10,
+                "text": "Immateriella anläggningstillgångar",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1010,
-                        "Text": "Utvecklingsutgifter"
+                        "id": 1010,
+                        "text": "Utvecklingsutgifter"
                     },
                     {
-                        "Id": 1011,
-                        "Text": "Balanserade utgifter för forskning och utveckling"
+                        "id": 1011,
+                        "text": "Balanserade utgifter för forskning och utveckling"
                     },
                     {
-                        "Id": 1012,
-                        "Text": "Balanserade utgifter för programvaror"
+                        "id": 1012,
+                        "text": "Balanserade utgifter för programvaror"
                     },
                     {
-                        "Id": 1018,
-                        "Text": "Ackumulerade nedskrivningar på balanserade utgifter"
+                        "id": 1018,
+                        "text": "Ackumulerade nedskrivningar på balanserade utgifter"
                     },
                     {
-                        "Id": 1019,
-                        "Text": "Ackumulerade avskrivningar på balanserade utgifter"
+                        "id": 1019,
+                        "text": "Ackumulerade avskrivningar på balanserade utgifter"
                     },
                     {
-                        "Id": 1020,
-                        "Text": "Koncessioner m.m."
+                        "id": 1020,
+                        "text": "Koncessioner m.m."
                     },
                     {
-                        "Id": 1028,
-                        "Text": "Ackumulerade nedskrivningar på koncessioner m.m."
+                        "id": 1028,
+                        "text": "Ackumulerade nedskrivningar på koncessioner m.m."
                     },
                     {
-                        "Id": 1029,
-                        "Text": "Ackumulerade avskrivningar på koncessioner m.m."
+                        "id": 1029,
+                        "text": "Ackumulerade avskrivningar på koncessioner m.m."
                     },
                     {
-                        "Id": 1030,
-                        "Text": "Patent"
+                        "id": 1030,
+                        "text": "Patent"
                     },
                     {
-                        "Id": 1038,
-                        "Text": "Ackumulerade nedskrivningar på patent"
+                        "id": 1038,
+                        "text": "Ackumulerade nedskrivningar på patent"
                     },
                     {
-                        "Id": 1039,
-                        "Text": "Ackumulerade avskrivningar på patent"
+                        "id": 1039,
+                        "text": "Ackumulerade avskrivningar på patent"
                     },
                     {
-                        "Id": 1040,
-                        "Text": "Licenser"
+                        "id": 1040,
+                        "text": "Licenser"
                     },
                     {
-                        "Id": 1048,
-                        "Text": "Ackumulerade nedskrivningar på licenser"
+                        "id": 1048,
+                        "text": "Ackumulerade nedskrivningar på licenser"
                     },
                     {
-                        "Id": 1049,
-                        "Text": "Ackumulerade avskrivningar på licenser"
+                        "id": 1049,
+                        "text": "Ackumulerade avskrivningar på licenser"
                     },
                     {
-                        "Id": 1050,
-                        "Text": "Varumärken"
+                        "id": 1050,
+                        "text": "Varumärken"
                     },
                     {
-                        "Id": 1058,
-                        "Text": "Ackumulerade nedskrivningar på varumärken"
+                        "id": 1058,
+                        "text": "Ackumulerade nedskrivningar på varumärken"
                     },
                     {
-                        "Id": 1059,
-                        "Text": "Ackumulerade avskrivningar på varumärken"
+                        "id": 1059,
+                        "text": "Ackumulerade avskrivningar på varumärken"
                     },
                     {
-                        "Id": 1060,
-                        "Text": "Hyresrätter, tomträtter och liknande"
+                        "id": 1060,
+                        "text": "Hyresrätter, tomträtter och liknande"
                     },
                     {
-                        "Id": 1068,
-                        "Text": "Ackumulerade nedskrivningar på hyresrätter, tomträtter och liknande"
+                        "id": 1068,
+                        "text": "Ackumulerade nedskrivningar på hyresrätter, tomträtter och liknande"
                     },
                     {
-                        "Id": 1069,
-                        "Text": "Ackumulerade avskrivningar på hyresrätter, tomträtter och liknande"
+                        "id": 1069,
+                        "text": "Ackumulerade avskrivningar på hyresrätter, tomträtter och liknande"
                     },
                     {
-                        "Id": 1070,
-                        "Text": "Goodwill"
+                        "id": 1070,
+                        "text": "Goodwill"
                     },
                     {
-                        "Id": 1078,
-                        "Text": "Ackumulerade nedskrivningar på goodwill"
+                        "id": 1078,
+                        "text": "Ackumulerade nedskrivningar på goodwill"
                     },
                     {
-                        "Id": 1079,
-                        "Text": "Ackumulerade avskrivningar på goodwill"
+                        "id": 1079,
+                        "text": "Ackumulerade avskrivningar på goodwill"
                     },
                     {
-                        "Id": 1080,
-                        "Text": "Pågående projekt och förskott för immateriella anläggningstillgångar"
+                        "id": 1080,
+                        "text": "Pågående projekt och förskott för immateriella anläggningstillgångar"
                     },
                     {
-                        "Id": 1081,
-                        "Text": "Pågående projekt för immateriella anläggningstillgångar"
+                        "id": 1081,
+                        "text": "Pågående projekt för immateriella anläggningstillgångar"
                     },
                     {
-                        "Id": 1088,
-                        "Text": "Förskott för immateriella anläggningstillgångar"
+                        "id": 1088,
+                        "text": "Förskott för immateriella anläggningstillgångar"
                     }
                 ]
             },
             {
-                "Id": 11,
-                "Text": "Byggnader och mark",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 11,
+                "text": "Byggnader och mark",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1110,
-                        "Text": "Byggnader"
+                        "id": 1110,
+                        "text": "Byggnader"
                     },
                     {
-                        "Id": 1111,
-                        "Text": "Byggnader på egen mark"
+                        "id": 1111,
+                        "text": "Byggnader på egen mark"
                     },
                     {
-                        "Id": 1112,
-                        "Text": "Byggnader på annans mark"
+                        "id": 1112,
+                        "text": "Byggnader på annans mark"
                     },
                     {
-                        "Id": 1118,
-                        "Text": "Ackumulerade nedskrivningar på byggnader"
+                        "id": 1118,
+                        "text": "Ackumulerade nedskrivningar på byggnader"
                     },
                     {
-                        "Id": 1119,
-                        "Text": "Ackumulerade avskrivningar på byggnader"
+                        "id": 1119,
+                        "text": "Ackumulerade avskrivningar på byggnader"
                     },
                     {
-                        "Id": 1120,
-                        "Text": "Förbättringsutgifter på annans fastighet"
+                        "id": 1120,
+                        "text": "Förbättringsutgifter på annans fastighet"
                     },
                     {
-                        "Id": 1129,
-                        "Text": "Ackumulerade avskrivningar på förbättringsutgifter på annans fastighet"
+                        "id": 1129,
+                        "text": "Ackumulerade avskrivningar på förbättringsutgifter på annans fastighet"
                     },
                     {
-                        "Id": 1130,
-                        "Text": "Mark"
+                        "id": 1130,
+                        "text": "Mark"
                     },
                     {
-                        "Id": 1140,
-                        "Text": "Tomter och obebyggda markområden"
+                        "id": 1140,
+                        "text": "Tomter och obebyggda markområden"
                     },
                     {
-                        "Id": 1150,
-                        "Text": "Markanläggningar"
+                        "id": 1150,
+                        "text": "Markanläggningar"
                     },
                     {
-                        "Id": 1158,
-                        "Text": "Ackumulerade nedskrivningar på markanläggningar"
+                        "id": 1158,
+                        "text": "Ackumulerade nedskrivningar på markanläggningar"
                     },
                     {
-                        "Id": 1159,
-                        "Text": "Ackumulerade avskrivningar på markanläggningar"
+                        "id": 1159,
+                        "text": "Ackumulerade avskrivningar på markanläggningar"
                     },
                     {
-                        "Id": 1180,
-                        "Text": "Pågående nyanläggningar och förskott för byggnader och mark"
+                        "id": 1180,
+                        "text": "Pågående nyanläggningar och förskott för byggnader och mark"
                     },
                     {
-                        "Id": 1181,
-                        "Text": "Pågående ny-, till- och ombyggnad"
+                        "id": 1181,
+                        "text": "Pågående ny-, till- och ombyggnad"
                     },
                     {
-                        "Id": 1188,
-                        "Text": "Förskott för byggnader och mark"
+                        "id": 1188,
+                        "text": "Förskott för byggnader och mark"
                     }
                 ]
             },
             {
-                "Id": 12,
-                "Text": "Maskiner och inventarier",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 12,
+                "text": "Maskiner och inventarier",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1210,
-                        "Text": "Maskiner och andra tekniska anläggningar"
+                        "id": 1210,
+                        "text": "Maskiner och andra tekniska anläggningar"
                     },
                     {
-                        "Id": 1211,
-                        "Text": "Maskiner"
+                        "id": 1211,
+                        "text": "Maskiner"
                     },
                     {
-                        "Id": 1213,
-                        "Text": "Andra tekniska anläggningar"
+                        "id": 1213,
+                        "text": "Andra tekniska anläggningar"
                     },
                     {
-                        "Id": 1218,
-                        "Text": "Ackumulerade nedskrivningar på maskiner och andra tekniska anläggningar"
+                        "id": 1218,
+                        "text": "Ackumulerade nedskrivningar på maskiner och andra tekniska anläggningar"
                     },
                     {
-                        "Id": 1219,
-                        "Text": "Ackumulerade avskrivningar på maskiner och andra tekniska anläggningar"
+                        "id": 1219,
+                        "text": "Ackumulerade avskrivningar på maskiner och andra tekniska anläggningar"
                     },
                     {
-                        "Id": 1220,
-                        "Text": "Inventarier och verktyg"
+                        "id": 1220,
+                        "text": "Inventarier och verktyg"
                     },
                     {
-                        "Id": 1221,
-                        "Text": "Inventarier"
+                        "id": 1221,
+                        "text": "Inventarier"
                     },
                     {
-                        "Id": 1222,
-                        "Text": "Byggnadsinventarier"
+                        "id": 1222,
+                        "text": "Byggnadsinventarier"
                     },
                     {
-                        "Id": 1223,
-                        "Text": "Markinventarier"
+                        "id": 1223,
+                        "text": "Markinventarier"
                     },
                     {
-                        "Id": 1225,
-                        "Text": "Verktyg"
+                        "id": 1225,
+                        "text": "Verktyg"
                     },
                     {
-                        "Id": 1228,
-                        "Text": "Ackumulerade nedskrivningar på inventarier och verktyg"
+                        "id": 1228,
+                        "text": "Ackumulerade nedskrivningar på inventarier och verktyg"
                     },
                     {
-                        "Id": 1229,
-                        "Text": "Ackumulerade avskrivningar på inventarier och verktyg"
+                        "id": 1229,
+                        "text": "Ackumulerade avskrivningar på inventarier och verktyg"
                     },
                     {
-                        "Id": 1230,
-                        "Text": "Installationer"
+                        "id": 1230,
+                        "text": "Installationer"
                     },
                     {
-                        "Id": 1231,
-                        "Text": "Installationer på egen fastighet"
+                        "id": 1231,
+                        "text": "Installationer på egen fastighet"
                     },
                     {
-                        "Id": 1232,
-                        "Text": "Installationer på annans fastig het"
+                        "id": 1232,
+                        "text": "Installationer på annans fastig het"
                     },
                     {
-                        "Id": 1238,
-                        "Text": "Ackumulerade nedskrivningar på installationer"
+                        "id": 1238,
+                        "text": "Ackumulerade nedskrivningar på installationer"
                     },
                     {
-                        "Id": 1239,
-                        "Text": "Ackumulerade avskrivningar på installationer"
+                        "id": 1239,
+                        "text": "Ackumulerade avskrivningar på installationer"
                     },
                     {
-                        "Id": 1240,
-                        "Text": "Bilar och andra transportmedel"
+                        "id": 1240,
+                        "text": "Bilar och andra transportmedel"
                     },
                     {
-                        "Id": 1241,
-                        "Text": "Personbilar"
+                        "id": 1241,
+                        "text": "Personbilar"
                     },
                     {
-                        "Id": 1242,
-                        "Text": "Lastbilar"
+                        "id": 1242,
+                        "text": "Lastbilar"
                     },
                     {
-                        "Id": 1243,
-                        "Text": "Truckar"
+                        "id": 1243,
+                        "text": "Truckar"
                     },
                     {
-                        "Id": 1244,
-                        "Text": "Arbetsmaskiner"
+                        "id": 1244,
+                        "text": "Arbetsmaskiner"
                     },
                     {
-                        "Id": 1245,
-                        "Text": "Traktorer"
+                        "id": 1245,
+                        "text": "Traktorer"
                     },
                     {
-                        "Id": 1246,
-                        "Text": "Motorcyklar, mopeder och skotrar"
+                        "id": 1246,
+                        "text": "Motorcyklar, mopeder och skotrar"
                     },
                     {
-                        "Id": 1247,
-                        "Text": "Båtar, flygplan och helikoptrar"
+                        "id": 1247,
+                        "text": "Båtar, flygplan och helikoptrar"
                     },
                     {
-                        "Id": 1248,
-                        "Text": "Ackumulerade nedskrivningar på bilar och andra transportmedel"
+                        "id": 1248,
+                        "text": "Ackumulerade nedskrivningar på bilar och andra transportmedel"
                     },
                     {
-                        "Id": 1249,
-                        "Text": "Ackumulerade avskrivningar på bilar och andra transportmedel"
+                        "id": 1249,
+                        "text": "Ackumulerade avskrivningar på bilar och andra transportmedel"
                     },
                     {
-                        "Id": 1250,
-                        "Text": "Datorer"
+                        "id": 1250,
+                        "text": "Datorer"
                     },
                     {
-                        "Id": 1251,
-                        "Text": "Datorer, företaget"
+                        "id": 1251,
+                        "text": "Datorer, företaget"
                     },
                     {
-                        "Id": 1257,
-                        "Text": "Datorer, personal"
+                        "id": 1257,
+                        "text": "Datorer, personal"
                     },
                     {
-                        "Id": 1258,
-                        "Text": "Ackumulerade nedskrivningar på datorer"
+                        "id": 1258,
+                        "text": "Ackumulerade nedskrivningar på datorer"
                     },
                     {
-                        "Id": 1259,
-                        "Text": "Ackumulerade avskrivningar på datorer"
+                        "id": 1259,
+                        "text": "Ackumulerade avskrivningar på datorer"
                     },
                     {
-                        "Id": 1260,
-                        "Text": "Leasade tillgångar"
+                        "id": 1260,
+                        "text": "Leasade tillgångar"
                     },
                     {
-                        "Id": 1269,
-                        "Text": "Ackumulerade avskrivningar på leasade tillgångar"
+                        "id": 1269,
+                        "text": "Ackumulerade avskrivningar på leasade tillgångar"
                     },
                     {
-                        "Id": 1280,
-                        "Text": "Pågående nyanläggningar och förskott för maskiner och inventarier"
+                        "id": 1280,
+                        "text": "Pågående nyanläggningar och förskott för maskiner och inventarier"
                     },
                     {
-                        "Id": 1281,
-                        "Text": "Pågående nyanläggningar, maskiner och inventarier"
+                        "id": 1281,
+                        "text": "Pågående nyanläggningar, maskiner och inventarier"
                     },
                     {
-                        "Id": 1288,
-                        "Text": "Förskott för maskiner och inventarier"
+                        "id": 1288,
+                        "text": "Förskott för maskiner och inventarier"
                     },
                     {
-                        "Id": 1290,
-                        "Text": "Övriga materiella anläggningstillgångar"
+                        "id": 1290,
+                        "text": "Övriga materiella anläggningstillgångar"
                     },
                     {
-                        "Id": 1291,
-                        "Text": "Konst och liknande tillgångar"
+                        "id": 1291,
+                        "text": "Konst och liknande tillgångar"
                     },
                     {
-                        "Id": 1292,
-                        "Text": "Djur som klassificeras som anläggningstillgång"
+                        "id": 1292,
+                        "text": "Djur som klassificeras som anläggningstillgång"
                     },
                     {
-                        "Id": 1298,
-                        "Text": "Ackumulerade nedskrivningar på övriga materiella anläggningstillgångar"
+                        "id": 1298,
+                        "text": "Ackumulerade nedskrivningar på övriga materiella anläggningstillgångar"
                     },
                     {
-                        "Id": 1299,
-                        "Text": "Ackumulerade avskrivningar på övriga materiella anläggningstillgångar"
+                        "id": 1299,
+                        "text": "Ackumulerade avskrivningar på övriga materiella anläggningstillgångar"
                     }
                 ]
             },
             {
-                "Id": 13,
-                "Text": "Finansiella anläggningstillgångar",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 13,
+                "text": "Finansiella anläggningstillgångar",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1310,
-                        "Text": "Andelar i koncernföretag"
+                        "id": 1310,
+                        "text": "Andelar i koncernföretag"
                     },
                     {
-                        "Id": 1311,
-                        "Text": "Aktier i noterade svenska koncernföretag"
+                        "id": 1311,
+                        "text": "Aktier i noterade svenska koncernföretag"
                     },
                     {
-                        "Id": 1312,
-                        "Text": "Aktier i onoterade svenska koncernföretag"
+                        "id": 1312,
+                        "text": "Aktier i onoterade svenska koncernföretag"
                     },
                     {
-                        "Id": 1313,
-                        "Text": "Aktier i noterade utländska koncernföretag"
+                        "id": 1313,
+                        "text": "Aktier i noterade utländska koncernföretag"
                     },
                     {
-                        "Id": 1314,
-                        "Text": "Aktier i onoterade utländska koncernföretag"
+                        "id": 1314,
+                        "text": "Aktier i onoterade utländska koncernföretag"
                     },
                     {
-                        "Id": 1316,
-                        "Text": "Övriga andelar i koncernföretag"
+                        "id": 1316,
+                        "text": "Övriga andelar i koncernföretag"
                     },
                     {
-                        "Id": 1318,
-                        "Text": "Ackumulerade nedskrivningar av andelar i koncernföretag"
+                        "id": 1318,
+                        "text": "Ackumulerade nedskrivningar av andelar i koncernföretag"
                     },
                     {
-                        "Id": 1320,
-                        "Text": "Långfristiga fordringar hos koncernföretag"
+                        "id": 1320,
+                        "text": "Långfristiga fordringar hos koncernföretag"
                     },
                     {
-                        "Id": 1321,
-                        "Text": "Långfristiga fordringar hos moderföretag"
+                        "id": 1321,
+                        "text": "Långfristiga fordringar hos moderföretag"
                     },
                     {
-                        "Id": 1322,
-                        "Text": "Långfristiga fordringar hos dotterföretag"
+                        "id": 1322,
+                        "text": "Långfristiga fordringar hos dotterföretag"
                     },
                     {
-                        "Id": 1323,
-                        "Text": "Långfristiga fordringar hos andra koncernföretag"
+                        "id": 1323,
+                        "text": "Långfristiga fordringar hos andra koncernföretag"
                     },
                     {
-                        "Id": 1328,
-                        "Text": "Ackumulerade nedskrivningar av långfristiga fordringar hos koncernföretag"
+                        "id": 1328,
+                        "text": "Ackumulerade nedskrivningar av långfristiga fordringar hos koncernföretag"
                     },
                     {
-                        "Id": 1330,
-                        "Text": "Andelar i intresseföretag"
+                        "id": 1330,
+                        "text": "Andelar i intresseföretag"
                     },
                     {
-                        "Id": 1336,
-                        "Text": "Andelar i ekonomiska föreningar, intresseföretag"
+                        "id": 1336,
+                        "text": "Andelar i ekonomiska föreningar, intresseföretag"
                     },
                     {
-                        "Id": 1338,
-                        "Text": "Ackumulerade nedskrivningar av andelar i intresseföretag"
+                        "id": 1338,
+                        "text": "Ackumulerade nedskrivningar av andelar i intresseföretag"
                     },
                     {
-                        "Id": 1340,
-                        "Text": "Långfristiga fordringar hos intresseföretag"
+                        "id": 1340,
+                        "text": "Långfristiga fordringar hos intresseföretag"
                     },
                     {
-                        "Id": 1348,
-                        "Text": "Ackumulerade nedskrivningar av långfristiga fordringar hos intresseföretag"
+                        "id": 1348,
+                        "text": "Ackumulerade nedskrivningar av långfristiga fordringar hos intresseföretag"
                     },
                     {
-                        "Id": 1350,
-                        "Text": "Andelar och värdepapper i andra företag"
+                        "id": 1350,
+                        "text": "Andelar och värdepapper i andra företag"
                     },
                     {
-                        "Id": 1351,
-                        "Text": "Andelar i börsnoterade företag"
+                        "id": 1351,
+                        "text": "Andelar i börsnoterade företag"
                     },
                     {
-                        "Id": 1352,
-                        "Text": "Andra andelar"
+                        "id": 1352,
+                        "text": "Andra andelar"
                     },
                     {
-                        "Id": 1353,
-                        "Text": "Andelar i bostadsrättsföreningar"
+                        "id": 1353,
+                        "text": "Andelar i bostadsrättsföreningar"
                     },
                     {
-                        "Id": 1354,
-                        "Text": "Obligationer"
+                        "id": 1354,
+                        "text": "Obligationer"
                     },
                     {
-                        "Id": 1356,
-                        "Text": "Andelar i ekonomiska föreningar, övriga företag"
+                        "id": 1356,
+                        "text": "Andelar i ekonomiska föreningar, övriga företag"
                     },
                     {
-                        "Id": 1358,
-                        "Text": "Ackumulerade nedskrivningar av andra andelar och värdepapper"
+                        "id": 1358,
+                        "text": "Ackumulerade nedskrivningar av andra andelar och värdepapper"
                     },
                     {
-                        "Id": 1360,
-                        "Text": "Lån till delägare eller närstående, långfristig del"
+                        "id": 1360,
+                        "text": "Lån till delägare eller närstående, långfristig del"
                     },
                     {
-                        "Id": 1369,
-                        "Text": "Ackumulerade nedskrivningar på lån till delägare eller närstående, långfristig del"
+                        "id": 1369,
+                        "text": "Ackumulerade nedskrivningar på lån till delägare eller närstående, långfristig del"
                     },
                     {
-                        "Id": 1370,
-                        "Text": "Uppskjuten skattefordran"
+                        "id": 1370,
+                        "text": "Uppskjuten skattefordran"
                     },
                     {
-                        "Id": 1380,
-                        "Text": "Andra långfristiga fordringar"
+                        "id": 1380,
+                        "text": "Andra långfristiga fordringar"
                     },
                     {
-                        "Id": 1381,
-                        "Text": "Långfristiga reversfordringar"
+                        "id": 1381,
+                        "text": "Långfristiga reversfordringar"
                     },
                     {
-                        "Id": 1382,
-                        "Text": "Långfristiga fordringar hos anställda"
+                        "id": 1382,
+                        "text": "Långfristiga fordringar hos anställda"
                     },
                     {
-                        "Id": 1383,
-                        "Text": "Lämnade depositioner, långfristiga"
+                        "id": 1383,
+                        "text": "Lämnade depositioner, långfristiga"
                     },
                     {
-                        "Id": 1384,
-                        "Text": "Derivat"
+                        "id": 1384,
+                        "text": "Derivat"
                     },
                     {
-                        "Id": 1385,
-                        "Text": "Värde av kapitalförsäkring"
+                        "id": 1385,
+                        "text": "Värde av kapitalförsäkring"
                     },
                     {
-                        "Id": 1386,
-                        "Text": "Förutbetalda leasingavgifter, långfristig del"
+                        "id": 1386,
+                        "text": "Förutbetalda leasingavgifter, långfristig del"
                     },
                     {
-                        "Id": 1387,
-                        "Text": "Långfristiga kontraktsfordringar"
+                        "id": 1387,
+                        "text": "Långfristiga kontraktsfordringar"
                     },
                     {
-                        "Id": 1389,
-                        "Text": "Ackumulerade nedskrivningar av andra långfristiga fordringar"
+                        "id": 1389,
+                        "text": "Ackumulerade nedskrivningar av andra långfristiga fordringar"
                     }
                 ]
             },
             {
-                "Id": 14,
-                "Text": "Lager, produkter i arbete och pågående arbeten",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 14,
+                "text": "Lager, produkter i arbete och pågående arbeten",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1410,
-                        "Text": "Lager av råvaror"
+                        "id": 1410,
+                        "text": "Lager av råvaror"
                     },
                     {
-                        "Id": 1419,
-                        "Text": "Förändring av lager av råvaror"
+                        "id": 1419,
+                        "text": "Förändring av lager av råvaror"
                     },
                     {
-                        "Id": 1420,
-                        "Text": "Lager av tillsatsmaterial och förnödenheter"
+                        "id": 1420,
+                        "text": "Lager av tillsatsmaterial och förnödenheter"
                     },
                     {
-                        "Id": 1429,
-                        "Text": "Förändring av lager av tillsatsmaterial och förnödenheter"
+                        "id": 1429,
+                        "text": "Förändring av lager av tillsatsmaterial och förnödenheter"
                     },
                     {
-                        "Id": 1430,
-                        "Text": "Lager av halvfabrikat"
+                        "id": 1430,
+                        "text": "Lager av halvfabrikat"
                     },
                     {
-                        "Id": 1431,
-                        "Text": "Lager av köpta halvfabrikat"
+                        "id": 1431,
+                        "text": "Lager av köpta halvfabrikat"
                     },
                     {
-                        "Id": 1432,
-                        "Text": "Lager av egentillverkade halvfabrikat"
+                        "id": 1432,
+                        "text": "Lager av egentillverkade halvfabrikat"
                     },
                     {
-                        "Id": 1438,
-                        "Text": "Förändring av lager av köpta halvfabrikat"
+                        "id": 1438,
+                        "text": "Förändring av lager av köpta halvfabrikat"
                     },
                     {
-                        "Id": 1439,
-                        "Text": "Förändring av lager av egentillverkade halvfabrikat"
+                        "id": 1439,
+                        "text": "Förändring av lager av egentillverkade halvfabrikat"
                     },
                     {
-                        "Id": 1440,
-                        "Text": "Produkter i arbete"
+                        "id": 1440,
+                        "text": "Produkter i arbete"
                     },
                     {
-                        "Id": 1449,
-                        "Text": "Förändring av produkter i arbete"
+                        "id": 1449,
+                        "text": "Förändring av produkter i arbete"
                     },
                     {
-                        "Id": 1450,
-                        "Text": "Lager av färdiga varor"
+                        "id": 1450,
+                        "text": "Lager av färdiga varor"
                     },
                     {
-                        "Id": 1459,
-                        "Text": "Förändring av lager av färdiga varor"
+                        "id": 1459,
+                        "text": "Förändring av lager av färdiga varor"
                     },
                     {
-                        "Id": 1460,
-                        "Text": "Lager av handelsvaror"
+                        "id": 1460,
+                        "text": "Lager av handelsvaror"
                     },
                     {
-                        "Id": 1465,
-                        "Text": "Lager av varor VMB"
+                        "id": 1465,
+                        "text": "Lager av varor VMB"
                     },
                     {
-                        "Id": 1466,
-                        "Text": "Nedskrivning av varor VMB"
+                        "id": 1466,
+                        "text": "Nedskrivning av varor VMB"
                     },
                     {
-                        "Id": 1467,
-                        "Text": "Lager av varor VMB förenklad"
+                        "id": 1467,
+                        "text": "Lager av varor VMB förenklad"
                     },
                     {
-                        "Id": 1469,
-                        "Text": "Förändring av lager av handelsvaror"
+                        "id": 1469,
+                        "text": "Förändring av lager av handelsvaror"
                     },
                     {
-                        "Id": 1470,
-                        "Text": "Pågående arbeten"
+                        "id": 1470,
+                        "text": "Pågående arbeten"
                     },
                     {
-                        "Id": 1471,
-                        "Text": "Pågående arbeten, nedlagda kostnader"
+                        "id": 1471,
+                        "text": "Pågående arbeten, nedlagda kostnader"
                     },
                     {
-                        "Id": 1478,
-                        "Text": "Pågående arbeten, fakturering"
+                        "id": 1478,
+                        "text": "Pågående arbeten, fakturering"
                     },
                     {
-                        "Id": 1479,
-                        "Text": "Förändring av pågående arbeten"
+                        "id": 1479,
+                        "text": "Förändring av pågående arbeten"
                     },
                     {
-                        "Id": 1480,
-                        "Text": "Förskott för varor och tjänster"
+                        "id": 1480,
+                        "text": "Förskott för varor och tjänster"
                     },
                     {
-                        "Id": 1481,
-                        "Text": "Remburser"
+                        "id": 1481,
+                        "text": "Remburser"
                     },
                     {
-                        "Id": 1489,
-                        "Text": "Övriga förskott till leverantörer"
+                        "id": 1489,
+                        "text": "Övriga förskott till leverantörer"
                     },
                     {
-                        "Id": 1490,
-                        "Text": "Övriga lagertillgångar"
+                        "id": 1490,
+                        "text": "Övriga lagertillgångar"
                     },
                     {
-                        "Id": 1491,
-                        "Text": "Lager av värdepapper"
+                        "id": 1491,
+                        "text": "Lager av värdepapper"
                     },
                     {
-                        "Id": 1492,
-                        "Text": "Lager av fastigheter"
+                        "id": 1492,
+                        "text": "Lager av fastigheter"
                     },
                     {
-                        "Id": 1493,
-                        "Text": "Djur som klassificeras som omsättningstillgång"
+                        "id": 1493,
+                        "text": "Djur som klassificeras som omsättningstillgång"
                     }
                 ]
             },
             {
-                "Id": 15,
-                "Text": "Kundfordringar",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 15,
+                "text": "Kundfordringar",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1510,
-                        "Text": "Kundfordringar"
+                        "id": 1510,
+                        "text": "Kundfordringar"
                     },
                     {
-                        "Id": 1511,
-                        "Text": "Kundfordringar"
+                        "id": 1511,
+                        "text": "Kundfordringar"
                     },
                     {
-                        "Id": 1512,
-                        "Text": "Belånade kundfordringar (factoring)"
+                        "id": 1512,
+                        "text": "Belånade kundfordringar (factoring)"
                     },
                     {
-                        "Id": 1513,
-                        "Text": "Kundfordringar – delad faktura"
+                        "id": 1513,
+                        "text": "Kundfordringar – delad faktura"
                     },
                     {
-                        "Id": 1515,
-                        "Text": "Osäkra kundfordringar"
+                        "id": 1515,
+                        "text": "Osäkra kundfordringar"
                     },
                     {
-                        "Id": 1516,
-                        "Text": "Tvistiga kundfordringar"
+                        "id": 1516,
+                        "text": "Tvistiga kundfordringar"
                     },
                     {
-                        "Id": 1518,
-                        "Text": "Ej reskontraförda kundfordringar"
+                        "id": 1518,
+                        "text": "Ej reskontraförda kundfordringar"
                     },
                     {
-                        "Id": 1519,
-                        "Text": "Nedskrivning av kundfordringar"
+                        "id": 1519,
+                        "text": "Nedskrivning av kundfordringar"
                     },
                     {
-                        "Id": 1520,
-                        "Text": "Växelfordringar"
+                        "id": 1520,
+                        "text": "Växelfordringar"
                     },
                     {
-                        "Id": 1525,
-                        "Text": "Osäkra växelfordringar"
+                        "id": 1525,
+                        "text": "Osäkra växelfordringar"
                     },
                     {
-                        "Id": 1529,
-                        "Text": "Nedskrivning av växelfordringar"
+                        "id": 1529,
+                        "text": "Nedskrivning av växelfordringar"
                     },
                     {
-                        "Id": 1530,
-                        "Text": "Kontraktsfordringar"
+                        "id": 1530,
+                        "text": "Kontraktsfordringar"
                     },
                     {
-                        "Id": 1531,
-                        "Text": "Kontraktsfordringar"
+                        "id": 1531,
+                        "text": "Kontraktsfordringar"
                     },
                     {
-                        "Id": 1532,
-                        "Text": "Belånade kontraktsfordringar"
+                        "id": 1532,
+                        "text": "Belånade kontraktsfordringar"
                     },
                     {
-                        "Id": 1535,
-                        "Text": "Osäkra kontraktsfordringar"
+                        "id": 1535,
+                        "text": "Osäkra kontraktsfordringar"
                     },
                     {
-                        "Id": 1536,
-                        "Text": "Tvistiga kontraktsfordringar"
+                        "id": 1536,
+                        "text": "Tvistiga kontraktsfordringar"
                     },
                     {
-                        "Id": 1539,
-                        "Text": "Nedskrivning av kontraktsfordringar"
+                        "id": 1539,
+                        "text": "Nedskrivning av kontraktsfordringar"
                     },
                     {
-                        "Id": 1550,
-                        "Text": "Konsignationsfordringar"
+                        "id": 1550,
+                        "text": "Konsignationsfordringar"
                     },
                     {
-                        "Id": 1560,
-                        "Text": "Kundfordringar hos koncernföretag"
+                        "id": 1560,
+                        "text": "Kundfordringar hos koncernföretag"
                     },
                     {
-                        "Id": 1561,
-                        "Text": "Kundfordringar hos moderföretag"
+                        "id": 1561,
+                        "text": "Kundfordringar hos moderföretag"
                     },
                     {
-                        "Id": 1562,
-                        "Text": "Kundfordringar hos dotterföretag"
+                        "id": 1562,
+                        "text": "Kundfordringar hos dotterföretag"
                     },
                     {
-                        "Id": 1563,
-                        "Text": "Kundfordringar hos andra koncernföretag"
+                        "id": 1563,
+                        "text": "Kundfordringar hos andra koncernföretag"
                     },
                     {
-                        "Id": 1565,
-                        "Text": "Osäkra kundfordringar hos koncernföretag"
+                        "id": 1565,
+                        "text": "Osäkra kundfordringar hos koncernföretag"
                     },
                     {
-                        "Id": 1568,
-                        "Text": "Ej reskontraförda kundfordringar hos koncernföretag"
+                        "id": 1568,
+                        "text": "Ej reskontraförda kundfordringar hos koncernföretag"
                     },
                     {
-                        "Id": 1569,
-                        "Text": "Nedskrivning av kundfordringar hos koncernföretag"
+                        "id": 1569,
+                        "text": "Nedskrivning av kundfordringar hos koncernföretag"
                     },
                     {
-                        "Id": 1570,
-                        "Text": "Kundfordringar hos intresseföretag"
+                        "id": 1570,
+                        "text": "Kundfordringar hos intresseföretag"
                     },
                     {
-                        "Id": 1575,
-                        "Text": "Osäkra kundfordringar hos intresseföretag"
+                        "id": 1575,
+                        "text": "Osäkra kundfordringar hos intresseföretag"
                     },
                     {
-                        "Id": 1578,
-                        "Text": "Ej reskontraförda kundfordringar hos intresseföretag"
+                        "id": 1578,
+                        "text": "Ej reskontraförda kundfordringar hos intresseföretag"
                     },
                     {
-                        "Id": 1579,
-                        "Text": "Nedskrivning av kundfordringar hos intresseföretag"
+                        "id": 1579,
+                        "text": "Nedskrivning av kundfordringar hos intresseföretag"
                     },
                     {
-                        "Id": 1580,
-                        "Text": "Fordringar för kontokort och kuponger"
+                        "id": 1580,
+                        "text": "Fordringar för kontokort och kuponger"
                     }
                 ]
             },
             {
-                "Id": 16,
-                "Text": "Övriga kortfristiga fordringar",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 16,
+                "text": "Övriga kortfristiga fordringar",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1610,
-                        "Text": "Kortfristiga fordringar hos anställda"
+                        "id": 1610,
+                        "text": "Kortfristiga fordringar hos anställda"
                     },
                     {
-                        "Id": 1611,
-                        "Text": "Reseförskott"
+                        "id": 1611,
+                        "text": "Reseförskott"
                     },
                     {
-                        "Id": 1612,
-                        "Text": "Kassaförskott"
+                        "id": 1612,
+                        "text": "Kassaförskott"
                     },
                     {
-                        "Id": 1613,
-                        "Text": "Övriga förskott"
+                        "id": 1613,
+                        "text": "Övriga förskott"
                     },
                     {
-                        "Id": 1614,
-                        "Text": "Tillfälliga lån till anställda"
+                        "id": 1614,
+                        "text": "Tillfälliga lån till anställda"
                     },
                     {
-                        "Id": 1619,
-                        "Text": "Övriga fordringar hos anställda"
+                        "id": 1619,
+                        "text": "Övriga fordringar hos anställda"
                     },
                     {
-                        "Id": 1620,
-                        "Text": "Upparbetad men ej fakturerad intäkt"
+                        "id": 1620,
+                        "text": "Upparbetad men ej fakturerad intäkt"
                     },
                     {
-                        "Id": 1630,
-                        "Text": "Avräkning för skatter och avgifter (skattekonto)"
+                        "id": 1630,
+                        "text": "Avräkning för skatter och avgifter (skattekonto)"
                     },
                     {
-                        "Id": 1640,
-                        "Text": "Skattefordringar"
+                        "id": 1640,
+                        "text": "Skattefordringar"
                     },
                     {
-                        "Id": 1650,
-                        "Text": "Momsfordran"
+                        "id": 1650,
+                        "text": "Momsfordran"
                     },
                     {
-                        "Id": 1660,
-                        "Text": "Kortfristiga fordringar hos koncernföretag"
+                        "id": 1660,
+                        "text": "Kortfristiga fordringar hos koncernföretag"
                     },
                     {
-                        "Id": 1661,
-                        "Text": "Kortfristiga fordringar hos moderföretag"
+                        "id": 1661,
+                        "text": "Kortfristiga fordringar hos moderföretag"
                     },
                     {
-                        "Id": 1662,
-                        "Text": "Kortfristiga fordringar hos dotterföretag"
+                        "id": 1662,
+                        "text": "Kortfristiga fordringar hos dotterföretag"
                     },
                     {
-                        "Id": 1663,
-                        "Text": "Kortfristiga fordringar hos andra koncernföretag"
+                        "id": 1663,
+                        "text": "Kortfristiga fordringar hos andra koncernföretag"
                     },
                     {
-                        "Id": 1670,
-                        "Text": "Kortfristiga fordringar hos intresseföretag"
+                        "id": 1670,
+                        "text": "Kortfristiga fordringar hos intresseföretag"
                     },
                     {
-                        "Id": 1680,
-                        "Text": "Andra kortfristiga fordringar"
+                        "id": 1680,
+                        "text": "Andra kortfristiga fordringar"
                     },
                     {
-                        "Id": 1681,
-                        "Text": "Utlägg för kunder"
+                        "id": 1681,
+                        "text": "Utlägg för kunder"
                     },
                     {
-                        "Id": 1682,
-                        "Text": "Kortfristiga lånefordringar"
+                        "id": 1682,
+                        "text": "Kortfristiga lånefordringar"
                     },
                     {
-                        "Id": 1683,
-                        "Text": "Derivat"
+                        "id": 1683,
+                        "text": "Derivat"
                     },
                     {
-                        "Id": 1684,
-                        "Text": "Kortfristiga fordringar hos leverantörer"
+                        "id": 1684,
+                        "text": "Kortfristiga fordringar hos leverantörer"
                     },
                     {
-                        "Id": 1685,
-                        "Text": "Kortfristiga fordringar hos delägare eller närstående"
+                        "id": 1685,
+                        "text": "Kortfristiga fordringar hos delägare eller närstående"
                     },
                     {
-                        "Id": 1687,
-                        "Text": "Kortfristig del av långfristiga fordringar"
+                        "id": 1687,
+                        "text": "Kortfristig del av långfristiga fordringar"
                     },
                     {
-                        "Id": 1688,
-                        "Text": "Fordran arbetsmarknadsförsäkringar"
+                        "id": 1688,
+                        "text": "Fordran arbetsmarknadsförsäkringar"
                     },
                     {
-                        "Id": 1689,
-                        "Text": "Övriga kortfristiga fordringar"
+                        "id": 1689,
+                        "text": "Övriga kortfristiga fordringar"
                     },
                     {
-                        "Id": 1690,
-                        "Text": "Fordringar för tecknat men ej inbetalt aktiekapital"
+                        "id": 1690,
+                        "text": "Fordringar för tecknat men ej inbetalt aktiekapital"
                     }
                 ]
             },
             {
-                "Id": 17,
-                "Text": "Förutbetalda kostnader och upplupna intäkter",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 17,
+                "text": "Förutbetalda kostnader och upplupna intäkter",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1710,
-                        "Text": "Förutbetalda hyreskostnader"
+                        "id": 1710,
+                        "text": "Förutbetalda hyreskostnader"
                     },
                     {
-                        "Id": 1720,
-                        "Text": "Förutbetalda leasingavgifter, kortfristig del"
+                        "id": 1720,
+                        "text": "Förutbetalda leasingavgifter, kortfristig del"
                     },
                     {
-                        "Id": 1730,
-                        "Text": "Förutbetalda försäkringspremier"
+                        "id": 1730,
+                        "text": "Förutbetalda försäkringspremier"
                     },
                     {
-                        "Id": 1740,
-                        "Text": "Förutbetalda räntekostnader"
+                        "id": 1740,
+                        "text": "Förutbetalda räntekostnader"
                     },
                     {
-                        "Id": 1750,
-                        "Text": "Upplupna hyresintäkter"
+                        "id": 1750,
+                        "text": "Upplupna hyresintäkter"
                     },
                     {
-                        "Id": 1760,
-                        "Text": "Upplupna ränteintäkter"
+                        "id": 1760,
+                        "text": "Upplupna ränteintäkter"
                     },
                     {
-                        "Id": 1770,
-                        "Text": "Tillgångar av kostnadsnatur"
+                        "id": 1770,
+                        "text": "Tillgångar av kostnadsnatur"
                     },
                     {
-                        "Id": 1780,
-                        "Text": "Upplupna avtalsintäkter"
+                        "id": 1780,
+                        "text": "Upplupna avtalsintäkter"
                     },
                     {
-                        "Id": 1790,
-                        "Text": "Övriga förutbetalda kostnader och upplupna intäkter"
+                        "id": 1790,
+                        "text": "Övriga förutbetalda kostnader och upplupna intäkter"
                     }
                 ]
             },
             {
-                "Id": 18,
-                "Text": "Kortfristiga placeringar",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 18,
+                "text": "Kortfristiga placeringar",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1810,
-                        "Text": "Andelar i börsnoterade företag"
+                        "id": 1810,
+                        "text": "Andelar i börsnoterade företag"
                     },
                     {
-                        "Id": 1820,
-                        "Text": "Obligationer"
+                        "id": 1820,
+                        "text": "Obligationer"
                     },
                     {
-                        "Id": 1830,
-                        "Text": "Konvertibla skuldebrev"
+                        "id": 1830,
+                        "text": "Konvertibla skuldebrev"
                     },
                     {
-                        "Id": 1860,
-                        "Text": "Andelar i koncernföretag"
+                        "id": 1860,
+                        "text": "Andelar i koncernföretag"
                     },
                     {
-                        "Id": 1869,
-                        "Text": "Nedskrivning av andelar i koncernföretag"
+                        "id": 1869,
+                        "text": "Nedskrivning av andelar i koncernföretag"
                     },
                     {
-                        "Id": 1880,
-                        "Text": "Andra kortfristiga placeringar"
+                        "id": 1880,
+                        "text": "Andra kortfristiga placeringar"
                     },
                     {
-                        "Id": 1886,
-                        "Text": "Derivat"
+                        "id": 1886,
+                        "text": "Derivat"
                     },
                     {
-                        "Id": 1889,
-                        "Text": "Andelar i övriga företag"
+                        "id": 1889,
+                        "text": "Andelar i övriga företag"
                     },
                     {
-                        "Id": 1890,
-                        "Text": "Nedskrivning av kortfristiga placeringar"
+                        "id": 1890,
+                        "text": "Nedskrivning av kortfristiga placeringar"
                     }
                 ]
             },
             {
-                "Id": 19,
-                "Text": "Kassa och bank",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 19,
+                "text": "Kassa och bank",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 1910,
-                        "Text": "Kassa"
+                        "id": 1910,
+                        "text": "Kassa"
                     },
                     {
-                        "Id": 1911,
-                        "Text": "Huvudkassa"
+                        "id": 1911,
+                        "text": "Huvudkassa"
                     },
                     {
-                        "Id": 1912,
-                        "Text": "Kassa 2"
+                        "id": 1912,
+                        "text": "Kassa 2"
                     },
                     {
-                        "Id": 1913,
-                        "Text": "Kassa 3"
+                        "id": 1913,
+                        "text": "Kassa 3"
                     },
                     {
-                        "Id": 1914,
-                        "Text": "Kassa 4"
+                        "id": 1914,
+                        "text": "Kassa 4"
                     },
                     {
-                        "Id": 1920,
-                        "Text": "PlusGiro"
+                        "id": 1920,
+                        "text": "PlusGiro"
                     },
                     {
-                        "Id": 1930,
-                        "Text": "Företagskonto / affärskonto"
+                        "id": 1930,
+                        "text": "Företagskonto / affärskonto"
                     },
                     {
-                        "Id": 1931,
-                        "Text": "Sparkonto"
+                        "id": 1931,
+                        "text": "Sparkonto"
                     },
                     {
-                        "Id": 1932,
-                        "Text": "Bokio Företagskonto"
+                        "id": 1932,
+                        "text": "Bokio Företagskonto"
                     },
                     {
-                        "Id": 1940,
-                        "Text": "Övriga bankkonton"
+                        "id": 1940,
+                        "text": "Övriga bankkonton"
                     },
                     {
-                        "Id": 1950,
-                        "Text": "Bankcertifikat"
+                        "id": 1950,
+                        "text": "Bankcertifikat"
                     },
                     {
-                        "Id": 1960,
-                        "Text": "Koncernkonto moderföretag"
+                        "id": 1960,
+                        "text": "Koncernkonto moderföretag"
                     },
                     {
-                        "Id": 1970,
-                        "Text": "Särskilda bankkonton"
+                        "id": 1970,
+                        "text": "Särskilda bankkonton"
                     },
                     {
-                        "Id": 1972,
-                        "Text": "Upphovsmannakonto"
+                        "id": 1972,
+                        "text": "Upphovsmannakonto"
                     },
                     {
-                        "Id": 1973,
-                        "Text": "Skogskonto"
+                        "id": 1973,
+                        "text": "Skogskonto"
                     },
                     {
-                        "Id": 1974,
-                        "Text": "Spärrade bankmedel"
+                        "id": 1974,
+                        "text": "Spärrade bankmedel"
                     },
                     {
-                        "Id": 1979,
-                        "Text": "Övriga särskilda bankkonton"
+                        "id": 1979,
+                        "text": "Övriga särskilda bankkonton"
                     },
                     {
-                        "Id": 1980,
-                        "Text": "Valutakonton"
+                        "id": 1980,
+                        "text": "Valutakonton"
                     },
                     {
-                        "Id": 1990,
-                        "Text": "Redovisningsmedel"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "Id": 2,
-        "Text": "Eget kapital och skulder",
-        "SubCategories": [
-            {
-                "Id": 20,
-                "Text": "Eget kapital",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2010,
-                        "Text": "Eget kapital, delägare 1"
-                    },
-                    {
-                        "Id": 2011,
-                        "Text": "Egna varuuttag"
-                    },
-                    {
-                        "Id": 2012,
-                        "Text": "Avräkning för skatter och avgifter (skattekonto)"
-                    },
-                    {
-                        "Id": 2013,
-                        "Text": "Övriga egna uttag"
-                    },
-                    {
-                        "Id": 2017,
-                        "Text": "Årets kapitaltillskott"
-                    },
-                    {
-                        "Id": 2018,
-                        "Text": "Övriga egna insättningar"
-                    },
-                    {
-                        "Id": 2019,
-                        "Text": "Årets resultat, delägare 1"
-                    },
-                    {
-                        "Id": 2020,
-                        "Text": "Eget kapital, delägare 2"
-                    },
-                    {
-                        "Id": 2023,
-                        "Text": "Egna uttag delägare 2 (Handelsbolag)"
-                    },
-                    {
-                        "Id": 2028,
-                        "Text": "Övriga egna insättningar, delägare 2"
-                    },
-                    {
-                        "Id": 2029,
-                        "Text": "Årets resultat, delägare 2"
-                    },
-                    {
-                        "Id": 2030,
-                        "Text": "Eget kapital, delägare 3"
-                    },
-                    {
-                        "Id": 2033,
-                        "Text": "Egna uttag delägare 3 (Handelsbolag)"
-                    },
-                    {
-                        "Id": 2038,
-                        "Text": "Övriga egna insättningar, delägare 3"
-                    },
-                    {
-                        "Id": 2039,
-                        "Text": "Årets resultat, delägare 3"
-                    },
-                    {
-                        "Id": 2040,
-                        "Text": "Eget kapital, delägare 4"
-                    },
-                    {
-                        "Id": 2043,
-                        "Text": "Egna uttag delägare 4 (Handelsbolag)"
-                    },
-                    {
-                        "Id": 2048,
-                        "Text": "Övriga egna insättningar, delägare 4"
-                    },
-                    {
-                        "Id": 2049,
-                        "Text": "Årets resultat, delägare 4"
-                    },
-                    {
-                        "Id": 2050,
-                        "Text": "Avsättning till expansionsfond"
-                    },
-                    {
-                        "Id": 2060,
-                        "Text": "Eget kapital i ideella föreningar, stiftelser och registrerade trossamfund"
-                    },
-                    {
-                        "Id": 2061,
-                        "Text": "Eget kapital/stiftelsekapital/grundkapital"
-                    },
-                    {
-                        "Id": 2065,
-                        "Text": "Förändring i fond för verkligt värde"
-                    },
-                    {
-                        "Id": 2066,
-                        "Text": "Värdesäkringsfond"
-                    },
-                    {
-                        "Id": 2067,
-                        "Text": "Balanserad vinst eller förlust/balanserat kapital"
-                    },
-                    {
-                        "Id": 2068,
-                        "Text": "Vinst eller förlust från föregående år"
-                    },
-                    {
-                        "Id": 2069,
-                        "Text": "Årets resultat"
-                    },
-                    {
-                        "Id": 2070,
-                        "Text": "Ändamålsbestämda medel"
-                    },
-                    {
-                        "Id": 2071,
-                        "Text": "Ändamål 1"
-                    },
-                    {
-                        "Id": 2072,
-                        "Text": "Ändamål 2"
-                    },
-                    {
-                        "Id": 2080,
-                        "Text": "Bundet eget kapital"
-                    },
-                    {
-                        "Id": 2081,
-                        "Text": "Aktiekapital"
-                    },
-                    {
-                        "Id": 2082,
-                        "Text": "Ej registrerat aktiekapital"
-                    },
-                    {
-                        "Id": 2083,
-                        "Text": "Medlemsinsatser"
-                    },
-                    {
-                        "Id": 2084,
-                        "Text": "Förlagsinsatser"
-                    },
-                    {
-                        "Id": 2085,
-                        "Text": "Uppskrivningsfond"
-                    },
-                    {
-                        "Id": 2086,
-                        "Text": "Reservfond"
-                    },
-                    {
-                        "Id": 2087,
-                        "Text": "Insatsemission"
-                    },
-                    {
-                        "Id": 2088,
-                        "Text": "Fond för yttre underhåll"
-                    },
-                    {
-                        "Id": 2090,
-                        "Text": "Fritt eget kapital"
-                    },
-                    {
-                        "Id": 2091,
-                        "Text": "Balanserad vinst eller förlust"
-                    },
-                    {
-                        "Id": 2092,
-                        "Text": "Mottagna/lämnade koncernbidrag"
-                    },
-                    {
-                        "Id": 2093,
-                        "Text": "Erhållna aktieägartillskott"
-                    },
-                    {
-                        "Id": 2094,
-                        "Text": "Egna aktier"
-                    },
-                    {
-                        "Id": 2095,
-                        "Text": "Fusionsresultat"
-                    },
-                    {
-                        "Id": 2096,
-                        "Text": "Fond för verkligt värde"
-                    },
-                    {
-                        "Id": 2097,
-                        "Text": "Överkursfond"
-                    },
-                    {
-                        "Id": 2098,
-                        "Text": "Vinst eller förlust från föregående år"
-                    },
-                    {
-                        "Id": 2099,
-                        "Text": "Årets resultat"
-                    }
-                ]
-            },
-            {
-                "Id": 21,
-                "Text": "Obeskattade reserver",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2110,
-                        "Text": "Periodiseringsfond vid 2010 års taxering"
-                    },
-                    {
-                        "Id": 2111,
-                        "Text": "Periodiseringsfond vid 2011 års taxering"
-                    },
-                    {
-                        "Id": 2112,
-                        "Text": "Periodiseringsfond vid 2012 års taxering"
-                    },
-                    {
-                        "Id": 2113,
-                        "Text": "Periodiseringsfond vid 2013 års taxering"
-                    },
-                    {
-                        "Id": 2120,
-                        "Text": "Periodiseringsfonder"
-                    },
-                    {
-                        "Id": 2121,
-                        "Text": "Periodiseringsfonder"
-                    },
-                    {
-                        "Id": 2122,
-                        "Text": "Periodiseringsfonder"
-                    },
-                    {
-                        "Id": 2123,
-                        "Text": "Periodiseringsfond 2020"
-                    },
-                    {
-                        "Id": 2124,
-                        "Text": "Periodiseringsfond 2021"
-                    },
-                    {
-                        "Id": 2125,
-                        "Text": "Periodiseringsfond 2022"
-                    },
-                    {
-                        "Id": 2126,
-                        "Text": "Periodiseringsfond 2023"
-                    },
-                    {
-                        "Id": 2127,
-                        "Text": "Periodiseringsfond 2017"
-                    },
-                    {
-                        "Id": 2128,
-                        "Text": "Periodiseringsfond 2018"
-                    },
-                    {
-                        "Id": 2129,
-                        "Text": "Periodiseringsfond 2019"
-                    },
-                    {
-                        "Id": 2150,
-                        "Text": "Ackumulerade överavskrivningar"
-                    },
-                    {
-                        "Id": 2151,
-                        "Text": "Ackumulerade överavskrivningar på immateriella anläggningstillgångar"
-                    },
-                    {
-                        "Id": 2152,
-                        "Text": "Ackumulerade överavskrivningar på byggnader och markanläggningar"
-                    },
-                    {
-                        "Id": 2153,
-                        "Text": "Ackumulerade överavskrivningar på maskiner och inventarier"
-                    },
-                    {
-                        "Id": 2160,
-                        "Text": "Ersättningsfond"
-                    },
-                    {
-                        "Id": 2161,
-                        "Text": "Ersättningsfond maskiner och inventarier"
-                    },
-                    {
-                        "Id": 2162,
-                        "Text": "Ersättningsfond byggnader och markanläggningar"
-                    },
-                    {
-                        "Id": 2163,
-                        "Text": "Ersättningsfond mark"
-                    },
-                    {
-                        "Id": 2164,
-                        "Text": "Ersättningsfond för djurlager i jordbruk och renskötsel"
-                    },
-                    {
-                        "Id": 2180,
-                        "Text": "Obeskattade intäkter"
-                    },
-                    {
-                        "Id": 2181,
-                        "Text": "Obeskattade upphovsmannaintäkter"
-                    },
-                    {
-                        "Id": 2185,
-                        "Text": "Obeskattade skogsintäkter"
-                    },
-                    {
-                        "Id": 2190,
-                        "Text": "Övriga obeskattade reserver"
-                    },
-                    {
-                        "Id": 2196,
-                        "Text": "Lagerreserv"
-                    },
-                    {
-                        "Id": 2199,
-                        "Text": "Övriga obeskattade reserver"
-                    }
-                ]
-            },
-            {
-                "Id": 22,
-                "Text": "Avsättningar",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2210,
-                        "Text": "Avsättningar för pensioner enligt tryggandelagen"
-                    },
-                    {
-                        "Id": 2220,
-                        "Text": "Avsättningar för garantier"
-                    },
-                    {
-                        "Id": 2230,
-                        "Text": "Övriga avsättningar för pensioner och liknande förpliktelser"
-                    },
-                    {
-                        "Id": 2240,
-                        "Text": "Avsättningar för uppskjutna skatter"
-                    },
-                    {
-                        "Id": 2250,
-                        "Text": "Övriga avsättningar för skatter"
-                    },
-                    {
-                        "Id": 2252,
-                        "Text": "Avsättningar för tvistiga skatter"
-                    },
-                    {
-                        "Id": 2253,
-                        "Text": "Avsättningar särskild löneskatt, deklarationspost"
-                    },
-                    {
-                        "Id": 2290,
-                        "Text": "Övriga avsättningar"
-                    }
-                ]
-            },
-            {
-                "Id": 23,
-                "Text": "Långfristiga skulder",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2310,
-                        "Text": "Obligations- och förlagslån"
-                    },
-                    {
-                        "Id": 2320,
-                        "Text": "Konvertibla lån och liknande"
-                    },
-                    {
-                        "Id": 2321,
-                        "Text": "Konvertibla lån"
-                    },
-                    {
-                        "Id": 2322,
-                        "Text": "Lån förenade med optionsrätt"
-                    },
-                    {
-                        "Id": 2323,
-                        "Text": "Vinstandelslån"
-                    },
-                    {
-                        "Id": 2324,
-                        "Text": "Kapitalandelslån"
-                    },
-                    {
-                        "Id": 2330,
-                        "Text": "Checkräkningskredit"
-                    },
-                    {
-                        "Id": 2340,
-                        "Text": "Byggnadskreditiv"
-                    },
-                    {
-                        "Id": 2350,
-                        "Text": "Andra långfristiga skulder till kreditinstitut"
-                    },
-                    {
-                        "Id": 2351,
-                        "Text": "Fastighetslån, långfristig del"
-                    },
-                    {
-                        "Id": 2355,
-                        "Text": "Långfristiga lån i utländsk valuta från kreditinstitut"
-                    },
-                    {
-                        "Id": 2359,
-                        "Text": "Övriga långfristiga lån från kreditinstitut"
-                    },
-                    {
-                        "Id": 2360,
-                        "Text": "Långfristiga skulder till koncernföretag"
-                    },
-                    {
-                        "Id": 2361,
-                        "Text": "Långfristiga skulder till moderföretag"
-                    },
-                    {
-                        "Id": 2362,
-                        "Text": "Långfristiga skulder till dotterföretag"
-                    },
-                    {
-                        "Id": 2363,
-                        "Text": "Långfristiga skulder till andra koncernföretag"
-                    },
-                    {
-                        "Id": 2370,
-                        "Text": "Långfristiga skulder till intresseföretag"
-                    },
-                    {
-                        "Id": 2390,
-                        "Text": "Övriga långfristiga skulder"
-                    },
-                    {
-                        "Id": 2391,
-                        "Text": "Avbetalningskontrakt, långfristig del"
-                    },
-                    {
-                        "Id": 2392,
-                        "Text": "Villkorliga långfristiga skulder"
-                    },
-                    {
-                        "Id": 2393,
-                        "Text": "Lån från närstående personer, långfristig del"
-                    },
-                    {
-                        "Id": 2394,
-                        "Text": "Långfristiga leverantörskrediter"
-                    },
-                    {
-                        "Id": 2395,
-                        "Text": "Andra långfristiga lån i utländsk valuta"
-                    },
-                    {
-                        "Id": 2396,
-                        "Text": "Derivat"
-                    },
-                    {
-                        "Id": 2397,
-                        "Text": "Mottagna depositioner, långfristiga"
-                    },
-                    {
-                        "Id": 2399,
-                        "Text": "Övriga långfristiga skulder"
-                    }
-                ]
-            },
-            {
-                "Id": 24,
-                "Text": "Kortfristiga skulder till kreditinstitut, kunder och leverantörer",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2410,
-                        "Text": "Andra kortfristiga låneskulder till kreditinstitut"
-                    },
-                    {
-                        "Id": 2411,
-                        "Text": "Kortfristiga lån från kreditinstitut"
-                    },
-                    {
-                        "Id": 2417,
-                        "Text": "Kortfristig del av långfristiga skulder till kreditinstitut"
-                    },
-                    {
-                        "Id": 2419,
-                        "Text": "Övriga kortfristiga skulder till kreditinstitut"
-                    },
-                    {
-                        "Id": 2420,
-                        "Text": "Förskott från kunder"
-                    },
-                    {
-                        "Id": 2421,
-                        "Text": "Ej inlösta presentkort"
-                    },
-                    {
-                        "Id": 2429,
-                        "Text": "Övriga förskott från kunder"
-                    },
-                    {
-                        "Id": 2430,
-                        "Text": "Pågående arbeten"
-                    },
-                    {
-                        "Id": 2431,
-                        "Text": "Pågående arbeten, fakturering"
-                    },
-                    {
-                        "Id": 2438,
-                        "Text": "Pågående arbeten, nedlagda kostnader"
-                    },
-                    {
-                        "Id": 2439,
-                        "Text": "Beräknad förändring av pågående arbeten"
-                    },
-                    {
-                        "Id": 2440,
-                        "Text": "Leverantörsskulder"
-                    },
-                    {
-                        "Id": 2441,
-                        "Text": "Leverantörsskulder"
-                    },
-                    {
-                        "Id": 2443,
-                        "Text": "Konsignationsskulder"
-                    },
-                    {
-                        "Id": 2445,
-                        "Text": "Tvistiga leverantörsskulder"
-                    },
-                    {
-                        "Id": 2448,
-                        "Text": "Ej reskontraförda leverantörsskulder"
-                    },
-                    {
-                        "Id": 2450,
-                        "Text": "Fakturerad men ej upparbetad intäkt"
-                    },
-                    {
-                        "Id": 2460,
-                        "Text": "Leverantörsskulder till koncernföretag"
-                    },
-                    {
-                        "Id": 2461,
-                        "Text": "Leverantörsskulder till moderföretag"
-                    },
-                    {
-                        "Id": 2462,
-                        "Text": "Leverantörsskulder till dotterföretag"
-                    },
-                    {
-                        "Id": 2463,
-                        "Text": "Leverantörsskulder till andra koncernföretag"
-                    },
-                    {
-                        "Id": 2470,
-                        "Text": "Leverantörsskulder till intresseföretag"
-                    },
-                    {
-                        "Id": 2480,
-                        "Text": "Checkräkningskredit, kortfristig"
-                    },
-                    {
-                        "Id": 2490,
-                        "Text": "Övriga kortfristiga skulder till kreditinstitut, kunder och leverantörer"
-                    },
-                    {
-                        "Id": 2491,
-                        "Text": "Avräkning spelarrangörer"
-                    },
-                    {
-                        "Id": 2492,
-                        "Text": "Växelskulder"
-                    },
-                    {
-                        "Id": 2499,
-                        "Text": "Andra övriga kortfristiga skulder"
-                    }
-                ]
-            },
-            {
-                "Id": 25,
-                "Text": "Skatteskulder",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2510,
-                        "Text": "Skatteskulder"
-                    },
-                    {
-                        "Id": 2512,
-                        "Text": "Beräknad inkomstskatt"
-                    },
-                    {
-                        "Id": 2513,
-                        "Text": "Beräknad fastighetsskatt/fastighetsavgift"
-                    },
-                    {
-                        "Id": 2514,
-                        "Text": "Beräknad särskild löneskatt på pensionskostnader"
-                    },
-                    {
-                        "Id": 2515,
-                        "Text": "Beräknad avkastningsskatt"
-                    },
-                    {
-                        "Id": 2516,
-                        "Text": "Moms"
-                    },
-                    {
-                        "Id": 2517,
-                        "Text": "Beräknad utländsk skatt"
-                    },
-                    {
-                        "Id": 2518,
-                        "Text": "Betald F-skatt"
-                    }
-                ]
-            },
-            {
-                "Id": 26,
-                "Text": "Moms och särskilda punktskatter",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2610,
-                        "Text": "Utgående moms, 25 %"
-                    },
-                    {
-                        "Id": 2611,
-                        "Text": "Utgående moms på försäljning inom Sverige, 25 %"
-                    },
-                    {
-                        "Id": 2612,
-                        "Text": "Utgående moms på egna uttag, 25 %"
-                    },
-                    {
-                        "Id": 2613,
-                        "Text": "Utgående moms för uthyrning, 25 %"
-                    },
-                    {
-                        "Id": 2614,
-                        "Text": "Utgående moms omvänd skattskyldighet, 25 %"
-                    },
-                    {
-                        "Id": 2615,
-                        "Text": "Utgående moms import av varor, 25%"
-                    },
-                    {
-                        "Id": 2616,
-                        "Text": "Utgående moms VMB 25 %"
-                    },
-                    {
-                        "Id": 2617,
-                        "Text": "Utgående moms omvänd skattskyldighet varor och tjänster i Sverige, 25 %"
-                    },
-                    {
-                        "Id": 2618,
-                        "Text": "Vilande utgående moms, 25 %"
-                    },
-                    {
-                        "Id": 2620,
-                        "Text": "Utgående moms, 12 %"
-                    },
-                    {
-                        "Id": 2621,
-                        "Text": "Utgående moms på försäljning inom Sverige, 12 %"
-                    },
-                    {
-                        "Id": 2622,
-                        "Text": "Utgående moms på egna uttag, 12 %"
-                    },
-                    {
-                        "Id": 2623,
-                        "Text": "Utgående moms för uthyrning, 12 %"
-                    },
-                    {
-                        "Id": 2624,
-                        "Text": "Utgående moms omvänd skattskyldighet, 12 %"
-                    },
-                    {
-                        "Id": 2625,
-                        "Text": "Utgående moms import av varor, 12 %"
-                    },
-                    {
-                        "Id": 2626,
-                        "Text": "Utgående moms VMB 12 %"
-                    },
-                    {
-                        "Id": 2627,
-                        "Text": "Utgående moms omvänd skattskyldighet varor och tjänster i Sverige, 12 %"
-                    },
-                    {
-                        "Id": 2628,
-                        "Text": "Vilande utgående moms, 12 %"
-                    },
-                    {
-                        "Id": 2630,
-                        "Text": "Utgående moms, 6 %"
-                    },
-                    {
-                        "Id": 2631,
-                        "Text": "Utgående moms på försäljning inom Sverige, 6 %"
-                    },
-                    {
-                        "Id": 2632,
-                        "Text": "Utgående moms på egna uttag, 6 %"
-                    },
-                    {
-                        "Id": 2633,
-                        "Text": "Utgående moms för uthyrning, 6 %"
-                    },
-                    {
-                        "Id": 2634,
-                        "Text": "Utgående moms omvänd skattskyldighet, 6 %"
-                    },
-                    {
-                        "Id": 2635,
-                        "Text": "Utgående moms import av varor, 6 %"
-                    },
-                    {
-                        "Id": 2636,
-                        "Text": "Utgående moms VMB 6 %"
-                    },
-                    {
-                        "Id": 2637,
-                        "Text": "Utgående moms omvänd skattskyldighet varor och tjänster i Sverige, 6 %"
-                    },
-                    {
-                        "Id": 2638,
-                        "Text": "Vilande utgående moms, 6 %"
-                    },
-                    {
-                        "Id": 2640,
-                        "Text": "Ingående moms"
-                    },
-                    {
-                        "Id": 2641,
-                        "Text": "Debiterad ingående moms"
-                    },
-                    {
-                        "Id": 2642,
-                        "Text": "Debiterad ingående moms i anslutning till frivillig skattskyldighet"
-                    },
-                    {
-                        "Id": 2645,
-                        "Text": "Beräknad ingående moms på förvärv från utlandet"
-                    },
-                    {
-                        "Id": 2646,
-                        "Text": "Ingående moms på uthyrning"
-                    },
-                    {
-                        "Id": 2647,
-                        "Text": "Ingående moms omvänd skattskyldighet varor och tjänster i Sverige"
-                    },
-                    {
-                        "Id": 2648,
-                        "Text": "Vilande ingående moms"
-                    },
-                    {
-                        "Id": 2649,
-                        "Text": "Ingående moms, blandad verksamhet"
-                    },
-                    {
-                        "Id": 2650,
-                        "Text": "Redovisningskonto för moms"
-                    },
-                    {
-                        "Id": 2660,
-                        "Text": "Särskilda punktskatter"
-                    },
-                    {
-                        "Id": 2661,
-                        "Text": "Reklamskatt"
-                    },
-                    {
-                        "Id": 2668,
-                        "Text": "OSS, moms"
-                    },
-                    {
-                        "Id": 2669,
-                        "Text": "Övriga punktskatter"
-                    }
-                ]
-            },
-            {
-                "Id": 27,
-                "Text": "Personalens skatter, avgifter och löneavdrag",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2710,
-                        "Text": "Personalskatt"
-                    },
-                    {
-                        "Id": 2730,
-                        "Text": "Lagstadgade sociala avgifter och särskild löneskatt"
-                    },
-                    {
-                        "Id": 2731,
-                        "Text": "Avräkning lagstadgade sociala avgifter"
-                    },
-                    {
-                        "Id": 2732,
-                        "Text": "Avräkning särskild löneskatt"
-                    },
-                    {
-                        "Id": 2740,
-                        "Text": "Avtalade sociala avgifter"
-                    },
-                    {
-                        "Id": 2750,
-                        "Text": "Utmätning i lön m.m."
-                    },
-                    {
-                        "Id": 2760,
-                        "Text": "Semestermedel"
-                    },
-                    {
-                        "Id": 2761,
-                        "Text": "Avräkning semesterlöner"
-                    },
-                    {
-                        "Id": 2762,
-                        "Text": "Semesterlönekassa"
-                    },
-                    {
-                        "Id": 2790,
-                        "Text": "Övriga löneavdrag"
-                    },
-                    {
-                        "Id": 2791,
-                        "Text": "Personalens intressekonto"
-                    },
-                    {
-                        "Id": 2792,
-                        "Text": "Lönsparande"
-                    },
-                    {
-                        "Id": 2793,
-                        "Text": "Gruppförsäkringspremier"
-                    },
-                    {
-                        "Id": 2794,
-                        "Text": "Fackföreningsavgifter"
-                    },
-                    {
-                        "Id": 2795,
-                        "Text": "Mätnings- och granskningsarvoden"
-                    },
-                    {
-                        "Id": 2799,
-                        "Text": "Övriga löneavdrag"
-                    }
-                ]
-            },
-            {
-                "Id": 28,
-                "Text": "Övriga kortfristiga skulder",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2810,
-                        "Text": "Avräkning för factoring och belånade kontraktsfordringar"
-                    },
-                    {
-                        "Id": 2811,
-                        "Text": "Avräkning för factoring"
-                    },
-                    {
-                        "Id": 2812,
-                        "Text": "Avräkning för belånade kontraktsfordringar"
-                    },
-                    {
-                        "Id": 2820,
-                        "Text": "Kortfristiga skulder till anställda"
-                    },
-                    {
-                        "Id": 2821,
-                        "Text": "Löneskulder"
-                    },
-                    {
-                        "Id": 2822,
-                        "Text": "Reseräkningar"
-                    },
-                    {
-                        "Id": 2823,
-                        "Text": "Tantiem, gratifikationer"
-                    },
-                    {
-                        "Id": 2829,
-                        "Text": "Övriga kortfristiga skulder till anställda"
-                    },
-                    {
-                        "Id": 2830,
-                        "Text": "Avräkning för annans räkning"
-                    },
-                    {
-                        "Id": 2840,
-                        "Text": "Kortfristiga låneskulder"
-                    },
-                    {
-                        "Id": 2841,
-                        "Text": "Kortfristig del av långfristiga skulder"
-                    },
-                    {
-                        "Id": 2849,
-                        "Text": "Övriga kortfristiga låneskulder"
-                    },
-                    {
-                        "Id": 2850,
-                        "Text": "Avräkning för skatter och avgifter (skattekonto)"
-                    },
-                    {
-                        "Id": 2860,
-                        "Text": "Kortfristiga skulder till koncernföretag"
-                    },
-                    {
-                        "Id": 2861,
-                        "Text": "Kortfristiga skulder till moderföretag"
-                    },
-                    {
-                        "Id": 2862,
-                        "Text": "Kortfristiga skulder till dotterföretag"
-                    },
-                    {
-                        "Id": 2863,
-                        "Text": "Kortfristiga skulder till andra koncernföretag"
-                    },
-                    {
-                        "Id": 2870,
-                        "Text": "Kortfristiga skulder till intresseföretag"
-                    },
-                    {
-                        "Id": 2880,
-                        "Text": "Skuld erhållna bidrag"
-                    },
-                    {
-                        "Id": 2890,
-                        "Text": "Övriga kortfristiga skulder"
-                    },
-                    {
-                        "Id": 2891,
-                        "Text": "Skulder under indrivning"
-                    },
-                    {
-                        "Id": 2892,
-                        "Text": "Inre reparationsfond/underhållsfond"
-                    },
-                    {
-                        "Id": 2893,
-                        "Text": "Skulder till närstående personer, kortfristig del"
-                    },
-                    {
-                        "Id": 2895,
-                        "Text": "Derivat (kortfristiga skulder)"
-                    },
-                    {
-                        "Id": 2897,
-                        "Text": "Mottagna depositioner, kortfristiga"
-                    },
-                    {
-                        "Id": 2898,
-                        "Text": "Outtagen vinstutdelning"
-                    },
-                    {
-                        "Id": 2899,
-                        "Text": "Övriga kortfristiga skulder"
-                    }
-                ]
-            },
-            {
-                "Id": 29,
-                "Text": "Upplupna kostnader och förutbetalda intäkter",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 2910,
-                        "Text": "Upplupna löner"
-                    },
-                    {
-                        "Id": 2911,
-                        "Text": "Löneskulder"
-                    },
-                    {
-                        "Id": 2912,
-                        "Text": "Ackordsöverskott"
-                    },
-                    {
-                        "Id": 2919,
-                        "Text": "Övriga upplupna löner"
-                    },
-                    {
-                        "Id": 2920,
-                        "Text": "Upplupna semesterlöner"
-                    },
-                    {
-                        "Id": 2930,
-                        "Text": "Upplupna pensionskostnader"
-                    },
-                    {
-                        "Id": 2931,
-                        "Text": "Upplupna pensionsutbetalningar"
-                    },
-                    {
-                        "Id": 2940,
-                        "Text": "Upplupna lagstadgade sociala och andra avgifter"
-                    },
-                    {
-                        "Id": 2941,
-                        "Text": "Beräknade upplupna lagstadgade sociala avgifter"
-                    },
-                    {
-                        "Id": 2942,
-                        "Text": "Beräknad upplupen särskild löneskatt"
-                    },
-                    {
-                        "Id": 2943,
-                        "Text": "Beräknad upplupen särskild löneskatt på pensionskostnader, deklarationspost"
-                    },
-                    {
-                        "Id": 2944,
-                        "Text": "Beräknad upplupen avkastningsskatt på pensionskostnader"
-                    },
-                    {
-                        "Id": 2950,
-                        "Text": "Upplupna avtalade sociala avgifter"
-                    },
-                    {
-                        "Id": 2951,
-                        "Text": "Upplupna avtalade arbetsmarknadsförsäkringar"
-                    },
-                    {
-                        "Id": 2959,
-                        "Text": "Upplupna avtalade pensionsförsäkringsavgifter, deklarationspost"
-                    },
-                    {
-                        "Id": 2960,
-                        "Text": "Upplupna räntekostnader"
-                    },
-                    {
-                        "Id": 2970,
-                        "Text": "Förutbetalda intäkter"
-                    },
-                    {
-                        "Id": 2971,
-                        "Text": "Förutbetalda hyresintäkter"
-                    },
-                    {
-                        "Id": 2972,
-                        "Text": "Förutbetalda medlemsavgifter"
-                    },
-                    {
-                        "Id": 2979,
-                        "Text": "Övriga förutbetalda intäkter"
-                    },
-                    {
-                        "Id": 2980,
-                        "Text": "Upplupna avtalskostnader"
-                    },
-                    {
-                        "Id": 2990,
-                        "Text": "Övriga upplupna kostnader och förutbetalda intäkter"
-                    },
-                    {
-                        "Id": 2991,
-                        "Text": "Beräknat arvode för bokslut"
-                    },
-                    {
-                        "Id": 2992,
-                        "Text": "Beräknat arvode för revision"
-                    },
-                    {
-                        "Id": 2993,
-                        "Text": "Ospecificerad skuld till leverantörer"
-                    },
-                    {
-                        "Id": 2998,
-                        "Text": "Övriga upplupna kostnader och förutbetalda intäkter"
-                    },
-                    {
-                        "Id": 2999,
-                        "Text": "OBS-konto"
+                        "id": 1990,
+                        "text": "Redovisningsmedel"
                     }
                 ]
             }
         ]
     },
     {
-        "Id": 3,
-        "Text": "Rörelsens inkomster/intäkter",
-        "SubCategories": [
+        "id": 2,
+        "text": "Eget kapital och skulder",
+        "subCategories": [
             {
-                "Id": 30,
-                "Text": "Försäljning inom Sverige",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 20,
+                "text": "Eget kapital",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3000,
-                        "Text": "Försäljning inom Sverige"
+                        "id": 2010,
+                        "text": "Eget kapital, delägare 1"
                     },
                     {
-                        "Id": 3001,
-                        "Text": "Försäljning varor inom Sverige, 25 % moms"
+                        "id": 2011,
+                        "text": "Egna varuuttag"
                     },
                     {
-                        "Id": 3002,
-                        "Text": "Försäljning varor inom Sverige, 12 % moms"
+                        "id": 2012,
+                        "text": "Avräkning för skatter och avgifter (skattekonto)"
                     },
                     {
-                        "Id": 3003,
-                        "Text": "Försäljning varor inom Sverige, 6 % moms"
+                        "id": 2013,
+                        "text": "Övriga egna uttag"
                     },
                     {
-                        "Id": 3004,
-                        "Text": "Försäljning varor inom Sverige, momsfri"
+                        "id": 2017,
+                        "text": "Årets kapitaltillskott"
                     },
                     {
-                        "Id": 3011,
-                        "Text": "Försäljning tjänster inom Sverige, 25 % moms"
+                        "id": 2018,
+                        "text": "Övriga egna insättningar"
                     },
                     {
-                        "Id": 3012,
-                        "Text": "Försäljning tjänster inom Sverige, 12 % moms"
+                        "id": 2019,
+                        "text": "Årets resultat, delägare 1"
                     },
                     {
-                        "Id": 3013,
-                        "Text": "Försäljning tjänster inom Sverige, 6 % moms"
+                        "id": 2020,
+                        "text": "Eget kapital, delägare 2"
                     },
                     {
-                        "Id": 3014,
-                        "Text": "Försäljning tjänster inom Sverige, momsfri"
+                        "id": 2023,
+                        "text": "Egna uttag delägare 2 (Handelsbolag)"
                     },
                     {
-                        "Id": 3071,
-                        "Text": "Förutbetalda intäkter, varor och tjänster"
+                        "id": 2028,
+                        "text": "Övriga egna insättningar, delägare 2"
                     },
                     {
-                        "Id": 3089,
-                        "Text": "Försäljning inom Sverige, momsfri"
+                        "id": 2029,
+                        "text": "Årets resultat, delägare 2"
                     },
                     {
-                        "Id": 3099,
-                        "Text": "Justering av försäljning, ej moms"
+                        "id": 2030,
+                        "text": "Eget kapital, delägare 3"
+                    },
+                    {
+                        "id": 2033,
+                        "text": "Egna uttag delägare 3 (Handelsbolag)"
+                    },
+                    {
+                        "id": 2038,
+                        "text": "Övriga egna insättningar, delägare 3"
+                    },
+                    {
+                        "id": 2039,
+                        "text": "Årets resultat, delägare 3"
+                    },
+                    {
+                        "id": 2040,
+                        "text": "Eget kapital, delägare 4"
+                    },
+                    {
+                        "id": 2043,
+                        "text": "Egna uttag delägare 4 (Handelsbolag)"
+                    },
+                    {
+                        "id": 2048,
+                        "text": "Övriga egna insättningar, delägare 4"
+                    },
+                    {
+                        "id": 2049,
+                        "text": "Årets resultat, delägare 4"
+                    },
+                    {
+                        "id": 2050,
+                        "text": "Avsättning till expansionsfond"
+                    },
+                    {
+                        "id": 2060,
+                        "text": "Eget kapital i ideella föreningar, stiftelser och registrerade trossamfund"
+                    },
+                    {
+                        "id": 2061,
+                        "text": "Eget kapital/stiftelsekapital/grundkapital"
+                    },
+                    {
+                        "id": 2065,
+                        "text": "Förändring i fond för verkligt värde"
+                    },
+                    {
+                        "id": 2066,
+                        "text": "Värdesäkringsfond"
+                    },
+                    {
+                        "id": 2067,
+                        "text": "Balanserad vinst eller förlust/balanserat kapital"
+                    },
+                    {
+                        "id": 2068,
+                        "text": "Vinst eller förlust från föregående år"
+                    },
+                    {
+                        "id": 2069,
+                        "text": "Årets resultat"
+                    },
+                    {
+                        "id": 2070,
+                        "text": "Ändamålsbestämda medel"
+                    },
+                    {
+                        "id": 2071,
+                        "text": "Ändamål 1"
+                    },
+                    {
+                        "id": 2072,
+                        "text": "Ändamål 2"
+                    },
+                    {
+                        "id": 2080,
+                        "text": "Bundet eget kapital"
+                    },
+                    {
+                        "id": 2081,
+                        "text": "Aktiekapital"
+                    },
+                    {
+                        "id": 2082,
+                        "text": "Ej registrerat aktiekapital"
+                    },
+                    {
+                        "id": 2083,
+                        "text": "Medlemsinsatser"
+                    },
+                    {
+                        "id": 2084,
+                        "text": "Förlagsinsatser"
+                    },
+                    {
+                        "id": 2085,
+                        "text": "Uppskrivningsfond"
+                    },
+                    {
+                        "id": 2086,
+                        "text": "Reservfond"
+                    },
+                    {
+                        "id": 2087,
+                        "text": "Insatsemission"
+                    },
+                    {
+                        "id": 2088,
+                        "text": "Fond för yttre underhåll"
+                    },
+                    {
+                        "id": 2090,
+                        "text": "Fritt eget kapital"
+                    },
+                    {
+                        "id": 2091,
+                        "text": "Balanserad vinst eller förlust"
+                    },
+                    {
+                        "id": 2092,
+                        "text": "Mottagna/lämnade koncernbidrag"
+                    },
+                    {
+                        "id": 2093,
+                        "text": "Erhållna aktieägartillskott"
+                    },
+                    {
+                        "id": 2094,
+                        "text": "Egna aktier"
+                    },
+                    {
+                        "id": 2095,
+                        "text": "Fusionsresultat"
+                    },
+                    {
+                        "id": 2096,
+                        "text": "Fond för verkligt värde"
+                    },
+                    {
+                        "id": 2097,
+                        "text": "Överkursfond"
+                    },
+                    {
+                        "id": 2098,
+                        "text": "Vinst eller förlust från föregående år"
+                    },
+                    {
+                        "id": 2099,
+                        "text": "Årets resultat"
                     }
                 ]
             },
             {
-                "Id": 31,
-                "Text": "Försäljning av varor utanför Sverige",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 21,
+                "text": "Obeskattade reserver",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3105,
-                        "Text": "Försäljning varor till land utanför EU"
+                        "id": 2110,
+                        "text": "Periodiseringsfond vid 2010 års taxering"
                     },
                     {
-                        "Id": 3106,
-                        "Text": "Försäljning varor till annat EU-land, momspliktig"
+                        "id": 2111,
+                        "text": "Periodiseringsfond vid 2011 års taxering"
                     },
                     {
-                        "Id": 3107,
-                        "Text": "Treparts försäljn varor till EU"
+                        "id": 2112,
+                        "text": "Periodiseringsfond vid 2012 års taxering"
                     },
                     {
-                        "Id": 3108,
-                        "Text": "Försäljning varor till annat EU-land, momsfri"
+                        "id": 2113,
+                        "text": "Periodiseringsfond vid 2013 års taxering"
+                    },
+                    {
+                        "id": 2120,
+                        "text": "Periodiseringsfonder"
+                    },
+                    {
+                        "id": 2121,
+                        "text": "Periodiseringsfonder"
+                    },
+                    {
+                        "id": 2122,
+                        "text": "Periodiseringsfonder"
+                    },
+                    {
+                        "id": 2123,
+                        "text": "Periodiseringsfond 2020"
+                    },
+                    {
+                        "id": 2124,
+                        "text": "Periodiseringsfond 2021"
+                    },
+                    {
+                        "id": 2125,
+                        "text": "Periodiseringsfond 2022"
+                    },
+                    {
+                        "id": 2126,
+                        "text": "Periodiseringsfond 2023"
+                    },
+                    {
+                        "id": 2127,
+                        "text": "Periodiseringsfond 2017"
+                    },
+                    {
+                        "id": 2128,
+                        "text": "Periodiseringsfond 2018"
+                    },
+                    {
+                        "id": 2129,
+                        "text": "Periodiseringsfond 2019"
+                    },
+                    {
+                        "id": 2150,
+                        "text": "Ackumulerade överavskrivningar"
+                    },
+                    {
+                        "id": 2151,
+                        "text": "Ackumulerade överavskrivningar på immateriella anläggningstillgångar"
+                    },
+                    {
+                        "id": 2152,
+                        "text": "Ackumulerade överavskrivningar på byggnader och markanläggningar"
+                    },
+                    {
+                        "id": 2153,
+                        "text": "Ackumulerade överavskrivningar på maskiner och inventarier"
+                    },
+                    {
+                        "id": 2160,
+                        "text": "Ersättningsfond"
+                    },
+                    {
+                        "id": 2161,
+                        "text": "Ersättningsfond maskiner och inventarier"
+                    },
+                    {
+                        "id": 2162,
+                        "text": "Ersättningsfond byggnader och markanläggningar"
+                    },
+                    {
+                        "id": 2163,
+                        "text": "Ersättningsfond mark"
+                    },
+                    {
+                        "id": 2164,
+                        "text": "Ersättningsfond för djurlager i jordbruk och renskötsel"
+                    },
+                    {
+                        "id": 2180,
+                        "text": "Obeskattade intäkter"
+                    },
+                    {
+                        "id": 2181,
+                        "text": "Obeskattade upphovsmannaintäkter"
+                    },
+                    {
+                        "id": 2185,
+                        "text": "Obeskattade skogsintäkter"
+                    },
+                    {
+                        "id": 2190,
+                        "text": "Övriga obeskattade reserver"
+                    },
+                    {
+                        "id": 2196,
+                        "text": "Lagerreserv"
+                    },
+                    {
+                        "id": 2199,
+                        "text": "Övriga obeskattade reserver"
                     }
                 ]
             },
             {
-                "Id": 32,
-                "Text": "Försäljning VMB och omvänd moms",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 22,
+                "text": "Avsättningar",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3200,
-                        "Text": "Försäljning VMB och omvänd moms"
+                        "id": 2210,
+                        "text": "Avsättningar för pensioner enligt tryggandelagen"
                     },
                     {
-                        "Id": 3211,
-                        "Text": "Försäljning positiv VMB 25 %"
+                        "id": 2220,
+                        "text": "Avsättningar för garantier"
                     },
                     {
-                        "Id": 3212,
-                        "Text": "Försäljning negativ VMB 25 %"
+                        "id": 2230,
+                        "text": "Övriga avsättningar för pensioner och liknande förpliktelser"
                     },
                     {
-                        "Id": 3223,
-                        "Text": "Positiv VM omföringskonto"
+                        "id": 2240,
+                        "text": "Avsättningar för uppskjutna skatter"
                     },
                     {
-                        "Id": 3231,
-                        "Text": "Försäljning inom byggsektorn, omvänd skattskyldighet moms"
+                        "id": 2250,
+                        "text": "Övriga avsättningar för skatter"
+                    },
+                    {
+                        "id": 2252,
+                        "text": "Avsättningar för tvistiga skatter"
+                    },
+                    {
+                        "id": 2253,
+                        "text": "Avsättningar särskild löneskatt, deklarationspost"
+                    },
+                    {
+                        "id": 2290,
+                        "text": "Övriga avsättningar"
                     }
                 ]
             },
             {
-                "Id": 33,
-                "Text": "Försäljning av tjänster utanför Sverige",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 23,
+                "text": "Långfristiga skulder",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3305,
-                        "Text": "Försäljning tjänster till land utanför EU"
+                        "id": 2310,
+                        "text": "Obligations- och förlagslån"
                     },
                     {
-                        "Id": 3308,
-                        "Text": "Försäljning tjänster till annat EU-land"
+                        "id": 2320,
+                        "text": "Konvertibla lån och liknande"
                     },
                     {
-                        "Id": 3389,
-                        "Text": "Försäljning EU moms/OSS"
+                        "id": 2321,
+                        "text": "Konvertibla lån"
+                    },
+                    {
+                        "id": 2322,
+                        "text": "Lån förenade med optionsrätt"
+                    },
+                    {
+                        "id": 2323,
+                        "text": "Vinstandelslån"
+                    },
+                    {
+                        "id": 2324,
+                        "text": "Kapitalandelslån"
+                    },
+                    {
+                        "id": 2330,
+                        "text": "Checkräkningskredit"
+                    },
+                    {
+                        "id": 2340,
+                        "text": "Byggnadskreditiv"
+                    },
+                    {
+                        "id": 2350,
+                        "text": "Andra långfristiga skulder till kreditinstitut"
+                    },
+                    {
+                        "id": 2351,
+                        "text": "Fastighetslån, långfristig del"
+                    },
+                    {
+                        "id": 2355,
+                        "text": "Långfristiga lån i utländsk valuta från kreditinstitut"
+                    },
+                    {
+                        "id": 2359,
+                        "text": "Övriga långfristiga lån från kreditinstitut"
+                    },
+                    {
+                        "id": 2360,
+                        "text": "Långfristiga skulder till koncernföretag"
+                    },
+                    {
+                        "id": 2361,
+                        "text": "Långfristiga skulder till moderföretag"
+                    },
+                    {
+                        "id": 2362,
+                        "text": "Långfristiga skulder till dotterföretag"
+                    },
+                    {
+                        "id": 2363,
+                        "text": "Långfristiga skulder till andra koncernföretag"
+                    },
+                    {
+                        "id": 2370,
+                        "text": "Långfristiga skulder till intresseföretag"
+                    },
+                    {
+                        "id": 2390,
+                        "text": "Övriga långfristiga skulder"
+                    },
+                    {
+                        "id": 2391,
+                        "text": "Avbetalningskontrakt, långfristig del"
+                    },
+                    {
+                        "id": 2392,
+                        "text": "Villkorliga långfristiga skulder"
+                    },
+                    {
+                        "id": 2393,
+                        "text": "Lån från närstående personer, långfristig del"
+                    },
+                    {
+                        "id": 2394,
+                        "text": "Långfristiga leverantörskrediter"
+                    },
+                    {
+                        "id": 2395,
+                        "text": "Andra långfristiga lån i utländsk valuta"
+                    },
+                    {
+                        "id": 2396,
+                        "text": "Derivat"
+                    },
+                    {
+                        "id": 2397,
+                        "text": "Mottagna depositioner, långfristiga"
+                    },
+                    {
+                        "id": 2399,
+                        "text": "Övriga långfristiga skulder"
                     }
                 ]
             },
             {
-                "Id": 34,
-                "Text": "Försäljning, egna uttag",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 24,
+                "text": "Kortfristiga skulder till kreditinstitut, kunder och leverantörer",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3401,
-                        "Text": "Egna uttag momspliktiga, 25 %"
+                        "id": 2410,
+                        "text": "Andra kortfristiga låneskulder till kreditinstitut"
                     },
                     {
-                        "Id": 3402,
-                        "Text": "Egna uttag momspliktiga, 12 %"
+                        "id": 2411,
+                        "text": "Kortfristiga lån från kreditinstitut"
                     },
                     {
-                        "Id": 3403,
-                        "Text": "Egna uttag momspliktiga, 6 %"
+                        "id": 2417,
+                        "text": "Kortfristig del av långfristiga skulder till kreditinstitut"
                     },
                     {
-                        "Id": 3404,
-                        "Text": "Egna uttag, momsfria"
+                        "id": 2419,
+                        "text": "Övriga kortfristiga skulder till kreditinstitut"
+                    },
+                    {
+                        "id": 2420,
+                        "text": "Förskott från kunder"
+                    },
+                    {
+                        "id": 2421,
+                        "text": "Ej inlösta presentkort"
+                    },
+                    {
+                        "id": 2429,
+                        "text": "Övriga förskott från kunder"
+                    },
+                    {
+                        "id": 2430,
+                        "text": "Pågående arbeten"
+                    },
+                    {
+                        "id": 2431,
+                        "text": "Pågående arbeten, fakturering"
+                    },
+                    {
+                        "id": 2438,
+                        "text": "Pågående arbeten, nedlagda kostnader"
+                    },
+                    {
+                        "id": 2439,
+                        "text": "Beräknad förändring av pågående arbeten"
+                    },
+                    {
+                        "id": 2440,
+                        "text": "Leverantörsskulder"
+                    },
+                    {
+                        "id": 2441,
+                        "text": "Leverantörsskulder"
+                    },
+                    {
+                        "id": 2443,
+                        "text": "Konsignationsskulder"
+                    },
+                    {
+                        "id": 2445,
+                        "text": "Tvistiga leverantörsskulder"
+                    },
+                    {
+                        "id": 2448,
+                        "text": "Ej reskontraförda leverantörsskulder"
+                    },
+                    {
+                        "id": 2450,
+                        "text": "Fakturerad men ej upparbetad intäkt"
+                    },
+                    {
+                        "id": 2460,
+                        "text": "Leverantörsskulder till koncernföretag"
+                    },
+                    {
+                        "id": 2461,
+                        "text": "Leverantörsskulder till moderföretag"
+                    },
+                    {
+                        "id": 2462,
+                        "text": "Leverantörsskulder till dotterföretag"
+                    },
+                    {
+                        "id": 2463,
+                        "text": "Leverantörsskulder till andra koncernföretag"
+                    },
+                    {
+                        "id": 2470,
+                        "text": "Leverantörsskulder till intresseföretag"
+                    },
+                    {
+                        "id": 2480,
+                        "text": "Checkräkningskredit, kortfristig"
+                    },
+                    {
+                        "id": 2490,
+                        "text": "Övriga kortfristiga skulder till kreditinstitut, kunder och leverantörer"
+                    },
+                    {
+                        "id": 2491,
+                        "text": "Avräkning spelarrangörer"
+                    },
+                    {
+                        "id": 2492,
+                        "text": "Växelskulder"
+                    },
+                    {
+                        "id": 2499,
+                        "text": "Andra övriga kortfristiga skulder"
                     }
                 ]
             },
             {
-                "Id": 35,
-                "Text": "Fakturerade kostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 25,
+                "text": "Skatteskulder",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3500,
-                        "Text": "Fakturerade kostnader (gruppkonto)"
+                        "id": 2510,
+                        "text": "Skatteskulder"
                     },
                     {
-                        "Id": 3510,
-                        "Text": "Fakturerat emballage"
+                        "id": 2512,
+                        "text": "Beräknad inkomstskatt"
                     },
                     {
-                        "Id": 3511,
-                        "Text": "Fakturerat emballage"
+                        "id": 2513,
+                        "text": "Beräknad fastighetsskatt/fastighetsavgift"
                     },
                     {
-                        "Id": 3518,
-                        "Text": "Returnerat emballage"
+                        "id": 2514,
+                        "text": "Beräknad särskild löneskatt på pensionskostnader"
                     },
                     {
-                        "Id": 3520,
-                        "Text": "Fakturerade frakter"
+                        "id": 2515,
+                        "text": "Beräknad avkastningsskatt"
                     },
                     {
-                        "Id": 3521,
-                        "Text": "Fakturerade frakter, EU-land"
+                        "id": 2516,
+                        "text": "Moms"
                     },
                     {
-                        "Id": 3522,
-                        "Text": "Fakturerade frakter, export"
+                        "id": 2517,
+                        "text": "Beräknad utländsk skatt"
                     },
                     {
-                        "Id": 3530,
-                        "Text": "Fakturerade tull- och speditionskostnader m.m."
-                    },
-                    {
-                        "Id": 3540,
-                        "Text": "Faktureringsavgifter"
-                    },
-                    {
-                        "Id": 3541,
-                        "Text": "Faktureringsavgifter, EU-land"
-                    },
-                    {
-                        "Id": 3542,
-                        "Text": "Faktureringsavgifter, export"
-                    },
-                    {
-                        "Id": 3550,
-                        "Text": "Fakturerade resekostnader"
-                    },
-                    {
-                        "Id": 3560,
-                        "Text": "Fakturerade kostnader till koncernföretag"
-                    },
-                    {
-                        "Id": 3561,
-                        "Text": "Fakturerade kostnader till moderföretag"
-                    },
-                    {
-                        "Id": 3562,
-                        "Text": "Fakturerade kostnader till dotterföretag"
-                    },
-                    {
-                        "Id": 3563,
-                        "Text": "Fakturerade kostnader till andra koncernföretag"
-                    },
-                    {
-                        "Id": 3570,
-                        "Text": "Fakturerade kostnader till intresseföretag"
-                    },
-                    {
-                        "Id": 3590,
-                        "Text": "Övriga fakturerade kostnader"
+                        "id": 2518,
+                        "text": "Betald F-skatt"
                     }
                 ]
             },
             {
-                "Id": 36,
-                "Text": "Rörelsens sidointäkter",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 26,
+                "text": "Moms och särskilda punktskatter",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3600,
-                        "Text": "Rörelsens sidointäkter (gruppkonto)"
+                        "id": 2610,
+                        "text": "Utgående moms, 25 %"
                     },
                     {
-                        "Id": 3610,
-                        "Text": "Försäljning av material"
+                        "id": 2611,
+                        "text": "Utgående moms på försäljning inom Sverige, 25 %"
                     },
                     {
-                        "Id": 3611,
-                        "Text": "Försäljning av råmaterial"
+                        "id": 2612,
+                        "text": "Utgående moms på egna uttag, 25 %"
                     },
                     {
-                        "Id": 3612,
-                        "Text": "Försäljning av skrot"
+                        "id": 2613,
+                        "text": "Utgående moms för uthyrning, 25 %"
                     },
                     {
-                        "Id": 3613,
-                        "Text": "Försäljning av förbrukningsmaterial"
+                        "id": 2614,
+                        "text": "Utgående moms omvänd skattskyldighet, 25 %"
                     },
                     {
-                        "Id": 3619,
-                        "Text": "Försäljning av övrigt material"
+                        "id": 2615,
+                        "text": "Utgående moms import av varor, 25%"
                     },
                     {
-                        "Id": 3620,
-                        "Text": "Tillfällig uthyrning av personal"
+                        "id": 2616,
+                        "text": "Utgående moms VMB 25 %"
                     },
                     {
-                        "Id": 3630,
-                        "Text": "Tillfällig uthyrning av transportmedel"
+                        "id": 2617,
+                        "text": "Utgående moms omvänd skattskyldighet varor och tjänster i Sverige, 25 %"
                     },
                     {
-                        "Id": 3670,
-                        "Text": "Intäkter från värdepapper"
+                        "id": 2618,
+                        "text": "Vilande utgående moms, 25 %"
                     },
                     {
-                        "Id": 3671,
-                        "Text": "Försäljning av värdepapper"
+                        "id": 2620,
+                        "text": "Utgående moms, 12 %"
                     },
                     {
-                        "Id": 3672,
-                        "Text": "Utdelning från värdepapper"
+                        "id": 2621,
+                        "text": "Utgående moms på försäljning inom Sverige, 12 %"
                     },
                     {
-                        "Id": 3679,
-                        "Text": "Övriga intäkter från värdepapper"
+                        "id": 2622,
+                        "text": "Utgående moms på egna uttag, 12 %"
                     },
                     {
-                        "Id": 3680,
-                        "Text": "Management fees"
+                        "id": 2623,
+                        "text": "Utgående moms för uthyrning, 12 %"
                     },
                     {
-                        "Id": 3690,
-                        "Text": "Övriga sidointäkter"
+                        "id": 2624,
+                        "text": "Utgående moms omvänd skattskyldighet, 12 %"
+                    },
+                    {
+                        "id": 2625,
+                        "text": "Utgående moms import av varor, 12 %"
+                    },
+                    {
+                        "id": 2626,
+                        "text": "Utgående moms VMB 12 %"
+                    },
+                    {
+                        "id": 2627,
+                        "text": "Utgående moms omvänd skattskyldighet varor och tjänster i Sverige, 12 %"
+                    },
+                    {
+                        "id": 2628,
+                        "text": "Vilande utgående moms, 12 %"
+                    },
+                    {
+                        "id": 2630,
+                        "text": "Utgående moms, 6 %"
+                    },
+                    {
+                        "id": 2631,
+                        "text": "Utgående moms på försäljning inom Sverige, 6 %"
+                    },
+                    {
+                        "id": 2632,
+                        "text": "Utgående moms på egna uttag, 6 %"
+                    },
+                    {
+                        "id": 2633,
+                        "text": "Utgående moms för uthyrning, 6 %"
+                    },
+                    {
+                        "id": 2634,
+                        "text": "Utgående moms omvänd skattskyldighet, 6 %"
+                    },
+                    {
+                        "id": 2635,
+                        "text": "Utgående moms import av varor, 6 %"
+                    },
+                    {
+                        "id": 2636,
+                        "text": "Utgående moms VMB 6 %"
+                    },
+                    {
+                        "id": 2637,
+                        "text": "Utgående moms omvänd skattskyldighet varor och tjänster i Sverige, 6 %"
+                    },
+                    {
+                        "id": 2638,
+                        "text": "Vilande utgående moms, 6 %"
+                    },
+                    {
+                        "id": 2640,
+                        "text": "Ingående moms"
+                    },
+                    {
+                        "id": 2641,
+                        "text": "Debiterad ingående moms"
+                    },
+                    {
+                        "id": 2642,
+                        "text": "Debiterad ingående moms i anslutning till frivillig skattskyldighet"
+                    },
+                    {
+                        "id": 2645,
+                        "text": "Beräknad ingående moms på förvärv från utlandet"
+                    },
+                    {
+                        "id": 2646,
+                        "text": "Ingående moms på uthyrning"
+                    },
+                    {
+                        "id": 2647,
+                        "text": "Ingående moms omvänd skattskyldighet varor och tjänster i Sverige"
+                    },
+                    {
+                        "id": 2648,
+                        "text": "Vilande ingående moms"
+                    },
+                    {
+                        "id": 2649,
+                        "text": "Ingående moms, blandad verksamhet"
+                    },
+                    {
+                        "id": 2650,
+                        "text": "Redovisningskonto för moms"
+                    },
+                    {
+                        "id": 2660,
+                        "text": "Särskilda punktskatter"
+                    },
+                    {
+                        "id": 2661,
+                        "text": "Reklamskatt"
+                    },
+                    {
+                        "id": 2668,
+                        "text": "OSS, moms"
+                    },
+                    {
+                        "id": 2669,
+                        "text": "Övriga punktskatter"
                     }
                 ]
             },
             {
-                "Id": 37,
-                "Text": "Intäktskorrigeringar",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 27,
+                "text": "Personalens skatter, avgifter och löneavdrag",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3700,
-                        "Text": "Intäktskorrigeringar (gruppkonto)"
+                        "id": 2710,
+                        "text": "Personalskatt"
                     },
                     {
-                        "Id": 3710,
-                        "Text": "Ofördelade intäktsreduktioner"
+                        "id": 2730,
+                        "text": "Lagstadgade sociala avgifter och särskild löneskatt"
                     },
                     {
-                        "Id": 3730,
-                        "Text": "Lämnade rabatter"
+                        "id": 2731,
+                        "text": "Avräkning lagstadgade sociala avgifter"
                     },
                     {
-                        "Id": 3731,
-                        "Text": "Lämnade kassarabatter"
+                        "id": 2732,
+                        "text": "Avräkning särskild löneskatt"
                     },
                     {
-                        "Id": 3732,
-                        "Text": "Lämnade mängdrabatter"
+                        "id": 2740,
+                        "text": "Avtalade sociala avgifter"
                     },
                     {
-                        "Id": 3740,
-                        "Text": "Öres- och kronutjämning"
+                        "id": 2750,
+                        "text": "Utmätning i lön m.m."
                     },
                     {
-                        "Id": 3750,
-                        "Text": "Punktskatter"
+                        "id": 2760,
+                        "text": "Semestermedel"
                     },
                     {
-                        "Id": 3751,
-                        "Text": "Intäktsförda punktskatter (kreditkonto)"
+                        "id": 2761,
+                        "text": "Avräkning semesterlöner"
                     },
                     {
-                        "Id": 3752,
-                        "Text": "Skuldförda punktskatter (debetkonto)"
+                        "id": 2762,
+                        "text": "Semesterlönekassa"
                     },
                     {
-                        "Id": 3790,
-                        "Text": "Övriga intäktskorrigeringar"
+                        "id": 2790,
+                        "text": "Övriga löneavdrag"
+                    },
+                    {
+                        "id": 2791,
+                        "text": "Personalens intressekonto"
+                    },
+                    {
+                        "id": 2792,
+                        "text": "Lönsparande"
+                    },
+                    {
+                        "id": 2793,
+                        "text": "Gruppförsäkringspremier"
+                    },
+                    {
+                        "id": 2794,
+                        "text": "Fackföreningsavgifter"
+                    },
+                    {
+                        "id": 2795,
+                        "text": "Mätnings- och granskningsarvoden"
+                    },
+                    {
+                        "id": 2799,
+                        "text": "Övriga löneavdrag"
                     }
                 ]
             },
             {
-                "Id": 38,
-                "Text": "Aktiverat arbete för egen räkning",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 28,
+                "text": "Övriga kortfristiga skulder",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3800,
-                        "Text": "Aktiverat arbete för egen räkning (gruppkonto)"
+                        "id": 2810,
+                        "text": "Avräkning för factoring och belånade kontraktsfordringar"
                     },
                     {
-                        "Id": 3840,
-                        "Text": "Aktiverat arbete (material)"
+                        "id": 2811,
+                        "text": "Avräkning för factoring"
                     },
                     {
-                        "Id": 3850,
-                        "Text": "Aktiverat arbete (omkostnader)"
+                        "id": 2812,
+                        "text": "Avräkning för belånade kontraktsfordringar"
                     },
                     {
-                        "Id": 3870,
-                        "Text": "Aktiverat arbete (personal)"
+                        "id": 2820,
+                        "text": "Kortfristiga skulder till anställda"
+                    },
+                    {
+                        "id": 2821,
+                        "text": "Löneskulder"
+                    },
+                    {
+                        "id": 2822,
+                        "text": "Reseräkningar"
+                    },
+                    {
+                        "id": 2823,
+                        "text": "Tantiem, gratifikationer"
+                    },
+                    {
+                        "id": 2829,
+                        "text": "Övriga kortfristiga skulder till anställda"
+                    },
+                    {
+                        "id": 2830,
+                        "text": "Avräkning för annans räkning"
+                    },
+                    {
+                        "id": 2840,
+                        "text": "Kortfristiga låneskulder"
+                    },
+                    {
+                        "id": 2841,
+                        "text": "Kortfristig del av långfristiga skulder"
+                    },
+                    {
+                        "id": 2849,
+                        "text": "Övriga kortfristiga låneskulder"
+                    },
+                    {
+                        "id": 2850,
+                        "text": "Avräkning för skatter och avgifter (skattekonto)"
+                    },
+                    {
+                        "id": 2860,
+                        "text": "Kortfristiga skulder till koncernföretag"
+                    },
+                    {
+                        "id": 2861,
+                        "text": "Kortfristiga skulder till moderföretag"
+                    },
+                    {
+                        "id": 2862,
+                        "text": "Kortfristiga skulder till dotterföretag"
+                    },
+                    {
+                        "id": 2863,
+                        "text": "Kortfristiga skulder till andra koncernföretag"
+                    },
+                    {
+                        "id": 2870,
+                        "text": "Kortfristiga skulder till intresseföretag"
+                    },
+                    {
+                        "id": 2880,
+                        "text": "Skuld erhållna bidrag"
+                    },
+                    {
+                        "id": 2890,
+                        "text": "Övriga kortfristiga skulder"
+                    },
+                    {
+                        "id": 2891,
+                        "text": "Skulder under indrivning"
+                    },
+                    {
+                        "id": 2892,
+                        "text": "Inre reparationsfond/underhållsfond"
+                    },
+                    {
+                        "id": 2893,
+                        "text": "Skulder till närstående personer, kortfristig del"
+                    },
+                    {
+                        "id": 2895,
+                        "text": "Derivat (kortfristiga skulder)"
+                    },
+                    {
+                        "id": 2897,
+                        "text": "Mottagna depositioner, kortfristiga"
+                    },
+                    {
+                        "id": 2898,
+                        "text": "Outtagen vinstutdelning"
+                    },
+                    {
+                        "id": 2899,
+                        "text": "Övriga kortfristiga skulder"
                     }
                 ]
             },
             {
-                "Id": 39,
-                "Text": "Övriga rörelseintäkter",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 29,
+                "text": "Upplupna kostnader och förutbetalda intäkter",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 3900,
-                        "Text": "Övriga rörelseintäkter (gruppkonto)"
+                        "id": 2910,
+                        "text": "Upplupna löner"
                     },
                     {
-                        "Id": 3910,
-                        "Text": "Hyres- och arrendeintäkter"
+                        "id": 2911,
+                        "text": "Löneskulder"
                     },
                     {
-                        "Id": 3911,
-                        "Text": "Hyresintäkter"
+                        "id": 2912,
+                        "text": "Ackordsöverskott"
                     },
                     {
-                        "Id": 3912,
-                        "Text": "Arrendeintäkter"
+                        "id": 2919,
+                        "text": "Övriga upplupna löner"
                     },
                     {
-                        "Id": 3913,
-                        "Text": "Frivilligt momspliktiga hyresintäkter"
+                        "id": 2920,
+                        "text": "Upplupna semesterlöner"
                     },
                     {
-                        "Id": 3914,
-                        "Text": "Övriga momspliktiga hyresintäkter"
+                        "id": 2930,
+                        "text": "Upplupna pensionskostnader"
                     },
                     {
-                        "Id": 3920,
-                        "Text": "Provisionsintäkter, licensintäkter och royalties"
+                        "id": 2931,
+                        "text": "Upplupna pensionsutbetalningar"
                     },
                     {
-                        "Id": 3921,
-                        "Text": "Provisionsintäkter"
+                        "id": 2940,
+                        "text": "Upplupna lagstadgade sociala och andra avgifter"
                     },
                     {
-                        "Id": 3922,
-                        "Text": "Licensintäkter och royalties"
+                        "id": 2941,
+                        "text": "Beräknade upplupna lagstadgade sociala avgifter"
                     },
                     {
-                        "Id": 3925,
-                        "Text": "Franchiseintäkter"
+                        "id": 2942,
+                        "text": "Beräknad upplupen särskild löneskatt"
                     },
                     {
-                        "Id": 3929,
-                        "Text": "Kickback momsfri"
+                        "id": 2943,
+                        "text": "Beräknad upplupen särskild löneskatt på pensionskostnader, deklarationspost"
                     },
                     {
-                        "Id": 3930,
-                        "Text": "Påminnelseavgifter på intäkter (kundfakturor)"
+                        "id": 2944,
+                        "text": "Beräknad upplupen avkastningsskatt på pensionskostnader"
                     },
                     {
-                        "Id": 3940,
-                        "Text": "Orealiserade negativa/positiva värdeförändringar på säkringsinstrument"
+                        "id": 2950,
+                        "text": "Upplupna avtalade sociala avgifter"
                     },
                     {
-                        "Id": 3950,
-                        "Text": "Återvunna, tidigare avskrivna kundfordringar"
+                        "id": 2951,
+                        "text": "Upplupna avtalade arbetsmarknadsförsäkringar"
                     },
                     {
-                        "Id": 3960,
-                        "Text": "Valutakursvinster på fordringar och skulder av rörelsekaraktär"
+                        "id": 2959,
+                        "text": "Upplupna avtalade pensionsförsäkringsavgifter, deklarationspost"
                     },
                     {
-                        "Id": 3970,
-                        "Text": "Vinst vid avyttring av immateriella och materiella anläggningstillgångar"
+                        "id": 2960,
+                        "text": "Upplupna räntekostnader"
                     },
                     {
-                        "Id": 3971,
-                        "Text": "Vinst vid avyttring av immateriella anläggningstillgångar"
+                        "id": 2970,
+                        "text": "Förutbetalda intäkter"
                     },
                     {
-                        "Id": 3972,
-                        "Text": "Vinst vid avyttring av byggnader och mark"
+                        "id": 2971,
+                        "text": "Förutbetalda hyresintäkter"
                     },
                     {
-                        "Id": 3973,
-                        "Text": "Vinst vid avyttring av maskiner och inventarier"
+                        "id": 2972,
+                        "text": "Förutbetalda medlemsavgifter"
                     },
                     {
-                        "Id": 3980,
-                        "Text": "Erhållna offentliga stöd m.m."
+                        "id": 2979,
+                        "text": "Övriga förutbetalda intäkter"
                     },
                     {
-                        "Id": 3981,
-                        "Text": "Erhållna EU-bidrag"
+                        "id": 2980,
+                        "text": "Upplupna avtalskostnader"
                     },
                     {
-                        "Id": 3985,
-                        "Text": "Erhållna statliga bidrag"
+                        "id": 2990,
+                        "text": "Övriga upplupna kostnader och förutbetalda intäkter"
                     },
                     {
-                        "Id": 3987,
-                        "Text": "Erhållna kommunala bidrag"
+                        "id": 2991,
+                        "text": "Beräknat arvode för bokslut"
                     },
                     {
-                        "Id": 3988,
-                        "Text": "Erhållna bidrag och ersättningar för personal"
+                        "id": 2992,
+                        "text": "Beräknat arvode för revision"
                     },
                     {
-                        "Id": 3989,
-                        "Text": "Övriga erhållna bidrag"
+                        "id": 2993,
+                        "text": "Ospecificerad skuld till leverantörer"
                     },
                     {
-                        "Id": 3990,
-                        "Text": "Övriga ersättningar och intäkter"
+                        "id": 2998,
+                        "text": "Övriga upplupna kostnader och förutbetalda intäkter"
                     },
                     {
-                        "Id": 3991,
-                        "Text": "Konfliktersättning"
-                    },
-                    {
-                        "Id": 3992,
-                        "Text": "Erhållna skadestånd"
-                    },
-                    {
-                        "Id": 3993,
-                        "Text": "Erhållna donationer och gåvor"
-                    },
-                    {
-                        "Id": 3994,
-                        "Text": "Försäkringsersättningar"
-                    },
-                    {
-                        "Id": 3995,
-                        "Text": "Erhållet ackord på skulder av rörelsekaraktär"
-                    },
-                    {
-                        "Id": 3996,
-                        "Text": "Erhållna reklambidrag"
-                    },
-                    {
-                        "Id": 3997,
-                        "Text": "Sjuklöneersättning"
-                    },
-                    {
-                        "Id": 3998,
-                        "Text": "Sjukpenning"
-                    },
-                    {
-                        "Id": 3999,
-                        "Text": "Övriga rörelseintäkter"
+                        "id": 2999,
+                        "text": "OBS-konto"
                     }
                 ]
             }
         ]
     },
     {
-        "Id": 4,
-        "Text": "Utgifter/kostnader för varor, material och vissa köpta tjänster",
-        "SubCategories": [
+        "id": 3,
+        "text": "Rörelsens inkomster/intäkter",
+        "subCategories": [
             {
-                "Id": 40,
-                "Text": "Inköp av varor och material",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 30,
+                "text": "Försäljning inom Sverige",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 4000,
-                        "Text": "Inköp av varor från Sverige"
+                        "id": 3000,
+                        "text": "Försäljning inom Sverige"
                     },
                     {
-                        "Id": 4010,
-                        "Text": "Inköp material och varor"
+                        "id": 3001,
+                        "text": "Försäljning varor inom Sverige, 25 % moms"
+                    },
+                    {
+                        "id": 3002,
+                        "text": "Försäljning varor inom Sverige, 12 % moms"
+                    },
+                    {
+                        "id": 3003,
+                        "text": "Försäljning varor inom Sverige, 6 % moms"
+                    },
+                    {
+                        "id": 3004,
+                        "text": "Försäljning varor inom Sverige, momsfri"
+                    },
+                    {
+                        "id": 3011,
+                        "text": "Försäljning tjänster inom Sverige, 25 % moms"
+                    },
+                    {
+                        "id": 3012,
+                        "text": "Försäljning tjänster inom Sverige, 12 % moms"
+                    },
+                    {
+                        "id": 3013,
+                        "text": "Försäljning tjänster inom Sverige, 6 % moms"
+                    },
+                    {
+                        "id": 3014,
+                        "text": "Försäljning tjänster inom Sverige, momsfri"
+                    },
+                    {
+                        "id": 3071,
+                        "text": "Förutbetalda intäkter, varor och tjänster"
+                    },
+                    {
+                        "id": 3089,
+                        "text": "Försäljning inom Sverige, momsfri"
+                    },
+                    {
+                        "id": 3099,
+                        "text": "Justering av försäljning, ej moms"
                     }
                 ]
             },
             {
-                "Id": 42,
-                "Text": "Sålda varor VMB",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 31,
+                "text": "Försäljning av varor utanför Sverige",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 4200,
-                        "Text": "Sålda varor VMB"
+                        "id": 3105,
+                        "text": "Försäljning varor till land utanför EU"
                     },
                     {
-                        "Id": 4211,
-                        "Text": "Sålda varor positiv VMB 25 %"
+                        "id": 3106,
+                        "text": "Försäljning varor till annat EU-land, momspliktig"
                     },
                     {
-                        "Id": 4212,
-                        "Text": "Sålda varor negativ VMB 25 %"
+                        "id": 3107,
+                        "text": "Treparts försäljn varor till EU"
+                    },
+                    {
+                        "id": 3108,
+                        "text": "Försäljning varor till annat EU-land, momsfri"
                     }
                 ]
             },
             {
-                "Id": 44,
-                "Text": "Inköpta tjänster i Sverige, omvänd skattskyldighet",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 32,
+                "text": "Försäljning VMB och omvänd moms",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 4400,
-                        "Text": "Inköpta tjänster i Sverige, omvänd skattskyldighet"
+                        "id": 3200,
+                        "text": "Försäljning VMB och omvänd moms"
                     },
                     {
-                        "Id": 4415,
-                        "Text": "Inköpta varor i Sverige, omvänd skattskyldighet, 25 %"
+                        "id": 3211,
+                        "text": "Försäljning positiv VMB 25 %"
                     },
                     {
-                        "Id": 4416,
-                        "Text": "Inköpta varor i Sverige, omvänd skattskyldighet, 12 %"
+                        "id": 3212,
+                        "text": "Försäljning negativ VMB 25 %"
                     },
                     {
-                        "Id": 4417,
-                        "Text": "Inköpta varor i Sverige, omvänd skattskyldighet, 6 %"
+                        "id": 3223,
+                        "text": "Positiv VM omföringskonto"
                     },
                     {
-                        "Id": 4425,
-                        "Text": "Inköpta tjänster i Sverige, omvänd skattskyldighet, 25 %"
-                    },
-                    {
-                        "Id": 4426,
-                        "Text": "Inköpta tjänster i Sverige, omvänd skattskyldighet, 12 %"
-                    },
-                    {
-                        "Id": 4427,
-                        "Text": "Inköpta tjänster i Sverige, omvänd skattskyldighet, 6 %"
+                        "id": 3231,
+                        "text": "Försäljning inom byggsektorn, omvänd skattskyldighet moms"
                     }
                 ]
             },
             {
-                "Id": 45,
-                "Text": "Inköp utanför Sverige",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 33,
+                "text": "Försäljning av tjänster utanför Sverige",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 4500,
-                        "Text": "Inköp utanför Sverige"
+                        "id": 3305,
+                        "text": "Försäljning tjänster till land utanför EU"
                     },
                     {
-                        "Id": 4512,
-                        "Text": "Förvärv varor, trepartsförvärv från annat EU-land, mellan man"
+                        "id": 3308,
+                        "text": "Försäljning tjänster till annat EU-land"
                     },
                     {
-                        "Id": 4515,
-                        "Text": "Inköp av varor från annat EU-land, 25 %"
-                    },
-                    {
-                        "Id": 4516,
-                        "Text": "Inköp av varor från annat EU-land, 12 %"
-                    },
-                    {
-                        "Id": 4517,
-                        "Text": "Inköp av varor från annat EU-land, 6 %"
-                    },
-                    {
-                        "Id": 4518,
-                        "Text": "Inköp av varor från annat EU-land, momsfri"
-                    },
-                    {
-                        "Id": 4531,
-                        "Text": "Import tjänster land utanför EU, 25% moms"
-                    },
-                    {
-                        "Id": 4532,
-                        "Text": "Import tjänster land utanför EU, 12% moms"
-                    },
-                    {
-                        "Id": 4533,
-                        "Text": "Import tjänster land utanför EU, 6% moms"
-                    },
-                    {
-                        "Id": 4534,
-                        "Text": "Import tjänster land utanför EU, momsfri"
-                    },
-                    {
-                        "Id": 4535,
-                        "Text": "Inköp av tjänster från annat EU-land, 25 %"
-                    },
-                    {
-                        "Id": 4536,
-                        "Text": "Inköp av tjänster från annat EU-land, 12 %"
-                    },
-                    {
-                        "Id": 4537,
-                        "Text": "Inköp av tjänster från annat EU-land, 6 %"
-                    },
-                    {
-                        "Id": 4538,
-                        "Text": "Inköp av tjänster från annat EU-land, momsfri"
-                    },
-                    {
-                        "Id": 4545,
-                        "Text": "Import av varor, 25 % moms"
-                    },
-                    {
-                        "Id": 4546,
-                        "Text": "Import av varor, 12 % moms"
-                    },
-                    {
-                        "Id": 4547,
-                        "Text": "Import av varor, 6 % moms"
-                    },
-                    {
-                        "Id": 4549,
-                        "Text": "Motkonto beskattningsunderlag import"
-                    },
-                    {
-                        "Id": 4598,
-                        "Text": "Justering, omvänd moms"
+                        "id": 3389,
+                        "text": "Försäljning EU moms/OSS"
                     }
                 ]
             },
             {
-                "Id": 46,
-                "Text": "Legoarbeten, underentreprenader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 34,
+                "text": "Försäljning, egna uttag",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 4600,
-                        "Text": "Legoarbeten och underentreprenader (gruppkonto)"
+                        "id": 3401,
+                        "text": "Egna uttag momspliktiga, 25 %"
+                    },
+                    {
+                        "id": 3402,
+                        "text": "Egna uttag momspliktiga, 12 %"
+                    },
+                    {
+                        "id": 3403,
+                        "text": "Egna uttag momspliktiga, 6 %"
+                    },
+                    {
+                        "id": 3404,
+                        "text": "Egna uttag, momsfria"
                     }
                 ]
             },
             {
-                "Id": 47,
-                "Text": "Reduktion av inköpspriser",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 35,
+                "text": "Fakturerade kostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 4700,
-                        "Text": "Reduktion av inköpspriser (gruppkonto)"
+                        "id": 3500,
+                        "text": "Fakturerade kostnader (gruppkonto)"
                     },
                     {
-                        "Id": 4730,
-                        "Text": "Erhållna rabatter"
+                        "id": 3510,
+                        "text": "Fakturerat emballage"
                     },
                     {
-                        "Id": 4731,
-                        "Text": "Erhållna kassarabatter"
+                        "id": 3511,
+                        "text": "Fakturerat emballage"
                     },
                     {
-                        "Id": 4732,
-                        "Text": "Erhållna mängdrabatter (inkl. bonus)"
+                        "id": 3518,
+                        "text": "Returnerat emballage"
                     },
                     {
-                        "Id": 4733,
-                        "Text": "Erhållet aktivitetsstöd"
+                        "id": 3520,
+                        "text": "Fakturerade frakter"
                     },
                     {
-                        "Id": 4790,
-                        "Text": "Övriga reduktioner av inköpspriser"
+                        "id": 3521,
+                        "text": "Fakturerade frakter, EU-land"
+                    },
+                    {
+                        "id": 3522,
+                        "text": "Fakturerade frakter, export"
+                    },
+                    {
+                        "id": 3530,
+                        "text": "Fakturerade tull- och speditionskostnader m.m."
+                    },
+                    {
+                        "id": 3540,
+                        "text": "Faktureringsavgifter"
+                    },
+                    {
+                        "id": 3541,
+                        "text": "Faktureringsavgifter, EU-land"
+                    },
+                    {
+                        "id": 3542,
+                        "text": "Faktureringsavgifter, export"
+                    },
+                    {
+                        "id": 3550,
+                        "text": "Fakturerade resekostnader"
+                    },
+                    {
+                        "id": 3560,
+                        "text": "Fakturerade kostnader till koncernföretag"
+                    },
+                    {
+                        "id": 3561,
+                        "text": "Fakturerade kostnader till moderföretag"
+                    },
+                    {
+                        "id": 3562,
+                        "text": "Fakturerade kostnader till dotterföretag"
+                    },
+                    {
+                        "id": 3563,
+                        "text": "Fakturerade kostnader till andra koncernföretag"
+                    },
+                    {
+                        "id": 3570,
+                        "text": "Fakturerade kostnader till intresseföretag"
+                    },
+                    {
+                        "id": 3590,
+                        "text": "Övriga fakturerade kostnader"
                     }
                 ]
             },
             {
-                "Id": 49,
-                "Text": "Förändring av lager, produkter i arbete och pågående arbeten",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 36,
+                "text": "Rörelsens sidointäkter",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 4900,
-                        "Text": "Förändring av lager (gruppkonto)"
+                        "id": 3600,
+                        "text": "Rörelsens sidointäkter (gruppkonto)"
                     },
                     {
-                        "Id": 4910,
-                        "Text": "Förändring av lager av råvaror"
+                        "id": 3610,
+                        "text": "Försäljning av material"
                     },
                     {
-                        "Id": 4920,
-                        "Text": "Förändring av lager av tillsatsmaterial och förnödenheter"
+                        "id": 3611,
+                        "text": "Försäljning av råmaterial"
                     },
                     {
-                        "Id": 4930,
-                        "Text": "Förändring av lager av halvfabrikat"
+                        "id": 3612,
+                        "text": "Försäljning av skrot"
                     },
                     {
-                        "Id": 4931,
-                        "Text": "Förändring av lager av köpta halvfabrikat"
+                        "id": 3613,
+                        "text": "Försäljning av förbrukningsmaterial"
                     },
                     {
-                        "Id": 4932,
-                        "Text": "Förändring av lager av egentillverkade halvfabrikat"
+                        "id": 3619,
+                        "text": "Försäljning av övrigt material"
                     },
                     {
-                        "Id": 4940,
-                        "Text": "Förändring av produkter i arbete"
+                        "id": 3620,
+                        "text": "Tillfällig uthyrning av personal"
                     },
                     {
-                        "Id": 4944,
-                        "Text": "Förändring av produkter i arbete, material och utlägg"
+                        "id": 3630,
+                        "text": "Tillfällig uthyrning av transportmedel"
                     },
                     {
-                        "Id": 4945,
-                        "Text": "Förändring av produkter i arbete, omkostnader"
+                        "id": 3670,
+                        "text": "Intäkter från värdepapper"
                     },
                     {
-                        "Id": 4947,
-                        "Text": "Förändring av produkter i arbete, personalkostnader"
+                        "id": 3671,
+                        "text": "Försäljning av värdepapper"
                     },
                     {
-                        "Id": 4950,
-                        "Text": "Förändring av lager av färdiga varor"
+                        "id": 3672,
+                        "text": "Utdelning från värdepapper"
                     },
                     {
-                        "Id": 4960,
-                        "Text": "Förändring av lager av handelsvaror"
+                        "id": 3679,
+                        "text": "Övriga intäkter från värdepapper"
                     },
                     {
-                        "Id": 4970,
-                        "Text": "Förändring av pågående arbeten, nedlagda kostnader"
+                        "id": 3680,
+                        "text": "Management fees"
                     },
                     {
-                        "Id": 4974,
-                        "Text": "Förändring av pågående arbeten, material och utlägg"
+                        "id": 3690,
+                        "text": "Övriga sidointäkter"
+                    }
+                ]
+            },
+            {
+                "id": 37,
+                "text": "Intäktskorrigeringar",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 3700,
+                        "text": "Intäktskorrigeringar (gruppkonto)"
                     },
                     {
-                        "Id": 4975,
-                        "Text": "Förändring av pågående arbeten, omkostnader"
+                        "id": 3710,
+                        "text": "Ofördelade intäktsreduktioner"
                     },
                     {
-                        "Id": 4977,
-                        "Text": "Förändring av pågående arbeten, personalkostnader"
+                        "id": 3730,
+                        "text": "Lämnade rabatter"
                     },
                     {
-                        "Id": 4980,
-                        "Text": "Förändring av lager av värdepapper"
+                        "id": 3731,
+                        "text": "Lämnade kassarabatter"
                     },
                     {
-                        "Id": 4981,
-                        "Text": "Sålda värdepappers anskaffningsvärde"
+                        "id": 3732,
+                        "text": "Lämnade mängdrabatter"
                     },
                     {
-                        "Id": 4987,
-                        "Text": "Nedskrivning av värdepapper"
+                        "id": 3740,
+                        "text": "Öres- och kronutjämning"
                     },
                     {
-                        "Id": 4988,
-                        "Text": "Återföring av nedskrivning av värdepapper"
+                        "id": 3750,
+                        "text": "Punktskatter"
                     },
                     {
-                        "Id": 4990,
-                        "Text": "Förändring av lager och pågående arbeten (ofördelad)"
+                        "id": 3751,
+                        "text": "Intäktsförda punktskatter (kreditkonto)"
+                    },
+                    {
+                        "id": 3752,
+                        "text": "Skuldförda punktskatter (debetkonto)"
+                    },
+                    {
+                        "id": 3790,
+                        "text": "Övriga intäktskorrigeringar"
+                    }
+                ]
+            },
+            {
+                "id": 38,
+                "text": "Aktiverat arbete för egen räkning",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 3800,
+                        "text": "Aktiverat arbete för egen räkning (gruppkonto)"
+                    },
+                    {
+                        "id": 3840,
+                        "text": "Aktiverat arbete (material)"
+                    },
+                    {
+                        "id": 3850,
+                        "text": "Aktiverat arbete (omkostnader)"
+                    },
+                    {
+                        "id": 3870,
+                        "text": "Aktiverat arbete (personal)"
+                    }
+                ]
+            },
+            {
+                "id": 39,
+                "text": "Övriga rörelseintäkter",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 3900,
+                        "text": "Övriga rörelseintäkter (gruppkonto)"
+                    },
+                    {
+                        "id": 3910,
+                        "text": "Hyres- och arrendeintäkter"
+                    },
+                    {
+                        "id": 3911,
+                        "text": "Hyresintäkter"
+                    },
+                    {
+                        "id": 3912,
+                        "text": "Arrendeintäkter"
+                    },
+                    {
+                        "id": 3913,
+                        "text": "Frivilligt momspliktiga hyresintäkter"
+                    },
+                    {
+                        "id": 3914,
+                        "text": "Övriga momspliktiga hyresintäkter"
+                    },
+                    {
+                        "id": 3920,
+                        "text": "Provisionsintäkter, licensintäkter och royalties"
+                    },
+                    {
+                        "id": 3921,
+                        "text": "Provisionsintäkter"
+                    },
+                    {
+                        "id": 3922,
+                        "text": "Licensintäkter och royalties"
+                    },
+                    {
+                        "id": 3925,
+                        "text": "Franchiseintäkter"
+                    },
+                    {
+                        "id": 3929,
+                        "text": "Kickback momsfri"
+                    },
+                    {
+                        "id": 3930,
+                        "text": "Påminnelseavgifter på intäkter (kundfakturor)"
+                    },
+                    {
+                        "id": 3940,
+                        "text": "Orealiserade negativa/positiva värdeförändringar på säkringsinstrument"
+                    },
+                    {
+                        "id": 3950,
+                        "text": "Återvunna, tidigare avskrivna kundfordringar"
+                    },
+                    {
+                        "id": 3960,
+                        "text": "Valutakursvinster på fordringar och skulder av rörelsekaraktär"
+                    },
+                    {
+                        "id": 3970,
+                        "text": "Vinst vid avyttring av immateriella och materiella anläggningstillgångar"
+                    },
+                    {
+                        "id": 3971,
+                        "text": "Vinst vid avyttring av immateriella anläggningstillgångar"
+                    },
+                    {
+                        "id": 3972,
+                        "text": "Vinst vid avyttring av byggnader och mark"
+                    },
+                    {
+                        "id": 3973,
+                        "text": "Vinst vid avyttring av maskiner och inventarier"
+                    },
+                    {
+                        "id": 3980,
+                        "text": "Erhållna offentliga stöd m.m."
+                    },
+                    {
+                        "id": 3981,
+                        "text": "Erhållna EU-bidrag"
+                    },
+                    {
+                        "id": 3985,
+                        "text": "Erhållna statliga bidrag"
+                    },
+                    {
+                        "id": 3987,
+                        "text": "Erhållna kommunala bidrag"
+                    },
+                    {
+                        "id": 3988,
+                        "text": "Erhållna bidrag och ersättningar för personal"
+                    },
+                    {
+                        "id": 3989,
+                        "text": "Övriga erhållna bidrag"
+                    },
+                    {
+                        "id": 3990,
+                        "text": "Övriga ersättningar och intäkter"
+                    },
+                    {
+                        "id": 3991,
+                        "text": "Konfliktersättning"
+                    },
+                    {
+                        "id": 3992,
+                        "text": "Erhållna skadestånd"
+                    },
+                    {
+                        "id": 3993,
+                        "text": "Erhållna donationer och gåvor"
+                    },
+                    {
+                        "id": 3994,
+                        "text": "Försäkringsersättningar"
+                    },
+                    {
+                        "id": 3995,
+                        "text": "Erhållet ackord på skulder av rörelsekaraktär"
+                    },
+                    {
+                        "id": 3996,
+                        "text": "Erhållna reklambidrag"
+                    },
+                    {
+                        "id": 3997,
+                        "text": "Sjuklöneersättning"
+                    },
+                    {
+                        "id": 3998,
+                        "text": "Sjukpenning"
+                    },
+                    {
+                        "id": 3999,
+                        "text": "Övriga rörelseintäkter"
                     }
                 ]
             }
         ]
     },
     {
-        "Id": 5,
-        "Text": "Övriga externa rörelseutgifter/ kostnader",
-        "SubCategories": [
+        "id": 4,
+        "text": "Utgifter/kostnader för varor, material och vissa köpta tjänster",
+        "subCategories": [
             {
-                "Id": 50,
-                "Text": "Lokalkostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 40,
+                "text": "Inköp av varor och material",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 5000,
-                        "Text": "Lokalkostnader (gruppkonto)"
+                        "id": 4000,
+                        "text": "Inköp av varor från Sverige"
                     },
                     {
-                        "Id": 5010,
-                        "Text": "Lokalhyra"
-                    },
-                    {
-                        "Id": 5011,
-                        "Text": "Hyra för kontorslokaler"
-                    },
-                    {
-                        "Id": 5012,
-                        "Text": "Hyra för garage"
-                    },
-                    {
-                        "Id": 5013,
-                        "Text": "Hyra för lagerlokaler"
-                    },
-                    {
-                        "Id": 5020,
-                        "Text": "El för belysning"
-                    },
-                    {
-                        "Id": 5030,
-                        "Text": "Värme"
-                    },
-                    {
-                        "Id": 5040,
-                        "Text": "Vatten och avlopp"
-                    },
-                    {
-                        "Id": 5050,
-                        "Text": "Lokaltillbehör"
-                    },
-                    {
-                        "Id": 5060,
-                        "Text": "Städning och renhållning"
-                    },
-                    {
-                        "Id": 5061,
-                        "Text": "Städning"
-                    },
-                    {
-                        "Id": 5062,
-                        "Text": "Sophämtning"
-                    },
-                    {
-                        "Id": 5063,
-                        "Text": "Hyra för sopcontainer"
-                    },
-                    {
-                        "Id": 5064,
-                        "Text": "Snöröjning"
-                    },
-                    {
-                        "Id": 5065,
-                        "Text": "Trädgårdsskötsel"
-                    },
-                    {
-                        "Id": 5070,
-                        "Text": "Reparation och underhåll av lokaler"
-                    },
-                    {
-                        "Id": 5090,
-                        "Text": "Övriga lokalkostnader"
-                    },
-                    {
-                        "Id": 5098,
-                        "Text": "Övriga lokalkostnader, avdragsgilla"
-                    },
-                    {
-                        "Id": 5099,
-                        "Text": "Övriga lokalkostnader, ej avdragsgilla"
+                        "id": 4010,
+                        "text": "Inköp material och varor"
                     }
                 ]
             },
             {
-                "Id": 51,
-                "Text": "Fastighetskostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 42,
+                "text": "Sålda varor VMB",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 5100,
-                        "Text": "Fastighetskostnader (gruppkonto)"
+                        "id": 4200,
+                        "text": "Sålda varor VMB"
                     },
                     {
-                        "Id": 5110,
-                        "Text": "Tomträttsavgäld/arrende"
+                        "id": 4211,
+                        "text": "Sålda varor positiv VMB 25 %"
                     },
                     {
-                        "Id": 5120,
-                        "Text": "El för belysning"
-                    },
-                    {
-                        "Id": 5130,
-                        "Text": "Värme"
-                    },
-                    {
-                        "Id": 5131,
-                        "Text": "Uppvärmning"
-                    },
-                    {
-                        "Id": 5132,
-                        "Text": "Sotning"
-                    },
-                    {
-                        "Id": 5140,
-                        "Text": "Vatten och avlopp"
-                    },
-                    {
-                        "Id": 5160,
-                        "Text": "Städning och renhållning"
-                    },
-                    {
-                        "Id": 5161,
-                        "Text": "Städning"
-                    },
-                    {
-                        "Id": 5162,
-                        "Text": "Sophämtning"
-                    },
-                    {
-                        "Id": 5163,
-                        "Text": "Hyra för sopcontainer"
-                    },
-                    {
-                        "Id": 5164,
-                        "Text": "Snöröjning"
-                    },
-                    {
-                        "Id": 5165,
-                        "Text": "Trädgårdsskötsel"
-                    },
-                    {
-                        "Id": 5170,
-                        "Text": "Reparation och underhåll av fastighet"
-                    },
-                    {
-                        "Id": 5190,
-                        "Text": "Övriga fastighetskostnader"
-                    },
-                    {
-                        "Id": 5191,
-                        "Text": "Fastighetsskatt/fastighetsavgift"
-                    },
-                    {
-                        "Id": 5192,
-                        "Text": "Fastighetsförsäkringspremier"
-                    },
-                    {
-                        "Id": 5193,
-                        "Text": "Fastighetsskötsel och förvaltning"
-                    },
-                    {
-                        "Id": 5198,
-                        "Text": "Övriga fastighetskostnader, avdragsgilla"
-                    },
-                    {
-                        "Id": 5199,
-                        "Text": "Övriga fastighetskostnader, ej avdragsgilla"
+                        "id": 4212,
+                        "text": "Sålda varor negativ VMB 25 %"
                     }
                 ]
             },
             {
-                "Id": 52,
-                "Text": "Hyra av anläggningstillgångar",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 44,
+                "text": "Inköpta tjänster i Sverige, omvänd skattskyldighet",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 5200,
-                        "Text": "Hyra av anläggningstillgångar (gruppkonto)"
+                        "id": 4400,
+                        "text": "Inköpta tjänster i Sverige, omvänd skattskyldighet"
                     },
                     {
-                        "Id": 5210,
-                        "Text": "Hyra av maskiner och andra tekniska anläggningar"
+                        "id": 4415,
+                        "text": "Inköpta varor i Sverige, omvänd skattskyldighet, 25 %"
                     },
                     {
-                        "Id": 5211,
-                        "Text": "Korttidshyra av maskiner och andra tekniska anläggningar"
+                        "id": 4416,
+                        "text": "Inköpta varor i Sverige, omvänd skattskyldighet, 12 %"
                     },
                     {
-                        "Id": 5212,
-                        "Text": "Leasing av maskiner och andra tekniska anläggningar"
+                        "id": 4417,
+                        "text": "Inköpta varor i Sverige, omvänd skattskyldighet, 6 %"
                     },
                     {
-                        "Id": 5220,
-                        "Text": "Hyra av inventarier och verktyg"
+                        "id": 4425,
+                        "text": "Inköpta tjänster i Sverige, omvänd skattskyldighet, 25 %"
                     },
                     {
-                        "Id": 5221,
-                        "Text": "Korttidshyra av inventarier och verktyg"
+                        "id": 4426,
+                        "text": "Inköpta tjänster i Sverige, omvänd skattskyldighet, 12 %"
                     },
                     {
-                        "Id": 5222,
-                        "Text": "Leasing av inventarier och verktyg"
-                    },
-                    {
-                        "Id": 5250,
-                        "Text": "Hyra av datorer"
-                    },
-                    {
-                        "Id": 5251,
-                        "Text": "Korttidshyra av datorer"
-                    },
-                    {
-                        "Id": 5252,
-                        "Text": "Leasing av datorer"
-                    },
-                    {
-                        "Id": 5290,
-                        "Text": "Övriga hyreskostnader för anläggningstillgångar"
+                        "id": 4427,
+                        "text": "Inköpta tjänster i Sverige, omvänd skattskyldighet, 6 %"
                     }
                 ]
             },
             {
-                "Id": 53,
-                "Text": "Energikostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 45,
+                "text": "Inköp utanför Sverige",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 5300,
-                        "Text": "Energikostnader (gruppkonto)"
+                        "id": 4500,
+                        "text": "Inköp utanför Sverige"
                     },
                     {
-                        "Id": 5310,
-                        "Text": "El för drift"
+                        "id": 4512,
+                        "text": "Förvärv varor, trepartsförvärv från annat EU-land, mellan man"
                     },
                     {
-                        "Id": 5320,
-                        "Text": "Gas"
+                        "id": 4515,
+                        "text": "Inköp av varor från annat EU-land, 25 %"
                     },
                     {
-                        "Id": 5330,
-                        "Text": "Eldningsolja"
+                        "id": 4516,
+                        "text": "Inköp av varor från annat EU-land, 12 %"
                     },
                     {
-                        "Id": 5340,
-                        "Text": "Stenkol och koks"
+                        "id": 4517,
+                        "text": "Inköp av varor från annat EU-land, 6 %"
                     },
                     {
-                        "Id": 5350,
-                        "Text": "Torv, träkol, ved och annat träbränsle"
+                        "id": 4518,
+                        "text": "Inköp av varor från annat EU-land, momsfri"
                     },
                     {
-                        "Id": 5360,
-                        "Text": "Bensin, fotogen och motorbrännolja"
+                        "id": 4531,
+                        "text": "Import tjänster land utanför EU, 25% moms"
                     },
                     {
-                        "Id": 5370,
-                        "Text": "Fjärrvärme, kyla och ånga"
+                        "id": 4532,
+                        "text": "Import tjänster land utanför EU, 12% moms"
                     },
                     {
-                        "Id": 5380,
-                        "Text": "Vatten"
+                        "id": 4533,
+                        "text": "Import tjänster land utanför EU, 6% moms"
                     },
                     {
-                        "Id": 5390,
-                        "Text": "Övriga energikostnader"
+                        "id": 4534,
+                        "text": "Import tjänster land utanför EU, momsfri"
+                    },
+                    {
+                        "id": 4535,
+                        "text": "Inköp av tjänster från annat EU-land, 25 %"
+                    },
+                    {
+                        "id": 4536,
+                        "text": "Inköp av tjänster från annat EU-land, 12 %"
+                    },
+                    {
+                        "id": 4537,
+                        "text": "Inköp av tjänster från annat EU-land, 6 %"
+                    },
+                    {
+                        "id": 4538,
+                        "text": "Inköp av tjänster från annat EU-land, momsfri"
+                    },
+                    {
+                        "id": 4545,
+                        "text": "Import av varor, 25 % moms"
+                    },
+                    {
+                        "id": 4546,
+                        "text": "Import av varor, 12 % moms"
+                    },
+                    {
+                        "id": 4547,
+                        "text": "Import av varor, 6 % moms"
+                    },
+                    {
+                        "id": 4549,
+                        "text": "Motkonto beskattningsunderlag import"
+                    },
+                    {
+                        "id": 4598,
+                        "text": "Justering, omvänd moms"
                     }
                 ]
             },
             {
-                "Id": 54,
-                "Text": "Förbrukningsinventarier och förbrukningsmaterial",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 46,
+                "text": "Legoarbeten, underentreprenader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 5400,
-                        "Text": "Förbrukningsinventarier och förbrukningsmaterial (gruppkonto)"
-                    },
-                    {
-                        "Id": 5410,
-                        "Text": "Förbrukningsinventarier"
-                    },
-                    {
-                        "Id": 5411,
-                        "Text": "Förbrukningsinventarier med en livslängd på mer än ett år"
-                    },
-                    {
-                        "Id": 5412,
-                        "Text": "Förbrukningsinventarier med en livslängd på ett år eller mindre"
-                    },
-                    {
-                        "Id": 5420,
-                        "Text": "Programvaror"
-                    },
-                    {
-                        "Id": 5430,
-                        "Text": "Transportinventarier"
-                    },
-                    {
-                        "Id": 5440,
-                        "Text": "Förbrukningsemballage"
-                    },
-                    {
-                        "Id": 5460,
-                        "Text": "Förbrukningsmaterial"
-                    },
-                    {
-                        "Id": 5480,
-                        "Text": "Arbetskläder och skyddsmaterial"
-                    },
-                    {
-                        "Id": 5490,
-                        "Text": "Övriga förbrukningsinventarier och förbrukningsmaterial"
-                    },
-                    {
-                        "Id": 5491,
-                        "Text": "Övriga förbrukningsinventarier med en livslängd på mer än ett år"
-                    },
-                    {
-                        "Id": 5492,
-                        "Text": "Övriga förbrukningsinventarier med en livslängd på ett år eller mindre"
-                    },
-                    {
-                        "Id": 5493,
-                        "Text": "Övrigt förbrukningsmaterial"
+                        "id": 4600,
+                        "text": "Legoarbeten och underentreprenader (gruppkonto)"
                     }
                 ]
             },
             {
-                "Id": 55,
-                "Text": "Reparation och underhåll",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 47,
+                "text": "Reduktion av inköpspriser",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 5500,
-                        "Text": "Reparation och underhåll (gruppkonto)"
+                        "id": 4700,
+                        "text": "Reduktion av inköpspriser (gruppkonto)"
                     },
                     {
-                        "Id": 5510,
-                        "Text": "Reparation och underhåll av maskiner och andra tekniska anläggningar"
+                        "id": 4730,
+                        "text": "Erhållna rabatter"
                     },
                     {
-                        "Id": 5520,
-                        "Text": "Reparation och underhåll av inventarier, verktyg och datorer m.m."
+                        "id": 4731,
+                        "text": "Erhållna kassarabatter"
                     },
                     {
-                        "Id": 5530,
-                        "Text": "Reparation och underhåll av installationer"
+                        "id": 4732,
+                        "text": "Erhållna mängdrabatter (inkl. bonus)"
                     },
                     {
-                        "Id": 5550,
-                        "Text": "Reparation och underhåll av förbrukningsinventarier"
+                        "id": 4733,
+                        "text": "Erhållet aktivitetsstöd"
                     },
                     {
-                        "Id": 5580,
-                        "Text": "Underhåll och tvätt av arbetskläder"
-                    },
-                    {
-                        "Id": 5590,
-                        "Text": "Övriga kostnader för reparation och underhåll"
+                        "id": 4790,
+                        "text": "Övriga reduktioner av inköpspriser"
                     }
                 ]
             },
             {
-                "Id": 56,
-                "Text": "Kostnader för transportmedel",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 49,
+                "text": "Förändring av lager, produkter i arbete och pågående arbeten",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 5600,
-                        "Text": "Kostnader för transportmedel (gruppkonto)"
+                        "id": 4900,
+                        "text": "Förändring av lager (gruppkonto)"
                     },
                     {
-                        "Id": 5610,
-                        "Text": "Personbilskostnader"
+                        "id": 4910,
+                        "text": "Förändring av lager av råvaror"
                     },
                     {
-                        "Id": 5611,
-                        "Text": "Drivmedel för personbilar"
+                        "id": 4920,
+                        "text": "Förändring av lager av tillsatsmaterial och förnödenheter"
                     },
                     {
-                        "Id": 5612,
-                        "Text": "Försäkring och skatt för personbilar"
+                        "id": 4930,
+                        "text": "Förändring av lager av halvfabrikat"
                     },
                     {
-                        "Id": 5613,
-                        "Text": "Reparation och underhåll av personbilar"
+                        "id": 4931,
+                        "text": "Förändring av lager av köpta halvfabrikat"
                     },
                     {
-                        "Id": 5615,
-                        "Text": "Leasing av personbilar"
+                        "id": 4932,
+                        "text": "Förändring av lager av egentillverkade halvfabrikat"
                     },
                     {
-                        "Id": 5616,
-                        "Text": "Trängselskatt, avdragsgill"
+                        "id": 4940,
+                        "text": "Förändring av produkter i arbete"
                     },
                     {
-                        "Id": 5619,
-                        "Text": "Övriga personbilskostnader"
+                        "id": 4944,
+                        "text": "Förändring av produkter i arbete, material och utlägg"
                     },
                     {
-                        "Id": 5620,
-                        "Text": "Lastbilskostnader"
+                        "id": 4945,
+                        "text": "Förändring av produkter i arbete, omkostnader"
                     },
                     {
-                        "Id": 5630,
-                        "Text": "Truckkostnader"
+                        "id": 4947,
+                        "text": "Förändring av produkter i arbete, personalkostnader"
                     },
                     {
-                        "Id": 5640,
-                        "Text": "Kostnader för arbetsmaskiner"
+                        "id": 4950,
+                        "text": "Förändring av lager av färdiga varor"
                     },
                     {
-                        "Id": 5650,
-                        "Text": "Traktorkostnader"
+                        "id": 4960,
+                        "text": "Förändring av lager av handelsvaror"
                     },
                     {
-                        "Id": 5660,
-                        "Text": "Motorcykel-, moped- och skoterkostnader"
+                        "id": 4970,
+                        "text": "Förändring av pågående arbeten, nedlagda kostnader"
                     },
                     {
-                        "Id": 5670,
-                        "Text": "Båt-, flygplans- och helikopterkostnader"
+                        "id": 4974,
+                        "text": "Förändring av pågående arbeten, material och utlägg"
                     },
                     {
-                        "Id": 5690,
-                        "Text": "Övriga kostnader för transportmedel"
-                    }
-                ]
-            },
-            {
-                "Id": 57,
-                "Text": "Frakter och transporter",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 5700,
-                        "Text": "Frakter och transporter (gruppkonto)"
+                        "id": 4975,
+                        "text": "Förändring av pågående arbeten, omkostnader"
                     },
                     {
-                        "Id": 5710,
-                        "Text": "Frakter, transporter och försäkringar vid varudistribution"
+                        "id": 4977,
+                        "text": "Förändring av pågående arbeten, personalkostnader"
                     },
                     {
-                        "Id": 5720,
-                        "Text": "Tull- och speditionskostnader m.m."
+                        "id": 4980,
+                        "text": "Förändring av lager av värdepapper"
                     },
                     {
-                        "Id": 5730,
-                        "Text": "Arbetstransporter"
+                        "id": 4981,
+                        "text": "Sålda värdepappers anskaffningsvärde"
                     },
                     {
-                        "Id": 5790,
-                        "Text": "Övriga kostnader för frakter och transporter"
-                    }
-                ]
-            },
-            {
-                "Id": 58,
-                "Text": "Resekostnader",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 5800,
-                        "Text": "Resekostnader (gruppkonto)"
+                        "id": 4987,
+                        "text": "Nedskrivning av värdepapper"
                     },
                     {
-                        "Id": 5810,
-                        "Text": "Biljetter"
+                        "id": 4988,
+                        "text": "Återföring av nedskrivning av värdepapper"
                     },
                     {
-                        "Id": 5820,
-                        "Text": "Hyrbilskostnader"
-                    },
-                    {
-                        "Id": 5830,
-                        "Text": "Kost och logi"
-                    },
-                    {
-                        "Id": 5831,
-                        "Text": "Kost och logi i Sverige"
-                    },
-                    {
-                        "Id": 5832,
-                        "Text": "Kost och logi i utlandet"
-                    },
-                    {
-                        "Id": 5841,
-                        "Text": "Milersättning, avdragsgill (Ägare enskild firma)"
-                    },
-                    {
-                        "Id": 5842,
-                        "Text": "Milersättning, ej avdragsgill (Ägare enskild firma)"
-                    },
-                    {
-                        "Id": 5843,
-                        "Text": "Traktamente Sverige avdragsgillt (Ägare enskild firma)"
-                    },
-                    {
-                        "Id": 5844,
-                        "Text": "Traktamente Sverige ej avdragsgillt (Ägare enskild firma)"
-                    },
-                    {
-                        "Id": 5845,
-                        "Text": "Traktamente Utlandet avdragsgillt (Ägare enskild firma)"
-                    },
-                    {
-                        "Id": 5846,
-                        "Text": "Traktamente Utlandet ej avdragsgillt (Ägare enskild firma)"
-                    },
-                    {
-                        "Id": 5890,
-                        "Text": "Övriga resekostnader"
-                    }
-                ]
-            },
-            {
-                "Id": 59,
-                "Text": "Reklam och PR",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 5900,
-                        "Text": "Reklam och PR (gruppkonto)"
-                    },
-                    {
-                        "Id": 5910,
-                        "Text": "Annonsering"
-                    },
-                    {
-                        "Id": 5920,
-                        "Text": "Utomhus- och trafikreklam"
-                    },
-                    {
-                        "Id": 5930,
-                        "Text": "Reklamtrycksaker och direktreklam"
-                    },
-                    {
-                        "Id": 5940,
-                        "Text": "Utställningar och mässor"
-                    },
-                    {
-                        "Id": 5950,
-                        "Text": "Butiksreklam och återförsäljarreklam"
-                    },
-                    {
-                        "Id": 5960,
-                        "Text": "Varuprover, reklamgåvor, presentreklam och tävlingar"
-                    },
-                    {
-                        "Id": 5970,
-                        "Text": "Film-, radio-, TV- och Internetreklam"
-                    },
-                    {
-                        "Id": 5980,
-                        "Text": "PR, institutionell reklam och sponsring"
-                    },
-                    {
-                        "Id": 5990,
-                        "Text": "Övriga kostnader för reklam och PR"
+                        "id": 4990,
+                        "text": "Förändring av lager och pågående arbeten (ofördelad)"
                     }
                 ]
             }
         ]
     },
     {
-        "Id": 6,
-        "Text": "Övriga externa rörelseutgifter/ kostnader",
-        "SubCategories": [
+        "id": 5,
+        "text": "Övriga externa rörelseutgifter/ kostnader",
+        "subCategories": [
             {
-                "Id": 60,
-                "Text": "Övriga försäljningskostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 50,
+                "text": "Lokalkostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 6000,
-                        "Text": "Övriga försäljningskostnader (gruppkonto)"
+                        "id": 5000,
+                        "text": "Lokalkostnader (gruppkonto)"
                     },
                     {
-                        "Id": 6010,
-                        "Text": "Kataloger, prislistor m.m."
+                        "id": 5010,
+                        "text": "Lokalhyra"
                     },
                     {
-                        "Id": 6020,
-                        "Text": "Egna facktidskrifter"
+                        "id": 5011,
+                        "text": "Hyra för kontorslokaler"
                     },
                     {
-                        "Id": 6030,
-                        "Text": "Speciella orderkostnader"
+                        "id": 5012,
+                        "text": "Hyra för garage"
                     },
                     {
-                        "Id": 6040,
-                        "Text": "Kontokortsavgifter"
+                        "id": 5013,
+                        "text": "Hyra för lagerlokaler"
                     },
                     {
-                        "Id": 6050,
-                        "Text": "Försäljningsprovisioner"
+                        "id": 5020,
+                        "text": "El för belysning"
                     },
                     {
-                        "Id": 6055,
-                        "Text": "Franchisekostnader o.dyl."
+                        "id": 5030,
+                        "text": "Värme"
                     },
                     {
-                        "Id": 6060,
-                        "Text": "Kreditförsäljningskostnader"
+                        "id": 5040,
+                        "text": "Vatten och avlopp"
                     },
                     {
-                        "Id": 6061,
-                        "Text": "Kreditupplysning"
+                        "id": 5050,
+                        "text": "Lokaltillbehör"
                     },
                     {
-                        "Id": 6062,
-                        "Text": "Inkasso och KFM-avgifter"
+                        "id": 5060,
+                        "text": "Städning och renhållning"
                     },
                     {
-                        "Id": 6063,
-                        "Text": "Kreditförsäkringspremier"
+                        "id": 5061,
+                        "text": "Städning"
                     },
                     {
-                        "Id": 6064,
-                        "Text": "Factoringavgifter"
+                        "id": 5062,
+                        "text": "Sophämtning"
                     },
                     {
-                        "Id": 6069,
-                        "Text": "Övriga kreditförsäljningskostnader"
+                        "id": 5063,
+                        "text": "Hyra för sopcontainer"
                     },
                     {
-                        "Id": 6070,
-                        "Text": "Representation"
+                        "id": 5064,
+                        "text": "Snöröjning"
                     },
                     {
-                        "Id": 6071,
-                        "Text": "Representation, avdragsgill"
+                        "id": 5065,
+                        "text": "Trädgårdsskötsel"
                     },
                     {
-                        "Id": 6072,
-                        "Text": "Representation, ej avdragsgill"
+                        "id": 5070,
+                        "text": "Reparation och underhåll av lokaler"
                     },
                     {
-                        "Id": 6080,
-                        "Text": "Bankgarantier"
+                        "id": 5090,
+                        "text": "Övriga lokalkostnader"
                     },
                     {
-                        "Id": 6090,
-                        "Text": "Övriga försäljningskostnader"
+                        "id": 5098,
+                        "text": "Övriga lokalkostnader, avdragsgilla"
+                    },
+                    {
+                        "id": 5099,
+                        "text": "Övriga lokalkostnader, ej avdragsgilla"
                     }
                 ]
             },
             {
-                "Id": 61,
-                "Text": "Kontorsmateriel och trycksaker",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 51,
+                "text": "Fastighetskostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 6100,
-                        "Text": "Kontorsmateriel och trycksaker (gruppkonto)"
+                        "id": 5100,
+                        "text": "Fastighetskostnader (gruppkonto)"
                     },
                     {
-                        "Id": 6110,
-                        "Text": "Kontorsmateriel"
+                        "id": 5110,
+                        "text": "Tomträttsavgäld/arrende"
                     },
                     {
-                        "Id": 6150,
-                        "Text": "Trycksaker"
+                        "id": 5120,
+                        "text": "El för belysning"
+                    },
+                    {
+                        "id": 5130,
+                        "text": "Värme"
+                    },
+                    {
+                        "id": 5131,
+                        "text": "Uppvärmning"
+                    },
+                    {
+                        "id": 5132,
+                        "text": "Sotning"
+                    },
+                    {
+                        "id": 5140,
+                        "text": "Vatten och avlopp"
+                    },
+                    {
+                        "id": 5160,
+                        "text": "Städning och renhållning"
+                    },
+                    {
+                        "id": 5161,
+                        "text": "Städning"
+                    },
+                    {
+                        "id": 5162,
+                        "text": "Sophämtning"
+                    },
+                    {
+                        "id": 5163,
+                        "text": "Hyra för sopcontainer"
+                    },
+                    {
+                        "id": 5164,
+                        "text": "Snöröjning"
+                    },
+                    {
+                        "id": 5165,
+                        "text": "Trädgårdsskötsel"
+                    },
+                    {
+                        "id": 5170,
+                        "text": "Reparation och underhåll av fastighet"
+                    },
+                    {
+                        "id": 5190,
+                        "text": "Övriga fastighetskostnader"
+                    },
+                    {
+                        "id": 5191,
+                        "text": "Fastighetsskatt/fastighetsavgift"
+                    },
+                    {
+                        "id": 5192,
+                        "text": "Fastighetsförsäkringspremier"
+                    },
+                    {
+                        "id": 5193,
+                        "text": "Fastighetsskötsel och förvaltning"
+                    },
+                    {
+                        "id": 5198,
+                        "text": "Övriga fastighetskostnader, avdragsgilla"
+                    },
+                    {
+                        "id": 5199,
+                        "text": "Övriga fastighetskostnader, ej avdragsgilla"
                     }
                 ]
             },
             {
-                "Id": 62,
-                "Text": "Tele och post",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 52,
+                "text": "Hyra av anläggningstillgångar",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 6200,
-                        "Text": "Tele och post (gruppkonto)"
+                        "id": 5200,
+                        "text": "Hyra av anläggningstillgångar (gruppkonto)"
                     },
                     {
-                        "Id": 6210,
-                        "Text": "Telekommunikation"
+                        "id": 5210,
+                        "text": "Hyra av maskiner och andra tekniska anläggningar"
                     },
                     {
-                        "Id": 6211,
-                        "Text": "Fast telefoni"
+                        "id": 5211,
+                        "text": "Korttidshyra av maskiner och andra tekniska anläggningar"
                     },
                     {
-                        "Id": 6212,
-                        "Text": "Mobiltelefon"
+                        "id": 5212,
+                        "text": "Leasing av maskiner och andra tekniska anläggningar"
                     },
                     {
-                        "Id": 6213,
-                        "Text": "Mobilsökning"
+                        "id": 5220,
+                        "text": "Hyra av inventarier och verktyg"
                     },
                     {
-                        "Id": 6214,
-                        "Text": "Fax"
+                        "id": 5221,
+                        "text": "Korttidshyra av inventarier och verktyg"
                     },
                     {
-                        "Id": 6215,
-                        "Text": "Telex"
+                        "id": 5222,
+                        "text": "Leasing av inventarier och verktyg"
                     },
                     {
-                        "Id": 6230,
-                        "Text": "Datakommunikation"
+                        "id": 5250,
+                        "text": "Hyra av datorer"
                     },
                     {
-                        "Id": 6250,
-                        "Text": "Postbefordran"
+                        "id": 5251,
+                        "text": "Korttidshyra av datorer"
+                    },
+                    {
+                        "id": 5252,
+                        "text": "Leasing av datorer"
+                    },
+                    {
+                        "id": 5290,
+                        "text": "Övriga hyreskostnader för anläggningstillgångar"
                     }
                 ]
             },
             {
-                "Id": 63,
-                "Text": "Företagsförsäkringar och övriga riskkostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 53,
+                "text": "Energikostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 6300,
-                        "Text": "Företagsförsäkringar och övriga riskkostnader (gruppkonto)"
+                        "id": 5300,
+                        "text": "Energikostnader (gruppkonto)"
                     },
                     {
-                        "Id": 6310,
-                        "Text": "Företagsförsäkringar"
+                        "id": 5310,
+                        "text": "El för drift"
                     },
                     {
-                        "Id": 6320,
-                        "Text": "Självrisker vid skada"
+                        "id": 5320,
+                        "text": "Gas"
                     },
                     {
-                        "Id": 6330,
-                        "Text": "Förluster i pågående arbeten"
+                        "id": 5330,
+                        "text": "Eldningsolja"
                     },
                     {
-                        "Id": 6340,
-                        "Text": "Lämnade skadestånd"
+                        "id": 5340,
+                        "text": "Stenkol och koks"
                     },
                     {
-                        "Id": 6341,
-                        "Text": "Lämnade skadestånd, avdragsgilla"
+                        "id": 5350,
+                        "text": "Torv, träkol, ved och annat träbränsle"
                     },
                     {
-                        "Id": 6342,
-                        "Text": "Lämnade skadestånd, ej avdragsgilla"
+                        "id": 5360,
+                        "text": "Bensin, fotogen och motorbrännolja"
                     },
                     {
-                        "Id": 6350,
-                        "Text": "Förluster på kundfordringar"
+                        "id": 5370,
+                        "text": "Fjärrvärme, kyla och ånga"
                     },
                     {
-                        "Id": 6351,
-                        "Text": "Konstaterade förluster på kundfordringar"
+                        "id": 5380,
+                        "text": "Vatten"
                     },
                     {
-                        "Id": 6352,
-                        "Text": "Befarade förluster på kundfordringar"
-                    },
-                    {
-                        "Id": 6360,
-                        "Text": "Garantikostnader"
-                    },
-                    {
-                        "Id": 6361,
-                        "Text": "Förändring av garantiavsättning"
-                    },
-                    {
-                        "Id": 6362,
-                        "Text": "Faktiska garantikostnader"
-                    },
-                    {
-                        "Id": 6370,
-                        "Text": "Kostnader för bevakning och larm"
-                    },
-                    {
-                        "Id": 6380,
-                        "Text": "Förluster på övriga kortfristiga fordringar"
-                    },
-                    {
-                        "Id": 6390,
-                        "Text": "Övriga riskkostnader"
+                        "id": 5390,
+                        "text": "Övriga energikostnader"
                     }
                 ]
             },
             {
-                "Id": 64,
-                "Text": "Förvaltningskostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 54,
+                "text": "Förbrukningsinventarier och förbrukningsmaterial",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 6400,
-                        "Text": "Förvaltningskostnader (gruppkonto)"
+                        "id": 5400,
+                        "text": "Förbrukningsinventarier och förbrukningsmaterial (gruppkonto)"
                     },
                     {
-                        "Id": 6410,
-                        "Text": "Styrelsearvoden som inte är lön"
+                        "id": 5410,
+                        "text": "Förbrukningsinventarier"
                     },
                     {
-                        "Id": 6420,
-                        "Text": "Ersättningar till revisor"
+                        "id": 5411,
+                        "text": "Förbrukningsinventarier med en livslängd på mer än ett år"
                     },
                     {
-                        "Id": 6421,
-                        "Text": "Revision"
+                        "id": 5412,
+                        "text": "Förbrukningsinventarier med en livslängd på ett år eller mindre"
                     },
                     {
-                        "Id": 6422,
-                        "Text": "Revisonsverksamhet utöver revision"
+                        "id": 5420,
+                        "text": "Programvaror"
                     },
                     {
-                        "Id": 6423,
-                        "Text": "Skatterådgivning – revisor"
+                        "id": 5430,
+                        "text": "Transportinventarier"
                     },
                     {
-                        "Id": 6424,
-                        "Text": "Övriga tjänster – revisor"
+                        "id": 5440,
+                        "text": "Förbrukningsemballage"
                     },
                     {
-                        "Id": 6430,
-                        "Text": "Management fees"
+                        "id": 5460,
+                        "text": "Förbrukningsmaterial"
                     },
                     {
-                        "Id": 6440,
-                        "Text": "Årsredovisning och delårsrapporter"
+                        "id": 5480,
+                        "text": "Arbetskläder och skyddsmaterial"
                     },
                     {
-                        "Id": 6450,
-                        "Text": "Bolagsstämma/års- eller föreningsstämma"
+                        "id": 5490,
+                        "text": "Övriga förbrukningsinventarier och förbrukningsmaterial"
                     },
                     {
-                        "Id": 6490,
-                        "Text": "Övriga förvaltningskostnader"
+                        "id": 5491,
+                        "text": "Övriga förbrukningsinventarier med en livslängd på mer än ett år"
+                    },
+                    {
+                        "id": 5492,
+                        "text": "Övriga förbrukningsinventarier med en livslängd på ett år eller mindre"
+                    },
+                    {
+                        "id": 5493,
+                        "text": "Övrigt förbrukningsmaterial"
                     }
                 ]
             },
             {
-                "Id": 65,
-                "Text": "Övriga externa tjänster",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 55,
+                "text": "Reparation och underhåll",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 6500,
-                        "Text": "Övriga externa tjänster (gruppkonto)"
+                        "id": 5500,
+                        "text": "Reparation och underhåll (gruppkonto)"
                     },
                     {
-                        "Id": 6510,
-                        "Text": "Mätningskostnader"
+                        "id": 5510,
+                        "text": "Reparation och underhåll av maskiner och andra tekniska anläggningar"
                     },
                     {
-                        "Id": 6520,
-                        "Text": "Ritnings- och kopieringskostnader"
+                        "id": 5520,
+                        "text": "Reparation och underhåll av inventarier, verktyg och datorer m.m."
                     },
                     {
-                        "Id": 6530,
-                        "Text": "Redovisningstjänster"
+                        "id": 5530,
+                        "text": "Reparation och underhåll av installationer"
                     },
                     {
-                        "Id": 6540,
-                        "Text": "IT-tjänster"
+                        "id": 5550,
+                        "text": "Reparation och underhåll av förbrukningsinventarier"
                     },
                     {
-                        "Id": 6550,
-                        "Text": "Konsultarvoden"
+                        "id": 5580,
+                        "text": "Underhåll och tvätt av arbetskläder"
                     },
                     {
-                        "Id": 6560,
-                        "Text": "Serviceavgifter till branschorganisationer"
-                    },
-                    {
-                        "Id": 6570,
-                        "Text": "Bankkostnader"
-                    },
-                    {
-                        "Id": 6580,
-                        "Text": "Advokat- och rättegångskostnader"
-                    },
-                    {
-                        "Id": 6590,
-                        "Text": "Övriga externa tjänster"
+                        "id": 5590,
+                        "text": "Övriga kostnader för reparation och underhåll"
                     }
                 ]
             },
             {
-                "Id": 68,
-                "Text": "Inhyrd personal",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 56,
+                "text": "Kostnader för transportmedel",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 6800,
-                        "Text": "Inhyrd personal (gruppkonto)"
+                        "id": 5600,
+                        "text": "Kostnader för transportmedel (gruppkonto)"
                     },
                     {
-                        "Id": 6810,
-                        "Text": "Inhyrd produktionspersonal"
+                        "id": 5610,
+                        "text": "Personbilskostnader"
                     },
                     {
-                        "Id": 6820,
-                        "Text": "Inhyrd lagerpersonal"
+                        "id": 5611,
+                        "text": "Drivmedel för personbilar"
                     },
                     {
-                        "Id": 6830,
-                        "Text": "Inhyrd transportpersonal"
+                        "id": 5612,
+                        "text": "Försäkring och skatt för personbilar"
                     },
                     {
-                        "Id": 6840,
-                        "Text": "Inhyrd kontors- och ekonomipersonal"
+                        "id": 5613,
+                        "text": "Reparation och underhåll av personbilar"
                     },
                     {
-                        "Id": 6850,
-                        "Text": "Inhyrd IT-personal"
+                        "id": 5615,
+                        "text": "Leasing av personbilar"
                     },
                     {
-                        "Id": 6860,
-                        "Text": "Inhyrd marknads- och försäljningspersonal"
+                        "id": 5616,
+                        "text": "Trängselskatt, avdragsgill"
                     },
                     {
-                        "Id": 6870,
-                        "Text": "Inhyrd restaurang- och butikspersonal"
+                        "id": 5619,
+                        "text": "Övriga personbilskostnader"
                     },
                     {
-                        "Id": 6880,
-                        "Text": "Inhyrda företagsledare"
+                        "id": 5620,
+                        "text": "Lastbilskostnader"
                     },
                     {
-                        "Id": 6890,
-                        "Text": "Övrig inhyrd personal"
+                        "id": 5630,
+                        "text": "Truckkostnader"
+                    },
+                    {
+                        "id": 5640,
+                        "text": "Kostnader för arbetsmaskiner"
+                    },
+                    {
+                        "id": 5650,
+                        "text": "Traktorkostnader"
+                    },
+                    {
+                        "id": 5660,
+                        "text": "Motorcykel-, moped- och skoterkostnader"
+                    },
+                    {
+                        "id": 5670,
+                        "text": "Båt-, flygplans- och helikopterkostnader"
+                    },
+                    {
+                        "id": 5690,
+                        "text": "Övriga kostnader för transportmedel"
                     }
                 ]
             },
             {
-                "Id": 69,
-                "Text": "Övriga externa kostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 57,
+                "text": "Frakter och transporter",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 6900,
-                        "Text": "Övriga externa kostnader (gruppkonto)"
+                        "id": 5700,
+                        "text": "Frakter och transporter (gruppkonto)"
                     },
                     {
-                        "Id": 6910,
-                        "Text": "Licensavgifter och royalties"
+                        "id": 5710,
+                        "text": "Frakter, transporter och försäkringar vid varudistribution"
                     },
                     {
-                        "Id": 6920,
-                        "Text": "Kostnader för egna patent"
+                        "id": 5720,
+                        "text": "Tull- och speditionskostnader m.m."
                     },
                     {
-                        "Id": 6930,
-                        "Text": "Kostnader för varumärken m.m."
+                        "id": 5730,
+                        "text": "Arbetstransporter"
                     },
                     {
-                        "Id": 6940,
-                        "Text": "Kontroll-, provnings- och stämpelavgifter"
+                        "id": 5790,
+                        "text": "Övriga kostnader för frakter och transporter"
+                    }
+                ]
+            },
+            {
+                "id": 58,
+                "text": "Resekostnader",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 5800,
+                        "text": "Resekostnader (gruppkonto)"
                     },
                     {
-                        "Id": 6950,
-                        "Text": "Tillsynsavgifter myndigheter"
+                        "id": 5810,
+                        "text": "Biljetter"
                     },
                     {
-                        "Id": 6970,
-                        "Text": "Tidningar, tidskrifter och facklitteratur"
+                        "id": 5820,
+                        "text": "Hyrbilskostnader"
                     },
                     {
-                        "Id": 6980,
-                        "Text": "Föreningsavgifter"
+                        "id": 5830,
+                        "text": "Kost och logi"
                     },
                     {
-                        "Id": 6981,
-                        "Text": "Föreningsavgifter, avdragsgilla"
+                        "id": 5831,
+                        "text": "Kost och logi i Sverige"
                     },
                     {
-                        "Id": 6982,
-                        "Text": "Föreningsavgifter, ej avdragsgilla"
+                        "id": 5832,
+                        "text": "Kost och logi i utlandet"
                     },
                     {
-                        "Id": 6990,
-                        "Text": "Övriga externa kostnader"
+                        "id": 5841,
+                        "text": "Milersättning, avdragsgill (Ägare enskild firma)"
                     },
                     {
-                        "Id": 6991,
-                        "Text": "Övriga externa kostnader, avdragsgilla"
+                        "id": 5842,
+                        "text": "Milersättning, ej avdragsgill (Ägare enskild firma)"
                     },
                     {
-                        "Id": 6992,
-                        "Text": "Övriga externa kostnader, ej avdragsgilla"
+                        "id": 5843,
+                        "text": "Traktamente Sverige avdragsgillt (Ägare enskild firma)"
                     },
                     {
-                        "Id": 6993,
-                        "Text": "Lämnade bidrag och gåvor"
+                        "id": 5844,
+                        "text": "Traktamente Sverige ej avdragsgillt (Ägare enskild firma)"
                     },
                     {
-                        "Id": 6996,
-                        "Text": "Betald utländsk inkomstskatt"
+                        "id": 5845,
+                        "text": "Traktamente Utlandet avdragsgillt (Ägare enskild firma)"
                     },
                     {
-                        "Id": 6997,
-                        "Text": "Obetald utländsk inkomstskatt"
+                        "id": 5846,
+                        "text": "Traktamente Utlandet ej avdragsgillt (Ägare enskild firma)"
                     },
                     {
-                        "Id": 6998,
-                        "Text": "Utländsk moms"
+                        "id": 5890,
+                        "text": "Övriga resekostnader"
+                    }
+                ]
+            },
+            {
+                "id": 59,
+                "text": "Reklam och PR",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 5900,
+                        "text": "Reklam och PR (gruppkonto)"
                     },
                     {
-                        "Id": 6999,
-                        "Text": "Ingående moms, blandad verksamhet"
+                        "id": 5910,
+                        "text": "Annonsering"
+                    },
+                    {
+                        "id": 5920,
+                        "text": "Utomhus- och trafikreklam"
+                    },
+                    {
+                        "id": 5930,
+                        "text": "Reklamtrycksaker och direktreklam"
+                    },
+                    {
+                        "id": 5940,
+                        "text": "Utställningar och mässor"
+                    },
+                    {
+                        "id": 5950,
+                        "text": "Butiksreklam och återförsäljarreklam"
+                    },
+                    {
+                        "id": 5960,
+                        "text": "Varuprover, reklamgåvor, presentreklam och tävlingar"
+                    },
+                    {
+                        "id": 5970,
+                        "text": "Film-, radio-, TV- och Internetreklam"
+                    },
+                    {
+                        "id": 5980,
+                        "text": "PR, institutionell reklam och sponsring"
+                    },
+                    {
+                        "id": 5990,
+                        "text": "Övriga kostnader för reklam och PR"
                     }
                 ]
             }
         ]
     },
     {
-        "Id": 7,
-        "Text": "Utgifter/kostnader för personal, avskrivningar m.m.",
-        "SubCategories": [
+        "id": 6,
+        "text": "Övriga externa rörelseutgifter/ kostnader",
+        "subCategories": [
             {
-                "Id": 70,
-                "Text": "Löner till kollektivanställda",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 60,
+                "text": "Övriga försäljningskostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 7000,
-                        "Text": "Löner till kollektivanställda (gruppkonto)"
+                        "id": 6000,
+                        "text": "Övriga försäljningskostnader (gruppkonto)"
                     },
                     {
-                        "Id": 7010,
-                        "Text": "Löner till kollektivanställda"
+                        "id": 6010,
+                        "text": "Kataloger, prislistor m.m."
                     },
                     {
-                        "Id": 7011,
-                        "Text": "Löner till kollektivanställda"
+                        "id": 6020,
+                        "text": "Egna facktidskrifter"
                     },
                     {
-                        "Id": 7012,
-                        "Text": "Vinstandelar till kollektivanställda"
+                        "id": 6030,
+                        "text": "Speciella orderkostnader"
                     },
                     {
-                        "Id": 7013,
-                        "Text": "Löner till kollektivanställda under 26 år"
+                        "id": 6040,
+                        "text": "Kontokortsavgifter"
                     },
                     {
-                        "Id": 7014,
-                        "Text": "Löner till kollektivanställda (nya pensionssystemet)"
+                        "id": 6050,
+                        "text": "Försäljningsprovisioner"
                     },
                     {
-                        "Id": 7015,
-                        "Text": "Löner till kollektivanställda (avgiftsbefriade)"
+                        "id": 6055,
+                        "text": "Franchisekostnader o.dyl."
                     },
                     {
-                        "Id": 7016,
-                        "Text": "Vinstandelar till kollektivanställda (avgiftsbefriade)"
+                        "id": 6060,
+                        "text": "Kreditförsäljningskostnader"
                     },
                     {
-                        "Id": 7017,
-                        "Text": "Avgångsvederlag till kollektivanställda"
+                        "id": 6061,
+                        "text": "Kreditupplysning"
                     },
                     {
-                        "Id": 7018,
-                        "Text": "Bruttolöneavdrag, kollektivanställda"
+                        "id": 6062,
+                        "text": "Inkasso och KFM-avgifter"
                     },
                     {
-                        "Id": 7019,
-                        "Text": "Upplupna löner och vinstandelar till kollektivanställda"
+                        "id": 6063,
+                        "text": "Kreditförsäkringspremier"
                     },
                     {
-                        "Id": 7030,
-                        "Text": "Löner till kollektivanställda (utlandsanställda)"
+                        "id": 6064,
+                        "text": "Factoringavgifter"
                     },
                     {
-                        "Id": 7031,
-                        "Text": "Löner till kollektivanställda (utlandsanställda)"
+                        "id": 6069,
+                        "text": "Övriga kreditförsäljningskostnader"
                     },
                     {
-                        "Id": 7032,
-                        "Text": "Vinstandelar till kollektivanställda (utlandsanställda)"
+                        "id": 6070,
+                        "text": "Representation"
                     },
                     {
-                        "Id": 7033,
-                        "Text": "Löner till kollektivanställda under 26 år (utlandsanställda)"
+                        "id": 6071,
+                        "text": "Representation, avdragsgill"
                     },
                     {
-                        "Id": 7034,
-                        "Text": "Löner till kollektivanställda (nya pensionssystemet) (utlandsanställda)"
+                        "id": 6072,
+                        "text": "Representation, ej avdragsgill"
                     },
                     {
-                        "Id": 7035,
-                        "Text": "Löner till kollektivanställda (avgiftsbefriade) (utlandsanställda)"
+                        "id": 6080,
+                        "text": "Bankgarantier"
                     },
                     {
-                        "Id": 7036,
-                        "Text": "Vinstandelar till kollektivanställda (avgiftsbefriade) (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7037,
-                        "Text": "Avgångsvederlag till kollektivanställda (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7038,
-                        "Text": "Bruttolöneavdrag, kollektivanställda (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7039,
-                        "Text": "Upplupna löner och vinstandelar till kollektivanställda (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7080,
-                        "Text": "Löner till kollektivanställda för ej arbetad tid"
-                    },
-                    {
-                        "Id": 7081,
-                        "Text": "Sjuklöner till kollektivanställda"
-                    },
-                    {
-                        "Id": 7082,
-                        "Text": "Semesterlöner till kollektivanställda"
-                    },
-                    {
-                        "Id": 7083,
-                        "Text": "Föräldraersättning till kollektivanställda"
-                    },
-                    {
-                        "Id": 7090,
-                        "Text": "Förändring av semesterlöneskuld"
+                        "id": 6090,
+                        "text": "Övriga försäljningskostnader"
                     }
                 ]
             },
             {
-                "Id": 72,
-                "Text": "Löner till tjänstemän och företagsledare",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 61,
+                "text": "Kontorsmateriel och trycksaker",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 7200,
-                        "Text": "Löner till tjänstemän och företagsledare (gruppkonto)"
+                        "id": 6100,
+                        "text": "Kontorsmateriel och trycksaker (gruppkonto)"
                     },
                     {
-                        "Id": 7210,
-                        "Text": "Löner till tjänstemän"
+                        "id": 6110,
+                        "text": "Kontorsmateriel"
                     },
                     {
-                        "Id": 7211,
-                        "Text": "Löner till tjänstemän"
-                    },
-                    {
-                        "Id": 7212,
-                        "Text": "Vinstandelar till tjänstemän"
-                    },
-                    {
-                        "Id": 7213,
-                        "Text": "Löner till tjänstemän under 26 år"
-                    },
-                    {
-                        "Id": 7214,
-                        "Text": "Löner till tjänstemän (nya pensionssystemet)"
-                    },
-                    {
-                        "Id": 7215,
-                        "Text": "Löner till tjänstemän (avgiftsbefriade)"
-                    },
-                    {
-                        "Id": 7216,
-                        "Text": "Vinstandelar till tjänstemän (avgiftsbefriade)"
-                    },
-                    {
-                        "Id": 7217,
-                        "Text": "Avgångsvederlag till tjänstemän"
-                    },
-                    {
-                        "Id": 7218,
-                        "Text": "Bruttolöneavdrag, tjänstemän"
-                    },
-                    {
-                        "Id": 7219,
-                        "Text": "Upplupna löner och vinstandelar till tjänstemän"
-                    },
-                    {
-                        "Id": 7220,
-                        "Text": "Löner till företagsledare"
-                    },
-                    {
-                        "Id": 7221,
-                        "Text": "Löner till företagsledare"
-                    },
-                    {
-                        "Id": 7222,
-                        "Text": "Tantiem till företagsledare"
-                    },
-                    {
-                        "Id": 7223,
-                        "Text": "Löner till företagsledare under 26 år"
-                    },
-                    {
-                        "Id": 7224,
-                        "Text": "Löner till företagsledare (nya pensionssystemet)"
-                    },
-                    {
-                        "Id": 7225,
-                        "Text": "Löner till företagsledare (avgiftsbefriade)"
-                    },
-                    {
-                        "Id": 7227,
-                        "Text": "Avgångsvederlag till företagsledare"
-                    },
-                    {
-                        "Id": 7228,
-                        "Text": "Bruttolöneavdrag, företagsledare"
-                    },
-                    {
-                        "Id": 7229,
-                        "Text": "Upplupna löner och tantiem till företagsledare"
-                    },
-                    {
-                        "Id": 7230,
-                        "Text": "Löner till tjänstemän och ftgsledare (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7231,
-                        "Text": "Löner till tjänstemän och ftgsledare (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7232,
-                        "Text": "Vinstandelar till tjänstemän och ftgsledare (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7233,
-                        "Text": "Löner till tjänstemän och ftgsledare under 26 år (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7234,
-                        "Text": "Löner till tjänstemän och ftgsledare (utlandsanställda) (nya pensionssystemet)"
-                    },
-                    {
-                        "Id": 7235,
-                        "Text": "Löner till tjänstemän och ftgsledare (utlandsanställda) (avgiftsbefriade)"
-                    },
-                    {
-                        "Id": 7236,
-                        "Text": "Vinstandelar till tjänstemän och ftgsledare (utlandsanställda) (avgiftsbefriade)"
-                    },
-                    {
-                        "Id": 7237,
-                        "Text": "Avgångsvederlag till tjänstemän och ftgsledare (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7238,
-                        "Text": "Bruttolöneavdrag, tjänstemän och ftgsledare (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7239,
-                        "Text": "Upplupna löner och vinstandelar till tjänstemän och ftgsledare (utlandsanställda)"
-                    },
-                    {
-                        "Id": 7240,
-                        "Text": "Styrelsearvoden"
-                    },
-                    {
-                        "Id": 7280,
-                        "Text": "Löner till tjänstemän och företagsledare för ej arbetad tid"
-                    },
-                    {
-                        "Id": 7281,
-                        "Text": "Sjuklöner till tjänstemän"
-                    },
-                    {
-                        "Id": 7282,
-                        "Text": "Sjuklöner till företagsledare"
-                    },
-                    {
-                        "Id": 7283,
-                        "Text": "Föräldraersättning till tjänstemän"
-                    },
-                    {
-                        "Id": 7284,
-                        "Text": "Föräldraersättning till företagsledare"
-                    },
-                    {
-                        "Id": 7285,
-                        "Text": "Semesterlöner till tjänstemän"
-                    },
-                    {
-                        "Id": 7286,
-                        "Text": "Semesterlöner till företagsledare"
-                    },
-                    {
-                        "Id": 7288,
-                        "Text": "Övriga löner till tjänstemän för ej arbetad tid"
-                    },
-                    {
-                        "Id": 7289,
-                        "Text": "Övriga löner till företagsledare för ej arbetad tid"
-                    },
-                    {
-                        "Id": 7290,
-                        "Text": "Förändring av semesterlöneskuld"
-                    },
-                    {
-                        "Id": 7291,
-                        "Text": "Förändring av semesterlöneskuld till tjänstemän"
-                    },
-                    {
-                        "Id": 7292,
-                        "Text": "Förändring av semesterlöneskuld till företagsledare"
+                        "id": 6150,
+                        "text": "Trycksaker"
                     }
                 ]
             },
             {
-                "Id": 73,
-                "Text": "Kostnadsersättningar och förmåner",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 62,
+                "text": "Tele och post",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 7300,
-                        "Text": "Kostnadsersättningar och förmåner (gruppkonto)"
+                        "id": 6200,
+                        "text": "Tele och post (gruppkonto)"
                     },
                     {
-                        "Id": 7310,
-                        "Text": "Kontanta extraersättningar"
+                        "id": 6210,
+                        "text": "Telekommunikation"
                     },
                     {
-                        "Id": 7311,
-                        "Text": "Ersättningar för sammanträden m.m."
+                        "id": 6211,
+                        "text": "Fast telefoni"
                     },
                     {
-                        "Id": 7312,
-                        "Text": "Ersättningar för förslagsverksamhet och uppfinningar"
+                        "id": 6212,
+                        "text": "Mobiltelefon"
                     },
                     {
-                        "Id": 7313,
-                        "Text": "Ersättningar för/bidrag till bostadskostnader"
+                        "id": 6213,
+                        "text": "Mobilsökning"
                     },
                     {
-                        "Id": 7314,
-                        "Text": "Ersättningar för/bidrag till måltidskostnader"
+                        "id": 6214,
+                        "text": "Fax"
                     },
                     {
-                        "Id": 7315,
-                        "Text": "Ersättningar för/bidrag till resor till och från arbetsplatsen"
+                        "id": 6215,
+                        "text": "Telex"
                     },
                     {
-                        "Id": 7316,
-                        "Text": "Ersättningar för/bidrag till arbetskläder"
+                        "id": 6230,
+                        "text": "Datakommunikation"
                     },
                     {
-                        "Id": 7317,
-                        "Text": "Ersättningar för/bidrag till arbetsmaterial och arbetsverktyg"
-                    },
-                    {
-                        "Id": 7318,
-                        "Text": "Felräkningspengar"
-                    },
-                    {
-                        "Id": 7319,
-                        "Text": "Övriga kontanta extraersättningar"
-                    },
-                    {
-                        "Id": 7320,
-                        "Text": "Traktamenten vid tjänsteresa"
-                    },
-                    {
-                        "Id": 7321,
-                        "Text": "Skattefria traktamenten, Sverige"
-                    },
-                    {
-                        "Id": 7322,
-                        "Text": "Skattepliktiga traktamenten, Sverige"
-                    },
-                    {
-                        "Id": 7323,
-                        "Text": "Skattefria traktamenten, utlandet"
-                    },
-                    {
-                        "Id": 7324,
-                        "Text": "Skattepliktiga traktamenten, utlandet"
-                    },
-                    {
-                        "Id": 7330,
-                        "Text": "Bilersättningar"
-                    },
-                    {
-                        "Id": 7331,
-                        "Text": "Skattefria bilersättningar"
-                    },
-                    {
-                        "Id": 7332,
-                        "Text": "Skattepliktiga bilersättningar"
-                    },
-                    {
-                        "Id": 7333,
-                        "Text": "Ersättning för trängselskatt, skattefri"
-                    },
-                    {
-                        "Id": 7350,
-                        "Text": "Ersättningar för föreskrivna arbetskläder"
-                    },
-                    {
-                        "Id": 7370,
-                        "Text": "Representationsersättningar"
-                    },
-                    {
-                        "Id": 7380,
-                        "Text": "Kostnader för förmåner till anställda"
-                    },
-                    {
-                        "Id": 7381,
-                        "Text": "Kostnader för fri bostad"
-                    },
-                    {
-                        "Id": 7382,
-                        "Text": "Kostnader för fria eller subventionerade måltider"
-                    },
-                    {
-                        "Id": 7383,
-                        "Text": "Kostnader för fria resor till och från arbetsplatsen"
-                    },
-                    {
-                        "Id": 7384,
-                        "Text": "Kostnader för fria eller subventionerade arbetskläder"
-                    },
-                    {
-                        "Id": 7385,
-                        "Text": "Kostnader för fri bil"
-                    },
-                    {
-                        "Id": 7386,
-                        "Text": "Subventionerad ränta"
-                    },
-                    {
-                        "Id": 7387,
-                        "Text": "Kostnader för lånedatorer"
-                    },
-                    {
-                        "Id": 7388,
-                        "Text": "Anställdas ersättning för erhållna förmåner"
-                    },
-                    {
-                        "Id": 7389,
-                        "Text": "Övriga kostnader för förmåner"
-                    },
-                    {
-                        "Id": 7390,
-                        "Text": "Övriga kostnadsersättningar och förmåner"
-                    },
-                    {
-                        "Id": 7391,
-                        "Text": "Kostnad för trängselskatteförmån"
-                    },
-                    {
-                        "Id": 7392,
-                        "Text": "Kostnad för förmån av hushållsnära tjänster"
-                    },
-                    {
-                        "Id": 7399,
-                        "Text": "Motkonto skattepliktiga förmåner"
+                        "id": 6250,
+                        "text": "Postbefordran"
                     }
                 ]
             },
             {
-                "Id": 74,
-                "Text": "Pensionskostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 63,
+                "text": "Företagsförsäkringar och övriga riskkostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 7400,
-                        "Text": "Pensionskostnader (gruppkonto)"
+                        "id": 6300,
+                        "text": "Företagsförsäkringar och övriga riskkostnader (gruppkonto)"
                     },
                     {
-                        "Id": 7410,
-                        "Text": "Pensionsförsäkringspremier"
+                        "id": 6310,
+                        "text": "Företagsförsäkringar"
                     },
                     {
-                        "Id": 7411,
-                        "Text": "Premier för kollektiva pensionsförsäkringar"
+                        "id": 6320,
+                        "text": "Självrisker vid skada"
                     },
                     {
-                        "Id": 7412,
-                        "Text": "Premier för individuella pensionsförsäkringar"
+                        "id": 6330,
+                        "text": "Förluster i pågående arbeten"
                     },
                     {
-                        "Id": 7418,
-                        "Text": "Återbäring från försäkringsföretag"
+                        "id": 6340,
+                        "text": "Lämnade skadestånd"
                     },
                     {
-                        "Id": 7420,
-                        "Text": "Förändring av pensionsskuld"
+                        "id": 6341,
+                        "text": "Lämnade skadestånd, avdragsgilla"
                     },
                     {
-                        "Id": 7421,
-                        "Text": "Direktpension, ej avdragsgill"
+                        "id": 6342,
+                        "text": "Lämnade skadestånd, ej avdragsgilla"
                     },
                     {
-                        "Id": 7430,
-                        "Text": "Avdrag för räntedel i pensionskostnad"
+                        "id": 6350,
+                        "text": "Förluster på kundfordringar"
                     },
                     {
-                        "Id": 7440,
-                        "Text": "Förändring av pensionsstiftelsekapital"
+                        "id": 6351,
+                        "text": "Konstaterade förluster på kundfordringar"
                     },
                     {
-                        "Id": 7441,
-                        "Text": "Avsättning till pensionsstiftelse"
+                        "id": 6352,
+                        "text": "Befarade förluster på kundfordringar"
                     },
                     {
-                        "Id": 7448,
-                        "Text": "Gottgörelse från pensionsstiftelse"
+                        "id": 6360,
+                        "text": "Garantikostnader"
                     },
                     {
-                        "Id": 7460,
-                        "Text": "Pensionsutbetalningar"
+                        "id": 6361,
+                        "text": "Förändring av garantiavsättning"
                     },
                     {
-                        "Id": 7461,
-                        "Text": "Pensionsutbetalningar till f.d. kollektivanställda"
+                        "id": 6362,
+                        "text": "Faktiska garantikostnader"
                     },
                     {
-                        "Id": 7462,
-                        "Text": "Pensionsutbetalningar till f.d. tjänstemän"
+                        "id": 6370,
+                        "text": "Kostnader för bevakning och larm"
                     },
                     {
-                        "Id": 7463,
-                        "Text": "Pensionsutbetalningar till f.d. företagsledare"
+                        "id": 6380,
+                        "text": "Förluster på övriga kortfristiga fordringar"
                     },
                     {
-                        "Id": 7470,
-                        "Text": "Förvaltnings- och kreditförsäkringsavgifter"
-                    },
-                    {
-                        "Id": 7490,
-                        "Text": "Övriga pensionskostnader"
+                        "id": 6390,
+                        "text": "Övriga riskkostnader"
                     }
                 ]
             },
             {
-                "Id": 75,
-                "Text": "Sociala och andra avgifter enligt lag och avtal",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 64,
+                "text": "Förvaltningskostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 7500,
-                        "Text": "Sociala och andra avgifter enligt lag och avtal (gruppkonto)"
+                        "id": 6400,
+                        "text": "Förvaltningskostnader (gruppkonto)"
                     },
                     {
-                        "Id": 7510,
-                        "Text": "Lagstadgade sociala avgifter"
+                        "id": 6410,
+                        "text": "Styrelsearvoden som inte är lön"
                     },
                     {
-                        "Id": 7511,
-                        "Text": "Sociala avgifter för löner och ersättningar"
+                        "id": 6420,
+                        "text": "Ersättningar till revisor"
                     },
                     {
-                        "Id": 7512,
-                        "Text": "Sociala avgifter för förmånsvärden"
+                        "id": 6421,
+                        "text": "Revision"
                     },
                     {
-                        "Id": 7515,
-                        "Text": "Sociala avgifter på skattepliktiga kostnadsersättningar"
+                        "id": 6422,
+                        "text": "Revisonsverksamhet utöver revision"
                     },
                     {
-                        "Id": 7516,
-                        "Text": "Sociala avgifter på arvoden"
+                        "id": 6423,
+                        "text": "Skatterådgivning – revisor"
                     },
                     {
-                        "Id": 7518,
-                        "Text": "Sociala avgifter på bruttolöneavdrag m.m."
+                        "id": 6424,
+                        "text": "Övriga tjänster – revisor"
                     },
                     {
-                        "Id": 7519,
-                        "Text": "Sociala avgifter för semester- och löneskulder"
+                        "id": 6430,
+                        "text": "Management fees"
                     },
                     {
-                        "Id": 7520,
-                        "Text": "Arbetsgivaravgifter (nya pensionssystemet)"
+                        "id": 6440,
+                        "text": "Årsredovisning och delårsrapporter"
                     },
                     {
-                        "Id": 7521,
-                        "Text": "Arbetsgivaravgifter för löner och ersättningar (nya pensionssystemet)"
+                        "id": 6450,
+                        "text": "Bolagsstämma/års- eller föreningsstämma"
                     },
                     {
-                        "Id": 7522,
-                        "Text": "Arbetsgivaravgifter för förmånsvärden (nya pensionssystemet)"
-                    },
-                    {
-                        "Id": 7525,
-                        "Text": "Arbetsgivaravgifter på skattepliktiga kostnadsersättningar (nya pensionssystemet)"
-                    },
-                    {
-                        "Id": 7526,
-                        "Text": "Arbetsgivaravgifter på arvoden (nya pensionssystemet)"
-                    },
-                    {
-                        "Id": 7528,
-                        "Text": "Arbetsgivaravgifter på bruttolöneavdrag m.m. (nya pensionssystemet)"
-                    },
-                    {
-                        "Id": 7529,
-                        "Text": "Arbetsgivaravgifter för semester- och löneskulder (nya pensionssystemet)"
-                    },
-                    {
-                        "Id": 7530,
-                        "Text": "Särskild löneskatt"
-                    },
-                    {
-                        "Id": 7531,
-                        "Text": "Särskild löneskatt för vissa försäkringsersättningar m.m."
-                    },
-                    {
-                        "Id": 7532,
-                        "Text": "Särskild löneskatt pensionskostnader, deklarationspost"
-                    },
-                    {
-                        "Id": 7533,
-                        "Text": "Särskild löneskatt för pensionskostnader"
-                    },
-                    {
-                        "Id": 7550,
-                        "Text": "Avkastningsskatt på pensionsmedel"
-                    },
-                    {
-                        "Id": 7560,
-                        "Text": "Arbetsgivaravgifter under 26 år"
-                    },
-                    {
-                        "Id": 7570,
-                        "Text": "Premier för arbetsmarknadsförsäkringar"
-                    },
-                    {
-                        "Id": 7571,
-                        "Text": "Arbetsmarknadsförsäkringar"
-                    },
-                    {
-                        "Id": 7572,
-                        "Text": "Arbetsmarknadsförsäkringar pensionsförsäkringspremier, deklarationspost"
-                    },
-                    {
-                        "Id": 7580,
-                        "Text": "Gruppförsäkringspremier"
-                    },
-                    {
-                        "Id": 7581,
-                        "Text": "Grupplivförsäkringspremier"
-                    },
-                    {
-                        "Id": 7582,
-                        "Text": "Gruppsjukförsäkringspremier"
-                    },
-                    {
-                        "Id": 7583,
-                        "Text": "Gruppolycksfallsförsäkringspremier"
-                    },
-                    {
-                        "Id": 7589,
-                        "Text": "Övriga gruppförsäkringspremier"
-                    },
-                    {
-                        "Id": 7590,
-                        "Text": "Övriga sociala och andra avgifter enligt lag och avtal"
+                        "id": 6490,
+                        "text": "Övriga förvaltningskostnader"
                     }
                 ]
             },
             {
-                "Id": 76,
-                "Text": "Övriga personalkostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 65,
+                "text": "Övriga externa tjänster",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 7600,
-                        "Text": "Övriga personalkostnader (gruppkonto)"
+                        "id": 6500,
+                        "text": "Övriga externa tjänster (gruppkonto)"
                     },
                     {
-                        "Id": 7610,
-                        "Text": "Utbildning"
+                        "id": 6510,
+                        "text": "Mätningskostnader"
                     },
                     {
-                        "Id": 7620,
-                        "Text": "Sjuk- och hälsovård"
+                        "id": 6520,
+                        "text": "Ritnings- och kopieringskostnader"
                     },
                     {
-                        "Id": 7621,
-                        "Text": "Sjuk- och hälsovård, avdragsgill"
+                        "id": 6530,
+                        "text": "Redovisningstjänster"
                     },
                     {
-                        "Id": 7622,
-                        "Text": "Sjuk- och hälsovård, ej avdragsgill"
+                        "id": 6540,
+                        "text": "IT-tjänster"
                     },
                     {
-                        "Id": 7623,
-                        "Text": "Sjukvårdsförsäkring, ej avdragsgill"
+                        "id": 6550,
+                        "text": "Konsultarvoden"
                     },
                     {
-                        "Id": 7630,
-                        "Text": "Personalrepresentation"
+                        "id": 6560,
+                        "text": "Serviceavgifter till branschorganisationer"
                     },
                     {
-                        "Id": 7631,
-                        "Text": "Personalrepresentation, avdragsgill"
+                        "id": 6570,
+                        "text": "Bankkostnader"
                     },
                     {
-                        "Id": 7632,
-                        "Text": "Personalrepresentation, ej avdragsgill"
+                        "id": 6580,
+                        "text": "Advokat- och rättegångskostnader"
                     },
                     {
-                        "Id": 7650,
-                        "Text": "Sjuklöneförsäkring"
-                    },
-                    {
-                        "Id": 7670,
-                        "Text": "Förändring av personalstiftelsekapital"
-                    },
-                    {
-                        "Id": 7671,
-                        "Text": "Avsättning till personalstiftelse"
-                    },
-                    {
-                        "Id": 7678,
-                        "Text": "Gottgörelse från personalstiftelse"
-                    },
-                    {
-                        "Id": 7690,
-                        "Text": "Övriga personalkostnader"
-                    },
-                    {
-                        "Id": 7691,
-                        "Text": "Personalrekrytering"
-                    },
-                    {
-                        "Id": 7692,
-                        "Text": "Begravningshjälp"
-                    },
-                    {
-                        "Id": 7693,
-                        "Text": "Fritidsverksamhet"
-                    },
-                    {
-                        "Id": 7699,
-                        "Text": "Övriga personalkostnader"
+                        "id": 6590,
+                        "text": "Övriga externa tjänster"
                     }
                 ]
             },
             {
-                "Id": 77,
-                "Text": "Nedskrivningar och återföring av nedskrivningar",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 68,
+                "text": "Inhyrd personal",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 7710,
-                        "Text": "Nedskrivningar av immateriella anläggningstillgångar"
+                        "id": 6800,
+                        "text": "Inhyrd personal (gruppkonto)"
                     },
                     {
-                        "Id": 7720,
-                        "Text": "Nedskrivningar av byggnader och mark"
+                        "id": 6810,
+                        "text": "Inhyrd produktionspersonal"
                     },
                     {
-                        "Id": 7730,
-                        "Text": "Nedskrivningar av maskiner och inventarier"
+                        "id": 6820,
+                        "text": "Inhyrd lagerpersonal"
                     },
                     {
-                        "Id": 7740,
-                        "Text": "Nedskrivningar av vissa omsättningstillgångar"
+                        "id": 6830,
+                        "text": "Inhyrd transportpersonal"
                     },
                     {
-                        "Id": 7760,
-                        "Text": "Återföring av nedskrivningar av immateriella anläggningstillgångar"
+                        "id": 6840,
+                        "text": "Inhyrd kontors- och ekonomipersonal"
                     },
                     {
-                        "Id": 7770,
-                        "Text": "Återföring av nedskrivningar av byggnader och mark"
+                        "id": 6850,
+                        "text": "Inhyrd IT-personal"
                     },
                     {
-                        "Id": 7780,
-                        "Text": "Återföring av nedskrivningar av maskiner och inventarier"
+                        "id": 6860,
+                        "text": "Inhyrd marknads- och försäljningspersonal"
                     },
                     {
-                        "Id": 7790,
-                        "Text": "Återföring av nedskrivningar av vissa omsättningstillgångar"
+                        "id": 6870,
+                        "text": "Inhyrd restaurang- och butikspersonal"
+                    },
+                    {
+                        "id": 6880,
+                        "text": "Inhyrda företagsledare"
+                    },
+                    {
+                        "id": 6890,
+                        "text": "Övrig inhyrd personal"
                     }
                 ]
             },
             {
-                "Id": 78,
-                "Text": "Avskrivningar enligt plan",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 69,
+                "text": "Övriga externa kostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 7810,
-                        "Text": "Avskrivningar på immateriella anläggningstillgångar"
+                        "id": 6900,
+                        "text": "Övriga externa kostnader (gruppkonto)"
                     },
                     {
-                        "Id": 7811,
-                        "Text": "Avskrivningar på balanserade utgifter"
+                        "id": 6910,
+                        "text": "Licensavgifter och royalties"
                     },
                     {
-                        "Id": 7812,
-                        "Text": "Avskrivningar på koncessioner m.m."
+                        "id": 6920,
+                        "text": "Kostnader för egna patent"
                     },
                     {
-                        "Id": 7813,
-                        "Text": "Avskrivningar på patent"
+                        "id": 6930,
+                        "text": "Kostnader för varumärken m.m."
                     },
                     {
-                        "Id": 7814,
-                        "Text": "Avskrivningar på licenser"
+                        "id": 6940,
+                        "text": "Kontroll-, provnings- och stämpelavgifter"
                     },
                     {
-                        "Id": 7815,
-                        "Text": "Avskrivningar på varumärken"
+                        "id": 6950,
+                        "text": "Tillsynsavgifter myndigheter"
                     },
                     {
-                        "Id": 7816,
-                        "Text": "Avskrivningar på hyresrätter"
+                        "id": 6970,
+                        "text": "Tidningar, tidskrifter och facklitteratur"
                     },
                     {
-                        "Id": 7817,
-                        "Text": "Avskrivningar på goodwill"
+                        "id": 6980,
+                        "text": "Föreningsavgifter"
                     },
                     {
-                        "Id": 7819,
-                        "Text": "Avskrivningar på övriga immateriella anläggningstillgångar"
+                        "id": 6981,
+                        "text": "Föreningsavgifter, avdragsgilla"
                     },
                     {
-                        "Id": 7820,
-                        "Text": "Avskrivningar på byggnader och markanläggningar"
+                        "id": 6982,
+                        "text": "Föreningsavgifter, ej avdragsgilla"
                     },
                     {
-                        "Id": 7821,
-                        "Text": "Avskrivningar på byggnader"
+                        "id": 6990,
+                        "text": "Övriga externa kostnader"
                     },
                     {
-                        "Id": 7824,
-                        "Text": "Avskrivningar på markanläggningar"
+                        "id": 6991,
+                        "text": "Övriga externa kostnader, avdragsgilla"
                     },
                     {
-                        "Id": 7829,
-                        "Text": "Avskrivningar på övriga byggnader"
+                        "id": 6992,
+                        "text": "Övriga externa kostnader, ej avdragsgilla"
                     },
                     {
-                        "Id": 7830,
-                        "Text": "Avskrivningar på maskiner och inventarier"
+                        "id": 6993,
+                        "text": "Lämnade bidrag och gåvor"
                     },
                     {
-                        "Id": 7831,
-                        "Text": "Avskrivningar på maskiner och andra tekniska anläggningar"
+                        "id": 6996,
+                        "text": "Betald utländsk inkomstskatt"
                     },
                     {
-                        "Id": 7832,
-                        "Text": "Avskrivningar på inventarier och verktyg"
+                        "id": 6997,
+                        "text": "Obetald utländsk inkomstskatt"
                     },
                     {
-                        "Id": 7833,
-                        "Text": "Avskrivningar på installationer"
+                        "id": 6998,
+                        "text": "Utländsk moms"
                     },
                     {
-                        "Id": 7834,
-                        "Text": "Avskrivningar på bilar och andra transportmedel"
-                    },
-                    {
-                        "Id": 7835,
-                        "Text": "Avskrivningar på datorer"
-                    },
-                    {
-                        "Id": 7836,
-                        "Text": "Avskrivningar på leasade tillgångar"
-                    },
-                    {
-                        "Id": 7839,
-                        "Text": "Avskrivningar på övriga maskiner och inventarier"
-                    },
-                    {
-                        "Id": 7840,
-                        "Text": "Avskrivningar på förbättringsutgifter på annans fastighet"
-                    }
-                ]
-            },
-            {
-                "Id": 79,
-                "Text": "Övriga rörelsekostnader",
-                "ParentId": 0,
-                "Accounts": [
-                    {
-                        "Id": 7940,
-                        "Text": "Orealiserade positiva/negativa värdeförändringar på säkringsinstrument"
-                    },
-                    {
-                        "Id": 7960,
-                        "Text": "Valutakursförluster på fordringar och skulder av rörelsekaraktär"
-                    },
-                    {
-                        "Id": 7970,
-                        "Text": "Förlust vid avyttring av immateriella och materiella anläggningstillgångar"
-                    },
-                    {
-                        "Id": 7971,
-                        "Text": "Förlust vid avyttring av immateriella anläggningstillgångar"
-                    },
-                    {
-                        "Id": 7972,
-                        "Text": "Förlust vid avyttring av byggnader och mark"
-                    },
-                    {
-                        "Id": 7973,
-                        "Text": "Förlust vid avyttring av maskiner och inventarier"
-                    },
-                    {
-                        "Id": 7990,
-                        "Text": "Övriga rörelsekostnader"
+                        "id": 6999,
+                        "text": "Ingående moms, blandad verksamhet"
                     }
                 ]
             }
         ]
     },
     {
-        "Id": 8,
-        "Text": "Finansiella och andra inkomster/ intäkter och utgifter/kostnader",
-        "SubCategories": [
+        "id": 7,
+        "text": "Utgifter/kostnader för personal, avskrivningar m.m.",
+        "subCategories": [
             {
-                "Id": 80,
-                "Text": "Resultat från andelar i koncernföretag",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 70,
+                "text": "Löner till kollektivanställda",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 8010,
-                        "Text": "Utdelning på andelar i koncernföretag"
+                        "id": 7000,
+                        "text": "Löner till kollektivanställda (gruppkonto)"
                     },
                     {
-                        "Id": 8012,
-                        "Text": "Utdelning på andelar i dotterföretag"
+                        "id": 7010,
+                        "text": "Löner till kollektivanställda"
                     },
                     {
-                        "Id": 8013,
-                        "Text": "Utdelning på andelar i andra koncernföretag"
+                        "id": 7011,
+                        "text": "Löner till kollektivanställda"
                     },
                     {
-                        "Id": 8014,
-                        "Text": "Koncernbidrag"
+                        "id": 7012,
+                        "text": "Vinstandelar till kollektivanställda"
                     },
                     {
-                        "Id": 8016,
-                        "Text": "Insatsemission, koncernföretag"
+                        "id": 7013,
+                        "text": "Löner till kollektivanställda under 26 år"
                     },
                     {
-                        "Id": 8019,
-                        "Text": "Övriga utdelningar på andelar i koncernföretag"
+                        "id": 7014,
+                        "text": "Löner till kollektivanställda (nya pensionssystemet)"
                     },
                     {
-                        "Id": 8020,
-                        "Text": "Resultat vid försäljning av andelar i koncernföretag"
+                        "id": 7015,
+                        "text": "Löner till kollektivanställda (avgiftsbefriade)"
                     },
                     {
-                        "Id": 8022,
-                        "Text": "Resultat vid försäljning av andelar i dotterföretag"
+                        "id": 7016,
+                        "text": "Vinstandelar till kollektivanställda (avgiftsbefriade)"
                     },
                     {
-                        "Id": 8023,
-                        "Text": "Resultat vid försäljning av andelar i andra koncernföretag"
+                        "id": 7017,
+                        "text": "Avgångsvederlag till kollektivanställda"
                     },
                     {
-                        "Id": 8030,
-                        "Text": "Resultatandelar från handelsbolag (dotterföretag)"
+                        "id": 7018,
+                        "text": "Bruttolöneavdrag, kollektivanställda"
                     },
                     {
-                        "Id": 8070,
-                        "Text": "Nedskrivningar av andelar i och långfristiga fordringar hos koncernföretag"
+                        "id": 7019,
+                        "text": "Upplupna löner och vinstandelar till kollektivanställda"
                     },
                     {
-                        "Id": 8072,
-                        "Text": "Nedskrivningar av andelar i dotterföretag"
+                        "id": 7030,
+                        "text": "Löner till kollektivanställda (utlandsanställda)"
                     },
                     {
-                        "Id": 8073,
-                        "Text": "Nedskrivningar av andelar i andra koncernföretag"
+                        "id": 7031,
+                        "text": "Löner till kollektivanställda (utlandsanställda)"
                     },
                     {
-                        "Id": 8076,
-                        "Text": "Nedskrivningar av långfristiga fordringar hos moderföretag"
+                        "id": 7032,
+                        "text": "Vinstandelar till kollektivanställda (utlandsanställda)"
                     },
                     {
-                        "Id": 8077,
-                        "Text": "Nedskrivningar av långfristiga fordringar hos dotterföretag"
+                        "id": 7033,
+                        "text": "Löner till kollektivanställda under 26 år (utlandsanställda)"
                     },
                     {
-                        "Id": 8078,
-                        "Text": "Nedskrivningar av långfristiga fordringar hos andra koncernföretag"
+                        "id": 7034,
+                        "text": "Löner till kollektivanställda (nya pensionssystemet) (utlandsanställda)"
                     },
                     {
-                        "Id": 8080,
-                        "Text": "Återföringar av nedskrivningar av andelar i och långfristiga fordringar hos koncernföretag"
+                        "id": 7035,
+                        "text": "Löner till kollektivanställda (avgiftsbefriade) (utlandsanställda)"
                     },
                     {
-                        "Id": 8082,
-                        "Text": "Återföringar av nedskrivningar av andelar i dotterföretag"
+                        "id": 7036,
+                        "text": "Vinstandelar till kollektivanställda (avgiftsbefriade) (utlandsanställda)"
                     },
                     {
-                        "Id": 8083,
-                        "Text": "Återföringar av nedskrivningar av andelar i andra koncernföretag"
+                        "id": 7037,
+                        "text": "Avgångsvederlag till kollektivanställda (utlandsanställda)"
                     },
                     {
-                        "Id": 8086,
-                        "Text": "Återföringar av nedskrivningar av långfristiga fordringar hos moderföretag"
+                        "id": 7038,
+                        "text": "Bruttolöneavdrag, kollektivanställda (utlandsanställda)"
                     },
                     {
-                        "Id": 8087,
-                        "Text": "Återföringar av nedskrivningar av långfristiga fordringar hos dotterföretag"
+                        "id": 7039,
+                        "text": "Upplupna löner och vinstandelar till kollektivanställda (utlandsanställda)"
                     },
                     {
-                        "Id": 8088,
-                        "Text": "Återföringar av nedskrivningar av långfristiga fordringar hos andra koncernföretag"
+                        "id": 7080,
+                        "text": "Löner till kollektivanställda för ej arbetad tid"
+                    },
+                    {
+                        "id": 7081,
+                        "text": "Sjuklöner till kollektivanställda"
+                    },
+                    {
+                        "id": 7082,
+                        "text": "Semesterlöner till kollektivanställda"
+                    },
+                    {
+                        "id": 7083,
+                        "text": "Föräldraersättning till kollektivanställda"
+                    },
+                    {
+                        "id": 7090,
+                        "text": "Förändring av semesterlöneskuld"
                     }
                 ]
             },
             {
-                "Id": 81,
-                "Text": "Resultat från andelar i intresseföretag",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 72,
+                "text": "Löner till tjänstemän och företagsledare",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 8110,
-                        "Text": "Utdelning på andelar i intresseföretag"
+                        "id": 7200,
+                        "text": "Löner till tjänstemän och företagsledare (gruppkonto)"
                     },
                     {
-                        "Id": 8112,
-                        "Text": "Utdelningar från intresseföretag"
+                        "id": 7210,
+                        "text": "Löner till tjänstemän"
                     },
                     {
-                        "Id": 8116,
-                        "Text": "Insatsemission, intresseföretag"
+                        "id": 7211,
+                        "text": "Löner till tjänstemän"
                     },
                     {
-                        "Id": 8120,
-                        "Text": "Resultat vid försäljning av andelar i intresseföretag"
+                        "id": 7212,
+                        "text": "Vinstandelar till tjänstemän"
                     },
                     {
-                        "Id": 8130,
-                        "Text": "Resultatandelar från handelsbolag (intresseföretag)"
+                        "id": 7213,
+                        "text": "Löner till tjänstemän under 26 år"
                     },
                     {
-                        "Id": 8170,
-                        "Text": "Nedskrivningar av andelar i och långfristiga fordringar hos intresseföretag"
+                        "id": 7214,
+                        "text": "Löner till tjänstemän (nya pensionssystemet)"
                     },
                     {
-                        "Id": 8171,
-                        "Text": "Nedskrivningar av andelar i intresseföretag"
+                        "id": 7215,
+                        "text": "Löner till tjänstemän (avgiftsbefriade)"
                     },
                     {
-                        "Id": 8172,
-                        "Text": "Nedskrivningar av långfristiga fordringar hos intresseföretag"
+                        "id": 7216,
+                        "text": "Vinstandelar till tjänstemän (avgiftsbefriade)"
                     },
                     {
-                        "Id": 8180,
-                        "Text": "Återföringar av nedskrivningar av andelar i och långfristiga fordringar hos intresseföretag"
+                        "id": 7217,
+                        "text": "Avgångsvederlag till tjänstemän"
                     },
                     {
-                        "Id": 8181,
-                        "Text": "Återföringar av nedskrivningar av andelar i intresseföretag"
+                        "id": 7218,
+                        "text": "Bruttolöneavdrag, tjänstemän"
                     },
                     {
-                        "Id": 8182,
-                        "Text": "Återföringar av nedskrivningar av långfristiga fordringar hos intresseföretag"
+                        "id": 7219,
+                        "text": "Upplupna löner och vinstandelar till tjänstemän"
+                    },
+                    {
+                        "id": 7220,
+                        "text": "Löner till företagsledare"
+                    },
+                    {
+                        "id": 7221,
+                        "text": "Löner till företagsledare"
+                    },
+                    {
+                        "id": 7222,
+                        "text": "Tantiem till företagsledare"
+                    },
+                    {
+                        "id": 7223,
+                        "text": "Löner till företagsledare under 26 år"
+                    },
+                    {
+                        "id": 7224,
+                        "text": "Löner till företagsledare (nya pensionssystemet)"
+                    },
+                    {
+                        "id": 7225,
+                        "text": "Löner till företagsledare (avgiftsbefriade)"
+                    },
+                    {
+                        "id": 7227,
+                        "text": "Avgångsvederlag till företagsledare"
+                    },
+                    {
+                        "id": 7228,
+                        "text": "Bruttolöneavdrag, företagsledare"
+                    },
+                    {
+                        "id": 7229,
+                        "text": "Upplupna löner och tantiem till företagsledare"
+                    },
+                    {
+                        "id": 7230,
+                        "text": "Löner till tjänstemän och ftgsledare (utlandsanställda)"
+                    },
+                    {
+                        "id": 7231,
+                        "text": "Löner till tjänstemän och ftgsledare (utlandsanställda)"
+                    },
+                    {
+                        "id": 7232,
+                        "text": "Vinstandelar till tjänstemän och ftgsledare (utlandsanställda)"
+                    },
+                    {
+                        "id": 7233,
+                        "text": "Löner till tjänstemän och ftgsledare under 26 år (utlandsanställda)"
+                    },
+                    {
+                        "id": 7234,
+                        "text": "Löner till tjänstemän och ftgsledare (utlandsanställda) (nya pensionssystemet)"
+                    },
+                    {
+                        "id": 7235,
+                        "text": "Löner till tjänstemän och ftgsledare (utlandsanställda) (avgiftsbefriade)"
+                    },
+                    {
+                        "id": 7236,
+                        "text": "Vinstandelar till tjänstemän och ftgsledare (utlandsanställda) (avgiftsbefriade)"
+                    },
+                    {
+                        "id": 7237,
+                        "text": "Avgångsvederlag till tjänstemän och ftgsledare (utlandsanställda)"
+                    },
+                    {
+                        "id": 7238,
+                        "text": "Bruttolöneavdrag, tjänstemän och ftgsledare (utlandsanställda)"
+                    },
+                    {
+                        "id": 7239,
+                        "text": "Upplupna löner och vinstandelar till tjänstemän och ftgsledare (utlandsanställda)"
+                    },
+                    {
+                        "id": 7240,
+                        "text": "Styrelsearvoden"
+                    },
+                    {
+                        "id": 7280,
+                        "text": "Löner till tjänstemän och företagsledare för ej arbetad tid"
+                    },
+                    {
+                        "id": 7281,
+                        "text": "Sjuklöner till tjänstemän"
+                    },
+                    {
+                        "id": 7282,
+                        "text": "Sjuklöner till företagsledare"
+                    },
+                    {
+                        "id": 7283,
+                        "text": "Föräldraersättning till tjänstemän"
+                    },
+                    {
+                        "id": 7284,
+                        "text": "Föräldraersättning till företagsledare"
+                    },
+                    {
+                        "id": 7285,
+                        "text": "Semesterlöner till tjänstemän"
+                    },
+                    {
+                        "id": 7286,
+                        "text": "Semesterlöner till företagsledare"
+                    },
+                    {
+                        "id": 7288,
+                        "text": "Övriga löner till tjänstemän för ej arbetad tid"
+                    },
+                    {
+                        "id": 7289,
+                        "text": "Övriga löner till företagsledare för ej arbetad tid"
+                    },
+                    {
+                        "id": 7290,
+                        "text": "Förändring av semesterlöneskuld"
+                    },
+                    {
+                        "id": 7291,
+                        "text": "Förändring av semesterlöneskuld till tjänstemän"
+                    },
+                    {
+                        "id": 7292,
+                        "text": "Förändring av semesterlöneskuld till företagsledare"
                     }
                 ]
             },
             {
-                "Id": 82,
-                "Text": "Resultat från övriga värdepapper och långfristiga fordringar (anläggningstillgångar)",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 73,
+                "text": "Kostnadsersättningar och förmåner",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 8210,
-                        "Text": "Utdelningar på andelar i andra företag"
+                        "id": 7300,
+                        "text": "Kostnadsersättningar och förmåner (gruppkonto)"
                     },
                     {
-                        "Id": 8212,
-                        "Text": "Utdelningar, övriga företag"
+                        "id": 7310,
+                        "text": "Kontanta extraersättningar"
                     },
                     {
-                        "Id": 8216,
-                        "Text": "Insatsemissioner, övriga företag"
+                        "id": 7311,
+                        "text": "Ersättningar för sammanträden m.m."
                     },
                     {
-                        "Id": 8220,
-                        "Text": "Resultat vid försäljning av värdepapper i och långfristiga fordringar hos andra företag"
+                        "id": 7312,
+                        "text": "Ersättningar för förslagsverksamhet och uppfinningar"
                     },
                     {
-                        "Id": 8221,
-                        "Text": "Resultat vid försäljning av andelar i andra företag"
+                        "id": 7313,
+                        "text": "Ersättningar för/bidrag till bostadskostnader"
                     },
                     {
-                        "Id": 8222,
-                        "Text": "Resultat vid försäljning av långfristiga fordringar hos andra företag"
+                        "id": 7314,
+                        "text": "Ersättningar för/bidrag till måltidskostnader"
                     },
                     {
-                        "Id": 8223,
-                        "Text": "Resultat vid försäljning av derivat (långfristiga värdepappersinnehav)"
+                        "id": 7315,
+                        "text": "Ersättningar för/bidrag till resor till och från arbetsplatsen"
                     },
                     {
-                        "Id": 8228,
-                        "Text": "Värdeförändring kapitalförsäkring, skattemässig justering"
+                        "id": 7316,
+                        "text": "Ersättningar för/bidrag till arbetskläder"
                     },
                     {
-                        "Id": 8230,
-                        "Text": "Valutakursdifferenser på långfristiga fordringar"
+                        "id": 7317,
+                        "text": "Ersättningar för/bidrag till arbetsmaterial och arbetsverktyg"
                     },
                     {
-                        "Id": 8231,
-                        "Text": "Valutakursvinster på långfristiga fordringar"
+                        "id": 7318,
+                        "text": "Felräkningspengar"
                     },
                     {
-                        "Id": 8236,
-                        "Text": "Valutakursförluster på långfristiga fordringar"
+                        "id": 7319,
+                        "text": "Övriga kontanta extraersättningar"
                     },
                     {
-                        "Id": 8240,
-                        "Text": "Resultatandelar från handelsbolag (andra företag)"
+                        "id": 7320,
+                        "text": "Traktamenten vid tjänsteresa"
                     },
                     {
-                        "Id": 8250,
-                        "Text": "Ränteintäkter från långfristiga fordringar hos och värdepapper i andra företag"
+                        "id": 7321,
+                        "text": "Skattefria traktamenten, Sverige"
                     },
                     {
-                        "Id": 8251,
-                        "Text": "Ränteintäkter från långfristiga fordringar"
+                        "id": 7322,
+                        "text": "Skattepliktiga traktamenten, Sverige"
                     },
                     {
-                        "Id": 8252,
-                        "Text": "Ränteintäkter från övriga värdepapper"
+                        "id": 7323,
+                        "text": "Skattefria traktamenten, utlandet"
                     },
                     {
-                        "Id": 8254,
-                        "Text": "Skattefria ränteintäkter, långfristiga tillgångar"
+                        "id": 7324,
+                        "text": "Skattepliktiga traktamenten, utlandet"
                     },
                     {
-                        "Id": 8260,
-                        "Text": "Ränteintäkter från långfristiga fordringar hos koncernföretag"
+                        "id": 7330,
+                        "text": "Bilersättningar"
                     },
                     {
-                        "Id": 8261,
-                        "Text": "Ränteintäkter från långfristiga fordringar hos moderföretag"
+                        "id": 7331,
+                        "text": "Skattefria bilersättningar"
                     },
                     {
-                        "Id": 8262,
-                        "Text": "Ränteintäkter från långfristiga fordringar hos dotterföretag"
+                        "id": 7332,
+                        "text": "Skattepliktiga bilersättningar"
                     },
                     {
-                        "Id": 8263,
-                        "Text": "Ränteintäkter från långfristiga fordringar hos andra koncernföretag"
+                        "id": 7333,
+                        "text": "Ersättning för trängselskatt, skattefri"
                     },
                     {
-                        "Id": 8270,
-                        "Text": "Nedskrivningar av innehav av andelar i och långfristiga fordringar hos andra företag"
+                        "id": 7350,
+                        "text": "Ersättningar för föreskrivna arbetskläder"
                     },
                     {
-                        "Id": 8271,
-                        "Text": "Nedskrivningar av andelar i andra företag"
+                        "id": 7370,
+                        "text": "Representationsersättningar"
                     },
                     {
-                        "Id": 8272,
-                        "Text": "Nedskrivningar av långfristiga fordringar hos andra företag"
+                        "id": 7380,
+                        "text": "Kostnader för förmåner till anställda"
                     },
                     {
-                        "Id": 8273,
-                        "Text": "Nedskrivningar av övriga värdepapper hos andra företag"
+                        "id": 7381,
+                        "text": "Kostnader för fri bostad"
                     },
                     {
-                        "Id": 8280,
-                        "Text": "Återföringar av nedskrivningar av andelar i och långfristiga fordringar hos andra företag"
+                        "id": 7382,
+                        "text": "Kostnader för fria eller subventionerade måltider"
                     },
                     {
-                        "Id": 8281,
-                        "Text": "Återföringar av nedskrivningar av andelar i andra företag"
+                        "id": 7383,
+                        "text": "Kostnader för fria resor till och från arbetsplatsen"
                     },
                     {
-                        "Id": 8282,
-                        "Text": "Återföringar av nedskrivningar av långfristiga fordringar hos andra företag"
+                        "id": 7384,
+                        "text": "Kostnader för fria eller subventionerade arbetskläder"
                     },
                     {
-                        "Id": 8283,
-                        "Text": "Återföringar av nedskrivningar av övriga värdepapper i andra företag"
+                        "id": 7385,
+                        "text": "Kostnader för fri bil"
                     },
                     {
-                        "Id": 8290,
-                        "Text": "Värdering till verkligt värde, anläggningstillgångar"
+                        "id": 7386,
+                        "text": "Subventionerad ränta"
                     },
                     {
-                        "Id": 8291,
-                        "Text": "Orealiserade värdeförändringar på anläggningstillgångar"
+                        "id": 7387,
+                        "text": "Kostnader för lånedatorer"
                     },
                     {
-                        "Id": 8295,
-                        "Text": "Orealiserade värdeförändringar på derivatinstrument"
+                        "id": 7388,
+                        "text": "Anställdas ersättning för erhållna förmåner"
+                    },
+                    {
+                        "id": 7389,
+                        "text": "Övriga kostnader för förmåner"
+                    },
+                    {
+                        "id": 7390,
+                        "text": "Övriga kostnadsersättningar och förmåner"
+                    },
+                    {
+                        "id": 7391,
+                        "text": "Kostnad för trängselskatteförmån"
+                    },
+                    {
+                        "id": 7392,
+                        "text": "Kostnad för förmån av hushållsnära tjänster"
+                    },
+                    {
+                        "id": 7399,
+                        "text": "Motkonto skattepliktiga förmåner"
                     }
                 ]
             },
             {
-                "Id": 83,
-                "Text": "Övriga ränteintäkter och liknande resultatposter",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 74,
+                "text": "Pensionskostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 8310,
-                        "Text": "Ränteintäkter från omsättningstillgångar"
+                        "id": 7400,
+                        "text": "Pensionskostnader (gruppkonto)"
                     },
                     {
-                        "Id": 8311,
-                        "Text": "Ränteintäkter från bank"
+                        "id": 7410,
+                        "text": "Pensionsförsäkringspremier"
                     },
                     {
-                        "Id": 8312,
-                        "Text": "Ränteintäkter från kortfristiga placeringar"
+                        "id": 7411,
+                        "text": "Premier för kollektiva pensionsförsäkringar"
                     },
                     {
-                        "Id": 8313,
-                        "Text": "Ränteintäkter från kortfristiga fordringar"
+                        "id": 7412,
+                        "text": "Premier för individuella pensionsförsäkringar"
                     },
                     {
-                        "Id": 8314,
-                        "Text": "Skattefria ränteintäkter"
+                        "id": 7418,
+                        "text": "Återbäring från försäkringsföretag"
                     },
                     {
-                        "Id": 8317,
-                        "Text": "Ränteintäkter för dold räntekompensation"
+                        "id": 7420,
+                        "text": "Förändring av pensionsskuld"
                     },
                     {
-                        "Id": 8319,
-                        "Text": "Övriga ränteintäkter från omsättningstillgångar"
+                        "id": 7421,
+                        "text": "Direktpension, ej avdragsgill"
                     },
                     {
-                        "Id": 8320,
-                        "Text": "Värdering till verkligt värde, omsättningstillgångar"
+                        "id": 7430,
+                        "text": "Avdrag för räntedel i pensionskostnad"
                     },
                     {
-                        "Id": 8321,
-                        "Text": "Orealiserade värdeförändringar på omsättningstillgångar"
+                        "id": 7440,
+                        "text": "Förändring av pensionsstiftelsekapital"
                     },
                     {
-                        "Id": 8325,
-                        "Text": "Orealiserade värdeförändringar på derivatinstrument (oms.-tillg.)"
+                        "id": 7441,
+                        "text": "Avsättning till pensionsstiftelse"
                     },
                     {
-                        "Id": 8330,
-                        "Text": "Valutakursdifferenser på kortfristiga fordringar och placeringar"
+                        "id": 7448,
+                        "text": "Gottgörelse från pensionsstiftelse"
                     },
                     {
-                        "Id": 8331,
-                        "Text": "Valutakursvinster på kortfristiga fordringar och placeringar"
+                        "id": 7460,
+                        "text": "Pensionsutbetalningar"
                     },
                     {
-                        "Id": 8336,
-                        "Text": "Valutakursförluster på kortfristiga fordringar och placeringar"
+                        "id": 7461,
+                        "text": "Pensionsutbetalningar till f.d. kollektivanställda"
                     },
                     {
-                        "Id": 8340,
-                        "Text": "Utdelningar på kortfristiga placeringar"
+                        "id": 7462,
+                        "text": "Pensionsutbetalningar till f.d. tjänstemän"
                     },
                     {
-                        "Id": 8350,
-                        "Text": "Resultat vid försäljning av kortfristiga placeringar"
+                        "id": 7463,
+                        "text": "Pensionsutbetalningar till f.d. företagsledare"
                     },
                     {
-                        "Id": 8360,
-                        "Text": "Övriga ränteintäkter från koncernföretag"
+                        "id": 7470,
+                        "text": "Förvaltnings- och kreditförsäkringsavgifter"
                     },
                     {
-                        "Id": 8361,
-                        "Text": "Övriga ränteintäkter från moderföretag"
-                    },
-                    {
-                        "Id": 8362,
-                        "Text": "Övriga ränteintäkter från dotterföretag"
-                    },
-                    {
-                        "Id": 8363,
-                        "Text": "Övriga ränteintäkter från andra koncernföretag"
-                    },
-                    {
-                        "Id": 8370,
-                        "Text": "Nedskrivningar av kortfristiga placeringar"
-                    },
-                    {
-                        "Id": 8380,
-                        "Text": "Återföringar av nedskrivningar av kortfristiga placeringar"
-                    },
-                    {
-                        "Id": 8390,
-                        "Text": "Övriga finansiella intäkter"
-                    },
-                    {
-                        "Id": 8398,
-                        "Text": "Värdeförändring kortfristig placering, skattemässig justering"
+                        "id": 7490,
+                        "text": "Övriga pensionskostnader"
                     }
                 ]
             },
             {
-                "Id": 84,
-                "Text": "Räntekostnader och liknande resultatposter",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 75,
+                "text": "Sociala och andra avgifter enligt lag och avtal",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 8400,
-                        "Text": "Räntekostnader (gruppkonto)"
+                        "id": 7500,
+                        "text": "Sociala och andra avgifter enligt lag och avtal (gruppkonto)"
                     },
                     {
-                        "Id": 8410,
-                        "Text": "Räntekostnader för långfristiga skulder"
+                        "id": 7510,
+                        "text": "Lagstadgade sociala avgifter"
                     },
                     {
-                        "Id": 8411,
-                        "Text": "Räntekostnader för obligations-, förlags- och konvertibla lån"
+                        "id": 7511,
+                        "text": "Sociala avgifter för löner och ersättningar"
                     },
                     {
-                        "Id": 8412,
-                        "Text": "Räntedel i årets pensionskostnad"
+                        "id": 7512,
+                        "text": "Sociala avgifter för förmånsvärden"
                     },
                     {
-                        "Id": 8413,
-                        "Text": "Räntekostnader för checkräkningskredit"
+                        "id": 7515,
+                        "text": "Sociala avgifter på skattepliktiga kostnadsersättningar"
                     },
                     {
-                        "Id": 8414,
-                        "Text": "Räntekostnader för byggnadskreditiv"
+                        "id": 7516,
+                        "text": "Sociala avgifter på arvoden"
                     },
                     {
-                        "Id": 8415,
-                        "Text": "Räntekostnader för andra skulder till kreditinstitut"
+                        "id": 7518,
+                        "text": "Sociala avgifter på bruttolöneavdrag m.m."
                     },
                     {
-                        "Id": 8417,
-                        "Text": "Räntekostnader för dold räntekompensation m.m."
+                        "id": 7519,
+                        "text": "Sociala avgifter för semester- och löneskulder"
                     },
                     {
-                        "Id": 8418,
-                        "Text": "Avdragspost för räntesubventioner"
+                        "id": 7520,
+                        "text": "Arbetsgivaravgifter (nya pensionssystemet)"
                     },
                     {
-                        "Id": 8419,
-                        "Text": "Övriga räntekostnader för långfristiga skulder"
+                        "id": 7521,
+                        "text": "Arbetsgivaravgifter för löner och ersättningar (nya pensionssystemet)"
                     },
                     {
-                        "Id": 8420,
-                        "Text": "Räntekostnader för kortfristiga skulder"
+                        "id": 7522,
+                        "text": "Arbetsgivaravgifter för förmånsvärden (nya pensionssystemet)"
                     },
                     {
-                        "Id": 8421,
-                        "Text": "Räntekostnader till kreditinstitut"
+                        "id": 7525,
+                        "text": "Arbetsgivaravgifter på skattepliktiga kostnadsersättningar (nya pensionssystemet)"
                     },
                     {
-                        "Id": 8422,
-                        "Text": "Dröjsmålsräntor för leverantörsskulder"
+                        "id": 7526,
+                        "text": "Arbetsgivaravgifter på arvoden (nya pensionssystemet)"
                     },
                     {
-                        "Id": 8423,
-                        "Text": "Räntekostnader för skatter och avgifter"
+                        "id": 7528,
+                        "text": "Arbetsgivaravgifter på bruttolöneavdrag m.m. (nya pensionssystemet)"
                     },
                     {
-                        "Id": 8429,
-                        "Text": "Övriga räntekostnader för kortfristiga skulder"
+                        "id": 7529,
+                        "text": "Arbetsgivaravgifter för semester- och löneskulder (nya pensionssystemet)"
                     },
                     {
-                        "Id": 8430,
-                        "Text": "Valutakursdifferenser på skulder"
+                        "id": 7530,
+                        "text": "Särskild löneskatt"
                     },
                     {
-                        "Id": 8431,
-                        "Text": "Valutakursvinster på skulder"
+                        "id": 7531,
+                        "text": "Särskild löneskatt för vissa försäkringsersättningar m.m."
                     },
                     {
-                        "Id": 8436,
-                        "Text": "Valutakursförluster på skulder"
+                        "id": 7532,
+                        "text": "Särskild löneskatt pensionskostnader, deklarationspost"
                     },
                     {
-                        "Id": 8440,
-                        "Text": "Erhållna räntebidrag"
+                        "id": 7533,
+                        "text": "Särskild löneskatt för pensionskostnader"
                     },
                     {
-                        "Id": 8450,
-                        "Text": "Orealiserade värdeförändringar på skulder"
+                        "id": 7550,
+                        "text": "Avkastningsskatt på pensionsmedel"
                     },
                     {
-                        "Id": 8451,
-                        "Text": "Orealiserade värdeförändringar på skulder"
+                        "id": 7560,
+                        "text": "Arbetsgivaravgifter under 26 år"
                     },
                     {
-                        "Id": 8455,
-                        "Text": "Orealiserade värdeförändringar på säkringsinstrument"
+                        "id": 7570,
+                        "text": "Premier för arbetsmarknadsförsäkringar"
                     },
                     {
-                        "Id": 8460,
-                        "Text": "Räntekostnader till koncernföretag"
+                        "id": 7571,
+                        "text": "Arbetsmarknadsförsäkringar"
                     },
                     {
-                        "Id": 8461,
-                        "Text": "Räntekostnader till moderföretag"
+                        "id": 7572,
+                        "text": "Arbetsmarknadsförsäkringar pensionsförsäkringspremier, deklarationspost"
                     },
                     {
-                        "Id": 8462,
-                        "Text": "Räntekostnader till dotterföretag"
+                        "id": 7580,
+                        "text": "Gruppförsäkringspremier"
                     },
                     {
-                        "Id": 8463,
-                        "Text": "Räntekostnader till andra koncernföretag"
+                        "id": 7581,
+                        "text": "Grupplivförsäkringspremier"
                     },
                     {
-                        "Id": 8480,
-                        "Text": "Aktiverade ränteutgifter"
+                        "id": 7582,
+                        "text": "Gruppsjukförsäkringspremier"
                     },
                     {
-                        "Id": 8490,
-                        "Text": "Övriga skuldrelaterade poster"
+                        "id": 7583,
+                        "text": "Gruppolycksfallsförsäkringspremier"
                     },
                     {
-                        "Id": 8491,
-                        "Text": "Erhållet ackord på skulder till kreditinstitut m.m."
+                        "id": 7589,
+                        "text": "Övriga gruppförsäkringspremier"
+                    },
+                    {
+                        "id": 7590,
+                        "text": "Övriga sociala och andra avgifter enligt lag och avtal"
                     }
                 ]
             },
             {
-                "Id": 87,
-                "Text": "Extraordinära intäkter och kostnader",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 76,
+                "text": "Övriga personalkostnader",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 8710,
-                        "Text": "Extraordinära intäkter"
+                        "id": 7600,
+                        "text": "Övriga personalkostnader (gruppkonto)"
                     },
                     {
-                        "Id": 8750,
-                        "Text": "Extraordinära kostnader"
+                        "id": 7610,
+                        "text": "Utbildning"
+                    },
+                    {
+                        "id": 7620,
+                        "text": "Sjuk- och hälsovård"
+                    },
+                    {
+                        "id": 7621,
+                        "text": "Sjuk- och hälsovård, avdragsgill"
+                    },
+                    {
+                        "id": 7622,
+                        "text": "Sjuk- och hälsovård, ej avdragsgill"
+                    },
+                    {
+                        "id": 7623,
+                        "text": "Sjukvårdsförsäkring, ej avdragsgill"
+                    },
+                    {
+                        "id": 7630,
+                        "text": "Personalrepresentation"
+                    },
+                    {
+                        "id": 7631,
+                        "text": "Personalrepresentation, avdragsgill"
+                    },
+                    {
+                        "id": 7632,
+                        "text": "Personalrepresentation, ej avdragsgill"
+                    },
+                    {
+                        "id": 7650,
+                        "text": "Sjuklöneförsäkring"
+                    },
+                    {
+                        "id": 7670,
+                        "text": "Förändring av personalstiftelsekapital"
+                    },
+                    {
+                        "id": 7671,
+                        "text": "Avsättning till personalstiftelse"
+                    },
+                    {
+                        "id": 7678,
+                        "text": "Gottgörelse från personalstiftelse"
+                    },
+                    {
+                        "id": 7690,
+                        "text": "Övriga personalkostnader"
+                    },
+                    {
+                        "id": 7691,
+                        "text": "Personalrekrytering"
+                    },
+                    {
+                        "id": 7692,
+                        "text": "Begravningshjälp"
+                    },
+                    {
+                        "id": 7693,
+                        "text": "Fritidsverksamhet"
+                    },
+                    {
+                        "id": 7699,
+                        "text": "Övriga personalkostnader"
                     }
                 ]
             },
             {
-                "Id": 88,
-                "Text": "Bokslutsdispositioner",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 77,
+                "text": "Nedskrivningar och återföring av nedskrivningar",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 8810,
-                        "Text": "Förändring av periodiseringsfond"
+                        "id": 7710,
+                        "text": "Nedskrivningar av immateriella anläggningstillgångar"
                     },
                     {
-                        "Id": 8811,
-                        "Text": "Avsättning till periodiseringsfond"
+                        "id": 7720,
+                        "text": "Nedskrivningar av byggnader och mark"
                     },
                     {
-                        "Id": 8819,
-                        "Text": "Återföring från periodiseringsfond"
+                        "id": 7730,
+                        "text": "Nedskrivningar av maskiner och inventarier"
                     },
                     {
-                        "Id": 8820,
-                        "Text": "Mottagna koncernbidrag"
+                        "id": 7740,
+                        "text": "Nedskrivningar av vissa omsättningstillgångar"
                     },
                     {
-                        "Id": 8830,
-                        "Text": "Lämnade koncernbidrag"
+                        "id": 7760,
+                        "text": "Återföring av nedskrivningar av immateriella anläggningstillgångar"
                     },
                     {
-                        "Id": 8840,
-                        "Text": "Lämnade gottgörelser"
+                        "id": 7770,
+                        "text": "Återföring av nedskrivningar av byggnader och mark"
                     },
                     {
-                        "Id": 8850,
-                        "Text": "Förändring av överavskrivningar"
+                        "id": 7780,
+                        "text": "Återföring av nedskrivningar av maskiner och inventarier"
                     },
                     {
-                        "Id": 8851,
-                        "Text": "Förändring av överavskrivningar, immateriella anläggningstillgångar"
-                    },
-                    {
-                        "Id": 8852,
-                        "Text": "Förändring av överavskrivningar, byggnader och markanläggningar"
-                    },
-                    {
-                        "Id": 8853,
-                        "Text": "Förändring av överavskrivningar, maskiner och inventarier"
-                    },
-                    {
-                        "Id": 8860,
-                        "Text": "Förändring av ersättningsfond"
-                    },
-                    {
-                        "Id": 8861,
-                        "Text": "Avsättning till ersättningsfond för inventarier"
-                    },
-                    {
-                        "Id": 8862,
-                        "Text": "Avsättning till ersättningsfond för byggnader och markanläggningar"
-                    },
-                    {
-                        "Id": 8863,
-                        "Text": "Avsättning till ersättningsfond för mark"
-                    },
-                    {
-                        "Id": 8864,
-                        "Text": "Avsättning till ersättningsfond för djurlager i jordbruk och renskötsel"
-                    },
-                    {
-                        "Id": 8865,
-                        "Text": "Ianspråktagande av ersättningsfond för avskrivningar"
-                    },
-                    {
-                        "Id": 8866,
-                        "Text": "Ianspråktagande av ersättningsfond för annat än avskrivningar"
-                    },
-                    {
-                        "Id": 8869,
-                        "Text": "Återföring från ersättningsfond"
-                    },
-                    {
-                        "Id": 8880,
-                        "Text": "Förändring av obeskattade intäkter"
-                    },
-                    {
-                        "Id": 8881,
-                        "Text": "Avsättning till upphovsmannakonto"
-                    },
-                    {
-                        "Id": 8882,
-                        "Text": "Återföring från upphovsmannakonto"
-                    },
-                    {
-                        "Id": 8885,
-                        "Text": "Avsättning till skogskonto"
-                    },
-                    {
-                        "Id": 8886,
-                        "Text": "Återföring från skogskonto"
-                    },
-                    {
-                        "Id": 8890,
-                        "Text": "Övriga bokslutsdispositioner"
-                    },
-                    {
-                        "Id": 8891,
-                        "Text": "Förändring av skillnad mellan bokförd och faktisk pensionsskuld"
-                    },
-                    {
-                        "Id": 8892,
-                        "Text": "Nedskrivningar av konsolideringskaraktär av anläggningstillgångar"
-                    },
-                    {
-                        "Id": 8896,
-                        "Text": "Förändring av lagerreserv"
-                    },
-                    {
-                        "Id": 8899,
-                        "Text": "Övriga bokslutsdispositioner"
+                        "id": 7790,
+                        "text": "Återföring av nedskrivningar av vissa omsättningstillgångar"
                     }
                 ]
             },
             {
-                "Id": 89,
-                "Text": "Skatter och årets resultat",
-                "ParentId": 0,
-                "Accounts": [
+                "id": 78,
+                "text": "Avskrivningar enligt plan",
+                "parentId": 0,
+                "accounts": [
                     {
-                        "Id": 8910,
-                        "Text": "Skatt som belastar årets resultat"
+                        "id": 7810,
+                        "text": "Avskrivningar på immateriella anläggningstillgångar"
                     },
                     {
-                        "Id": 8920,
-                        "Text": "Skatt på grund av ändrad beskattning"
+                        "id": 7811,
+                        "text": "Avskrivningar på balanserade utgifter"
                     },
                     {
-                        "Id": 8930,
-                        "Text": "Restituerad skatt"
+                        "id": 7812,
+                        "text": "Avskrivningar på koncessioner m.m."
                     },
                     {
-                        "Id": 8940,
-                        "Text": "Uppskjuten skatt"
+                        "id": 7813,
+                        "text": "Avskrivningar på patent"
                     },
                     {
-                        "Id": 8980,
-                        "Text": "Övriga skatter"
+                        "id": 7814,
+                        "text": "Avskrivningar på licenser"
                     },
                     {
-                        "Id": 8990,
-                        "Text": "Resultat"
+                        "id": 7815,
+                        "text": "Avskrivningar på varumärken"
                     },
                     {
-                        "Id": 8999,
-                        "Text": "Årets resultat"
+                        "id": 7816,
+                        "text": "Avskrivningar på hyresrätter"
+                    },
+                    {
+                        "id": 7817,
+                        "text": "Avskrivningar på goodwill"
+                    },
+                    {
+                        "id": 7819,
+                        "text": "Avskrivningar på övriga immateriella anläggningstillgångar"
+                    },
+                    {
+                        "id": 7820,
+                        "text": "Avskrivningar på byggnader och markanläggningar"
+                    },
+                    {
+                        "id": 7821,
+                        "text": "Avskrivningar på byggnader"
+                    },
+                    {
+                        "id": 7824,
+                        "text": "Avskrivningar på markanläggningar"
+                    },
+                    {
+                        "id": 7829,
+                        "text": "Avskrivningar på övriga byggnader"
+                    },
+                    {
+                        "id": 7830,
+                        "text": "Avskrivningar på maskiner och inventarier"
+                    },
+                    {
+                        "id": 7831,
+                        "text": "Avskrivningar på maskiner och andra tekniska anläggningar"
+                    },
+                    {
+                        "id": 7832,
+                        "text": "Avskrivningar på inventarier och verktyg"
+                    },
+                    {
+                        "id": 7833,
+                        "text": "Avskrivningar på installationer"
+                    },
+                    {
+                        "id": 7834,
+                        "text": "Avskrivningar på bilar och andra transportmedel"
+                    },
+                    {
+                        "id": 7835,
+                        "text": "Avskrivningar på datorer"
+                    },
+                    {
+                        "id": 7836,
+                        "text": "Avskrivningar på leasade tillgångar"
+                    },
+                    {
+                        "id": 7839,
+                        "text": "Avskrivningar på övriga maskiner och inventarier"
+                    },
+                    {
+                        "id": 7840,
+                        "text": "Avskrivningar på förbättringsutgifter på annans fastighet"
+                    }
+                ]
+            },
+            {
+                "id": 79,
+                "text": "Övriga rörelsekostnader",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 7940,
+                        "text": "Orealiserade positiva/negativa värdeförändringar på säkringsinstrument"
+                    },
+                    {
+                        "id": 7960,
+                        "text": "Valutakursförluster på fordringar och skulder av rörelsekaraktär"
+                    },
+                    {
+                        "id": 7970,
+                        "text": "Förlust vid avyttring av immateriella och materiella anläggningstillgångar"
+                    },
+                    {
+                        "id": 7971,
+                        "text": "Förlust vid avyttring av immateriella anläggningstillgångar"
+                    },
+                    {
+                        "id": 7972,
+                        "text": "Förlust vid avyttring av byggnader och mark"
+                    },
+                    {
+                        "id": 7973,
+                        "text": "Förlust vid avyttring av maskiner och inventarier"
+                    },
+                    {
+                        "id": 7990,
+                        "text": "Övriga rörelsekostnader"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "text": "Finansiella och andra inkomster/ intäkter och utgifter/kostnader",
+        "subCategories": [
+            {
+                "id": 80,
+                "text": "Resultat från andelar i koncernföretag",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 8010,
+                        "text": "Utdelning på andelar i koncernföretag"
+                    },
+                    {
+                        "id": 8012,
+                        "text": "Utdelning på andelar i dotterföretag"
+                    },
+                    {
+                        "id": 8013,
+                        "text": "Utdelning på andelar i andra koncernföretag"
+                    },
+                    {
+                        "id": 8014,
+                        "text": "Koncernbidrag"
+                    },
+                    {
+                        "id": 8016,
+                        "text": "Insatsemission, koncernföretag"
+                    },
+                    {
+                        "id": 8019,
+                        "text": "Övriga utdelningar på andelar i koncernföretag"
+                    },
+                    {
+                        "id": 8020,
+                        "text": "Resultat vid försäljning av andelar i koncernföretag"
+                    },
+                    {
+                        "id": 8022,
+                        "text": "Resultat vid försäljning av andelar i dotterföretag"
+                    },
+                    {
+                        "id": 8023,
+                        "text": "Resultat vid försäljning av andelar i andra koncernföretag"
+                    },
+                    {
+                        "id": 8030,
+                        "text": "Resultatandelar från handelsbolag (dotterföretag)"
+                    },
+                    {
+                        "id": 8070,
+                        "text": "Nedskrivningar av andelar i och långfristiga fordringar hos koncernföretag"
+                    },
+                    {
+                        "id": 8072,
+                        "text": "Nedskrivningar av andelar i dotterföretag"
+                    },
+                    {
+                        "id": 8073,
+                        "text": "Nedskrivningar av andelar i andra koncernföretag"
+                    },
+                    {
+                        "id": 8076,
+                        "text": "Nedskrivningar av långfristiga fordringar hos moderföretag"
+                    },
+                    {
+                        "id": 8077,
+                        "text": "Nedskrivningar av långfristiga fordringar hos dotterföretag"
+                    },
+                    {
+                        "id": 8078,
+                        "text": "Nedskrivningar av långfristiga fordringar hos andra koncernföretag"
+                    },
+                    {
+                        "id": 8080,
+                        "text": "Återföringar av nedskrivningar av andelar i och långfristiga fordringar hos koncernföretag"
+                    },
+                    {
+                        "id": 8082,
+                        "text": "Återföringar av nedskrivningar av andelar i dotterföretag"
+                    },
+                    {
+                        "id": 8083,
+                        "text": "Återföringar av nedskrivningar av andelar i andra koncernföretag"
+                    },
+                    {
+                        "id": 8086,
+                        "text": "Återföringar av nedskrivningar av långfristiga fordringar hos moderföretag"
+                    },
+                    {
+                        "id": 8087,
+                        "text": "Återföringar av nedskrivningar av långfristiga fordringar hos dotterföretag"
+                    },
+                    {
+                        "id": 8088,
+                        "text": "Återföringar av nedskrivningar av långfristiga fordringar hos andra koncernföretag"
+                    }
+                ]
+            },
+            {
+                "id": 81,
+                "text": "Resultat från andelar i intresseföretag",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 8110,
+                        "text": "Utdelning på andelar i intresseföretag"
+                    },
+                    {
+                        "id": 8112,
+                        "text": "Utdelningar från intresseföretag"
+                    },
+                    {
+                        "id": 8116,
+                        "text": "Insatsemission, intresseföretag"
+                    },
+                    {
+                        "id": 8120,
+                        "text": "Resultat vid försäljning av andelar i intresseföretag"
+                    },
+                    {
+                        "id": 8130,
+                        "text": "Resultatandelar från handelsbolag (intresseföretag)"
+                    },
+                    {
+                        "id": 8170,
+                        "text": "Nedskrivningar av andelar i och långfristiga fordringar hos intresseföretag"
+                    },
+                    {
+                        "id": 8171,
+                        "text": "Nedskrivningar av andelar i intresseföretag"
+                    },
+                    {
+                        "id": 8172,
+                        "text": "Nedskrivningar av långfristiga fordringar hos intresseföretag"
+                    },
+                    {
+                        "id": 8180,
+                        "text": "Återföringar av nedskrivningar av andelar i och långfristiga fordringar hos intresseföretag"
+                    },
+                    {
+                        "id": 8181,
+                        "text": "Återföringar av nedskrivningar av andelar i intresseföretag"
+                    },
+                    {
+                        "id": 8182,
+                        "text": "Återföringar av nedskrivningar av långfristiga fordringar hos intresseföretag"
+                    }
+                ]
+            },
+            {
+                "id": 82,
+                "text": "Resultat från övriga värdepapper och långfristiga fordringar (anläggningstillgångar)",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 8210,
+                        "text": "Utdelningar på andelar i andra företag"
+                    },
+                    {
+                        "id": 8212,
+                        "text": "Utdelningar, övriga företag"
+                    },
+                    {
+                        "id": 8216,
+                        "text": "Insatsemissioner, övriga företag"
+                    },
+                    {
+                        "id": 8220,
+                        "text": "Resultat vid försäljning av värdepapper i och långfristiga fordringar hos andra företag"
+                    },
+                    {
+                        "id": 8221,
+                        "text": "Resultat vid försäljning av andelar i andra företag"
+                    },
+                    {
+                        "id": 8222,
+                        "text": "Resultat vid försäljning av långfristiga fordringar hos andra företag"
+                    },
+                    {
+                        "id": 8223,
+                        "text": "Resultat vid försäljning av derivat (långfristiga värdepappersinnehav)"
+                    },
+                    {
+                        "id": 8228,
+                        "text": "Värdeförändring kapitalförsäkring, skattemässig justering"
+                    },
+                    {
+                        "id": 8230,
+                        "text": "Valutakursdifferenser på långfristiga fordringar"
+                    },
+                    {
+                        "id": 8231,
+                        "text": "Valutakursvinster på långfristiga fordringar"
+                    },
+                    {
+                        "id": 8236,
+                        "text": "Valutakursförluster på långfristiga fordringar"
+                    },
+                    {
+                        "id": 8240,
+                        "text": "Resultatandelar från handelsbolag (andra företag)"
+                    },
+                    {
+                        "id": 8250,
+                        "text": "Ränteintäkter från långfristiga fordringar hos och värdepapper i andra företag"
+                    },
+                    {
+                        "id": 8251,
+                        "text": "Ränteintäkter från långfristiga fordringar"
+                    },
+                    {
+                        "id": 8252,
+                        "text": "Ränteintäkter från övriga värdepapper"
+                    },
+                    {
+                        "id": 8254,
+                        "text": "Skattefria ränteintäkter, långfristiga tillgångar"
+                    },
+                    {
+                        "id": 8260,
+                        "text": "Ränteintäkter från långfristiga fordringar hos koncernföretag"
+                    },
+                    {
+                        "id": 8261,
+                        "text": "Ränteintäkter från långfristiga fordringar hos moderföretag"
+                    },
+                    {
+                        "id": 8262,
+                        "text": "Ränteintäkter från långfristiga fordringar hos dotterföretag"
+                    },
+                    {
+                        "id": 8263,
+                        "text": "Ränteintäkter från långfristiga fordringar hos andra koncernföretag"
+                    },
+                    {
+                        "id": 8270,
+                        "text": "Nedskrivningar av innehav av andelar i och långfristiga fordringar hos andra företag"
+                    },
+                    {
+                        "id": 8271,
+                        "text": "Nedskrivningar av andelar i andra företag"
+                    },
+                    {
+                        "id": 8272,
+                        "text": "Nedskrivningar av långfristiga fordringar hos andra företag"
+                    },
+                    {
+                        "id": 8273,
+                        "text": "Nedskrivningar av övriga värdepapper hos andra företag"
+                    },
+                    {
+                        "id": 8280,
+                        "text": "Återföringar av nedskrivningar av andelar i och långfristiga fordringar hos andra företag"
+                    },
+                    {
+                        "id": 8281,
+                        "text": "Återföringar av nedskrivningar av andelar i andra företag"
+                    },
+                    {
+                        "id": 8282,
+                        "text": "Återföringar av nedskrivningar av långfristiga fordringar hos andra företag"
+                    },
+                    {
+                        "id": 8283,
+                        "text": "Återföringar av nedskrivningar av övriga värdepapper i andra företag"
+                    },
+                    {
+                        "id": 8290,
+                        "text": "Värdering till verkligt värde, anläggningstillgångar"
+                    },
+                    {
+                        "id": 8291,
+                        "text": "Orealiserade värdeförändringar på anläggningstillgångar"
+                    },
+                    {
+                        "id": 8295,
+                        "text": "Orealiserade värdeförändringar på derivatinstrument"
+                    }
+                ]
+            },
+            {
+                "id": 83,
+                "text": "Övriga ränteintäkter och liknande resultatposter",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 8310,
+                        "text": "Ränteintäkter från omsättningstillgångar"
+                    },
+                    {
+                        "id": 8311,
+                        "text": "Ränteintäkter från bank"
+                    },
+                    {
+                        "id": 8312,
+                        "text": "Ränteintäkter från kortfristiga placeringar"
+                    },
+                    {
+                        "id": 8313,
+                        "text": "Ränteintäkter från kortfristiga fordringar"
+                    },
+                    {
+                        "id": 8314,
+                        "text": "Skattefria ränteintäkter"
+                    },
+                    {
+                        "id": 8317,
+                        "text": "Ränteintäkter för dold räntekompensation"
+                    },
+                    {
+                        "id": 8319,
+                        "text": "Övriga ränteintäkter från omsättningstillgångar"
+                    },
+                    {
+                        "id": 8320,
+                        "text": "Värdering till verkligt värde, omsättningstillgångar"
+                    },
+                    {
+                        "id": 8321,
+                        "text": "Orealiserade värdeförändringar på omsättningstillgångar"
+                    },
+                    {
+                        "id": 8325,
+                        "text": "Orealiserade värdeförändringar på derivatinstrument (oms.-tillg.)"
+                    },
+                    {
+                        "id": 8330,
+                        "text": "Valutakursdifferenser på kortfristiga fordringar och placeringar"
+                    },
+                    {
+                        "id": 8331,
+                        "text": "Valutakursvinster på kortfristiga fordringar och placeringar"
+                    },
+                    {
+                        "id": 8336,
+                        "text": "Valutakursförluster på kortfristiga fordringar och placeringar"
+                    },
+                    {
+                        "id": 8340,
+                        "text": "Utdelningar på kortfristiga placeringar"
+                    },
+                    {
+                        "id": 8350,
+                        "text": "Resultat vid försäljning av kortfristiga placeringar"
+                    },
+                    {
+                        "id": 8360,
+                        "text": "Övriga ränteintäkter från koncernföretag"
+                    },
+                    {
+                        "id": 8361,
+                        "text": "Övriga ränteintäkter från moderföretag"
+                    },
+                    {
+                        "id": 8362,
+                        "text": "Övriga ränteintäkter från dotterföretag"
+                    },
+                    {
+                        "id": 8363,
+                        "text": "Övriga ränteintäkter från andra koncernföretag"
+                    },
+                    {
+                        "id": 8370,
+                        "text": "Nedskrivningar av kortfristiga placeringar"
+                    },
+                    {
+                        "id": 8380,
+                        "text": "Återföringar av nedskrivningar av kortfristiga placeringar"
+                    },
+                    {
+                        "id": 8390,
+                        "text": "Övriga finansiella intäkter"
+                    },
+                    {
+                        "id": 8398,
+                        "text": "Värdeförändring kortfristig placering, skattemässig justering"
+                    }
+                ]
+            },
+            {
+                "id": 84,
+                "text": "Räntekostnader och liknande resultatposter",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 8400,
+                        "text": "Räntekostnader (gruppkonto)"
+                    },
+                    {
+                        "id": 8410,
+                        "text": "Räntekostnader för långfristiga skulder"
+                    },
+                    {
+                        "id": 8411,
+                        "text": "Räntekostnader för obligations-, förlags- och konvertibla lån"
+                    },
+                    {
+                        "id": 8412,
+                        "text": "Räntedel i årets pensionskostnad"
+                    },
+                    {
+                        "id": 8413,
+                        "text": "Räntekostnader för checkräkningskredit"
+                    },
+                    {
+                        "id": 8414,
+                        "text": "Räntekostnader för byggnadskreditiv"
+                    },
+                    {
+                        "id": 8415,
+                        "text": "Räntekostnader för andra skulder till kreditinstitut"
+                    },
+                    {
+                        "id": 8417,
+                        "text": "Räntekostnader för dold räntekompensation m.m."
+                    },
+                    {
+                        "id": 8418,
+                        "text": "Avdragspost för räntesubventioner"
+                    },
+                    {
+                        "id": 8419,
+                        "text": "Övriga räntekostnader för långfristiga skulder"
+                    },
+                    {
+                        "id": 8420,
+                        "text": "Räntekostnader för kortfristiga skulder"
+                    },
+                    {
+                        "id": 8421,
+                        "text": "Räntekostnader till kreditinstitut"
+                    },
+                    {
+                        "id": 8422,
+                        "text": "Dröjsmålsräntor för leverantörsskulder"
+                    },
+                    {
+                        "id": 8423,
+                        "text": "Räntekostnader för skatter och avgifter"
+                    },
+                    {
+                        "id": 8429,
+                        "text": "Övriga räntekostnader för kortfristiga skulder"
+                    },
+                    {
+                        "id": 8430,
+                        "text": "Valutakursdifferenser på skulder"
+                    },
+                    {
+                        "id": 8431,
+                        "text": "Valutakursvinster på skulder"
+                    },
+                    {
+                        "id": 8436,
+                        "text": "Valutakursförluster på skulder"
+                    },
+                    {
+                        "id": 8440,
+                        "text": "Erhållna räntebidrag"
+                    },
+                    {
+                        "id": 8450,
+                        "text": "Orealiserade värdeförändringar på skulder"
+                    },
+                    {
+                        "id": 8451,
+                        "text": "Orealiserade värdeförändringar på skulder"
+                    },
+                    {
+                        "id": 8455,
+                        "text": "Orealiserade värdeförändringar på säkringsinstrument"
+                    },
+                    {
+                        "id": 8460,
+                        "text": "Räntekostnader till koncernföretag"
+                    },
+                    {
+                        "id": 8461,
+                        "text": "Räntekostnader till moderföretag"
+                    },
+                    {
+                        "id": 8462,
+                        "text": "Räntekostnader till dotterföretag"
+                    },
+                    {
+                        "id": 8463,
+                        "text": "Räntekostnader till andra koncernföretag"
+                    },
+                    {
+                        "id": 8480,
+                        "text": "Aktiverade ränteutgifter"
+                    },
+                    {
+                        "id": 8490,
+                        "text": "Övriga skuldrelaterade poster"
+                    },
+                    {
+                        "id": 8491,
+                        "text": "Erhållet ackord på skulder till kreditinstitut m.m."
+                    }
+                ]
+            },
+            {
+                "id": 87,
+                "text": "Extraordinära intäkter och kostnader",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 8710,
+                        "text": "Extraordinära intäkter"
+                    },
+                    {
+                        "id": 8750,
+                        "text": "Extraordinära kostnader"
+                    }
+                ]
+            },
+            {
+                "id": 88,
+                "text": "Bokslutsdispositioner",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 8810,
+                        "text": "Förändring av periodiseringsfond"
+                    },
+                    {
+                        "id": 8811,
+                        "text": "Avsättning till periodiseringsfond"
+                    },
+                    {
+                        "id": 8819,
+                        "text": "Återföring från periodiseringsfond"
+                    },
+                    {
+                        "id": 8820,
+                        "text": "Mottagna koncernbidrag"
+                    },
+                    {
+                        "id": 8830,
+                        "text": "Lämnade koncernbidrag"
+                    },
+                    {
+                        "id": 8840,
+                        "text": "Lämnade gottgörelser"
+                    },
+                    {
+                        "id": 8850,
+                        "text": "Förändring av överavskrivningar"
+                    },
+                    {
+                        "id": 8851,
+                        "text": "Förändring av överavskrivningar, immateriella anläggningstillgångar"
+                    },
+                    {
+                        "id": 8852,
+                        "text": "Förändring av överavskrivningar, byggnader och markanläggningar"
+                    },
+                    {
+                        "id": 8853,
+                        "text": "Förändring av överavskrivningar, maskiner och inventarier"
+                    },
+                    {
+                        "id": 8860,
+                        "text": "Förändring av ersättningsfond"
+                    },
+                    {
+                        "id": 8861,
+                        "text": "Avsättning till ersättningsfond för inventarier"
+                    },
+                    {
+                        "id": 8862,
+                        "text": "Avsättning till ersättningsfond för byggnader och markanläggningar"
+                    },
+                    {
+                        "id": 8863,
+                        "text": "Avsättning till ersättningsfond för mark"
+                    },
+                    {
+                        "id": 8864,
+                        "text": "Avsättning till ersättningsfond för djurlager i jordbruk och renskötsel"
+                    },
+                    {
+                        "id": 8865,
+                        "text": "Ianspråktagande av ersättningsfond för avskrivningar"
+                    },
+                    {
+                        "id": 8866,
+                        "text": "Ianspråktagande av ersättningsfond för annat än avskrivningar"
+                    },
+                    {
+                        "id": 8869,
+                        "text": "Återföring från ersättningsfond"
+                    },
+                    {
+                        "id": 8880,
+                        "text": "Förändring av obeskattade intäkter"
+                    },
+                    {
+                        "id": 8881,
+                        "text": "Avsättning till upphovsmannakonto"
+                    },
+                    {
+                        "id": 8882,
+                        "text": "Återföring från upphovsmannakonto"
+                    },
+                    {
+                        "id": 8885,
+                        "text": "Avsättning till skogskonto"
+                    },
+                    {
+                        "id": 8886,
+                        "text": "Återföring från skogskonto"
+                    },
+                    {
+                        "id": 8890,
+                        "text": "Övriga bokslutsdispositioner"
+                    },
+                    {
+                        "id": 8891,
+                        "text": "Förändring av skillnad mellan bokförd och faktisk pensionsskuld"
+                    },
+                    {
+                        "id": 8892,
+                        "text": "Nedskrivningar av konsolideringskaraktär av anläggningstillgångar"
+                    },
+                    {
+                        "id": 8896,
+                        "text": "Förändring av lagerreserv"
+                    },
+                    {
+                        "id": 8899,
+                        "text": "Övriga bokslutsdispositioner"
+                    }
+                ]
+            },
+            {
+                "id": 89,
+                "text": "Skatter och årets resultat",
+                "parentId": 0,
+                "accounts": [
+                    {
+                        "id": 8910,
+                        "text": "Skatt som belastar årets resultat"
+                    },
+                    {
+                        "id": 8920,
+                        "text": "Skatt på grund av ändrad beskattning"
+                    },
+                    {
+                        "id": 8930,
+                        "text": "Restituerad skatt"
+                    },
+                    {
+                        "id": 8940,
+                        "text": "Uppskjuten skatt"
+                    },
+                    {
+                        "id": 8980,
+                        "text": "Övriga skatter"
+                    },
+                    {
+                        "id": 8990,
+                        "text": "Resultat"
+                    },
+                    {
+                        "id": 8999,
+                        "text": "Årets resultat"
                     }
                 ]
             }

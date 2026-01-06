@@ -186,7 +186,7 @@ function SimpleSidebar({
                   sideOffset={4}
                 >
                   <DropdownMenuItem asChild>
-                    <Link href="/user/settings">
+                    <Link href="/user/installningar">
                       <User className="size-4 mr-2" weight="duotone" />
                       Inställningar
                     </Link>

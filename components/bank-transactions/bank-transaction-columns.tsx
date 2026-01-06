@@ -1,79 +1,103 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye } from "lucide-react";
+import { Eye, File, FileX } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import type { bankTransactions } from "@/lib/db/schema";
 
 export type BankTransaction = typeof bankTransactions.$inferSelect & {
   createdByUser: { id: string; name: string | null; email: string } | null;
+  attachments?: { id: string }[];
 };
 
 export const createColumns = (
   onView: (transaction: BankTransaction) => void
 ): ColumnDef<BankTransaction>[] => [
-  {
-    accessorKey: "office",
-    header: "Konto",
-    cell: ({ row }) => row.getValue("office") || "—",
-  },
-  {
-    accessorKey: "accountingDate",
-    header: "Bokföringsdag",
-    cell: ({ row }) => {
-      const value = row.getValue("accountingDate");
-      return value || "—";
+    {
+      accessorKey: "accountNumber",
+      header: "Konto",
+      cell: ({ row }) => row.getValue("accountNumber") || "—",
     },
-  },
-  {
-    accessorKey: "reference",
-    header: "Referens",
-    cell: ({ row }) => row.getValue("reference") || "—",
-  },
-  {
-    accessorKey: "amount",
-    header: "Belopp",
-    cell: ({ row }) => {
-      const value = row.getValue("amount") as string | null;
-      if (!value) return "—";
-      const amount = parseFloat(value);
-      return new Intl.NumberFormat("sv-SE", {
-        style: "currency",
-        currency: "SEK",
-      }).format(amount);
+    {
+      accessorKey: "accountingDate",
+      header: "Bokföringsdag",
+      cell: ({ row }) => {
+        const value = row.getValue("accountingDate");
+        return value || "—";
+      },
     },
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Skapad",
-    cell: ({ row }) => {
-      const date = row.getValue("createdAt") as Date | null;
-      if (!date) return "—";
-      return new Intl.DateTimeFormat("sv-SE").format(new Date(date));
+    {
+      accessorKey: "reference",
+      header: "Referens",
+      cell: ({ row }) => row.getValue("reference") || "—",
     },
-  },
-  {
-    accessorKey: "createdByUser",
-    header: "Skapad av",
-    cell: ({ row }) => {
-      const user = row.original.createdByUser;
-      return user?.name || user?.email || "—";
+    {
+      accessorKey: "amount",
+      header: "Belopp",
+      cell: ({ row }) => {
+        const value = row.getValue("amount") as string | null;
+        if (!value) return "—";
+        const amount = parseFloat(value);
+        return new Intl.NumberFormat("sv-SE", {
+          style: "currency",
+          currency: "SEK",
+        }).format(amount);
+      },
     },
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={(e) => {
-          e.stopPropagation();
-          onView(row.original);
-        }}
-      >
-        <Eye className="h-4 w-4" />
-      </Button>
-    ),
-  },
-];
+    {
+      accessorKey: "createdAt",
+      header: "Skapad",
+      cell: ({ row }) => {
+        const date = row.getValue("createdAt") as Date | null;
+        if (!date) return "—";
+        const d = new Date(date);
+        // Format: date and hh:mm
+        const dateString = new Intl.DateTimeFormat("sv-SE").format(d);
+        const timeString = d.toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" });
+        return `${dateString} ${timeString}`;
+      },
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => {
+        const hasAttachments = (row.original.attachments?.length ?? 0) > 0;
+        const attachmentCount = row.original.attachments?.length ?? 0;
+        return (
+          <div className="flex items-center gap-2">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="flex items-center">
+                  {hasAttachments ? (
+                    <File className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <FileX className="h-4 w-4 text-muted-foreground/40" />
+                  )}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                {hasAttachments
+                  ? `${attachmentCount} bilaga${attachmentCount > 1 ? "r" : ""}`
+                  : "Inga bilagor"}
+              </TooltipContent>
+            </Tooltip>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                onView(row.original);
+              }}
+            >
+              <Eye className="h-4 w-4" />
+            </Button>
+          </div>
+        );
+      },
+    },
+  ];
 

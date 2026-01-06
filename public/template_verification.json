@@ -1,0 +1,2526 @@
+{
+    "Data": {
+      "Categories": [
+        "Andelar i andra bolag",
+        "Bil och Transport",
+        "Bredband och Telefoni",
+        "Finans och Försäkring",
+        "Frakt",
+        "Försäljning tjänster",
+        "Försäljning varor",
+        "Inköp tjänster",
+        "Inom EU",
+        "Kontor och Fastighet",
+        "Möten, Konferens & Nöjen",
+        "Personal",
+        "Reklam och PR",
+        "Reparationer och Underhåll",
+        "Resa och Boende",
+        "Returer",
+        "Räntor och Påminnelseavgifter",
+        "Skatter och avgifter",
+        "Tillgångar",
+        "Utanför EU",
+        "Varor och material",
+        "Övriga intäkter",
+        "Övriga mallar"
+      ],
+      "Matches": [
+        {
+          "Id": "19da38c4-59e4-4f9c-a7a8-f1da220a7c6e",
+          "Name": "[Amortering] Banklån",
+          "Description": "Här bokför du avbetalningar på ditt banklån. OBS: 2024-08-30 ändrade vi från konto 2310 till konto 2350 i den här mallen. Om du sedan tidigare har bokfört banklånet mot konto 2310 behöver du gå till huvudboken för att se vilket saldo som finns kvar på det kontot och sedan manuellt omföra kvarvarande saldo till konto 2350.",
+          "FixedName": "Amortering Banklån",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "92dc85fb-3249-49c5-9531-3fb237efef2f",
+          "Name": "[Banktjänster]",
+          "Description": "Betalning av banktjänster. Dessa tjänster är momsfria.",
+          "FixedName": "Banktjänster",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "InShowAll",
+          "CategoryList": [
+            "Finans och Försäkring",
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "5fcbc66d-bcc6-429b-9d89-0487f532d9ac",
+          "Name": "[Biljetter] inrikes",
+          "Description": "Kostnader för biljetter till tåg, flyg och buss. Biljetter som gäller inrikes resor.",
+          "FixedName": "Biljetter inrikes",
+          "VatPercentage": 6,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Resa och Boende"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "2c6497b1-bf14-48fa-b1d9-8b203bf966ed",
+          "Name": "[Biljetter] utrikes",
+          "Description": "Kostnader för biljetter till tåg, flyg och buss. Biljetter som gäller utrikes resor och är momsfria",
+          "FixedName": "Biljetter utrikes",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inom EU",
+            "Utanför EU",
+            "Resa och Boende"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "4ad68411-6de6-44d6-b1de-2a285820df09",
+          "Name": "[Billeasing]",
+          "Description": "Här bokför du löpande kostnader för leasing av bil där 50% av momsen är avdragsgill. Detta kallas även för operationell leasing.",
+          "FixedName": "Billeasing",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "d5a2af81-b263-4366-ac63-237cf70dc811",
+          "Name": "[Biltvätt]",
+          "Description": "Kostnader relaterade till bilar ägda av ditt företag där all moms är avdragsgill",
+          "FixedName": "Biltvätt",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "88a2a0a2-7e0c-4a5a-8ae5-1b9860910a44",
+          "Name": "[Böcker och E-publikationer]",
+          "Description": "Här bokför du utgifter för böcker och facklitteratur. OBS Gäller e-böcker såsom digital tidningar och böcker",
+          "FixedName": "Böcker och E-publikationer",
+          "VatPercentage": 6,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "fd97bb11-63d3-4aa0-8b27-e43abeda4982",
+          "Name": "[Bredband]",
+          "Description": "Här bokför du utgifter för bredband",
+          "FixedName": "Bredband",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet",
+            "Bredband och Telefoni"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "e94ae139-498c-465c-9756-8c385add9be7",
+          "Name": "[Direktpension]",
+          "Description": "Här bokför du direktpension som sätts av i en kapitalförsäkring och inte är avdragsgill",
+          "FixedName": "Direktpension",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a9be2f7c-ca66-4fb9-9304-fe4d1c64b864",
+          "Name": "[Elkostnader]",
+          "Description": "Här bokför du kostnader för el",
+          "FixedName": "Elkostnader",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "605cf776-8bee-4fbf-add6-0a437d782103",
+          "Name": "[Fondplaceringar]",
+          "Description": "Här bokför du inköp av fondandelar för placering av likviditet",
+          "FixedName": "Fondplaceringar",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "5a23095c-25ce-4549-ba8a-ea9d680861d1",
+          "Name": "[Företagsförsäkring] avdragsgill",
+          "Description": "Kostnader för att försäkra företaget",
+          "FixedName": "Företagsförsäkring avdragsgill",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "c799e427-6dc0-49ce-b4fd-bf5a8ec62bd6",
+          "Name": "[Företagslägenheter]",
+          "Description": "Förmån av fri permanentbostad till den anställde där bolaget har avtal gentemot fastighetsägaren.",
+          "FixedName": "Företagslägenheter",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "3e85d04b-bc2f-4ab9-b0d0-f59fb5e591c1",
+          "Name": "[Försäkring] ej avdragsgill",
+          "Description": "Här bokför du försäkringar som inte är avdragsgilla. Exempelvis privata sjukförsäkringar",
+          "FixedName": "Försäkring ej avdragsgill",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "c41c3c30-cd1f-441e-a570-97c5a115dba2",
+          "Name": "[Försäljningstjänster]",
+          "Description": "Vid inköp av tjänster som är kopplat till bolagets försäljning",
+          "FixedName": "Försäljningstjänster",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a088d79b-8fc1-4c34-ae43-cd1fbb3fc0c2",
+          "Name": "[Friskvård]",
+          "Description": "Avdragsgill skattefri friskvård för företagets anställda.",
+          "FixedName": "Friskvård",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a0b9ff9b-4e88-40f7-b51e-41b5b73407f7",
+          "Name": "[Hyra] momsfri",
+          "Description": "Betalning av hyra när du inte betalar moms till hyresvärden",
+          "FixedName": "Hyra momsfri",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "5935b7f3-70d0-4371-be94-9eae61f6d4b3",
+          "Name": "[Hyra] momspliktig",
+          "Description": "Betala hyra för kontorslokaler om moms betalas",
+          "FixedName": "Hyra momspliktig",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "dbff949c-d03d-4272-99b3-8be265f0d698",
+          "Name": "[Hyrbil] Inrikes",
+          "Description": "Här bokför du kostnader för hyrbil i Sverige",
+          "FixedName": "Hyrbil Inrikes",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "66548f43-b69b-4fdf-9ccb-c30781f00e07",
+          "Name": "[Idrottsevenemang]",
+          "Description": "Här bokför du idrottsevenemang. Moms 6%",
+          "FixedName": "Idrottsevenemang",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Möten, Konferens & Nöjen"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "bd89afbf-9ce1-4a49-bbe1-a852b1e027ea",
+          "Name": "[Inhyrd personal]",
+          "Description": "Konsulter som bolaget hyrt in av ett externt företag som arbetar på ens företag.",
+          "FixedName": "Inhyrd personal",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "c3ac96a0-a657-40ed-8560-649dfa04fedd",
+          "Name": "[IT-produkter] Inrikes",
+          "Description": "Inköp av IT-produkter så som domännamn webbhotell server mm.",
+          "FixedName": "IT-produkter Inrikes",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a6b0c0ec-29ad-4c3b-97b0-06031ad414a0",
+          "Name": "[IT-tjänster]",
+          "Description": "IT-tjänster. Välj inrikes eller inom/utanför EU i mallen.",
+          "FixedName": "IT-tjänster",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a824930a-a523-47aa-835c-426aa196667a",
+          "Name": "[Juridik]",
+          "Description": "Här bokför du kostnader för advokater, rättegångskostnader och andra juridiska tjänster",
+          "FixedName": "Juridik",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "cc7a58e1-38d5-46a2-b145-d0e7597b2b99",
+          "Name": "[Konferens]",
+          "Description": "Utgifter för konferens för företaget dess anställda",
+          "FixedName": "Konferens",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Möten, Konferens & Nöjen"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "878c101f-2ced-4acb-8f60-12e625531148",
+          "Name": "[Konsultarvoden]",
+          "Description": "Här bokför du kostnader för konsultarvoden",
+          "FixedName": "Konsultarvoden",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "09ac3eb7-6729-4c7f-b6a1-61d527caf0eb",
+          "Name": "[Konsultarvoden] momsfri",
+          "Description": "Här bokför du tjänster du köpt som är momsfria ex musiker",
+          "FixedName": "Konsultarvoden momsfri",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "1f19aeeb-21a9-4280-b830-b1d0c728ed61",
+          "Name": "[Kontorsmaterial]",
+          "Description": "Här bokför du kostnader för pennor, papper och annat kontorsmaterial",
+          "FixedName": "Kontorsmaterial",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet",
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "2ac7ee6a-ad6f-4205-aa44-5f4fa5e09ca5",
+          "Name": "[Kost och logi i] utlandet",
+          "Description": "OBS! Här bokför du kostnader för kost och logi när du varit på tjänsteresa i utlandet.",
+          "FixedName": "Kost och logi i utlandet",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inom EU",
+            "Utanför EU",
+            "Resa och Boende"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "e7cb51c7-172f-4c45-bb98-2f244f758406",
+          "Name": "[Kost och logi] Sverige",
+          "Description": "Kostnader för hotell mm i Sverige. (Om företaget betalar för mat så ska det vanligtvis också förmånsbeskattas, läs gärna på om reglerna för matinköp innan du bokför, för att se om det istället ska bokföras som till exempel representation eller traktamente.)",
+          "FixedName": "Kost och logi Sverige",
+          "VatPercentage": 12,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Möten, Konferens & Nöjen",
+            "Resa och Boende"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "4036ecb5-ef66-47e1-811a-d5661d373bdb",
+          "Name": "[Kostnader från Zaver]",
+          "Description": "Räkning av betallänkskostnader från Zaver",
+          "FixedName": "Kostnader från Zaver",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring",
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "6ecec371-64e0-4f7e-b93f-1a8e5e611aa8",
+          "Name": "[Larm]",
+          "Description": "Här bokför du löpande kostnader för larm och bevakning",
+          "FixedName": "Larm",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "e3ea59bf-54c0-41f9-b7f2-2b482af8df78",
+          "Name": "[Mässor och utställningar]",
+          "Description": "Kostnader för mässor och utställningar",
+          "FixedName": "Mässor och utställningar",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Möten, Konferens & Nöjen",
+            "Reklam och PR"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a5825e5a-1a20-4fe2-86ed-53343c0da242",
+          "Name": "[Medlemsavgifter]",
+          "Description": "Här bokför du ej avdragsgilla medlemsavgifter och avdragsgilla serviceavgifter",
+          "FixedName": "Medlemsavgifter",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "2f09bcad-b343-42b5-8598-59902467c87b",
+          "Name": "[Milersättning]",
+          "Description": "Här bokför du ersättning för resa med egen bil efter årskiftet 2022/2023. Ersättning medges för närvarande skattefritt med 25kr per mil med egen bil. Ersättning över denna nivå är skattepliktig. OBS, delägare i enskild firma använder mall milersättning ägare enskild firma",
+          "FixedName": "Milersättning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "cb34efa7-eeab-400d-b749-689c71c62490",
+          "Name": "[Mjukvara licens]",
+          "Description": "Inköp av tillstånd för att använda viss mjukvara, sker oftast i form av löpande månadsbetalningar, licenser såsom microsoft office, adobe m.m.",
+          "FixedName": "Mjukvara licens",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster",
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "621990c3-3dfa-4986-8f0b-dc000d36a477",
+          "Name": "[Mjukvara]",
+          "Description": "Inköp av mjukvara som behövs för bolagets verksamhet. Exempel: office, kassaregister etc.",
+          "FixedName": "Mjukvara",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "4e7ce603-d619-4d3f-8a0b-db43dbff480e",
+          "Name": "[Mobiltelefon]",
+          "Description": "Kostnader för mobiltelefon och abonnemang",
+          "FixedName": "Mobiltelefon",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bredband och Telefoni"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "94ba050d-567f-487e-ad23-7c99ab184848",
+          "Name": "[Parkering]",
+          "Description": "Här bokför du företagets kostnader för parkering",
+          "FixedName": "Parkering",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "f2515c43-8390-420d-ab2a-95877273a28d",
+          "Name": "[Patentansökan]",
+          "Description": "Här bokför du kostnader för patentansökningar 0% moms",
+          "FixedName": "Patentansökan",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "1b4567c4-7a40-48e4-91ee-d46ea7b9da86",
+          "Name": "[Post]",
+          "Description": "Kostnader för porto, och frimärken. Kuvert och emballage bokförs som kontorsmaterial.",
+          "FixedName": "Post",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material",
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "94afa7fd-7410-4634-bfff-e1ff8f9c8342",
+          "Name": "[Ränteintäkter]",
+          "Description": "Här bokför du ränteintäkter från banken",
+          "FixedName": "Ränteintäkter",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "9999c55b-cfab-482f-8f7f-2972072ece67",
+          "Name": "[Räntekostnader]",
+          "Description": "Här bokför du kostnader för ränta på banklån",
+          "FixedName": "Räntekostnader",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b7a38708-b5d1-4921-84b2-685a081e19f2",
+          "Name": "[Redovisningstjänster]",
+          "Description": "Kostnader för redovisningstjänster",
+          "FixedName": "Redovisningstjänster",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring",
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "64918e40-7a45-4fd5-8b35-8c16294b19c8",
+          "Name": "[Reklamgåva] till kund",
+          "Description": "Massgåva av enklare slag och värde, med direkt anknytning till givarens sortiment/tillverkning eller reklamartikel med företagets logotyp. Maxbelopp 300 kr exkl moms, belopp över denna summa är ej avdragsgillt.",
+          "FixedName": "Reklamgåva till kund",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Reklam och PR"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "3268c611-48de-4d83-a792-1e88ce065dbe",
+          "Name": "[Reklamkostnader]",
+          "Description": "Här bokför du kostnader för framtagande av reklammaterial eller annat marknadsmaterial.",
+          "FixedName": "Reklamkostnader",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Reklam och PR"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "12d6cb26-e43a-4cdd-af05-ffaedefa63b9",
+          "Name": "[Representation], 180kr",
+          "Description": "Gäller för t.ex golf, konserter och andra biljetter eller intern företagsaktivitet",
+          "FixedName": "Representation, 180kr",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet",
+            "Möten, Konferens & Nöjen"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "da4667d6-43d2-441b-ac21-5eef74b84a88",
+          "Name": "[Representationsgåva]",
+          "Description": "Personlig och lämnas i omedlebar anslutning till representationstillfället. Detta kan t.ex.vara bok, chokladask eller blomma. Avdrag medges med 300 kr exklusive moms, Belopp över denna summa är ej avdragsgillt.",
+          "FixedName": "Representationsgåva",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Möten, Konferens & Nöjen"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "ac56e48e-7c3d-4c12-a333-475c912028e9",
+          "Name": "[Sophämtning]",
+          "Description": "Här bokför du kostnader för avfallshantering",
+          "FixedName": "Sophämtning",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "523818ac-0608-46b0-9bc7-6ef58a59b808",
+          "Name": "[Städning]",
+          "Description": "Här bokför du kostnader för städning av dina lokaler",
+          "FixedName": "Städning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet",
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "ddd3e3a6-c573-43bd-ad3c-5fddd2bdfb30",
+          "Name": "[Telefonavgifter]",
+          "Description": "Kostnader för telefoner och abonnemang",
+          "FixedName": "Telefonavgifter",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bredband och Telefoni"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "0dccd530-5b7d-437a-99a3-c4b308e849ba",
+          "Name": "[Trycksaker]",
+          "Description": "Här bokför du kostnader för trycksaker som visitkort och flyers",
+          "FixedName": "Trycksaker",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material",
+            "Reklam och PR"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "744235d8-df39-4ab9-83a0-f2d390020f8d",
+          "Name": "[Uppvärmning]",
+          "Description": "Här bokför du kostnader för uppvärmning",
+          "FixedName": "Uppvärmning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b91a5394-0cce-4654-aa6b-359f91dde10e",
+          "Name": "[Utbildning]",
+          "Description": "Här bokför du utgifter för kurser, utbildningar mm.",
+          "FixedName": "Utbildning",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "791382ae-19c0-4d62-870b-9b20705f52da",
+          "Name": "[Utlägg] utbetalning",
+          "Description": "Här bokför du utbetalningar till anställda som betalt kostnader med sina egna pengar. OBS denna mall ska dock inte användas om du använder Bokios utläggsfunktion, då ska du istället registrera utbetalningen via den funktionen.",
+          "FixedName": "Utlägg utbetalning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "01631024-4b91-4e80-bec4-5ccb4307e12e",
+          "Name": "[Vatten och Avlopp]",
+          "Description": "Här bokför du kostnader för vatten och avlopp",
+          "FixedName": "Vatten och Avlopp",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "000eb484-c1ba-4dd3-b36d-784493ac7f66",
+          "Name": "Aktieägartillskott",
+          "Description": "Här bokför du ovillkorade aktieägartillskott.",
+          "FixedName": "Aktieägartillskott",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "7e038127-69d4-4094-83c6-8996b7eaf583",
+          "Name": "Aktiekapital",
+          "Description": "Här bokför du insättning av aktiekapital. (Om insättningen skedde före första dagen på räkenskapsåret så bokför du insättningen på första dagen på räkenskapsåret).",
+          "FixedName": "Aktiekapital",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "Out",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "4e13ff13-62bb-495a-b704-8a54ded6e498",
+          "Name": "Arbetskläder",
+          "Description": "Här bokför du arbetskläder som är anpassade till arbetet, till exempel uniformer och skyddskläder.",
+          "FixedName": "Arbetskläder",
+          "VatPercentage": 25,
+          "IsPublic": true,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "58ce4f24-ccfe-4f03-a139-6c69f824f99e",
+          "Name": "Arrendeintäkter",
+          "Description": "Nyttjanderätt till jord, mark m.m. emot vederlag",
+          "FixedName": "Arrendeintäkter",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Övriga intäkter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "7ccb301e-b51f-40b7-9972-83183fc39ab8",
+          "Name": "Återbetalning av Bokio prisplan och eventuella tillägg",
+          "Description": "Här bokför du återbetalning av Bokios prisplan med tillägg och eventuell återbetalning av Swish-avgift",
+          "FixedName": "Återbetalning av Bokio prisplan och eventuella tillägg",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "Out",
+          "CategoryList": [
+            "Övriga mallar"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "49cbf2c5-b819-424c-9f98-f18d58ddc3c8",
+          "Name": "Återbetalning av momsfordran till skattekonto",
+          "Description": "Här bokför du när Skatteverket betalar ut momsfordran till ditt skattekonto",
+          "FixedName": "Återbetalning av momsfordran till skattekonto",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b138bdd9-6d34-4977-9b3a-5998cbb6dfd6",
+          "Name": "Avgifter avräkningsnota",
+          "Description": "Avgifter såsom factoring, till tex Klarna",
+          "FixedName": "Avgifter avräkningsnota",
+          "VatPercentage": 25,
+          "IsPublic": true,
+          "Direction": "InShowAll",
+          "CategoryList": [
+            "Finans och Försäkring",
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "18555e9c-6163-48c1-b22e-55878fc549cb",
+          "Name": "Avräkningsnota utan moms",
+          "Description": "Här bokför du avgifter där ingen moms förekommer, såsom transaktionsavgifter från Izettle. Om det är moms på avgifterna ska ni använda er av mallen Avräkningsnota 25%.",
+          "FixedName": "Avräkningsnota utan moms",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "InShowAll",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "321c4138-8b83-4834-a0fd-5d8e030892ca",
+          "Name": "Banklån",
+          "Description": "Här bokför du utbetalningen av banklån från banken till ditt företagskonto",
+          "FixedName": "Banklån",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "OutShowAll",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "36a06dde-4898-4f4f-b75d-db25ad104904",
+          "Name": "Bilförsäkring",
+          "Description": "Här bokför du försäkring för bilar som företaget betalar för",
+          "FixedName": "Bilförsäkring",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "1e5477d3-ea34-49b0-9a22-17a6779b229f",
+          "Name": "Bilskatt",
+          "Description": "Här bokför du bilskatt för de bilar företaget betalar",
+          "FixedName": "Bilskatt",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "071e46ea-1556-431f-8bc3-ea5a52cf4660",
+          "Name": "Bokföring av kreditkortsfaktura",
+          "Description": "Här bokför du kreditkortsfakturan när du sedan tidigare bokfört själva inköpen mot konto 2899.",
+          "FixedName": "Bokföring av kreditkortsfaktura",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Övriga mallar"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b35a4d92-a9b3-4bd5-b65a-2a66637cd2be",
+          "Name": "Bokio prisplan med eventuell Swish-avgift",
+          "Description": "Här bokför du Bokios prisplan och eventuell Swish-avgift",
+          "FixedName": "Bokio prisplan med eventuell Swish-avgift",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "5c20426f-5587-493e-93dd-fd8969374e30",
+          "Name": "Bolagsverket, avdragsgill",
+          "Description": "Här bokför du kostnader hos bolagsverket som är avdragsgilla. Exempel på detta är ändringsanmälan.",
+          "FixedName": "Bolagsverket, avdragsgill",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "40a76347-2b15-4a34-9cef-14f2b44670fd",
+          "Name": "Bolagsverket, ej avdragsgill",
+          "Description": "Här bokför du kostnader hos bolagsverket som inte är avdragsgilla. Exempelvis avgifter för nyregistreringar.",
+          "FixedName": "Bolagsverket, ej avdragsgill",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "fff700cf-291a-4f30-8690-8f0c3e6a6eef",
+          "Name": "Bolt avräkning",
+          "Description": "Bokföring av förmedlingsavgift, inkört belopp, bonus och ersättningar",
+          "FixedName": "Bolt avräkning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "NoDirection",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "468e2521-c8c1-4747-9ce6-ebfb5b044146",
+          "Name": "Bolt utbetalning",
+          "Description": "Här bokför du utbetalningar från Bolt. Glöm inte att också bokföra själva avräkningsnotan med mallen Bolt avräkning.",
+          "FixedName": "Bolt utbetalning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "f101309f-da15-4ea0-b8fd-fc9d90fb583b",
+          "Name": "Drivmedel, inrikes",
+          "Description": "Här bokför du kostnader för drivmedel så som bensin, diesel & etanol",
+          "FixedName": "Drivmedel, inrikes",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b2870c05-a78f-483e-89ab-e6ef8d0dcf19",
+          "Name": "Drivmedel, utrikes",
+          "Description": "Här bokför du kostnader för drivmedel så som bensin, diesel & etanol. Som inhandlas utanför Sverige.",
+          "FixedName": "Drivmedel, utrikes",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "aa701a74-104d-4a85-afac-dfed960dc6ed",
+          "Name": "Dröjsmålsränta leverantörsfaktura",
+          "Description": "Dröjsmålsränta vid sen betalning av leverantörsfaktura",
+          "FixedName": "Dröjsmålsränta leverantörsfaktura",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Räntor och Påminnelseavgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "40d64456-2418-4c1d-8dc1-657ecd183a8e",
+          "Name": "Ej avdragsgilla kostnader",
+          "Description": "Här bokför du kostnader som du ej får dra av på bolaget.",
+          "FixedName": "Ej avdragsgilla kostnader",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "3a4b29c4-ca7a-450d-a399-3805545639cc",
+          "Name": "Energikostnader",
+          "Description": "Här bokför du kostnader för energikostnader",
+          "FixedName": "Energikostnader",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a566df97-9806-420e-837d-f913bdb6e5a0",
+          "Name": "Erhållna bidrag",
+          "Description": "Erhållna offentliga stöd samt EU-bidrag, korttidsarbete m.m. OBS bidrag är momsbefriade, men inte skattefria och skall tas upp i skattedeklarationen som inkomst i din näringsverksamhet",
+          "FixedName": "Erhållna bidrag",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "Out",
+          "CategoryList": [
+            "Övriga intäkter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "853ba894-8d8a-4ab8-8a60-bad0700603cf",
+          "Name": "Ework SelfBilling (Faktureringsmetoden)",
+          "Description": "Du som har faktureringsmetoden bokför här din SelfBilling från Ework och lägger in eventuell avgift. Då bokförs kundfodran och när sedan inbetalningen kommer använder du mallen \"Inbetalning från Ework (Faktureringsmetoden)\".",
+          "FixedName": "Ework SelfBilling (Faktureringsmetoden)",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "InShowAll",
+          "CategoryList": [
+            "Övriga intäkter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b93d376b-9194-422e-8150-2a25a872bd22",
+          "Name": "Ework SelfBilling (Kontantmetoden)",
+          "Description": "Här bokför du som bokför med kontantmetoden inbetalningen och din SelfBilling från Ework samt lägger in eventuell avgift.",
+          "FixedName": "Ework SelfBilling (Kontantmetoden)",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Övriga intäkter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "90c3c4ec-20a6-4079-a9b6-97dba9d04e97",
+          "Name": "Fastighetsreparationer och underhåll",
+          "Description": "Här bokför du kostnader relaterade till fastighetskostnader t.ex. tak, fönster, ytterväggar",
+          "FixedName": "Fastighetsreparationer och underhåll",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "029aabbd-e317-4196-87e5-0d8119d9cf87",
+          "Name": "Finansiell Leasing avbetalning",
+          "Description": "Här bokför du betalningar för din finansiella leasing. Denna mall används bara om du tillämpar K3 regelverket och tidigare har bokfört leasingen som finansiell, annars använder du mallen \"Billeasing\"",
+          "FixedName": "Finansiell Leasing avbetalning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "322a21ab-d492-4495-b441-ad7727eba696",
+          "Name": "Finansiell Leasing Uppläggning",
+          "Description": "Här lägger du upp värdet exklusive moms för det du har köpt vid kontraktsstart. Denna mall används bara om du tillämpar K3 regelverket annars använder du mallen \"Billeasing\"",
+          "FixedName": "Finansiell Leasing Uppläggning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "102eddee-423f-4d8e-b840-f471ac9031b3",
+          "Name": "Förändring av lager av handelsvaror (minskat värde)",
+          "Description": "Här bokför du när lagret av handelsvaror har minskat, först inventerar och värderar du ditt lager, därefter jämför du nuvarande saldot i bokföringen (konto 1460) med det nu värderade lagervärdet. I den här mallen tar du sedan upp mellanskillnaden så att värdet i bokföringen stämmer med senaste lagervärdet. (Om värdet har ökat använd istället mallen för ökat värde.)",
+          "FixedName": "Förändring av lager av handelsvaror (minskat värde)",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "InShowAll",
+          "CategoryList": [
+            "Övriga mallar"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "0bc02ab7-3597-4c63-a854-37cb66440c3b",
+          "Name": "Förändring av lager av handelsvaror (ökat värde)",
+          "Description": "Här bokför du när lagret av handelsvaror har ökat, först inventerar och värderar du ditt lager, därefter jämför du nuvarande saldot i bokföringen (konto 1460) med det nu värderade lagervärdet. I den här mallen tar du sedan upp mellanskillnaden så att värdet i bokföringen stämmer med senaste lagervärdet. (Om värdet har minskat använd istället mallen för minskat värde.)",
+          "FixedName": "Förändring av lager av handelsvaror (ökat värde)",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "InShowAll",
+          "CategoryList": [
+            "Övriga mallar"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "34d46559-a444-4e93-8803-4b435e78d0e2",
+          "Name": "Försäljning tjänster",
+          "Description": "Försäljning av tjänster till kund inom Sverige.",
+          "FixedName": "Försäljning tjänster",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "4302abda-56c6-4576-adc6-222cd770a0b2",
+          "Name": "Försäljning tjänster",
+          "Description": "För dig som säljer tjänster inom Sverige.",
+          "FixedName": "Försäljning tjänster",
+          "VatPercentage": 6,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "34936688-7a6d-492a-8e46-bdd34e05aba4",
+          "Name": "Försäljning tjänster",
+          "Description": "För dig som säljer tjänster inom Sverige",
+          "FixedName": "Försäljning tjänster",
+          "VatPercentage": 12,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "c99ca116-f890-4261-89db-3f4dd243c950",
+          "Name": "Försäljning tjänster inom EU",
+          "Description": "Här bokför du försäljning av tjänster inom EU",
+          "FixedName": "Försäljning tjänster inom EU",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Inom EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "5807fdee-41ee-4a5a-8761-900293b159f7",
+          "Name": "Försäljning tjänster momsfri",
+          "Description": "För dig som bedriver momsfri försäljning av tjänster.",
+          "FixedName": "Försäljning tjänster momsfri",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "0dcfdcc5-9dd8-47b4-bec0-4ada0a4a5d07",
+          "Name": "Försäljning tjänster utanför EU",
+          "Description": "Här bokför du försäljning av tjänster utanför EU",
+          "FixedName": "Försäljning tjänster utanför EU",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Utanför EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "fd1a14e4-422e-4e14-bb18-42f3bf3df698",
+          "Name": "Försäljning varor",
+          "Description": "För dig som säljer varor",
+          "FixedName": "Försäljning varor",
+          "VatPercentage": 12,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning varor"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "06831df2-a3f7-46ef-95c8-2a6f03989e67",
+          "Name": "Försäljning varor",
+          "Description": "Försäljning av varor till kund inom Sverige.",
+          "FixedName": "Försäljning varor",
+          "VatPercentage": 25,
+          "IsPublic": true,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning varor"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "e321dab1-e731-4e29-9922-d9d7b910541f",
+          "Name": "Försäljning varor",
+          "Description": "För dig som säljer varor",
+          "FixedName": "Försäljning varor",
+          "VatPercentage": 6,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning varor"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "f626b0ac-f284-4bbe-b153-47f9a676e92d",
+          "Name": "Försäljning varor inom EU (företag)",
+          "Description": "Här bokför du försäljning av varor inom EU till företag med VAT nummer",
+          "FixedName": "Försäljning varor inom EU (företag)",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Inom EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "3e82547f-b0bc-4924-92d4-a65dac211128",
+          "Name": "Försäljning varor inom EU (privatperson) 12% moms",
+          "Description": "OBS! om försäljningen överskrider EUs omsättningströskel så behöver du antingen registrera dig för moms i det landet eller registrera dig via e-tjänsten OSS.",
+          "FixedName": "Försäljning varor inom EU (privatperson) 12% moms",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Inom EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "0127ddd5-0ee2-4293-8a5c-1468b3de479c",
+          "Name": "Försäljning varor inom EU (privatperson) 25% moms",
+          "Description": "OBS! om försäljningen överskrider EUs omsättningströskel så behöver du antingen registrera dig för moms i det landet eller registrera dig via e-tjänsten OSS.",
+          "FixedName": "Försäljning varor inom EU (privatperson) 25% moms",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Inom EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "fe4cde0a-2742-45f1-afa9-e0f4e8661fa5",
+          "Name": "Försäljning varor momsfri",
+          "Description": "För dig som bedriver momsfri försäljning av varor inom Sverige",
+          "FixedName": "Försäljning varor momsfri",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning varor"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "4574c7af-2025-4c7d-88e6-f2cc59750a59",
+          "Name": "Försäljning varor utanför EU",
+          "Description": "Här bokför du försäljning av varor som du exporterar utanför EU",
+          "FixedName": "Försäljning varor utanför EU",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Utanför EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "bd622b04-7e6e-401b-8988-e55d95398bce",
+          "Name": "Förseningsavgift till skatteverket",
+          "Description": "Här bokför du förseningsavgift till skatteverket som har dragits från ditt skattekonto.",
+          "FixedName": "Förseningsavgift till skatteverket",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "84326f6b-9f9c-4332-a9eb-e548ec317bf8",
+          "Name": "Frakt",
+          "Description": "Här bokför du fraktkostnader",
+          "FixedName": "Frakt",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Frakt",
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "dbf13d22-8ec7-4e92-8fe6-33a66fee2947",
+          "Name": "Fruktkorg",
+          "Description": "Här bokför du fruktkorg till kontoret.",
+          "FixedName": "Fruktkorg",
+          "VatPercentage": 12,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "45651bd3-e710-4e1a-9087-7993d99ba96a",
+          "Name": "Importmoms och tull vid inköp varor utanför EU 25%",
+          "Description": "Betalning av fiktiv moms för varuinköp från land utanför EU 25%. Fakturan kommer oftast från ditt transportföretag",
+          "FixedName": "Importmoms och tull vid inköp varor utanför EU 25%",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Utanför EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "cc7f7aa8-c8c0-46a0-b5f1-979eb7a462e1",
+          "Name": "Inbetalning från Ework (Faktureringsmetoden)",
+          "Description": "Här bokför du som bokför med faktureringsmetoden inbetalningen från Ework. Din SelfBilling bokför du först med mallen \"Ework SelfBilling 25% moms (Faktureringsmetoden)\".",
+          "FixedName": "Inbetalning från Ework (Faktureringsmetoden)",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Övriga intäkter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "d92b0cec-f460-476c-bbab-f55bcb0cb5db",
+          "Name": "Inköp [tjänster] inom EU 25%",
+          "Description": "Här bokför du inköp av tjänster från annat EU land med 25% beräknad moms.  Om du vill få din bokföring mer specificerad kan du inom de flesta av våra andra mallar göra valet \"Från EU-land\" och med hjälp av det också få momsrapporten rätt.",
+          "FixedName": "Inköp tjänster inom EU 25%",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inom EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "2d59b2a9-03eb-4ef2-a16c-1c14f954aa93",
+          "Name": "Inköp [Tjänster] utanför EU",
+          "Description": "Här bokför du inköp av tjänster från länder utanför EU där omvänd skattskyldighet gäller.  Om du vill få din bokföring mer specificerad kan du inom de flesta av våra andra mallar göra valet \"Från icke EU-land\" och med hjälp av det också få momsrapporten rätt.",
+          "FixedName": "Inköp Tjänster utanför EU",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Utanför EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "f1e7df74-ad2d-4ef9-b1e4-482bf86de8c6",
+          "Name": "Inköp [varor] utanför EU",
+          "Description": "Här bokför du inköp av varor utanför EU med omvänd skattskyldighet. Tänk på att använda händelsen \"Moms inköp av varor utanför EU\" När fakturan med tull & moms anländer.",
+          "FixedName": "Inköp varor utanför EU",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Utanför EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "ebb437c2-3dc5-471f-ab0a-0e915fb31d5e",
+          "Name": "Inköp Anläggningstillgång",
+          "Description": "Inköp av anläggningstillgångar, vilket är en tillgång som är avsedd för stadigvarande bruk eller innehav, som har en nyttjandeperiod på minst tre år och har ett högre värde än ett halvt prisbasbelopp.",
+          "FixedName": "Inköp Anläggningstillgång",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Tillgångar"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "9475f834-e6b5-48e5-8ba5-f439b76e3127",
+          "Name": "Inköp förbrukningsinventarier",
+          "Description": "Inköp av förbrukningsinventarier. Detta är inventarier med kort livslängd eller lågt värde (1-3 år eller mindre värde än ett halvt PBB). Tex dator, hårddisk, mobiltelefon, dammsugare m.m.",
+          "FixedName": "Inköp förbrukningsinventarier",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet",
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "51c5f90e-7557-4a7e-bf03-f856f8bd3ac5",
+          "Name": "Inköp förbrukningsmaterial",
+          "Description": "Här bokför du material som har livslängd kortare än 1 år med mindre och av obetydligt värde. Tex batterier, glödlampor och papperspåsar, men även material som används i tillverkning, men som ej är en del av själva varan såsom klister, knappar och hinkar",
+          "FixedName": "Inköp förbrukningsmaterial",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "9c5a1bc0-b6d9-442b-bbd3-a8f318a4be78",
+          "Name": "Inköp tjänster",
+          "Description": "Här bokför du inköp av tjänster inom Sverige",
+          "FixedName": "Inköp tjänster",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "d1f2966c-7237-4c37-8316-10d5805a674d",
+          "Name": "Inköp tjänster i Sverige, omvänd skatteskyldighet moms 25%",
+          "Description": "Används för inköp av tjänster i Sverige där omvänd momsskyldighet gäller, dvs att du som köpare ska betala momsen. Detta gäller främst när byggföretag köper tjänster av andra byggföretag.",
+          "FixedName": "Inköp tjänster i Sverige, omvänd skatteskyldighet moms 25%",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "94334770-691b-4a1d-a72d-dfba478182b9",
+          "Name": "Inköp tjänster inom EU 6% moms",
+          "Description": "Här bokför du inköp av tjänster från annat EU land med 6% beräknad moms",
+          "FixedName": "Inköp tjänster inom EU 6% moms",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inom EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "df70023a-9356-4719-b4d6-fe2c81fcc060",
+          "Name": "Inköp Varor",
+          "Description": "Här bokför du inköp av varor.",
+          "FixedName": "Inköp Varor",
+          "VatPercentage": 12,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "318a3779-dbc2-4eab-9893-e838ed8c0457",
+          "Name": "Inköp varor",
+          "Description": "Inköp av varor/förbrukningsvaror eller råmaterial för bolagets verksamhet även kallade direkta kostnader. Detta är en kostnad som direkt kan härledas till en vara eller tjänst.",
+          "FixedName": "Inköp varor",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "e930f90a-91e6-4501-9f91-e8c3180fb2e1",
+          "Name": "Inköp Varor",
+          "Description": "Här bokför du inköp av varor.",
+          "FixedName": "Inköp Varor",
+          "VatPercentage": 6,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "c63d0e1e-ec5a-4429-90e0-4eeab5129329",
+          "Name": "Inköp varor inom EU 12% moms",
+          "Description": "Här bokför du inköp av varor från EU land med 12% beräknad moms",
+          "FixedName": "Inköp varor inom EU 12% moms",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inom EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "85d91aac-95e8-4b63-8a54-f84c12ac7ed9",
+          "Name": "Inköp varor inom EU 25% moms",
+          "Description": "Här bokför du inköp av varor inom EU med fiktiv momssats 25%",
+          "FixedName": "Inköp varor inom EU 25% moms",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inom EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "69f7bba4-9469-4e57-863e-c2d81884f21b",
+          "Name": "Inköp varor inom EU 6% moms",
+          "Description": "Här bokför du inköp av varor från annat EU land med 6% beräknad moms",
+          "FixedName": "Inköp varor inom EU 6% moms",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inom EU"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "747d2e4b-e3ef-428b-9b31-9da1c85d6a86",
+          "Name": "Inköp varor momsfri",
+          "Description": "Här bokför du inköp av varor som är momsfria för vidareförsäljning. Observera att om du köper in begagnade varor kan det förekomma vinstmarginalbeskattning se hjälptext Hur bokför jag vinstmarginalbeskattning, i sådana fall.",
+          "FixedName": "Inköp varor momsfri",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a55a188c-e4a0-4d3d-9590-1440948859d4",
+          "Name": "Insättning till skattekonto",
+          "Description": "Här bokför du insättning till skattekonto från ditt bankkonto",
+          "FixedName": "Insättning till skattekonto",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "20b7b499-8ae9-4e64-99d4-71564c3f1777",
+          "Name": "Intäktsränta på skattekontot",
+          "Description": "Här bokför du intäktsränta som du har fått insatt på ditt skattekonto",
+          "FixedName": "Intäktsränta på skattekontot",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "49fad8cb-e3df-4e8f-88da-0f6b3e94e3ac",
+          "Name": "Kickback momsfri",
+          "Description": "Intäkter från Kickback. Momsfri",
+          "FixedName": "Kickback momsfri",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "OutShowAll",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "bbc6d22d-b555-42a5-9e83-efb7dfa499e7",
+          "Name": "Konsulttjänster",
+          "Description": "Här bokför du Konsulttjänster.",
+          "FixedName": "Konsulttjänster",
+          "VatPercentage": 6,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "5171704d-b909-4bdb-b212-d77df0c13476",
+          "Name": "Kortfristiga placeringar",
+          "Description": "Här bokför du kortfristiga placeringar av rörelsekaraktär",
+          "FixedName": "Kortfristiga placeringar",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "3feb478c-6b67-40b2-a246-32f892ae3cde",
+          "Name": "Kostnader för transportmedel",
+          "Description": "Här bokför du avgifter för fordon exempel vägtrafikregisteravgift, registreringsbevis",
+          "FixedName": "Kostnader för transportmedel",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "fda437e5-8f15-4e7e-92e3-1746ad456fae",
+          "Name": "Kostnadsränta på skattekontot",
+          "Description": "Här bokför du när skatteverket har dragit kostnadsränta från ditt skattekonto",
+          "FixedName": "Kostnadsränta på skattekontot",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "c0698cfc-b56d-43e4-a9c2-5376c2f62f41",
+          "Name": "Kreditupplysning",
+          "Description": "Här bokför du tex fakturor från kreditupplysning såsom UC med 25% moms.",
+          "FixedName": "Kreditupplysning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "d17a2f2f-6848-4055-a08a-169368312e53",
+          "Name": "Leasing och hyra av inventarier",
+          "Description": "Vid hyra av inventarier såsom dator, kameror och liknande utrustning",
+          "FixedName": "Leasing och hyra av inventarier",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "2030dbe5-43c1-4451-bcbb-7afaf185faf1",
+          "Name": "Leasing och hyra av maskiner",
+          "Description": "Här bokför du hyra av maskiner",
+          "FixedName": "Leasing och hyra av maskiner",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Övriga mallar"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "7f187127-7069-4e8e-92f2-f0fdde9e5679",
+          "Name": "Legoarbeten och underentreprenader.",
+          "Description": "Här bokförs underentreprenader. Dock viktigt att istället använda vår andra mall \"Inköp tjänster i Sverige, omvänd skatteskyldighet moms 25%\" om du har ett byggföretag som anlitar ett annat byggföretag.",
+          "FixedName": "Legoarbeten och underentreprenader.",
+          "VatPercentage": 25,
+          "IsPublic": true,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "62744163-3670-442e-878a-f28d2d21e765",
+          "Name": "Leverantörsbetalningar",
+          "Description": "Du som har fakturametoden bokför med den här mallen när själva betalningen av leverantörsfakturan görs. (Om du har bokfört leverantörsfakturan via Bokio markerar du den istället som betald via leverantörsfaktura-funktionen).",
+          "FixedName": "Leverantörsbetalningar",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster",
+            "Varor och material"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "7a723b53-489e-4a35-a274-635687650199",
+          "Name": "Lokalreparationer och underhåll",
+          "Description": "Här bokför du kostnader relaterade till reparationer och underhåll inomhus t.ex. av skåp, armaturer eller golv",
+          "FixedName": "Lokalreparationer och underhåll",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b6bdc569-12ff-433a-9431-e04b09306b10",
+          "Name": "Milersättning, utgår ifrån summa utbetald",
+          "Description": "Här bokför du ersättning för resa med bil efter årskiftet 2022/2023. Ersättning medges för närvarande skattefritt med 25kr per mil med egen bil. Ersättning över denna nivå är skattepliktig. OBS, delägare i enskild firma använder mall milersättning ägare enskild firma. (Den här mallen går att använda från sidan transaktioner att bokföra.)",
+          "FixedName": "Milersättning, utgår ifrån summa utbetald",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b5e37d33-bf0a-40e0-9946-e540bb6c3b59",
+          "Name": "Moms dragen från skattekonto",
+          "Description": "Här bokför du när Skatteverket drar pengar från skattekontot",
+          "FixedName": "Moms dragen från skattekonto",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "4ea13808-ab31-4088-a556-1627c56baeb8",
+          "Name": "Ombokning förhöjd leasingavgift",
+          "Description": "Här gör du den årliga ombokningen av förhöjda leasningavgifter. Mallen förutsätter att den totala leasingperioden är 36 månader.",
+          "FixedName": "Ombokning förhöjd leasingavgift",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "4b505881-7296-46cd-a959-7a36a49e984c",
+          "Name": "Öresavrundning nedåt/kostnad och uppåt/intäkt",
+          "Description": "Den här mallen används för öresavrundningar som bokförs i kredit. Det vill säga en avrundning nedåt om det gäller en kostnad alternativt en avrundning uppåt om det gäller en inkomst.",
+          "FixedName": "Öresavrundning nedåt/kostnad och uppåt/intäkt",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "OutShowAll",
+          "CategoryList": [
+            "Räntor och Påminnelseavgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "36425a8e-b5a7-4349-abc0-5a1fe8c73b0f",
+          "Name": "Öresavrundning uppåt/kostnad och nedåt/intäkt",
+          "Description": "Den här mallen används för öresavrundningar som bokförs i debet. Det vill säga en avrundning uppåt om det gäller en kostnad alternativt en avrundning nedåt om det gäller en inkomst.",
+          "FixedName": "Öresavrundning uppåt/kostnad och nedåt/intäkt",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "InShowAll",
+          "CategoryList": [
+            "Räntor och Påminnelseavgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b9f630d8-8f77-41a1-99b9-a6dd15bdee09",
+          "Name": "Överföring till företagskonto",
+          "Description": "Här bokför du överföring från ditt sparkonto till ditt företagskonto",
+          "FixedName": "Överföring till företagskonto",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "5e0c93a1-89b0-4411-a63e-7723d8194ac9",
+          "Name": "Överföring till sparkonto",
+          "Description": "Här bokför du överföring från Företagskonto till sparkonto",
+          "FixedName": "Överföring till sparkonto",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "ea9c1135-ef17-4cd1-8050-525b8d80c42f",
+          "Name": "Övriga Bilkostnader",
+          "Description": "Här bokför du övriga bilkostnader",
+          "FixedName": "Övriga Bilkostnader",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "00c21bdc-14e4-4b40-892f-ac272aeb222b",
+          "Name": "Övriga externa tjänster",
+          "Description": "Här bokför du övriga externa tjänster. Denna kan till exempel användas till när en ägare i en enskild firma har deltagit i en utbildning.",
+          "FixedName": "Övriga externa tjänster",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Övriga mallar"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "5e2cd9bf-9704-4a9c-8fb5-e267c5ec273d",
+          "Name": "Övriga försäljningskostnader",
+          "Description": "Här bokför du övriga försäljningskostnader",
+          "FixedName": "Övriga försäljningskostnader",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "070577d2-2f1f-4023-9dca-2f4f0e12f743",
+          "Name": "Övriga personalkostnader",
+          "Description": "Här bokför du personalrelaterade kostnader som är avdragsgilla. För personalrepresentation bör du använda sökordet representation",
+          "FixedName": "Övriga personalkostnader",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "90634db6-50f5-4c40-bb20-a07d82e9eff9",
+          "Name": "Påminnelseavgift",
+          "Description": "Påminnelseavgift på en leverantörsfaktura",
+          "FixedName": "Påminnelseavgift",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Räntor och Påminnelseavgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "6090a119-97a4-4923-b85f-80882930865d",
+          "Name": "Pensionsförsäkring",
+          "Description": "Här bokför du kostnader för individuell pensionsförsäkring till anställda.",
+          "FixedName": "Pensionsförsäkring",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal",
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "67742f99-530a-4cda-8800-fb8df721a161",
+          "Name": "Preliminärskatt dragen från skattekonto Aktiebolag",
+          "Description": "Dragning från skattekontot för preliminärskatt för aktiebolag även kallat F-skatt. Om du vill bokföra själva inbetalningen till skattekontot från ditt bankkonto så använd istället mallen: Insättning till skattekonto",
+          "FixedName": "Preliminärskatt dragen från skattekonto Aktiebolag",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "fbb4c3a0-f971-4b49-b95d-92ded448af03",
+          "Name": "Provision",
+          "Description": "Intäkter från provision.",
+          "FixedName": "Provision",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "b26b3b97-ce0a-41f2-b38a-98a3a09794ff",
+          "Name": "Reparationer och underhåll av maskiner",
+          "Description": "Kostnader relaterade till reparationer och underhåll gällande maskiner",
+          "FixedName": "Reparationer och underhåll av maskiner",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Reparationer och Underhåll"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "6c3ac90d-01ef-45f4-ae83-f985cb920267",
+          "Name": "Representation",
+          "Description": "För förtäring i samband med representation. Kom ihåg att skriva vilka som varit med på kvittot eller i rubriken.",
+          "FixedName": "Representation",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Kontor och Fastighet",
+            "Möten, Konferens & Nöjen",
+            "Resa och Boende"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "dab8faac-2f7b-4bb5-88e1-7419bcdf3f7e",
+          "Name": "Representation utomlands",
+          "Description": "Utomlands representation där ingen moms kan lyftas",
+          "FixedName": "Representation utomlands",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inom EU",
+            "Utanför EU",
+            "Resa och Boende"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "32a7573a-df31-4ea3-ac17-3124025e0689",
+          "Name": "Retur av förbrukningsinventarier inom Sverige",
+          "Description": "Retur av förbrukningsinventarier. Detta är inventarier med kort livslängd eller lågt värde (1-3 år eller mindre värde än ett halvt PBB). Tex dator, hårddisk, mobiltelefon, dammsugare m.m.",
+          "FixedName": "Retur av förbrukningsinventarier inom Sverige",
+          "VatPercentage": 25,
+          "IsPublic": true,
+          "Direction": "Out",
+          "CategoryList": [
+            "Returer"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "2cf5391c-c90f-4c52-8011-bccdd1f9b906",
+          "Name": "Retur av varor inom Sverige",
+          "Description": "Retur av varor/förbrukningsvaror eller råmaterial för bolagets verksamhet även kallade direkta kostnader.",
+          "FixedName": "Retur av varor inom Sverige",
+          "VatPercentage": 25,
+          "IsPublic": true,
+          "Direction": "Out",
+          "CategoryList": [
+            "Returer"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "dff3d978-fec3-440a-974d-3cae1c18b885",
+          "Name": "Rot, Rut eller Grön teknik utbetalning fakturametoden",
+          "Description": "Utbetalning från Skatteverket för ett avdrag av Rot, Rut eller Grön teknik med fakturametoden.\n(Använd endast om du skapat Rot/Rut-fakturan i Bokio)",
+          "FixedName": "Rot, Rut eller Grön teknik utbetalning fakturametoden",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "Out",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "62c0b554-21e2-4d4d-bdbf-092502deb819",
+          "Name": "Rot, Rut eller Grön teknik utbetalning kontantmetoden",
+          "Description": "Utbetalning från Skatteverket för ett avdrag av Rot, Rut eller Grön teknik med kontantmetoden.\n(Använd endast om du skapat Rot/Rut-fakturan i Bokio)",
+          "FixedName": "Rot, Rut eller Grön teknik utbetalning kontantmetoden",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "Out",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "06774482-fd38-4c81-a3bf-1dcf7bba96f9",
+          "Name": "Royalties",
+          "Description": "Här bokför du kostnader för royalties.",
+          "FixedName": "Royalties",
+          "VatPercentage": 6,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Inköp tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "f150dcc6-ea18-48d3-9c7d-404ce9e491c6",
+          "Name": "Royalty",
+          "Description": "Här bokför du intäkter från royalties",
+          "FixedName": "Royalty",
+          "VatPercentage": 6,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "28c76235-0853-409b-9c55-49c7fa040863",
+          "Name": "Royalty",
+          "Description": "Här bokför du intäkter för royalties",
+          "FixedName": "Royalty",
+          "VatPercentage": 25,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "20e44f6b-7cbb-4fc7-8bee-2d2a341da600",
+          "Name": "Sjukvårdsförsäkring",
+          "Description": "Här bokför du sjukvårdsförsäkring till de anställda, som är avdragsgillt. Tänk på att 60% procent av beloppet ska förmånsbeskattas för den anställde. Detta får du lägga till i annan förmån under lönefunktionen.",
+          "FixedName": "Sjukvårdsförsäkring",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "2e8b4c7b-7cca-4245-83a2-aa67877cc2bc",
+          "Name": "Skattefritt traktamenten i Sverige",
+          "Description": "Här bokför du skattefritt traktamente i Sverige. (För alla utom ägare av enskild firma)",
+          "FixedName": "Skattefritt traktamenten i Sverige",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Resa och Boende"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "61dec2a9-d3e9-491b-8d29-6cd73166c465",
+          "Name": "Skattefritt traktamenten utomlands",
+          "Description": "Här bokför du skattefritt traktamente för en resa utomlands. (För alla utom ägare av enskild firma)",
+          "FixedName": "Skattefritt traktamenten utomlands",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Resa och Boende"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "75493296-1279-40a0-927b-f5cbb0eabdf9",
+          "Name": "Tjänstegrupplivsförsäkring TGL",
+          "Description": "Premien till tjänstegrupplivsförsäkringen är en skattefri förmån av arbetsmarknadsförsäkringar.",
+          "FixedName": "Tjänstegrupplivsförsäkring TGL",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Finans och Försäkring"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "2a39f03e-441b-4957-9640-ac31184650e1",
+          "Name": "Trängselskatt avdragsgill",
+          "Description": "Här bokför du avdragsgill trängselskatt",
+          "FixedName": "Trängselskatt avdragsgill",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Bil och Transport"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "d30eea30-8d5d-40c7-b32f-ce8521756f19",
+          "Name": "Tvätt eller underhåll av arbetskläder",
+          "Description": "Här bokför du kostnader relaterade till tvätt eller underhåll av arbetskläder",
+          "FixedName": "Tvätt eller underhåll av arbetskläder",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "5679bd93-c67f-48c9-9cce-0f86b847e7b3",
+          "Name": "Uber avgift",
+          "Description": "Här bokförd du den avgift Uber tar ut",
+          "FixedName": "Uber avgift",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Resa och Boende"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a4a86d31-ccef-47dc-a422-819dd25cc58b",
+          "Name": "Uber utbetalning",
+          "Description": "Här bokför du körningar du gjort för UBER",
+          "FixedName": "Uber utbetalning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Försäljning tjänster"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "a73fa50b-f101-4fea-b8b7-33c2c18509a3",
+          "Name": "Utbetalning av utdelning",
+          "Description": "Här bokför du utbetalning av utdelning från det egna bolaget, efter beslut på bolagstämman.",
+          "FixedName": "Utbetalning av utdelning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Övriga mallar"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "26b81f30-4e37-4acf-851c-c024a4eb5d1b",
+          "Name": "Utbetalning med avgift (med moms) från betallösning",
+          "Description": "Utbetalning från betallösning (t.ex. Klarna) där avgift är med moms. Denna mall är anpassad för dig som använder rekommenderade konton i E-handel",
+          "FixedName": "Utbetalning med avgift (med moms) från betallösning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Övriga intäkter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "7ea66f48-f166-48b5-9adc-b783cde59a43",
+          "Name": "Utbetalning med avgift (utan moms) från betallösning",
+          "Description": "Utbetalning från betallösning där avgift är utan moms (t.ex. Stripe, Paypal). Denna mall är anpassad för dig som använder rekommenderade konton i E-handel.",
+          "FixedName": "Utbetalning med avgift (utan moms) från betallösning",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Övriga intäkter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "e4dbe2de-74c1-4f85-a087-8ba812abd5b0",
+          "Name": "Utbetalningar för Swish",
+          "Description": "Den här mallen använder du för att flytta över pengar från Swish till banken, om du har bokfört en dagskassa på konto 1680 sedan tidigare, till exempel med vår Zettleintegration.",
+          "FixedName": "Utbetalningar för Swish",
+          "VatPercentage": null,
+          "IsPublic": true,
+          "Direction": "Out",
+          "CategoryList": [
+            "Övriga intäkter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "76c3e71a-da18-497c-b8d7-b3a6698e5a10",
+          "Name": "Utbildning (Idrott)",
+          "Description": "Utbildning av personer som ska utöva en idrott. För övriga utbildningar välj mall utbildning.",
+          "FixedName": "Utbildning (Idrott)",
+          "VatPercentage": 6,
+          "IsPublic": false,
+          "Direction": "In",
+          "CategoryList": [
+            "Personal"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "69806a07-305f-4cfe-9774-3610f6dd884d",
+          "Name": "Utdelning på andelar i andra företag",
+          "Description": "Här bokförs utdelning på andelar som företaget äger i ett annat bolag, dock inte om det är från ett koncern bolag eller intressebolag, då ska du istället använda mallarna för just det.",
+          "FixedName": "Utdelning på andelar i andra företag",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Andelar i andra bolag"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "9ca27340-5212-4ae9-8afe-8f99d6d6f4a5",
+          "Name": "Utdelning på andelar i intresseföretag",
+          "Description": "Här bokförs utdelning på andelar som företaget äger i ett annat intresseföretag",
+          "FixedName": "Utdelning på andelar i intresseföretag",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Andelar i andra bolag"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "d72df990-63f8-45a3-aac7-ea021f4ef51f",
+          "Name": "Utdelning på andelar i koncernbolag",
+          "Description": "Här bokförs utdelning på andelar som företaget äger i ett annat koncernbolag",
+          "FixedName": "Utdelning på andelar i koncernbolag",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Andelar i andra bolag"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        },
+        {
+          "Id": "ae8b5679-db67-461c-9776-c6776d7f7d6d",
+          "Name": "Uttag från skattekonto",
+          "Description": "Här bokför du överföringar från ditt skattekonto till bankkonto",
+          "FixedName": "Uttag från skattekonto",
+          "VatPercentage": null,
+          "IsPublic": false,
+          "Direction": "Out",
+          "CategoryList": [
+            "Skatter och avgifter"
+          ],
+          "AliasNames": null,
+          "IsCustom": false
+        }
+      ],
+      "Search": null
+    },
+    "Error": 0,
+    "Success": true,
+    "ErrorMessage": null,
+    "Meta": null,
+    "ErrorCode": null
+  }

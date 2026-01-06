@@ -30,13 +30,13 @@ interface FlatAccount {
 function flattenAccounts(): FlatAccount[] {
   const flat: FlatAccount[] = [];
   for (const category of taxAccounts) {
-    for (const subCategory of category.SubCategories) {
-      for (const account of subCategory.Accounts) {
+    for (const subCategory of category.subCategories) {
+      for (const account of subCategory.accounts) {
         flat.push({
-          id: account.Id,
-          text: account.Text,
-          category: category.Text,
-          subCategory: subCategory.Text,
+          id: account.id,
+          text: account.text,
+          category: category.text,
+          subCategory: subCategory.text,
         });
       }
     }

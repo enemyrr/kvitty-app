@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   HouseIcon,
   Users,
@@ -20,6 +20,9 @@ import {
   Scales,
   Percent,
   BookOpen,
+  CaretDown,
+  UploadSimple,
+  FileText,
 } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -45,9 +48,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
@@ -56,11 +61,14 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AddPeriodDialog } from "@/components/periods/add-period-dialog";
 import { AddJournalEntryDialog } from "@/components/journal-entry/add-journal-entry-dialog";
+import { CreateInvoiceDialog } from "@/components/invoices/create-invoice-dialog";
+import { AddBankTransactionDialog } from "@/components/bank-transactions/add-bank-transaction-dialog";
 import type { Workspace, BankAccount } from "@/lib/db/schema";
 import type { fiscalPeriods } from "@/lib/db/schema";
 import { signOut } from "@/lib/auth-client";
 import { clearUserCookie } from "@/lib/user-cookie";
 import { trpc } from "@/lib/trpc/client";
+import type { JournalEntryLineInput } from "@/lib/validations/journal-entry";
 
 type FiscalPeriod = typeof fiscalPeriods.$inferSelect;
 
@@ -86,13 +94,24 @@ export function FullModeSidebar({
   const router = useRouter();
   const [addPeriodOpen, setAddPeriodOpen] = useState(false);
   const [addEntryOpen, setAddEntryOpen] = useState(false);
+  const [createInvoiceOpen, setCreateInvoiceOpen] = useState(false);
+  const [addBankTransactionOpen, setAddBankTransactionOpen] = useState(false);
   const [menuExpanded, setMenuExpanded] = useState(true);
   const [bookkeepingExpanded, setBookkeepingExpanded] = useState(true);
   const [salesExpanded, setSalesExpanded] = useState(true);
   const [personnelExpanded, setPersonnelExpanded] = useState(true);
-  const [reportsExpanded, setReportsExpanded] = useState(true);
-  const [bookkeepingAnnualExpanded, setBookkeepingAnnualExpanded] = useState(true);
-  const [bankExpanded, setBankExpanded] = useState(true);
+  const [reportsExpanded, setReportsExpanded] = useState(false);
+  const [bookkeepingAnnualExpanded, setBookkeepingAnnualExpanded] = useState(false);
+  const [bankExpanded, setBankExpanded] = useState(false);
+  
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analyzedData, setAnalyzedData] = useState<{
+    files: File[];
+    description?: string;
+    lines?: JournalEntryLineInput[];
+    entryDate?: string;
+  } | null>(null);
 
   const { data: bankAccounts } = trpc.bankAccounts.list.useQuery(
     { workspaceId: workspace.id },
@@ -108,6 +127,73 @@ export function FullModeSidebar({
         .slice(0, 2)
     : user.email.slice(0, 2).toUpperCase();
 
+  const analyzeReceipt = async (file: File) => {
+    setIsAnalyzing(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/analyze-receipt", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success && result.data) {
+        const files = [file];
+        const data: {
+          files: File[];
+          description?: string;
+          lines?: JournalEntryLineInput[];
+          entryDate?: string;
+        } = { files };
+
+        if (result.data.date) {
+          data.entryDate = result.data.date;
+        }
+        if (result.data.suggestedEntry) {
+          if (result.data.suggestedEntry.description) {
+            data.description = result.data.suggestedEntry.description;
+          }
+          if (result.data.suggestedEntry.lines) {
+            data.lines = result.data.suggestedEntry.lines.map(
+              (l: { accountNumber: number; accountName: string; debit: number; credit: number }) => ({
+                accountNumber: l.accountNumber,
+                accountName: l.accountName,
+                debit: l.debit || undefined,
+                credit: l.credit || undefined,
+              })
+            );
+          }
+        } else if (result.data.description) {
+          data.description = result.data.description;
+        }
+
+        setAnalyzedData(data);
+        setAddEntryOpen(true);
+      }
+    } catch (err) {
+      console.error("Failed to analyze receipt:", err);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      analyzeReceipt(file);
+    }
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   return (
     <>
       <Sidebar collapsible="icon" {...props}>
@@ -116,6 +202,41 @@ export function FullModeSidebar({
             workspaces={workspaces}
             currentWorkspace={workspace}
           />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="w-full justify-between mt-2 group/create">
+                <span>Skapa ny</span>
+                <CaretDown className="size-4 transition-transform duration-200 group-data-[state=open]/create:rotate-180" weight="bold" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuLabel>Bokföring</DropdownMenuLabel>
+              <DropdownMenuItem onClick={handleUploadClick} disabled={isAnalyzing}>
+                <UploadSimple className="size-4" weight="duotone" />
+                {isAnalyzing ? "Analyserar..." : "Ladda upp underlag"}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setAddEntryOpen(true)}>
+                <FileText className="size-4" weight="duotone" />
+                Utan underlag
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setAddBankTransactionOpen(true)}>
+                <Bank className="size-4" weight="duotone" />
+                Importera från bank
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel>Skapa</DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => setCreateInvoiceOpen(true)}>
+                <Invoice className="size-4" weight="duotone" />
+                Faktura
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={`/${workspace.slug}/personal/lon`}>
+                  <Money className="size-4" weight="duotone" />
+                  Lön
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </SidebarHeader>
         <SidebarContent>
           {/* Main Menu */}
@@ -152,7 +273,6 @@ export function FullModeSidebar({
           {/* Bokföring */}
           <NavPeriods
             workspaceSlug={workspace.slug}
-            onAddVerification={() => setAddEntryOpen(true)}
             isFullMode
             expanded={bookkeepingExpanded}
             onExpandedChange={setBookkeepingExpanded}
@@ -415,7 +535,7 @@ export function FullModeSidebar({
                   sideOffset={4}
                 >
                   <DropdownMenuItem asChild>
-                    <Link href="/user/settings">
+                    <Link href="/user/installningar">
                       <User className="size-4 mr-2" weight="duotone" />
                       Inställningar
                     </Link>
@@ -452,14 +572,43 @@ export function FullModeSidebar({
         onOpenChange={setAddPeriodOpen}
       />
 
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*,.pdf"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+
       {addEntryOpen && (
         <AddJournalEntryDialog
           workspaceId={workspace.id}
           periods={periods}
           open={addEntryOpen}
-          onOpenChange={setAddEntryOpen}
+          onOpenChange={(open) => {
+            setAddEntryOpen(open);
+            if (!open) {
+              setAnalyzedData(null);
+            }
+          }}
+          initialFiles={analyzedData?.files}
+          initialDescription={analyzedData?.description}
+          initialLines={analyzedData?.lines}
+          initialEntryDate={analyzedData?.entryDate}
         />
       )}
+
+      <CreateInvoiceDialog
+        workspaceId={workspace.id}
+        open={createInvoiceOpen}
+        onOpenChange={setCreateInvoiceOpen}
+      />
+
+      <AddBankTransactionDialog
+        workspaceId={workspace.id}
+        open={addBankTransactionOpen}
+        onOpenChange={setAddBankTransactionOpen}
+      />
     </>
   );
 }

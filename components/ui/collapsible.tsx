@@ -27,12 +27,10 @@ function CollapsibleContent({
   return (
     <CollapsiblePrimitive.CollapsibleContent
       data-slot="collapsible-content"
-      className={`grid transition-all duration-200 data-[state=closed]:grid-rows-[0fr] data-[state=open]:grid-rows-[1fr] ${className || ""}`}
+      className={`overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up ${className || ""}`}
       {...props}
     >
-      <div className="overflow-hidden min-h-0">
-        {children}
-      </div>
+      {children}
     </CollapsiblePrimitive.CollapsibleContent>
   )
 }

@@ -34,7 +34,7 @@ const pool = new Pool({
 
 const db = drizzle(pool, { schema });
 
-const USER_ID = "GILHLarOWoU4HYcwBRkN4y3EVj8dUklo";
+const USER_ID = "W8YePqaLvGUSW42h8GSB4LFbjBQ9hWjY";
 
 // Check for workspace ID argument
 const WORKSPACE_ID = process.argv[2];
@@ -724,7 +724,7 @@ async function createJournalEntries(
   let verificationNumber2025 = 1;
   let verificationNumber2026 = 1;
 
-  // Create 5 entries per month for 2025 + Jan 2026
+  // Create 5 entries per month for 2025 + Jan-Apr 2026
   const months = [
     // 2025
     { year: 2025, month: 1, periodId: period2025Id },
@@ -741,6 +741,9 @@ async function createJournalEntries(
     { year: 2025, month: 12, periodId: period2025Id },
     // 2026
     { year: 2026, month: 1, periodId: period2026Id },
+    { year: 2026, month: 2, periodId: period2026Id },
+    { year: 2026, month: 3, periodId: period2026Id },
+    { year: 2026, month: 4, periodId: period2026Id },
   ];
 
   // Entry type templates
@@ -796,11 +799,26 @@ async function createJournalEntries(
     },
   ];
 
+  // Generate random total entries for 2026 (200-250)
+  const totalEntries2026 = Math.floor(Math.random() * 51) + 200; // 200-250
+  const months2026 = months.filter(m => m.year === 2026);
+  const entriesPerMonth2026 = Math.floor(totalEntries2026 / months2026.length);
+  const remainder2026 = totalEntries2026 % months2026.length;
+
   for (const monthInfo of months) {
     const { year, month, periodId } = monthInfo;
+    const is2026 = year === 2026;
 
-    // Create 8-12 entries per month for variety (total ~120 entries)
-    const entriesThisMonth = Math.floor(Math.random() * 5) + 8;
+    // For 2026: distribute entries evenly with remainder
+    // For 2025: keep original 8-12 entries per month
+    let entriesThisMonth: number;
+    if (is2026) {
+      const monthIndex = months2026.findIndex(m => m.month === month);
+      entriesThisMonth = entriesPerMonth2026 + (monthIndex < remainder2026 ? 1 : 0);
+    } else {
+      entriesThisMonth = Math.floor(Math.random() * 5) + 8;
+    }
+
     for (let i = 0; i < entriesThisMonth; i++) {
       const template = entryTemplates[i % entryTemplates.length];
       const day = Math.floor(Math.random() * 28) + 1; // Random day 1-28
@@ -866,28 +884,33 @@ async function createBankTransactions(
     return [];
   }
 
-  // Swedish transaction references and descriptions
+  // Swedish transaction references and descriptions - weighted towards positive transactions
   const transactionTypes = [
-    { reference: "BG 123-4567", amount: () => 5000 + Math.random() * 20000, description: "Kundbetalning" },
-    { reference: "Swish", amount: () => 500 + Math.random() * 3000, description: "Swish-betalning" },
-    { reference: "Autogiro", amount: () => -(800 + Math.random() * 2000), description: "Autogiro hyra" },
-    { reference: "Leverantör", amount: () => -(1000 + Math.random() * 5000), description: "Leverantörsbetal." },
-    { reference: "Lön", amount: () => -(25000 + Math.random() * 20000), description: "Löneutbetalning" },
-    { reference: "Kort", amount: () => -(200 + Math.random() * 1500), description: "Kortbetalning" },
-    { reference: "Bankgiro", amount: () => 3000 + Math.random() * 15000, description: "BG-inbetalning" },
-    { reference: "ICA", amount: () => -(150 + Math.random() * 500), description: "ICA Kvantum" },
-    { reference: "Circle K", amount: () => -(200 + Math.random() * 800), description: "Drivmedel" },
-    { reference: "Telia", amount: () => -599, description: "Telefonabonnemang" },
-    { reference: "Skatteverket", amount: () => -(5000 + Math.random() * 15000), description: "Moms & skatt" },
-    { reference: "Elskling AB", amount: () => -(1200 + Math.random() * 2000), description: "El-kostnad" },
-    { reference: "Telenor", amount: () => -399, description: "Bredband" },
-    { reference: "IKEA", amount: () => -(500 + Math.random() * 3000), description: "Inventarier" },
-    { reference: "Reklam", amount: () => -(2000 + Math.random() * 8000), description: "Google Ads" },
+    // Positive transactions (more frequent and larger amounts)
+    { reference: "BG 123-4567", amount: () => 8000 + Math.random() * 25000, description: "Kundbetalning", weight: 3 },
+    { reference: "Swish", amount: () => 1000 + Math.random() * 5000, description: "Swish-betalning", weight: 2 },
+    { reference: "Bankgiro", amount: () => 5000 + Math.random() * 20000, description: "BG-inbetalning", weight: 3 },
+    { reference: "PlusGiro", amount: () => 3000 + Math.random() * 15000, description: "PlusGiro inbetalning", weight: 2 },
+    { reference: "Faktura", amount: () => 10000 + Math.random() * 30000, description: "Fakturabetalning", weight: 2 },
+    { reference: "Kontant", amount: () => 500 + Math.random() * 2000, description: "Kontantinsättning", weight: 1 },
+    // Negative transactions (less frequent and smaller amounts)
+    { reference: "Autogiro", amount: () => -(500 + Math.random() * 1500), description: "Autogiro hyra", weight: 1 },
+    { reference: "Leverantör", amount: () => -(800 + Math.random() * 4000), description: "Leverantörsbetal.", weight: 1 },
+    { reference: "Lön", amount: () => -(20000 + Math.random() * 15000), description: "Löneutbetalning", weight: 1 },
+    { reference: "Kort", amount: () => -(150 + Math.random() * 1000), description: "Kortbetalning", weight: 1 },
+    { reference: "ICA", amount: () => -(100 + Math.random() * 400), description: "ICA Kvantum", weight: 1 },
+    { reference: "Circle K", amount: () => -(150 + Math.random() * 600), description: "Drivmedel", weight: 1 },
+    { reference: "Telia", amount: () => -599, description: "Telefonabonnemang", weight: 1 },
+    { reference: "Skatteverket", amount: () => -(4000 + Math.random() * 12000), description: "Moms & skatt", weight: 1 },
+    { reference: "Elskling AB", amount: () => -(1000 + Math.random() * 1500), description: "El-kostnad", weight: 1 },
+    { reference: "Telenor", amount: () => -399, description: "Bredband", weight: 1 },
+    { reference: "IKEA", amount: () => -(400 + Math.random() * 2500), description: "Inventarier", weight: 1 },
+    { reference: "Reklam", amount: () => -(1500 + Math.random() * 6000), description: "Google Ads", weight: 1 },
   ];
 
-  // Generate 150 transactions spread across 2025 and early 2026
-  const startDate = new Date("2025-01-01");
-  const endDate = new Date("2026-01-15");
+  // Generate transactions across January-April 2026
+  const startDate = new Date("2026-01-01");
+  const endDate = new Date("2026-04-30");
   let currentBalance = 150000; // Starting balance
 
   const dates: Date[] = [];
@@ -897,9 +920,17 @@ async function createBankTransactions(
   }
   dates.sort((a, b) => a.getTime() - b.getTime());
 
+  // Create weighted array for transaction selection (more positive transactions)
+  const weightedTypes: typeof transactionTypes = [];
+  transactionTypes.forEach(type => {
+    for (let i = 0; i < type.weight; i++) {
+      weightedTypes.push(type);
+    }
+  });
+
   for (let i = 0; i < dates.length; i++) {
     const date = dates[i];
-    const transactionType = transactionTypes[Math.floor(Math.random() * transactionTypes.length)];
+    const transactionType = weightedTypes[Math.floor(Math.random() * weightedTypes.length)];
     const amount = Math.round(transactionType.amount() * 100) / 100;
 
     currentBalance += amount;
@@ -918,7 +949,7 @@ async function createBankTransactions(
     transactions.push({
       workspaceId,
       bankAccountId: defaultAccount.id,
-      office: "Stockholm",
+      accountNumber: "Stockholm",
       accountingDate,
       ledgerDate,
       currencyDate: accountingDate,

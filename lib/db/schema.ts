@@ -328,7 +328,7 @@ export const bankTransactions = pgTable("bank_transactions", {
     .references(() => workspaces.id, { onDelete: "cascade" }),
   bankAccountId: text("bank_account_id").references(() => bankAccounts.id, { onDelete: "set null" }),
   importBatchId: text("import_batch_id").references(() => bankImportBatches.id, { onDelete: "set null" }),
-  office: text("office"), // Kontor
+  accountNumber: text("account_number"), // Konto
   accountingDate: date("accounting_date"), // Bokföringsdag
   ledgerDate: date("ledger_date"), // Reskontradag
   currencyDate: date("currency_date"), // Valutadag

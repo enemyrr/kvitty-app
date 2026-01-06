@@ -45,7 +45,7 @@ export function NavPeriods({
             </div>
           </CollapsibleTrigger>
         </SidebarGroupLabel>
-        {isFullMode && (
+        {isFullMode && onAddVerification && (
           <SidebarGroupAction title="Ny verifikation" onClick={onAddVerification}>
             <Plus className="size-4" />
             <span className="sr-only">Ny verifikation</span>

@@ -13,10 +13,10 @@ import { taxAccounts } from "@/lib/consts/tax-account";
 // Helper to find account name from kontoplan
 function findAccountName(accountNumber: number): string | null {
   for (const category of taxAccounts) {
-    for (const subCategory of category.SubCategories) {
-      const account = subCategory.Accounts.find((a) => a.Id === accountNumber);
+    for (const subCategory of category.subCategories) {
+      const account = subCategory.accounts.find((a) => a.id === accountNumber);
       if (account) {
-        return account.Text;
+        return account.text;
       }
     }
   }
@@ -217,18 +217,18 @@ export const bankAccountsRouter = router({
       const results: { accountNumber: number; name: string; category: string }[] = [];
 
       for (const category of taxAccounts) {
-        for (const subCategory of category.SubCategories) {
-          for (const account of subCategory.Accounts) {
-            const matchesNumber = account.Id.toString().includes(input.query);
-            const matchesText = account.Text.toLowerCase().includes(
+        for (const subCategory of category.subCategories) {
+          for (const account of subCategory.accounts) {
+            const matchesNumber = account.id.toString().includes(input.query);
+            const matchesText = account.text.toLowerCase().includes(
               input.query.toLowerCase()
             );
 
             if (matchesNumber || matchesText) {
               results.push({
-                accountNumber: account.Id,
-                name: account.Text,
-                category: `${category.Text} > ${subCategory.Text}`,
+                accountNumber: account.id,
+                name: account.text,
+                category: `${category.text} > ${subCategory.text}`,
               });
             }
 

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const bankTransactionSchema = z.object({
-  office: z.string().optional().nullable(),
+  accountNumber: z.string().optional().nullable(),
   accountingDate: z.string().date().optional().nullable(),
   ledgerDate: z.string().date().optional().nullable(),
   currencyDate: z.string().date().optional().nullable(),
