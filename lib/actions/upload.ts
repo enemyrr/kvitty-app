@@ -35,7 +35,7 @@ export const ALLOWED_EXTENSIONS = new Set([
 
 export const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 
-export function sanitizeFilename(filename: string): string {
+function sanitizeFilename(filename: string): string {
   const basename = path.basename(filename);
   return basename.replace(/[^a-zA-Z0-9.\-_]/g, "_");
 }

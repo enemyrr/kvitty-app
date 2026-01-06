@@ -36,7 +36,7 @@ export function InboxPageClient() {
   });
 
   const inboxEmail = workspace.inboxEmailSlug
-    ? `${workspace.inboxEmailSlug}@kvitty.se`
+    ? `${workspace.inboxEmailSlug}@inbox.kvitty.se`
     : null;
 
   return (

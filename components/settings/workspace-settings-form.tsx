@@ -621,7 +621,7 @@ export function WorkspaceSettingsForm({
                     })}
                   />
                   <span className="text-muted-foreground whitespace-nowrap">
-                    @kvitty.se
+                    @inbox.kvitty.se
                   </span>
                 </div>
                 <FieldDescription>
@@ -629,7 +629,7 @@ export function WorkspaceSettingsForm({
                     <>
                       Skicka kvitton till{" "}
                       <code className="bg-muted px-1 py-0.5 rounded text-xs">
-                        {form.watch("inboxEmailSlug")}@kvitty.se
+                        {form.watch("inboxEmailSlug")}@inbox.kvitty.se
                       </code>
                     </>
                   ) : (
