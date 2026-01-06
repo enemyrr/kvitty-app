@@ -36,6 +36,7 @@ interface TransactionsPageClientProps {
   initialDateTo: string;
   initialBankAccountId: string;
   initialFilter: string;
+  initialSelectedId?: string;
 }
 
 type QuickFilter = "all" | "last-month" | "last-3-months" | "last-year";
@@ -73,6 +74,7 @@ export function TransactionsPageClient({
   initialDateTo,
   initialBankAccountId,
   initialFilter,
+  initialSelectedId,
 }: TransactionsPageClientProps) {
   const { workspace } = useWorkspace();
   const router = useRouter();
@@ -85,6 +87,7 @@ export function TransactionsPageClient({
   const [quickFilter, setQuickFilter] = useState<QuickFilter>(
     (initialFilter as QuickFilter) || "all"
   );
+  const [pendingSelectedId, setPendingSelectedId] = useState<string | undefined>(initialSelectedId);
 
   // Update URL params
   const updateParams = useCallback(
@@ -359,6 +362,12 @@ export function TransactionsPageClient({
               data={filteredTransactions}
               workspaceId={workspace.id}
               hasFilters={!!hasFilters}
+              initialSelectedId={pendingSelectedId}
+              onSelectedIdHandled={() => {
+                setPendingSelectedId(undefined);
+                // Clear the selected param from URL
+                updateParams({ selected: null });
+              }}
             />
           </>
         )}

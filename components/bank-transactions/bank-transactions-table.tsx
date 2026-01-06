@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -23,16 +23,31 @@ interface BankTransactionsTableProps {
   data: BankTransaction[];
   workspaceId: string;
   hasFilters: boolean;
+  initialSelectedId?: string;
+  onSelectedIdHandled?: () => void;
 }
 
 export function BankTransactionsTable({
   data,
   workspaceId,
   hasFilters,
+  initialSelectedId,
+  onSelectedIdHandled,
 }: BankTransactionsTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedTransaction, setSelectedTransaction] =
     useState<BankTransaction | null>(null);
+
+  // Handle initial selected ID
+  useEffect(() => {
+    if (initialSelectedId && data.length > 0 && !selectedTransaction) {
+      const transaction = data.find((t) => t.id === initialSelectedId);
+      if (transaction) {
+        setSelectedTransaction(transaction);
+        onSelectedIdHandled?.();
+      }
+    }
+  }, [initialSelectedId, data, selectedTransaction, onSelectedIdHandled]);
 
   const columns = useMemo(
     () => createColumns(setSelectedTransaction),

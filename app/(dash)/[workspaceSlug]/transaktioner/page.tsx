@@ -16,10 +16,11 @@ export default async function TransactionsPage({
     dateTo?: string;
     bankAccountId?: string;
     filter?: string;
+    selected?: string;
   }>;
 }) {
   const { workspaceSlug } = await params;
-  const { search, dateFrom, dateTo, bankAccountId, filter } = await searchParams;
+  const { search, dateFrom, dateTo, bankAccountId, filter, selected } = await searchParams;
 
   return (
     <TransactionsPageClient
@@ -29,6 +30,7 @@ export default async function TransactionsPage({
       initialDateTo={dateTo || ""}
       initialBankAccountId={bankAccountId || ""}
       initialFilter={filter || "all"}
+      initialSelectedId={selected}
     />
   );
 }
