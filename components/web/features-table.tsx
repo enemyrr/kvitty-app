@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Check, X } from "@phosphor-icons/react/dist/ssr";
 import { Badge } from "@/components/ui/badge";
 
@@ -65,8 +66,8 @@ const featureCategories: FeatureCategory[] = [
 ];
 
 const plans = [
-  { id: "verification" as const, name: "Kvitty Online", price: "29 kr/mån" },
-  { id: "full" as const, name: "Kvitty Online", price: "129 kr/mån", recommended: true },
+  { id: "verification" as const, name: "Kvitty Lite", price: "Gratis" },
+  { id: "full" as const, name: "Kvitty Online", price: "29 kr/mån", recommended: true },
   { id: "selfHosted" as const, name: "Self-hosted", price: "Gratis" },
 ];
 
@@ -120,9 +121,9 @@ export function FeaturesTable() {
           {/* Body */}
           <tbody>
             {featureCategories.map((category, categoryIndex) => (
-              <>
+              <Fragment key={`category-${category.name}`}>
                 {/* Category header */}
-                <tr key={`category-${category.name}`}>
+                <tr>
                   <td
                     colSpan={4}
                     className={`p-4 bg-muted/30 font-medium text-sm ${categoryIndex === 0 ? "" : "border-t border-border"}`}
@@ -146,7 +147,7 @@ export function FeaturesTable() {
                     ))}
                   </tr>
                 ))}
-              </>
+              </Fragment>
             ))}
           </tbody>
         </table>

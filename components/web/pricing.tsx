@@ -109,7 +109,7 @@ export function Pricing() {
             <div className="mb-6">
               <h3 className="font-medium text-lg mb-4">Kvitty Online</h3>
               <div className="flex items-baseline gap-1">
-                <span className="font-semibold text-5xl tracking-tight">49</span>
+                <span className="font-semibold text-5xl tracking-tight">29</span>
                 <span className="text-muted-foreground text-lg">kr/mån</span>
               </div>
               <p className="text-muted-foreground text-sm mt-2">

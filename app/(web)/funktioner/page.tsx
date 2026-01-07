@@ -21,7 +21,15 @@ const fullFeatures = [
   "Traditionell bokföring",
   "Kvittohantering",
   "Obegränsade verifikationer",
+  "Obegränsad lagring",
   "Exportera till SIE-fil",
+  "Bjud in teammedlemmar",
+];
+
+const hostedBenefits = [
+  "Automatiska säkerhetskopior",
+  "Uppdateringar ingår",
+  "Teknisk support",
 ];
 
 export default function FunktionerPage() {
@@ -45,12 +53,11 @@ export default function FunktionerPage() {
             {/* Verification plan */}
             <div className="ring-1 ring-border rounded-2xl p-6 sm:p-8 bg-card flex flex-col">
               <div className="mb-5">
-                <h2 className="font-medium text-lg mb-3">Kvitty Online</h2>
+                <h2 className="font-medium text-lg mb-3">Kvitty Lite</h2>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-semibold text-4xl tracking-tight">29</span>
-                  <span className="text-muted-foreground">kr/mån</span>
+                  <span className="font-semibold text-4xl tracking-tight">Gratis</span>
                 </div>
-                <p className="text-muted-foreground text-sm mt-1">Exkl. moms</p>
+                <p className="text-muted-foreground text-sm mt-1">Alltid gratis.</p>
               </div>
 
               <ul className="space-y-2.5 mb-6 flex-1">
@@ -62,12 +69,34 @@ export default function FunktionerPage() {
                 ))}
               </ul>
 
-              <Button asChild className="w-full gap-1.5" size="lg">
-                <Link href="/login">
-                  Kom igång
-                  <ArrowRight weight="bold" className="size-4" />
-                </Link>
-              </Button>
+              <div className="mb-6 pt-6 border-t border-border">
+                <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+                  Ytterligare fördelar
+                </p>
+                <ul className="space-y-2.5">
+                  {hostedBenefits.map((benefit) => (
+                    <li
+                      key={benefit}
+                      className="text-sm text-muted-foreground"
+                    >
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-auto">
+                <Button asChild className="w-full gap-1.5" size="lg">
+                  <Link href="/login">
+                    Kom igång
+                    <ArrowRight weight="bold" className="size-4" />
+                  </Link>
+                </Button>
+
+                <p className="text-xs text-muted-foreground mt-4">
+                  Ingen bindningstid. Avsluta när du vill.
+                </p>
+              </div>
             </div>
 
             {/* Full system plan */}
@@ -78,7 +107,7 @@ export default function FunktionerPage() {
               <div className="mb-5">
                 <h2 className="font-medium text-lg mb-3">Kvitty Online</h2>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-semibold text-4xl tracking-tight">129</span>
+                  <span className="font-semibold text-4xl tracking-tight">29</span>
                   <span className="text-muted-foreground">kr/mån</span>
                 </div>
                 <p className="text-muted-foreground text-sm mt-1">Exkl. moms</p>
@@ -93,12 +122,34 @@ export default function FunktionerPage() {
                 ))}
               </ul>
 
-              <Button asChild className="w-full gap-1.5" size="lg">
-                <Link href="/login">
-                  Kom igång
-                  <ArrowRight weight="bold" className="size-4" />
-                </Link>
-              </Button>
+              <div className="mb-6 pt-6 border-t border-border">
+                <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+                  Ytterligare fördelar
+                </p>
+                <ul className="space-y-2.5">
+                  {hostedBenefits.map((benefit) => (
+                    <li
+                      key={benefit}
+                      className="text-sm text-muted-foreground"
+                    >
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-auto">
+                <Button asChild className="w-full gap-1.5" size="lg">
+                  <Link href="/login">
+                    Kom igång
+                    <ArrowRight weight="bold" className="size-4" />
+                  </Link>
+                </Button>
+
+                <p className="text-xs text-muted-foreground mt-4">
+                  Ingen bindningstid. Avsluta när du vill.
+                </p>
+              </div>
             </div>
 
             {/* Self-host plan */}
