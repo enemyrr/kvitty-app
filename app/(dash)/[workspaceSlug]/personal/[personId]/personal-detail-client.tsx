@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryState, parseAsString } from "nuqs";
 import { X } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,29 +46,10 @@ interface PersonalDetailClientProps {
 export function PersonalDetailClient({
   entries,
   availableYears,
-  selectedYear,
+  selectedYear: initialSelectedYear,
   workspaceSlug,
 }: PersonalDetailClientProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const updateParams = useCallback(
-    (updates: Record<string, string | null>) => {
-      const params = new URLSearchParams(searchParams.toString());
-
-      for (const [key, value] of Object.entries(updates)) {
-        if (value) {
-          params.set(key, value);
-        } else {
-          params.delete(key);
-        }
-      }
-
-      const queryString = params.toString();
-      router.replace(queryString ? `?${queryString}` : "?", { scroll: false });
-    },
-    [router, searchParams]
-  );
+  const [year, setYear] = useQueryState("year", parseAsString.withDefault(""));
 
   const formatCurrency = (value: string | null) => {
     if (!value) return "0 kr";
@@ -80,7 +60,8 @@ export function PersonalDetailClient({
     return `${period.substring(0, 4)}-${period.substring(4)}`;
   };
 
-  const hasFilters = selectedYear;
+  const selectedYear = year || initialSelectedYear;
+  const hasFilters = !!selectedYear;
 
   return (
     <Card>
@@ -90,18 +71,16 @@ export function PersonalDetailClient({
           <div className="flex items-center gap-2">
             <Select
               value={selectedYear || "all"}
-              onValueChange={(value) =>
-                updateParams({ year: value === "all" ? null : value })
-              }
+              onValueChange={(value) => setYear(value === "all" ? null : value)}
             >
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Välj år" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Alla år</SelectItem>
-                {availableYears.map((year) => (
-                  <SelectItem key={year} value={year}>
-                    {year}
+                {availableYears.map((y) => (
+                  <SelectItem key={y} value={y}>
+                    {y}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -110,7 +89,7 @@ export function PersonalDetailClient({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => updateParams({ year: null })}
+                onClick={() => setYear(null)}
               >
                 <X className="size-4 mr-1" />
                 Rensa

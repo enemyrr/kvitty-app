@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
+import { TablePagination } from "@/components/ui/table-pagination";
 import type { Product } from "@/lib/db/schema";
 import { unitLabels, productTypeLabels } from "@/lib/validations/product";
 
@@ -25,6 +26,10 @@ interface ProductsTableProps {
   products: Product[];
   onEdit: (product: Product) => void;
   onDelete: (product: Product) => void;
+  page: number;
+  totalPages: number;
+  total: number;
+  onPageChange: (page: number) => void;
 }
 
 function formatCurrency(value: string | number) {
@@ -36,8 +41,14 @@ export function ProductsTable({
   products,
   onEdit,
   onDelete,
+  page,
+  totalPages,
+  total,
+  onPageChange,
 }: ProductsTableProps) {
   return (
+    <>
+    <div className="bg-background rounded-xl border">
     <Table>
       <TableHeader>
         <TableRow>
@@ -113,5 +124,16 @@ export function ProductsTable({
         ))}
       </TableBody>
     </Table>
+    </div>
+
+    <TablePagination
+      page={page}
+      totalPages={totalPages}
+      total={total}
+      pageSize={20}
+      onPageChange={onPageChange}
+      itemLabel="produkter"
+    />
+    </>
   );
 }

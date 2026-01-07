@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useQueryState, parseAsString } from "nuqs";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc/client";
 import { PeriodSelector } from "@/components/reports/period-selector";
@@ -55,7 +56,7 @@ interface Period {
 interface BokslutClientProps {
   workspaceId: string;
   periods: Period[];
-  selectedPeriodId: string;
+  defaultPeriodId: string;
   workspaceSlug: string;
 }
 
@@ -112,11 +113,14 @@ function getStepStatus(
 export function BokslutClient({
   workspaceId,
   periods,
-  selectedPeriodId,
+  defaultPeriodId,
   workspaceSlug,
 }: BokslutClientProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const [selectedPeriodId, setSelectedPeriodId] = useQueryState(
+    "period",
+    parseAsString.withDefault(defaultPeriodId)
+  );
   const utils = trpc.useUtils();
 
   const [selectedPackage, setSelectedPackage] = useState<ClosingPackage | null>(null);
@@ -224,9 +228,7 @@ export function BokslutClient({
   const derivedPackage = closingData?.closing?.closingPackage ?? selectedPackage;
 
   const handlePeriodChange = (periodId: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("period", periodId);
-    router.push(`/${workspaceSlug}/bokslut?${params.toString()}`);
+    setSelectedPeriodId(periodId);
   };
 
   const handleToggleStep = (step: StepKey) => {

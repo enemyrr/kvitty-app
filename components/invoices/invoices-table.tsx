@@ -24,6 +24,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { TablePagination } from "@/components/ui/table-pagination";
 import type { InvoiceStatus } from "@/lib/db/schema";
 
 interface Invoice {
@@ -53,6 +54,10 @@ interface InvoicesTableProps {
   onCreateSentVerification?: (invoiceId: string) => void;
   onCreatePaidVerification?: (invoiceId: string) => void;
   onSendReminder?: (invoice: Invoice) => void;
+  page: number;
+  totalPages: number;
+  total: number;
+  onPageChange: (page: number) => void;
 }
 
 // Display status types (includes calculated statuses)
@@ -111,6 +116,10 @@ export function InvoicesTable({
   onCreateSentVerification,
   onCreatePaidVerification,
   onSendReminder,
+  page,
+  totalPages,
+  total,
+  onPageChange,
 }: InvoicesTableProps) {
   const formatCurrency = (value: string) => {
     return parseFloat(value).toLocaleString("sv-SE", {
@@ -130,6 +139,8 @@ export function InvoicesTable({
     invoice.status === "paid" && !invoice.journalEntryId;
 
   return (
+    <>
+    <div className="bg-background rounded-xl border">
     <Table>
       <TableHeader>
         <TableRow>
@@ -294,5 +305,16 @@ export function InvoicesTable({
         })}
       </TableBody>
     </Table>
+    </div>
+
+    <TablePagination
+      page={page}
+      totalPages={totalPages}
+      total={total}
+      pageSize={20}
+      onPageChange={onPageChange}
+      itemLabel="fakturor"
+    />
+    </>
   );
 }

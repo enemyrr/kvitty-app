@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryState, parseAsString } from "nuqs";
 import { trpc } from "@/lib/trpc/client";
 import { BalanceSheetTable } from "@/components/reports/report-table";
 import { PeriodSelector } from "@/components/reports/period-selector";
@@ -22,8 +22,7 @@ interface Period {
 interface BalanceSheetClientProps {
   workspaceId: string;
   periods: Period[];
-  selectedPeriodId: string;
-  workspaceSlug: string;
+  defaultPeriodId: string;
 }
 
 function formatCurrency(value: number): string {
@@ -38,11 +37,12 @@ function formatCurrency(value: number): string {
 export function BalanceSheetClient({
   workspaceId,
   periods,
-  selectedPeriodId,
-  workspaceSlug,
+  defaultPeriodId,
 }: BalanceSheetClientProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [selectedPeriodId, setSelectedPeriodId] = useQueryState(
+    "period",
+    parseAsString.withDefault(defaultPeriodId)
+  );
 
   const { data, isLoading, isError, error, refetch } = trpc.reports.balanceSheet.useQuery(
     {
@@ -53,9 +53,7 @@ export function BalanceSheetClient({
   );
 
   const handlePeriodChange = (periodId: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("period", periodId);
-    router.push(`/${workspaceSlug}/rapporter/balans?${params.toString()}`);
+    setSelectedPeriodId(periodId);
   };
 
   if (isLoading) {

@@ -1,9 +1,8 @@
 "use client";
 
-import { useMemo, useCallback, useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Plus, Swap, MagnifyingGlass, X, FunnelSimple } from "@phosphor-icons/react";
-import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useQueryState, parseAsInteger, parseAsString, parseAsStringLiteral } from "nuqs";
+import { Swap, MagnifyingGlass, X, FunnelSimple } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -31,15 +30,12 @@ import { AddBankTransactionButton } from "@/components/bank-transactions/add-ban
 
 interface TransactionsPageClientProps {
   workspaceSlug: string;
-  initialSearch: string;
-  initialDateFrom: string;
-  initialDateTo: string;
-  initialBankAccountId: string;
-  initialFilter: string;
-  initialSelectedId?: string;
 }
 
-type QuickFilter = "all" | "last-month" | "last-3-months" | "last-year";
+const PAGE_SIZE = 20;
+
+const quickFilterOptions = ["all", "last-month", "last-3-months", "last-year"] as const;
+type QuickFilter = (typeof quickFilterOptions)[number];
 
 function getDateRangeForFilter(filter: QuickFilter): { dateFrom: string; dateTo: string } {
   const now = new Date();
@@ -69,86 +65,68 @@ function getDateRangeForFilter(filter: QuickFilter): { dateFrom: string; dateTo:
 
 export function TransactionsPageClient({
   workspaceSlug,
-  initialSearch,
-  initialDateFrom,
-  initialDateTo,
-  initialBankAccountId,
-  initialFilter,
-  initialSelectedId,
 }: TransactionsPageClientProps) {
   const { workspace } = useWorkspace();
-  const router = useRouter();
-  const searchParams = useSearchParams();
 
-  const [searchInput, setSearchInput] = useState(initialSearch);
-  const [dateFrom, setDateFrom] = useState(initialDateFrom);
-  const [dateTo, setDateTo] = useState(initialDateTo);
-  const [bankAccountId, setBankAccountId] = useState(initialBankAccountId);
-  const [quickFilter, setQuickFilter] = useState<QuickFilter>(
-    (initialFilter as QuickFilter) || "all"
+  // URL state with nuqs
+  const [search, setSearch] = useQueryState("search", parseAsString.withDefault(""));
+  const [dateFrom, setDateFrom] = useQueryState("dateFrom", parseAsString.withDefault(""));
+  const [dateTo, setDateTo] = useQueryState("dateTo", parseAsString.withDefault(""));
+  const [bankAccountId, setBankAccountId] = useQueryState("bankAccountId", parseAsString.withDefault(""));
+  const [quickFilter, setQuickFilter] = useQueryState(
+    "filter",
+    parseAsStringLiteral(quickFilterOptions).withDefault("all")
   );
-  const [pendingSelectedId, setPendingSelectedId] = useState<string | undefined>(initialSelectedId);
+  const [selectedId, setSelectedId] = useQueryState("selected", parseAsString.withDefault(""));
+  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
-  // Update URL params
-  const updateParams = useCallback(
-    (updates: Record<string, string | null>) => {
-      const params = new URLSearchParams(searchParams.toString());
+  // Local state for search input (for debouncing)
+  const [searchInput, setSearchInput] = useState(search);
 
-      for (const [key, value] of Object.entries(updates)) {
-        if (value) {
-          params.set(key, value);
-        } else {
-          params.delete(key);
-        }
-      }
+  // Sync URL search state to local input (for browser back/forward, bookmarks)
+  useEffect(() => {
+    setSearchInput(search);
+  }, [search]);
 
-      const queryString = params.toString();
-      router.replace(queryString ? `?${queryString}` : "?", { scroll: false });
-    },
-    [router, searchParams]
-  );
-
-  // Debounced search
+  // Debounced search - update URL after 300ms of no typing
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (searchInput !== initialSearch) {
-        updateParams({ search: searchInput || null });
+      if (searchInput !== search) {
+        setSearch(searchInput || null);
+        setPage(1);
       }
     }, 300);
+
     return () => clearTimeout(timer);
-  }, [searchInput, initialSearch, updateParams]);
+  }, [searchInput, search, setSearch, setPage]);
 
   // Handle quick filter changes
   const handleQuickFilterChange = (filter: QuickFilter) => {
-    setQuickFilter(filter);
     const { dateFrom: newDateFrom, dateTo: newDateTo } = getDateRangeForFilter(filter);
-    setDateFrom(newDateFrom);
-    setDateTo(newDateTo);
-    updateParams({
-      filter,
-      dateFrom: newDateFrom || null,
-      dateTo: newDateTo || null,
-    });
+    setQuickFilter(filter);
+    setDateFrom(newDateFrom || null);
+    setDateTo(newDateTo || null);
+    setPage(1);
   };
 
   // Handle custom date changes
   const handleDateFromChange = (value: string) => {
-    setDateFrom(value);
+    setDateFrom(value || null);
     setQuickFilter("all");
-    updateParams({ dateFrom: value || null, filter: null });
+    setPage(1);
   };
 
   const handleDateToChange = (value: string) => {
-    setDateTo(value);
+    setDateTo(value || null);
     setQuickFilter("all");
-    updateParams({ dateTo: value || null, filter: null });
+    setPage(1);
   };
 
   // Handle bank account filter
   const handleBankAccountChange = (value: string) => {
-    const newValue = value === "all" ? "" : value;
+    const newValue = value === "all" ? null : value;
     setBankAccountId(newValue);
-    updateParams({ bankAccountId: newValue || null });
+    setPage(1);
   };
 
   // Fetch bank accounts for filter dropdown
@@ -156,45 +134,36 @@ export function TransactionsPageClient({
     workspaceId: workspace.id,
   });
 
-  // Fetch transactions
-  const { data: transactions, isLoading } = trpc.bankTransactions.list.useQuery({
+  // Fetch transactions with server-side pagination and search
+  const { data, isLoading } = trpc.bankTransactions.list.useQuery({
     workspaceId: workspace.id,
     bankAccountId: bankAccountId || undefined,
     dateFrom: dateFrom || undefined,
     dateTo: dateTo || undefined,
+    search: search || undefined,
+    limit: PAGE_SIZE,
+    offset: (page - 1) * PAGE_SIZE,
   });
 
-  // Filter by search locally (API doesn't support search yet)
-  const filteredTransactions = useMemo(() => {
-    if (!transactions) return [];
-    if (!searchInput) return transactions;
+  const transactions = data?.items ?? [];
+  const total = data?.total ?? 0;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
-    const searchLower = searchInput.toLowerCase();
-    return transactions.filter((t) => {
-      return (
-        t.reference?.toLowerCase().includes(searchLower) ||
-        t.accountNumber?.toLowerCase().includes(searchLower) ||
-        t.bankAccount?.name?.toLowerCase().includes(searchLower) ||
-        t.bankAccount?.accountNumber?.toString().includes(searchLower)
-      );
-    });
-  }, [transactions, searchInput]);
+  // Handle page change
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
 
-  const hasFilters = searchInput || dateFrom || dateTo || bankAccountId;
+  const hasFilters = search || dateFrom || dateTo || bankAccountId;
 
   const clearAllFilters = () => {
     setSearchInput("");
-    setDateFrom("");
-    setDateTo("");
-    setBankAccountId("");
+    setSearch(null);
+    setDateFrom(null);
+    setDateTo(null);
+    setBankAccountId(null);
     setQuickFilter("all");
-    updateParams({
-      search: null,
-      dateFrom: null,
-      dateTo: null,
-      bankAccountId: null,
-      filter: null,
-    });
+    setPage(1);
   };
 
   if (isLoading) {
@@ -285,7 +254,10 @@ export function TransactionsPageClient({
                   variant="ghost"
                   size="icon"
                   className="absolute right-0.5 top-1/2 -translate-y-1/2 size-7"
-                  onClick={() => setSearchInput("")}
+                  onClick={() => {
+                    setSearchInput("");
+                    setSearch(null);
+                  }}
                 >
                   <X className="size-3" />
                 </Button>
@@ -336,7 +308,7 @@ export function TransactionsPageClient({
         </div>
 
         {/* Results */}
-        {filteredTransactions.length === 0 ? (
+        {transactions.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
               <Swap className="size-12 mx-auto mb-4 text-muted-foreground" weight="duotone" />
@@ -354,23 +326,18 @@ export function TransactionsPageClient({
             </CardContent>
           </Card>
         ) : (
-          <>
-            <div className="text-sm text-muted-foreground">
-              Visar {filteredTransactions.length} transaktioner
-            </div>
-            <BankTransactionsTable
-              data={filteredTransactions}
-              workspaceId={workspace.id}
-              workspaceSlug={workspaceSlug}
-              hasFilters={!!hasFilters}
-              initialSelectedId={pendingSelectedId}
-              onSelectedIdHandled={() => {
-                setPendingSelectedId(undefined);
-                // Clear the selected param from URL
-                updateParams({ selected: null });
-              }}
-            />
-          </>
+          <BankTransactionsTable
+            data={transactions}
+            workspaceId={workspace.id}
+            workspaceSlug={workspaceSlug}
+            hasFilters={!!hasFilters}
+            initialSelectedId={selectedId || undefined}
+            onSelectedIdHandled={() => setSelectedId(null)}
+            page={page}
+            totalPages={totalPages}
+            total={total}
+            onPageChange={handlePageChange}
+          />
         )}
       </div>
     </>

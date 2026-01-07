@@ -68,6 +68,108 @@ import { workspaceProcedure } from "../init";
 // Input must include workspaceId, membership is automatically verified
 ```
 
+### Table Pagination & URL State Pattern
+All tables MUST have server-side pagination with URL state using `nuqs`. This ensures:
+- Pagination state is shareable via URL
+- Browser back/forward navigation works correctly
+- Page refreshes maintain state
+
+**URL State with nuqs:**
+Always use `nuqs` for URL state management instead of `useState` or manual `useSearchParams`:
+```typescript
+import { useQueryState, parseAsInteger, parseAsString, parseAsStringLiteral } from "nuqs";
+
+// Page number (integer)
+const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
+
+// String filter
+const [search, setSearch] = useQueryState("search", parseAsString.withDefault(""));
+
+// Enum/literal filter
+const statusOptions = ["all", "draft", "sent", "paid"] as const;
+const [status, setStatus] = useQueryState(
+  "status",
+  parseAsStringLiteral(statusOptions).withDefault("all")
+);
+
+// Reset page when filters change
+const handleFilterChange = (value: string) => {
+  setStatus(value);
+  setPage(1); // Reset to page 1
+};
+```
+
+**tRPC Router:**
+```typescript
+list: workspaceProcedure
+  .input(z.object({
+    limit: z.number().min(1).max(100).default(20),
+    offset: z.number().min(0).default(0),
+  }))
+  .query(async ({ ctx, input }) => {
+    const whereClause = eq(table.workspaceId, ctx.workspaceId);
+
+    const [items, totalResult] = await Promise.all([
+      ctx.db.query.table.findMany({
+        where: whereClause,
+        limit: input.limit,
+        offset: input.offset,
+      }),
+      ctx.db.select({ count: count() }).from(table).where(whereClause),
+    ]);
+
+    return {
+      items,
+      total: totalResult[0]?.count ?? 0,
+    };
+  })
+```
+
+**Page Client:**
+```typescript
+import { useQueryState, parseAsInteger } from "nuqs";
+
+const PAGE_SIZE = 20;
+
+// URL state with nuqs
+const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
+
+const { data } = trpc.items.list.useQuery({
+  workspaceId: workspace.id,
+  limit: PAGE_SIZE,
+  offset: (page - 1) * PAGE_SIZE,
+});
+
+const items = data?.items;
+const total = data?.total ?? 0;
+const totalPages = Math.ceil(total / PAGE_SIZE);
+```
+
+**Table Component:**
+```typescript
+interface TableProps {
+  // ... other props
+  page: number;
+  totalPages: number;
+  total: number;
+  onPageChange: (page: number) => void;
+}
+
+// Use the shared TablePagination component
+import { TablePagination } from "@/components/ui/table-pagination";
+
+<TablePagination
+  page={page}
+  totalPages={totalPages}
+  total={total}
+  pageSize={20}
+  onPageChange={onPageChange}
+  itemLabel="items"
+/>
+```
+
+**IMPORTANT:** Never use `useState` for URL-related state like pagination, filters, or search. Always use `nuqs` to keep state in the URL.
+
 ### Environment Variables
 See `.env.example` for required variables:
 - `DATABASE_URL` - PostgreSQL connection

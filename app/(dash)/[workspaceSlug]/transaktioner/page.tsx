@@ -7,30 +7,10 @@ export const metadata: Metadata = {
 
 export default async function TransactionsPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ workspaceSlug: string }>;
-  searchParams: Promise<{
-    search?: string;
-    dateFrom?: string;
-    dateTo?: string;
-    bankAccountId?: string;
-    filter?: string;
-    selected?: string;
-  }>;
 }) {
   const { workspaceSlug } = await params;
-  const { search, dateFrom, dateTo, bankAccountId, filter, selected } = await searchParams;
 
-  return (
-    <TransactionsPageClient
-      workspaceSlug={workspaceSlug}
-      initialSearch={search || ""}
-      initialDateFrom={dateFrom || ""}
-      initialDateTo={dateTo || ""}
-      initialBankAccountId={bankAccountId || ""}
-      initialFilter={filter || "all"}
-      initialSelectedId={selected}
-    />
-  );
+  return <TransactionsPageClient workspaceSlug={workspaceSlug} />;
 }

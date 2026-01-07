@@ -10,7 +10,7 @@ import {
   journalEntryLines,
   fiscalPeriods,
 } from "@/lib/db/schema";
-import { eq, and, sql, desc, lte, gte, lt, asc } from "drizzle-orm";
+import { eq, and, sql, desc, lte, gte, lt, asc, count } from "drizzle-orm";
 import {
   createInvoiceSchema,
   updateInvoiceSchema,
@@ -151,33 +151,46 @@ export const invoicesRouter = router({
       z.object({
         status: z.enum(["draft", "sent", "paid"]).optional(),
         customerId: z.string().optional(),
-        limit: z.number().min(1).max(100).default(50),
+        limit: z.number().min(1).max(100).default(20),
+        offset: z.number().min(0).default(0),
       })
     )
     .query(async ({ ctx, input }) => {
       const conditions = [eq(invoices.workspaceId, ctx.workspaceId)];
-      
+
       if (input.status) {
         conditions.push(eq(invoices.status, input.status));
       }
-      
+
       if (input.customerId) {
         conditions.push(eq(invoices.customerId, input.customerId));
       }
 
-      const invoiceList = await ctx.db.query.invoices.findMany({
-        where: conditions.length > 1 ? and(...conditions) : conditions[0],
-        with: {
-          customer: true,
-          lines: {
-            orderBy: (l, { asc }) => [asc(l.sortOrder)],
-          },
-        },
-        orderBy: [desc(invoices.invoiceDate), desc(invoices.invoiceNumber)],
-        limit: input.limit,
-      });
+      const whereClause = conditions.length > 1 ? and(...conditions) : conditions[0];
 
-      return invoiceList;
+      const [invoiceList, totalResult] = await Promise.all([
+        ctx.db.query.invoices.findMany({
+          where: whereClause,
+          with: {
+            customer: true,
+            lines: {
+              orderBy: (l, { asc }) => [asc(l.sortOrder)],
+            },
+          },
+          orderBy: [desc(invoices.invoiceDate), desc(invoices.invoiceNumber)],
+          limit: input.limit,
+          offset: input.offset,
+        }),
+        ctx.db
+          .select({ count: count() })
+          .from(invoices)
+          .where(whereClause),
+      ]);
+
+      return {
+        items: invoiceList,
+        total: totalResult[0]?.count ?? 0,
+      };
     }),
 
   get: workspaceProcedure

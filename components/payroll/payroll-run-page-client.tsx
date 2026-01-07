@@ -77,9 +77,10 @@ export function PayrollRunPageClient({ runId, workspaceSlug }: PayrollRunPageCli
     workspaceId: workspace.id,
   });
 
-  const { data: employees } = trpc.employees.list.useQuery({
+  const { data: employeesData } = trpc.employees.list.useQuery({
     workspaceId: workspace.id,
   });
+  const employees = employeesData?.items;
 
   const removeEntry = trpc.payroll.removeEntry.useMutation({
     onSuccess: () => {

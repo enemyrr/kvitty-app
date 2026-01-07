@@ -2,7 +2,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, workspaceProcedure } from "../init";
 import { employees, payrollEntries, payrollRuns } from "@/lib/db/schema";
-import { eq, and, like, sql } from "drizzle-orm";
+import { eq, and, like, sql, count } from "drizzle-orm";
 import {
   createEmployeeSchema,
   updateEmployeeSchema,
@@ -14,23 +14,35 @@ export const employeesRouter = router({
     .input(
       z.object({
         includeInactive: z.boolean().optional().default(false),
+        limit: z.number().min(1).max(100).default(20),
+        offset: z.number().min(0).default(0),
       })
     )
     .query(async ({ ctx, input }) => {
-      const employeeList = await ctx.db.query.employees.findMany({
-        where: input.includeInactive
-          ? eq(employees.workspaceId, ctx.workspaceId)
-          : and(
-              eq(employees.workspaceId, ctx.workspaceId),
-              eq(employees.isActive, true)
-            ),
-        orderBy: (emp, { asc }) => [asc(emp.lastName), asc(emp.firstName)],
-      });
+      const whereClause = input.includeInactive
+        ? eq(employees.workspaceId, ctx.workspaceId)
+        : and(
+            eq(employees.workspaceId, ctx.workspaceId),
+            eq(employees.isActive, true)
+          );
 
-      return employeeList.map((emp) => ({
-        ...emp,
-        personalNumber: decrypt(emp.personalNumber),
-      }));
+      const [employeeList, totalResult] = await Promise.all([
+        ctx.db.query.employees.findMany({
+          where: whereClause,
+          orderBy: (emp, { asc }) => [asc(emp.lastName), asc(emp.firstName)],
+          limit: input.limit,
+          offset: input.offset,
+        }),
+        ctx.db.select({ count: count() }).from(employees).where(whereClause),
+      ]);
+
+      return {
+        items: employeeList.map((emp) => ({
+          ...emp,
+          personalNumber: decrypt(emp.personalNumber),
+        })),
+        total: totalResult[0]?.count ?? 0,
+      };
     }),
 
   get: workspaceProcedure

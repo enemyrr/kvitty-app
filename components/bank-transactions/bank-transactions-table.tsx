@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { TablePagination } from "@/components/ui/table-pagination";
 import { createColumns, type BankTransaction } from "./bank-transaction-columns";
 import { BankTransactionDetailSheet } from "./bank-transaction-detail-sheet";
 
@@ -26,6 +27,10 @@ interface BankTransactionsTableProps {
   hasFilters: boolean;
   initialSelectedId?: string;
   onSelectedIdHandled?: () => void;
+  page: number;
+  totalPages: number;
+  total: number;
+  onPageChange: (page: number) => void;
 }
 
 export function BankTransactionsTable({
@@ -35,6 +40,10 @@ export function BankTransactionsTable({
   hasFilters,
   initialSelectedId,
   onSelectedIdHandled,
+  page,
+  totalPages,
+  total,
+  onPageChange,
 }: BankTransactionsTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedTransaction, setSelectedTransaction] =
@@ -115,6 +124,15 @@ export function BankTransactionsTable({
           </TableBody>
         </Table>
       </div>
+
+      <TablePagination
+        page={page}
+        totalPages={totalPages}
+        total={total}
+        pageSize={20}
+        onPageChange={onPageChange}
+        itemLabel="transaktioner"
+      />
 
       <BankTransactionDetailSheet
         transaction={selectedTransaction}

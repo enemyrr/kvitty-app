@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useQueryState, parseAsInteger } from "nuqs";
 import { Plus } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -10,15 +11,24 @@ import type { Customer } from "@/lib/db/schema";
 import { CustomerFormDialog } from "@/components/customers/customer-form-dialog";
 import { CustomersTable } from "@/components/customers/customers-table";
 
+const PAGE_SIZE = 20;
+
 export function CustomersPageClient() {
   const { workspace } = useWorkspace();
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
+  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const utils = trpc.useUtils();
 
-  const { data: customers, isLoading } = trpc.customers.list.useQuery({
+  const { data, isLoading } = trpc.customers.list.useQuery({
     workspaceId: workspace.id,
+    limit: PAGE_SIZE,
+    offset: (page - 1) * PAGE_SIZE,
   });
+
+  const customers = data?.items;
+  const total = data?.total ?? 0;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
   const deleteCustomer = trpc.customers.delete.useMutation({
     onSuccess: () => utils.customers.list.invalidate(),
@@ -61,6 +71,10 @@ export function CustomersPageClient() {
           onDelete={(customer) => {
             deleteCustomer.mutate({ workspaceId: workspace.id, id: customer.id });
           }}
+          page={page}
+          totalPages={totalPages}
+          total={total}
+          onPageChange={setPage}
         />
       )}
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useQueryState, parseAsInteger } from "nuqs";
 import { Plus, Money } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,14 +28,22 @@ interface PayrollPageClientProps {
   workspaceSlug: string;
 }
 
+const PAGE_SIZE = 20;
+
 export function PayrollPageClient({ workspaceSlug }: PayrollPageClientProps) {
   const { workspace } = useWorkspace();
   const [createOpen, setCreateOpen] = useState(false);
-  const utils = trpc.useUtils();
+  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
-  const { data: runs, isLoading } = trpc.payroll.listRuns.useQuery({
+  const { data, isLoading } = trpc.payroll.listRuns.useQuery({
     workspaceId: workspace.id,
+    limit: PAGE_SIZE,
+    offset: (page - 1) * PAGE_SIZE,
   });
+
+  const runs = data?.items;
+  const total = data?.total ?? 0;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
   if (isLoading) {
     return (
@@ -83,7 +92,7 @@ export function PayrollPageClient({ workspaceSlug }: PayrollPageClientProps) {
           </Button>
         </div>
 
-      {runs?.length === 0 ? (
+      {runs?.length === 0 && page === 1 ? (
         <Card>
           <CardContent className="py-12 text-center">
             <Money className="size-12 mx-auto mb-4 text-muted-foreground" weight="duotone" />
@@ -102,6 +111,10 @@ export function PayrollPageClient({ workspaceSlug }: PayrollPageClientProps) {
           <PayrollRunsTable
             runs={runs || []}
             workspaceSlug={workspaceSlug}
+            page={page}
+            totalPages={totalPages}
+            total={total}
+            onPageChange={setPage}
           />
         </Card>
       )}

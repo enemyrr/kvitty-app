@@ -43,9 +43,10 @@ export function EditInvoiceMetadataDialog({
   const [dueDate, setDueDate] = useState(invoice.dueDate);
   const [reference, setReference] = useState(invoice.reference || "");
 
-  const { data: customers } = trpc.customers.list.useQuery({
+  const { data: customersData } = trpc.customers.list.useQuery({
     workspaceId: invoice.workspaceId,
   });
+  const customers = customersData?.items;
 
   const updateMetadata = trpc.invoices.updateMetadata.useMutation({
     onSuccess: () => {

@@ -3,7 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { generateObject } from "ai";
 import { router, workspaceProcedure } from "../init";
 import { bankTransactions, auditLogs, bankAccounts, journalEntries, bankImportBatches } from "@/lib/db/schema";
-import { eq, and, isNull, inArray, or } from "drizzle-orm";
+import { eq, and, isNull, inArray, or, count, desc, gte, lte, ilike } from "drizzle-orm";
 import {
   createBankTransactionsSchema,
   updateBankTransactionSchema,
@@ -22,6 +22,9 @@ export const bankTransactionsRouter = router({
         unmappedOnly: z.boolean().optional(),
         dateFrom: z.string().optional(),
         dateTo: z.string().optional(),
+        search: z.string().optional(),
+        limit: z.number().min(1).max(100).default(20),
+        offset: z.number().min(0).default(0),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -35,22 +38,53 @@ export const bankTransactionsRouter = router({
         conditions.push(isNull(bankTransactions.mappedToJournalEntryId));
       }
 
-      const items = await ctx.db.query.bankTransactions.findMany({
-        where: and(...conditions),
-        orderBy: (v, { desc }) => [desc(v.accountingDate), desc(v.createdAt)],
-        with: {
-          createdByUser: {
-            columns: { id: true, name: true, email: true },
-          },
-          bankAccount: true,
-          mappedToJournalEntry: true,
-          attachments: {
-            columns: { id: true },
-          },
-        },
-      });
+      if (input.dateFrom) {
+        conditions.push(gte(bankTransactions.accountingDate, input.dateFrom));
+      }
 
-      return items;
+      if (input.dateTo) {
+        conditions.push(lte(bankTransactions.accountingDate, input.dateTo));
+      }
+
+      if (input.search) {
+        const searchCondition = or(
+          ilike(bankTransactions.reference, `%${input.search}%`),
+          ilike(bankTransactions.accountNumber, `%${input.search}%`)
+        );
+        if (searchCondition) {
+          conditions.push(searchCondition);
+        }
+      }
+
+      const whereClause = and(...conditions);
+
+      const [items, totalResult] = await Promise.all([
+        ctx.db.query.bankTransactions.findMany({
+          where: whereClause,
+          orderBy: (v, { desc }) => [desc(v.accountingDate), desc(v.createdAt)],
+          limit: input.limit,
+          offset: input.offset,
+          with: {
+            createdByUser: {
+              columns: { id: true, name: true, email: true },
+            },
+            bankAccount: true,
+            mappedToJournalEntry: true,
+            attachments: {
+              columns: { id: true },
+            },
+          },
+        }),
+        ctx.db
+          .select({ count: count() })
+          .from(bankTransactions)
+          .where(whereClause),
+      ]);
+
+      return {
+        items,
+        total: totalResult[0]?.count ?? 0,
+      };
     }),
 
   get: workspaceProcedure

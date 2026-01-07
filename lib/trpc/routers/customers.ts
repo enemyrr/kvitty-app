@@ -2,17 +2,35 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, workspaceProcedure } from "../init";
 import { customers, invoices } from "@/lib/db/schema";
-import { eq, and } from "drizzle-orm";
+import { eq, and, count } from "drizzle-orm";
 import { createCustomerSchema, updateCustomerSchema } from "@/lib/validations/customer";
 
 export const customersRouter = router({
-  list: workspaceProcedure.query(async ({ ctx }) => {
-    const customerList = await ctx.db.query.customers.findMany({
-      where: eq(customers.workspaceId, ctx.workspaceId),
-      orderBy: (c, { asc }) => [asc(c.name)],
-    });
-    return customerList;
-  }),
+  list: workspaceProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100).default(20),
+        offset: z.number().min(0).default(0),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const whereClause = eq(customers.workspaceId, ctx.workspaceId);
+
+      const [customerList, totalResult] = await Promise.all([
+        ctx.db.query.customers.findMany({
+          where: whereClause,
+          orderBy: (c, { asc }) => [asc(c.name)],
+          limit: input.limit,
+          offset: input.offset,
+        }),
+        ctx.db.select({ count: count() }).from(customers).where(whereClause),
+      ]);
+
+      return {
+        items: customerList,
+        total: totalResult[0]?.count ?? 0,
+      };
+    }),
 
   get: workspaceProcedure
     .input(z.object({ id: z.string() }))

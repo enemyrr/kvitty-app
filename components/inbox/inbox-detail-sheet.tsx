@@ -134,38 +134,33 @@ export function InboxDetailSheet({
           side="right"
           className="data-[side=right]:!w-[550px] data-[side=right]:sm:!max-w-[550px] flex flex-col"
         >
-          <SheetHeader>
+          <SheetHeader className="relative">
+            <Badge
+              variant={statusConfig[email.status].variant}
+              className="gap-1 absolute top-4 right-12"
+            >
+              <StatusIcon className="size-3" />
+              {statusConfig[email.status].label}
+            </Badge>
             <SheetTitle className="pr-8">
               {email.subject || "(Inget ämne)"}
             </SheetTitle>
             <SheetDescription>
               Från: {email.fromEmail}
             </SheetDescription>
+            <div className="text-sm text-muted-foreground">
+              Mottaget:{" "}
+              {format(new Date(email.receivedAt), "d MMMM yyyy 'kl.' HH:mm", {
+                locale: sv,
+              })}{" "}
+              ({formatDistanceToNow(new Date(email.receivedAt), {
+                addSuffix: true,
+                locale: sv,
+              })})
+            </div>
           </SheetHeader>
 
           <div className="flex-1 flex flex-col min-h-0 mt-4 px-4 overflow-y-auto">
-            {/* Email metadata */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge variant={statusConfig[email.status].variant} className="gap-1">
-                  <StatusIcon className="size-3" />
-                  {statusConfig[email.status].label}
-                </Badge>
-                <span className="text-sm text-muted-foreground">
-                  {formatDistanceToNow(new Date(email.receivedAt), {
-                    addSuffix: true,
-                    locale: sv,
-                  })}
-                </span>
-              </div>
-
-              <div className="text-sm text-muted-foreground">
-                Mottaget:{" "}
-                {format(new Date(email.receivedAt), "d MMMM yyyy 'kl.' HH:mm", {
-                  locale: sv,
-                })}
-              </div>
-            </div>
 
             {/* Email body */}
             {email.emailBody && (
@@ -270,7 +265,7 @@ export function InboxDetailSheet({
                                   disabled={unlinkMutation.isPending}
                                 >
                                   {unlinkMutation.isPending &&
-                                  unlinkConfirm?.linkId === link.id ? (
+                                    unlinkConfirm?.linkId === link.id ? (
                                     <Spinner className="size-3 mr-1" />
                                   ) : (
                                     <LinkBreak className="size-3 mr-1" />

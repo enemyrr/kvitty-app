@@ -2,7 +2,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, workspaceProcedure } from "../init";
 import { products, invoiceLines } from "@/lib/db/schema";
-import { eq, and, like, or, desc } from "drizzle-orm";
+import { eq, and, like, or, desc, count } from "drizzle-orm";
 import {
   createProductSchema,
   updateProductSchema,
@@ -15,23 +15,43 @@ export const productsRouter = router({
       z.object({
         search: z.string().optional(),
         includeInactive: z.boolean().optional().default(false),
+        limit: z.number().min(1).max(100).default(20),
+        offset: z.number().min(0).default(0),
       })
     )
     .query(async ({ ctx, input }) => {
-      const productList = await ctx.db.query.products.findMany({
-        where: and(
-          eq(products.workspaceId, ctx.workspaceId),
-          input?.includeInactive ? undefined : eq(products.isActive, true),
-          input?.search
-            ? or(
-                like(products.name, `%${input.search}%`),
-                like(products.description, `%${input.search}%`)
-              )
-            : undefined
-        ),
-        orderBy: (p, { asc }) => [asc(p.name)],
-      });
-      return productList;
+      const conditions = [eq(products.workspaceId, ctx.workspaceId)];
+
+      if (!input.includeInactive) {
+        conditions.push(eq(products.isActive, true));
+      }
+
+      if (input.search) {
+        const searchCondition = or(
+          like(products.name, `%${input.search}%`),
+          like(products.description, `%${input.search}%`)
+        );
+        if (searchCondition) {
+          conditions.push(searchCondition);
+        }
+      }
+
+      const whereClause = and(...conditions);
+
+      const [productList, totalResult] = await Promise.all([
+        ctx.db.query.products.findMany({
+          where: whereClause,
+          orderBy: (p, { asc }) => [asc(p.name)],
+          limit: input.limit,
+          offset: input.offset,
+        }),
+        ctx.db.select({ count: count() }).from(products).where(whereClause),
+      ]);
+
+      return {
+        items: productList,
+        total: totalResult[0]?.count ?? 0,
+      };
     }),
 
   // Get single product

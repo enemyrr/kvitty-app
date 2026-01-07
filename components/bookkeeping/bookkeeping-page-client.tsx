@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryState, parseAsString } from "nuqs";
 import Link from "next/link";
 import { Plus, FileText, CaretRight, CalendarBlank } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
@@ -46,14 +46,14 @@ export function BookkeepingPageClient({
   initialPeriodId,
 }: BookkeepingPageClientProps) {
   const { workspace, periods } = useWorkspace();
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [periodId, setPeriodId] = useQueryState("periodId", parseAsString.withDefault(""));
   const [addEntryOpen, setAddEntryOpen] = useState(false);
 
   // Get current period - default to most recent if not specified
   const currentPeriodId = useMemo(() => {
-    if (initialPeriodId && periods.find((p) => p.id === initialPeriodId)) {
-      return initialPeriodId;
+    const effectivePeriodId = periodId || initialPeriodId;
+    if (effectivePeriodId && periods.find((p) => p.id === effectivePeriodId)) {
+      return effectivePeriodId;
     }
     // Find the period that contains today's date
     const today = new Date().toISOString().split("T")[0];
@@ -61,15 +61,13 @@ export function BookkeepingPageClient({
       (p) => p.startDate <= today && p.endDate >= today
     );
     return currentPeriod?.id || periods[0]?.id || "";
-  }, [initialPeriodId, periods]);
+  }, [periodId, initialPeriodId, periods]);
 
   const currentPeriod = periods.find((p) => p.id === currentPeriodId);
 
   // Handle period change
-  const handlePeriodChange = (periodId: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("periodId", periodId);
-    router.replace(`?${params.toString()}`, { scroll: false });
+  const handlePeriodChange = (newPeriodId: string) => {
+    setPeriodId(newPeriodId);
   };
 
   // Fetch journal entries for the selected period

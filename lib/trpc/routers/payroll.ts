@@ -12,7 +12,7 @@ import {
   salaryStatements,
   fiscalPeriods,
 } from "@/lib/db/schema";
-import { eq, and, sql, desc, lte, gte } from "drizzle-orm";
+import { eq, and, sql, desc, lte, gte, count } from "drizzle-orm";
 import {
   createPayrollRunSchema,
   addPayrollEntrySchema,
@@ -33,33 +33,43 @@ export const payrollRouter = router({
     .input(
       z.object({
         limit: z.number().min(1).max(100).default(20),
+        offset: z.number().min(0).default(0),
       })
     )
     .query(async ({ ctx, input }) => {
-      const runs = await ctx.db.query.payrollRuns.findMany({
-        where: eq(payrollRuns.workspaceId, ctx.workspaceId),
-        with: {
-          entries: {
-            with: {
-              employee: true,
-            },
-          },
-          createdByUser: true,
-        },
-        orderBy: [desc(payrollRuns.period), desc(payrollRuns.runNumber)],
-        limit: input.limit,
-      });
+      const whereClause = eq(payrollRuns.workspaceId, ctx.workspaceId);
 
-      return runs.map((run) => ({
-        ...run,
-        entries: run.entries.map((entry) => ({
-          ...entry,
-          employee: {
-            ...entry.employee,
-            personalNumber: decrypt(entry.employee.personalNumber),
+      const [runs, totalResult] = await Promise.all([
+        ctx.db.query.payrollRuns.findMany({
+          where: whereClause,
+          with: {
+            entries: {
+              with: {
+                employee: true,
+              },
+            },
+            createdByUser: true,
           },
+          orderBy: [desc(payrollRuns.period), desc(payrollRuns.runNumber)],
+          limit: input.limit,
+          offset: input.offset,
+        }),
+        ctx.db.select({ count: count() }).from(payrollRuns).where(whereClause),
+      ]);
+
+      return {
+        items: runs.map((run) => ({
+          ...run,
+          entries: run.entries.map((entry) => ({
+            ...entry,
+            employee: {
+              ...entry.employee,
+              personalNumber: decrypt(entry.employee.personalNumber),
+            },
+          })),
         })),
-      }));
+        total: totalResult[0]?.count ?? 0,
+      };
     }),
 
   getRun: workspaceProcedure

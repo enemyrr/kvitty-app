@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { TablePagination } from "@/components/ui/table-pagination";
 import { calculateAgeFromPersonnummer } from "@/lib/utils";
 
 interface Employee {
@@ -27,13 +28,23 @@ interface Employee {
 interface EmployeesTableProps {
   employees: Employee[];
   workspaceSlug: string;
+  page: number;
+  totalPages: number;
+  total: number;
+  onPageChange: (page: number) => void;
 }
 
 export function EmployeesTable({
   employees,
   workspaceSlug,
+  page,
+  totalPages,
+  total,
+  onPageChange,
 }: EmployeesTableProps) {
   return (
+    <>
+    <div className="bg-background rounded-xl border">
     <Table>
       <TableHeader>
         <TableRow>
@@ -115,6 +126,17 @@ export function EmployeesTable({
         ))}
       </TableBody>
     </Table>
+    </div>
+
+    <TablePagination
+      page={page}
+      totalPages={totalPages}
+      total={total}
+      pageSize={20}
+      onPageChange={onPageChange}
+      itemLabel="anställda"
+    />
+    </>
   );
 }
 

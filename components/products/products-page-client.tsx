@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useQueryState, parseAsInteger } from "nuqs";
 import { Plus, Package } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -10,16 +11,25 @@ import type { Product } from "@/lib/db/schema";
 import { ProductFormDialog } from "@/components/products/product-form-dialog";
 import { ProductsTable } from "@/components/products/products-table";
 
+const PAGE_SIZE = 20;
+
 export function ProductsPageClient() {
   const { workspace } = useWorkspace();
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
+  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const utils = trpc.useUtils();
 
-  const { data: products, isLoading } = trpc.products.list.useQuery({
+  const { data, isLoading } = trpc.products.list.useQuery({
     workspaceId: workspace.id,
     includeInactive: true,
+    limit: PAGE_SIZE,
+    offset: (page - 1) * PAGE_SIZE,
   });
+
+  const products = data?.items;
+  const total = data?.total ?? 0;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
   const deleteProduct = trpc.products.delete.useMutation({
     onSuccess: () => utils.products.list.invalidate({ workspaceId: workspace.id }),
@@ -66,6 +76,10 @@ export function ProductsPageClient() {
           onDelete={(product) => {
             deleteProduct.mutate({ workspaceId: workspace.id, id: product.id });
           }}
+          page={page}
+          totalPages={totalPages}
+          total={total}
+          onPageChange={setPage}
         />
       )}
 

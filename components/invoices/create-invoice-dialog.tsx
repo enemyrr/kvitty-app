@@ -51,7 +51,8 @@ export function CreateInvoiceDialog({
   const [reference, setReference] = useState("");
   const [createCustomerOpen, setCreateCustomerOpen] = useState(false);
 
-  const { data: customers } = trpc.customers.list.useQuery({ workspaceId });
+  const { data: customersData } = trpc.customers.list.useQuery({ workspaceId });
+  const customers = customersData?.items;
 
   const createInvoice = trpc.invoices.create.useMutation({
     onSuccess: (invoice) => {

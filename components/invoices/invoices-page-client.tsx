@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useQueryState, parseAsInteger, parseAsString, parseAsStringLiteral, parseAsBoolean } from "nuqs";
 import { Plus, Funnel, BookOpen, CaretUpDown, Check } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -44,7 +45,8 @@ import { useWorkspace } from "@/components/workspace-provider";
 import { InvoicesTable } from "@/components/invoices/invoices-table";
 import type { InvoiceStatus } from "@/lib/db/schema";
 
-type StatusFilter = InvoiceStatus | "all";
+const statusOptions = ["all", "draft", "sent", "paid"] as const;
+type StatusFilter = (typeof statusOptions)[number];
 
 // Dialog state for bokföring confirmation
 type BokforingDialog =
@@ -62,33 +64,54 @@ interface ReminderInvoice {
   dueDate: string;
 }
 
-interface InvoicesPageClientProps {
-  initialCustomerId?: string;
-  initialCreateOpen?: boolean;
-}
+const PAGE_SIZE = 20;
 
-export function InvoicesPageClient({
-  initialCustomerId,
-  initialCreateOpen = false,
-}: InvoicesPageClientProps = {}) {
+export function InvoicesPageClient() {
   const { workspace } = useWorkspace();
-  const [createOpen, setCreateOpen] = useState(initialCreateOpen);
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
-  const [customerFilter, setCustomerFilter] = useState<string | undefined>(initialCustomerId);
+
+  // URL state with nuqs
+  const [statusFilter, setStatusFilter] = useQueryState(
+    "status",
+    parseAsStringLiteral(statusOptions).withDefault("all")
+  );
+  const [customerFilter, setCustomerFilter] = useQueryState("customerId", parseAsString.withDefault(""));
+  const [newInvoice, setNewInvoice] = useQueryState("newInvoice", parseAsBoolean.withDefault(false));
+  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
+
+  // Local state
+  const [createOpen, setCreateOpen] = useState(newInvoice);
   const [customerComboboxOpen, setCustomerComboboxOpen] = useState(false);
   const [bokforingDialog, setBokforingDialog] = useState<BokforingDialog>(null);
   const [reminderInvoice, setReminderInvoice] = useState<ReminderInvoice | null>(null);
   const utils = trpc.useUtils();
 
-  const { data: invoices, isLoading } = trpc.invoices.list.useQuery({
+  const { data, isLoading } = trpc.invoices.list.useQuery({
     workspaceId: workspace.id,
     status: statusFilter === "all" ? undefined : statusFilter,
-    customerId: customerFilter,
+    customerId: customerFilter || undefined,
+    limit: PAGE_SIZE,
+    offset: (page - 1) * PAGE_SIZE,
   });
 
-  const { data: customers } = trpc.customers.list.useQuery({
+  const invoices = data?.items;
+  const total = data?.total ?? 0;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+
+  // Reset page when filters change
+  const handleStatusFilterChange = (status: StatusFilter) => {
+    setStatusFilter(status);
+    setPage(1);
+  };
+
+  const handleCustomerFilterChange = (customerId: string | null) => {
+    setCustomerFilter(customerId);
+    setPage(1);
+  };
+
+  const { data: customersData } = trpc.customers.list.useQuery({
     workspaceId: workspace.id,
   });
+  const customers = customersData?.items;
 
   const markAsSent = trpc.invoices.markAsSent.useMutation({
     onSuccess: () => {
@@ -182,7 +205,7 @@ export function InvoicesPageClient({
         </div>
         <Select
           value={statusFilter}
-          onValueChange={(v) => setStatusFilter(v as StatusFilter)}
+          onValueChange={(v) => handleStatusFilterChange(v as StatusFilter)}
         >
           <SelectTrigger className="w-48">
             <SelectValue placeholder="Alla status" />
@@ -225,11 +248,8 @@ export function InvoicesPageClient({
                   <CommandItem
                     value="alla-kunder"
                     onSelect={() => {
-                      setCustomerFilter(undefined);
+                      handleCustomerFilterChange(null);
                       setCustomerComboboxOpen(false);
-                      const url = new URL(window.location.href);
-                      url.searchParams.delete("customerId");
-                      window.history.replaceState({}, "", url.toString());
                     }}
                   >
                     <Check
@@ -245,16 +265,9 @@ export function InvoicesPageClient({
                       key={customer.id}
                       value={`${customer.name} ${customer.id}`}
                       onSelect={() => {
-                        const newValue = customer.id === customerFilter ? undefined : customer.id;
-                        setCustomerFilter(newValue);
+                        const newValue = customer.id === customerFilter ? null : customer.id;
+                        handleCustomerFilterChange(newValue);
                         setCustomerComboboxOpen(false);
-                        const url = new URL(window.location.href);
-                        if (!newValue) {
-                          url.searchParams.delete("customerId");
-                        } else {
-                          url.searchParams.set("customerId", newValue);
-                        }
-                        window.history.replaceState({}, "", url.toString());
                       }}
                     >
                       <Check
@@ -330,6 +343,10 @@ export function InvoicesPageClient({
               dueDate: invoice.dueDate,
             })
           }
+          page={page}
+          totalPages={totalPages}
+          total={total}
+          onPageChange={setPage}
         />
       )}
 
@@ -338,13 +355,11 @@ export function InvoicesPageClient({
         open={createOpen}
         onOpenChange={(open) => {
           setCreateOpen(open);
-          if (!open && customerFilter) {
-            const url = new URL(window.location.href);
-            url.searchParams.delete("newInvoice");
-            window.history.replaceState({}, "", url.toString());
+          if (!open) {
+            setNewInvoice(null);
           }
         }}
-        initialCustomerId={customerFilter}
+        initialCustomerId={customerFilter || undefined}
       />
 
       {/* Bokföring Confirmation Dialog */}

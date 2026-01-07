@@ -22,10 +22,8 @@ export const metadata: Metadata = {
 
 export default async function VatReportPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ workspaceSlug: string }>;
-  searchParams: Promise<{ period?: string; vatPeriod?: string }>;
 }) {
   const session = await getSession();
   if (!session) {
@@ -33,7 +31,6 @@ export default async function VatReportPage({
   }
 
   const { workspaceSlug } = await params;
-  const { period: periodId, vatPeriod } = await searchParams;
 
   const workspace = await db.query.workspaces.findFirst({
     where: eq(workspaces.slug, workspaceSlug),
@@ -59,8 +56,8 @@ export default async function VatReportPage({
     orderBy: [desc(fiscalPeriods.startDate)],
   });
 
-  const selectedPeriodId = periodId || periods[0]?.id;
-  const selectedVatPeriodIndex = vatPeriod ? parseInt(vatPeriod, 10) : 0;
+  const defaultPeriodId = periods[0]?.id ?? "";
+  const defaultVatPeriodIndex = 0;
 
   return (
     <>
@@ -117,9 +114,8 @@ export default async function VatReportPage({
               endDate: p.endDate,
               isLocked: p.isLocked,
             }))}
-            selectedPeriodId={selectedPeriodId}
-            selectedVatPeriodIndex={selectedVatPeriodIndex}
-            workspaceSlug={workspaceSlug}
+            defaultPeriodId={defaultPeriodId}
+            defaultVatPeriodIndex={defaultVatPeriodIndex}
             vatReportingFrequency={workspace.vatReportingFrequency || "quarterly"}
           />
         )}

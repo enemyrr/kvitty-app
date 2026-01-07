@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { TablePagination } from "@/components/ui/table-pagination";
 import type { Customer } from "@/lib/db/schema";
 import { useWorkspace } from "@/components/workspace-provider";
 
@@ -25,16 +26,26 @@ interface CustomersTableProps {
   customers: Customer[];
   onEdit: (customer: Customer) => void;
   onDelete: (customer: Customer) => void;
+  page: number;
+  totalPages: number;
+  total: number;
+  onPageChange: (page: number) => void;
 }
 
 export function CustomersTable({
   customers,
   onEdit,
   onDelete,
+  page,
+  totalPages,
+  total,
+  onPageChange,
 }: CustomersTableProps) {
   const { workspace } = useWorkspace();
 
   return (
+    <>
+    <div className="bg-background rounded-xl border">
     <Table>
       <TableHeader>
         <TableRow>
@@ -107,6 +118,17 @@ export function CustomersTable({
         ))}
       </TableBody>
     </Table>
+    </div>
+
+    <TablePagination
+      page={page}
+      totalPages={totalPages}
+      total={total}
+      pageSize={20}
+      onPageChange={onPageChange}
+      itemLabel="kunder"
+    />
+    </>
   );
 }
 

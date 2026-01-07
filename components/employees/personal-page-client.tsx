@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useQueryState, parseAsInteger } from "nuqs";
 import { Plus, UserCircle } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +22,8 @@ import { useWorkspace } from "@/components/workspace-provider";
 import { AddEmployeeDialog } from "@/components/employees/add-employee-dialog";
 import { EmployeesTable } from "@/components/employees/employees-table";
 
+const PAGE_SIZE = 20;
+
 interface PersonalPageClientProps {
   workspaceSlug: string;
 }
@@ -28,12 +31,19 @@ interface PersonalPageClientProps {
 export function PersonalPageClient({ workspaceSlug }: PersonalPageClientProps) {
   const { workspace } = useWorkspace();
   const [addOpen, setAddOpen] = useState(false);
+  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
   const utils = trpc.useUtils();
 
-  const { data: employees, isLoading } = trpc.employees.list.useQuery({
+  const { data, isLoading } = trpc.employees.list.useQuery({
     workspaceId: workspace.id,
+    limit: PAGE_SIZE,
+    offset: (page - 1) * PAGE_SIZE,
   });
+
+  const employees = data?.items;
+  const total = data?.total ?? 0;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
   const activeEmployeeCount = employees?.filter((e) => e.isActive).length ?? 0;
   const isAtLimit = activeEmployeeCount >= 25;
@@ -94,12 +104,14 @@ export function PersonalPageClient({ workspaceSlug }: PersonalPageClientProps) {
             </CardContent>
           </Card>
         ) : (
-          <Card>
-            <EmployeesTable
-              employees={employees || []}
-              workspaceSlug={workspaceSlug}
-            />
-          </Card>
+          <EmployeesTable
+            employees={employees || []}
+            workspaceSlug={workspaceSlug}
+            page={page}
+            totalPages={totalPages}
+            total={total}
+            onPageChange={setPage}
+          />
         )}
 
         <AddEmployeeDialog

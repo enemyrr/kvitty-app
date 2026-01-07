@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Envelope, FunnelSimple, WarningCircle } from "@phosphor-icons/react";
+import { useQueryState, parseAsInteger, parseAsStringLiteral } from "nuqs";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,8 @@ import type { InboxEmailStatusValue } from "@/lib/validations/inbox";
 
 type StatusFilter = InboxEmailStatusValue | "all";
 
+const statusOptions = ["all", "pending", "processed", "rejected", "error"] as const;
+
 const statusLabels: Record<StatusFilter, string> = {
   all: "Alla",
   pending: "Väntande",
@@ -30,8 +32,11 @@ const PAGE_SIZE = 20;
 
 export function InboxPageClient() {
   const { workspace } = useWorkspace();
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
-  const [page, setPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useQueryState(
+    "status",
+    parseAsStringLiteral(statusOptions).withDefault("all")
+  );
+  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
   const { data, isLoading, error, refetch } = trpc.inbox.list.useQuery({
     workspaceId: workspace.id,

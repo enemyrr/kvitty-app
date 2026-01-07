@@ -22,10 +22,8 @@ export const metadata: Metadata = {
 
 export default async function BokslutPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ workspaceSlug: string }>;
-  searchParams: Promise<{ period?: string }>;
 }) {
   const session = await getSession();
   if (!session) {
@@ -33,7 +31,6 @@ export default async function BokslutPage({
   }
 
   const { workspaceSlug } = await params;
-  const { period: periodId } = await searchParams;
 
   const workspace = await db.query.workspaces.findFirst({
     where: eq(workspaces.slug, workspaceSlug),
@@ -59,7 +56,7 @@ export default async function BokslutPage({
     orderBy: [desc(fiscalPeriods.startDate)],
   });
 
-  const selectedPeriodId = periodId || periods[0]?.id;
+  const defaultPeriodId = periods[0]?.id ?? "";
 
   return (
     <>
@@ -110,7 +107,7 @@ export default async function BokslutPage({
               endDate: p.endDate,
               isLocked: p.isLocked,
             }))}
-            selectedPeriodId={selectedPeriodId}
+            defaultPeriodId={defaultPeriodId}
             workspaceSlug={workspaceSlug}
           />
         )}

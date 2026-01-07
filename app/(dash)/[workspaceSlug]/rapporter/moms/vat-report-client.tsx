@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryState, parseAsString, parseAsInteger } from "nuqs";
 import { trpc } from "@/lib/trpc/client";
 import { PeriodSelector } from "@/components/reports/period-selector";
 import { VatPaymentInfo } from "@/components/reports/vat-payment-info";
@@ -37,9 +37,8 @@ interface Period {
 interface VatReportClientProps {
   workspaceId: string;
   periods: Period[];
-  selectedPeriodId: string;
-  selectedVatPeriodIndex: number;
-  workspaceSlug: string;
+  defaultPeriodId: string;
+  defaultVatPeriodIndex: number;
   vatReportingFrequency: "monthly" | "quarterly" | "yearly";
 }
 
@@ -55,13 +54,18 @@ function formatCurrency(value: number): string {
 export function VatReportClient({
   workspaceId,
   periods,
-  selectedPeriodId,
-  selectedVatPeriodIndex,
-  workspaceSlug,
+  defaultPeriodId,
+  defaultVatPeriodIndex,
   vatReportingFrequency,
 }: VatReportClientProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [selectedPeriodId, setSelectedPeriodId] = useQueryState(
+    "period",
+    parseAsString.withDefault(defaultPeriodId)
+  );
+  const [selectedVatPeriodIndex, setSelectedVatPeriodIndex] = useQueryState(
+    "vatPeriod",
+    parseAsInteger.withDefault(defaultVatPeriodIndex)
+  );
 
   const { data: vatPeriods, isLoading: periodsLoading, isError: periodsError, error: periodsErrorData, refetch: refetchPeriods } =
     trpc.reports.vatPeriods.useQuery(
@@ -83,16 +87,12 @@ export function VatReportClient({
     );
 
   const handlePeriodChange = (periodId: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("period", periodId);
-    params.delete("vatPeriod");
-    router.push(`/${workspaceSlug}/rapporter/moms?${params.toString()}`);
+    setSelectedPeriodId(periodId);
+    setSelectedVatPeriodIndex(0); // Reset vat period when fiscal period changes
   };
 
   const handleVatPeriodChange = (index: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("vatPeriod", index);
-    router.push(`/${workspaceSlug}/rapporter/moms?${params.toString()}`);
+    setSelectedVatPeriodIndex(parseInt(index, 10));
   };
 
   const isLoading = periodsLoading || reportLoading;
