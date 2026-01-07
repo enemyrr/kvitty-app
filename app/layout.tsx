@@ -11,6 +11,7 @@ const imageUrl = `${baseUrl}/assets/SCR-20260105-mywx.png`;
 export const metadata: Metadata = {
   title: "Kvitty - Bokföring för småföretag",
   description: "Enkel bokföring för små team. Hantera kvitton, fakturor, löner och banktransaktioner på ett smidigt sätt. Från 29 kr/månad.",
+  metadataBase: new URL(baseUrl),
   openGraph: {
     title: "Kvitty - Bokföring för småföretag",
     description: "Enkel bokföring för små team. Hantera kvitton, fakturor, löner och banktransaktioner på ett smidigt sätt. Från 29 kr/månad.",
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: "Kvitty Dashboard",
+        type: "image/png",
       },
     ],
     locale: "sv_SE",
