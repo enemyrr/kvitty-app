@@ -120,7 +120,7 @@ export function AIChatDrawer({ onClose }: AIChatDrawerProps) {
           <Message from="assistant">
             <MessageContent>
               <MessageResponse>
-                Hej! Jag kan hjalpa dig med bokforingen. Fraga mig om transaktioner, konton eller annat.
+                Hej! Jag kan hjälpa dig med bokforingen. Fråga mig om transaktioner, konton eller annat.
               </MessageResponse>
             </MessageContent>
           </Message>
