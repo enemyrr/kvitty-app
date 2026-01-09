@@ -25,6 +25,7 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const isGoogleSSOEnabled = process.env.NEXT_PUBLIC_GOOGLE_SSO === "true";
 
   async function handleGoogleSignIn() {
     setIsGoogleLoading(true);
@@ -84,26 +85,30 @@ export function LoginForm({
               Har du inget konto? <a href="/signup">Registrera dig</a>
             </FieldDescription>
           </div>
-          <Field>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleGoogleSignIn}
-              disabled={isGoogleLoading || isLoading}
-            >
-              {isGoogleLoading ? (
-                <Spinner />
-              ) : (
-                <GoogleLogo className="size-4" weight="bold" />
-              )}
-              Fortsätt med Google
-            </Button>
-          </Field>
-          <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-            <span className="relative z-10 bg-background px-2 text-muted-foreground">
-              eller
-            </span>
-          </div>
+          {isGoogleSSOEnabled && (
+            <>
+              <Field>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleGoogleSignIn}
+                  disabled={isGoogleLoading || isLoading}
+                >
+                  {isGoogleLoading ? (
+                    <Spinner />
+                  ) : (
+                    <GoogleLogo className="size-4" weight="bold" />
+                  )}
+                  Fortsätt med Google
+                </Button>
+              </Field>
+              <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+                <span className="relative z-10 bg-background px-2 text-muted-foreground">
+                  eller
+                </span>
+              </div>
+            </>
+          )}
           <Field>
             <FieldLabel htmlFor="email">E-post</FieldLabel>
             <Input
