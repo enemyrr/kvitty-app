@@ -204,6 +204,22 @@ export const verification = pgTable("verification", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// AI Usage tracking table - per-user monthly quota
+export const aiUsage = pgTable(
+  "ai_usage",
+  {
+    id: text("id").primaryKey().$defaultFn(() => createCuid()),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    yearMonth: text("year_month").notNull(), // Format: "2026-01"
+    requestCount: integer("request_count").notNull().default(0),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => [unique().on(table.userId, table.yearMonth)]
+);
+
 // ============================================
 // Kvitty Business Tables
 // ============================================
@@ -278,6 +294,21 @@ export const workspaceInvites = pgTable("workspace_invites", {
   expiresAt: timestamp("expires_at"),
   usedAt: timestamp("used_at"),
   usedBy: text("used_by").references(() => user.id),
+});
+
+// API Keys for external API access
+export const apiKeys = pgTable("api_keys", {
+  id: text("id").primaryKey().$defaultFn(() => createCuid()),
+  workspaceId: text("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
+  name: text("name").notNull(), // e.g., "Production API Key"
+  keyHash: text("key_hash").notNull(), // SHA256 hash of the key
+  keyPrefix: text("key_prefix").notNull(), // First 12 chars for identification (e.g., "kv_abc123...")
+  lastUsedAt: timestamp("last_used_at"),
+  createdBy: text("created_by").references(() => user.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  revokedAt: timestamp("revoked_at"), // Soft delete - set when revoked
 });
 
 // Allowed sender email addresses per user per workspace
@@ -449,9 +480,7 @@ export const bankTransactions = pgTable("bank_transactions", {
   mappedToJournalEntryId: text("mapped_to_journal_entry_id").references(() => journalEntries.id, { onDelete: "set null" }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-  createdBy: text("created_by")
-    .notNull()
-    .references(() => user.id),
+  createdBy: text("created_by").references(() => user.id), // Nullable for API access
 });
 
 export const attachments = pgTable("attachments", {
@@ -487,9 +516,7 @@ export const auditLogs = pgTable("audit_logs", {
   workspaceId: text("workspace_id")
     .notNull()
     .references(() => workspaces.id, { onDelete: "cascade" }),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id),
+  userId: text("user_id").references(() => user.id), // Nullable for API access
   action: text("action").notNull(), // 'create', 'update', 'delete'
   entityType: text("entity_type").notNull(), // 'verification', 'attachment', 'comment'
   entityId: text("entity_id").notNull(),
@@ -538,9 +565,7 @@ export const journalEntries = pgTable("journal_entries", {
   isLocked: boolean("is_locked").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-  createdBy: text("created_by")
-    .notNull()
-    .references(() => user.id),
+  createdBy: text("created_by").references(() => user.id), // Nullable for API access
 });
 
 // Journal entry lines (debit/credit rows)
@@ -842,6 +867,14 @@ export const userRelations = relations(user, ({ many }) => ({
   payrollRuns: many(payrollRuns),
   workspaceAllowedEmails: many(workspaceAllowedEmails),
   inboxAttachmentLinks: many(inboxAttachmentLinks),
+  aiUsage: many(aiUsage),
+}));
+
+export const aiUsageRelations = relations(aiUsage, ({ one }) => ({
+  user: one(user, {
+    fields: [aiUsage.userId],
+    references: [user.id],
+  }),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -865,6 +898,7 @@ export const workspacesRelations = relations(workspaces, ({ one, many }) => ({
   }),
   members: many(workspaceMembers),
   invites: many(workspaceInvites),
+  apiKeys: many(apiKeys),
   fiscalPeriods: many(fiscalPeriods),
   bankTransactions: many(bankTransactions),
   auditLogs: many(auditLogs),
@@ -913,6 +947,17 @@ export const workspaceInvitesRelations = relations(
     }),
   })
 );
+
+export const apiKeysRelations = relations(apiKeys, ({ one }) => ({
+  workspace: one(workspaces, {
+    fields: [apiKeys.workspaceId],
+    references: [workspaces.id],
+  }),
+  createdByUser: one(user, {
+    fields: [apiKeys.createdBy],
+    references: [user.id],
+  }),
+}));
 
 export const workspaceAllowedEmailsRelations = relations(
   workspaceAllowedEmails,
@@ -1368,3 +1413,9 @@ export type NewInboxAttachment = typeof inboxAttachments.$inferInsert;
 
 export type InboxAttachmentLink = typeof inboxAttachmentLinks.$inferSelect;
 export type NewInboxAttachmentLink = typeof inboxAttachmentLinks.$inferInsert;
+
+export type ApiKey = typeof apiKeys.$inferSelect;
+export type NewApiKey = typeof apiKeys.$inferInsert;
+
+export type AiUsage = typeof aiUsage.$inferSelect;
+export type NewAiUsage = typeof aiUsage.$inferInsert;

@@ -15,7 +15,13 @@ Kvitty is a comprehensive Swedish bookkeeping and invoicing SaaS application. It
 - **Email Inbox**: Automated document processing from workspace-specific email addresses
 - **AI Features**: Bank transaction extraction, bookkeeping assistant, and receipt image analysis
 
+## Important Rules
+
+**Never run `pnpm dev` or `pnpm build` automatically.** These commands should only be run manually by the user.
+
 ## Development Commands
+
+**IMPORTANT:** Never run `pnpm dev` or `pnpm build` automatically. These commands should only be run manually by the user.
 
 ```bash
 pnpm dev              # Start development server

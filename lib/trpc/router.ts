@@ -20,6 +20,8 @@ import { bokslutRouter } from "./routers/bokslut";
 // Inbox routers
 import { inboxRouter } from "./routers/inbox";
 import { allowedEmailsRouter } from "./routers/allowed-emails";
+// API key management
+import { apiKeysRouter } from "./routers/api-keys";
 
 export const appRouter = router({
   workspaces: workspacesRouter,
@@ -43,6 +45,8 @@ export const appRouter = router({
   // Inbox routers
   inbox: inboxRouter,
   allowedEmails: allowedEmailsRouter,
+  // API key management
+  apiKeys: apiKeysRouter,
 });
 
 export type AppRouter = typeof appRouter;

@@ -3,6 +3,10 @@ import { z } from "zod";
 import { bookkeepingModel } from "@/lib/ai";
 import { BOOKKEEPING_SYSTEM_PROMPT } from "@/lib/ai/prompts";
 import { getSession } from "@/lib/session";
+import {
+  checkAndIncrementAIUsage,
+  AIRateLimitError,
+} from "@/lib/ai/rate-limiter";
 
 // Response schema - always get message + optional suggestion
 const responseSchema = z.object({
@@ -25,6 +29,25 @@ export async function POST(req: Request) {
     const session = await getSession();
     if (!session) {
       return new Response("Unauthorized", { status: 401 });
+    }
+
+    // Check AI usage limit
+    try {
+      await checkAndIncrementAIUsage(session.user.id);
+    } catch (error) {
+      if (error instanceof AIRateLimitError) {
+        return Response.json(
+          {
+            error: "AI usage limit exceeded",
+            message:
+              "Du har nått din månatliga gräns för AI-förfrågningar (50 st). Gränsen återställs den 1:a nästa månad.",
+            limit: error.limit,
+            remaining: error.remaining,
+          },
+          { status: 429 }
+        );
+      }
+      throw error;
     }
 
     const { messages, context } = await req.json();

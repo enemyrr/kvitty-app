@@ -12,6 +12,10 @@ import { bankTransactionModel } from "@/lib/ai";
 import { parseCSV, parseOFX, detectFileFormat } from "@/lib/utils/bank-import";
 import { parseSIE4, normalizeSIE4ToTransactions, filterBankAccountTransactions, isSIEFile } from "@/lib/utils/sie-import";
 import { generateTransactionHash, checkExistingHashes, createHashInput } from "@/lib/utils/transaction-hash";
+import {
+  checkAndIncrementAIUsage,
+  AIRateLimitError,
+} from "@/lib/ai/rate-limiter";
 
 export const bankTransactionsRouter = router({
   list: workspaceProcedure
@@ -476,7 +480,21 @@ export const bankTransactionsRouter = router({
         content: z.string().min(1).max(50000),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ ctx, input }) => {
+      // Check AI usage limit
+      try {
+        await checkAndIncrementAIUsage(ctx.session.user.id);
+      } catch (error) {
+        if (error instanceof AIRateLimitError) {
+          throw new TRPCError({
+            code: "TOO_MANY_REQUESTS",
+            message:
+              "Du har nått din månatliga gräns för AI-förfrågningar (50 st). Gränsen återställs den 1:a nästa månad.",
+          });
+        }
+        throw error;
+      }
+
       const result = await generateObject({
         model: bankTransactionModel,
         schema: z.object({
