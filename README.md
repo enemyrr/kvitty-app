@@ -176,7 +176,7 @@ npx tsx scripts/test-storage.ts  # Test file storage (local or S3)
 
 ```
 kvitty-app/
-├── app/                      # Next.js App Router
+├── app/                     # Next.js App Router
 │   ├── (auth)/              # Authentication pages
 │   ├── (dash)/              # Dashboard (requires auth)
 │   │   └── [workspaceSlug]/ # Workspace-scoped pages
