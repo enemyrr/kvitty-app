@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { createAuthMiddleware, APIError } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { magicLink, emailOTP } from "better-auth/plugins";
+import { checkBotId } from "botid/server";
 import { db } from "./db";
 import * as schema from "./db/schema";
 import { mailer } from "./email/mailer";
@@ -27,6 +28,21 @@ export const auth = betterAuth({
   },
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
+      // Paths that send emails and need bot protection
+      const botProtectedPaths = [
+        "/sign-in/magic-link",
+        "/email-otp/send-verification-otp",
+      ];
+
+      if (botProtectedPaths.some((p) => ctx.path.startsWith(p))) {
+        const { isBot } = await checkBotId();
+        if (isBot) {
+          throw new APIError("FORBIDDEN", {
+            message: "Access denied",
+          });
+        }
+      }
+
       if (ctx.path.startsWith("/sign-up")) {
         const registrationsEnabled =
           process.env.REGISTRATIONS_ENABLED !== "false";
