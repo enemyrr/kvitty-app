@@ -260,6 +260,8 @@ export const workspaces = pgTable("workspaces", {
   isVatExempt: boolean("is_vat_exempt").default(false).notNull(), // Småföretagare <120k/year
   // Email inbox settings
   inboxEmailSlug: text("inbox_email_slug"), // e.g., "kvitty" → kvitty.{slug}@inbox.kvitty.se
+  // Enskild firma specific fields
+  ownerPersonalNumber: text("owner_personal_number"), // Encrypted personnummer for enskild firma owner
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   createdBy: text("created_by").references(() => user.id),
@@ -433,6 +435,58 @@ export const annualClosings = pgTable("annual_closings", {
   // Finalization
   finalizedAt: timestamp("finalized_at"),
   finalizedBy: text("finalized_by").references(() => user.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, (table) => [
+  unique().on(table.workspaceId, table.fiscalPeriodId)
+]);
+
+// NE-bilaga entries for enskild firma tax adjustments
+export const nebilagaEntries = pgTable("nebilaga_entries", {
+  id: text("id").primaryKey().$defaultFn(() => createCuid()),
+  workspaceId: text("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
+  fiscalPeriodId: text("fiscal_period_id")
+    .notNull()
+    .references(() => fiscalPeriods.id, { onDelete: "cascade" }),
+  // Tax adjustments (R13-R48) - values in öre (cents) for precision
+  // R13-R16: Justeringar på företagsnivå
+  r13: integer("r13").default(0), // Bokförda kostnader som inte ska dras av
+  r14: integer("r14").default(0), // Bokförda intäkter som inte ska tas upp
+  r15: integer("r15").default(0), // Intäkter som inte bokförts men ska tas upp
+  r16: integer("r16").default(0), // Kostnader som inte bokförts men ska dras av
+  // R18-R20: NEA-relaterade justeringar
+  r18: integer("r18").default(0), // Avgående belopp (från NEA)
+  r19: integer("r19").default(0), // Tillkommande belopp (från NEA)
+  r20: integer("r20").default(0), // Resultat från annan verksamhet
+  // R21-R32: Individuella justeringar
+  r21: integer("r21").default(0), // Kostnader för resor till/från arbetet
+  r22: integer("r22").default(0), // Ökad avsättning till ersättningsfond
+  r23: integer("r23").default(0), // Minskad avsättning till ersättningsfond
+  r24: integer("r24").default(0), // Sjukpenning
+  r25: integer("r25").default(0), // Återfört underskott vid ackord
+  r26: integer("r26").default(0), // Återfört underskott - övriga
+  r27: integer("r27").default(0), // Annan justerad intäkt (ökning)
+  r28: integer("r28").default(0), // Annan justerad kostnad (minskning)
+  r29: integer("r29").default(0), // Outnyttjat underskott från förra året
+  r30: integer("r30").default(0), // Underskott som inte får kvittas
+  r31: integer("r31").default(0), // Underskott som kvittas mot kapital
+  r32: integer("r32").default(0), // Övrigt
+  // R34, R36: Avsättningar
+  r34: integer("r34").default(0), // Avdrag för årets avsättning till periodiseringsfond
+  r36: integer("r36").default(0), // Avdrag för ökning av expansionsfond
+  // R37-R46: Räntefördelning och övriga
+  r37: integer("r37").default(0), // Positiv räntefördelning
+  r38: integer("r38").default(0), // Negativ räntefördelning
+  r39: integer("r39").default(0), // Avdrag för ökning av skogskonto
+  r40: integer("r40").default(0), // Uttag från skogskonto
+  r41: integer("r41").default(0), // Övriga skattemässiga intäkter
+  r42: integer("r42").default(0), // Övriga skattemässiga avdrag
+  r43: integer("r43").default(0), // Kapitalunderlag för räntefördelning (info)
+  r44: integer("r44").default(0), // Sparat fördelningsbelopp (info)
+  r45: integer("r45").default(0), // Kapitalunderlag för expansionsfond (info)
+  r46: integer("r46").default(0), // Expansionsfond vid årets utgång (info)
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 }, (table) => [
@@ -914,6 +968,8 @@ export const workspacesRelations = relations(workspaces, ({ one, many }) => ({
   allowedEmails: many(workspaceAllowedEmails),
   inboxEmails: many(inboxEmails),
   inboxAttachments: many(inboxAttachments),
+  // NE-bilaga for enskild firma
+  nebilagaEntries: many(nebilagaEntries),
 }));
 
 export const workspaceMembersRelations = relations(
@@ -1030,6 +1086,7 @@ export const fiscalPeriodsRelations = relations(
     }),
     journalEntries: many(journalEntries),
     annualClosing: one(annualClosings),
+    nebilagaEntry: one(nebilagaEntries),
     lockedByUser: one(user, {
       fields: [fiscalPeriods.lockedBy],
       references: [user.id],
@@ -1055,6 +1112,20 @@ export const annualClosingsRelations = relations(
     finalizedByUser: one(user, {
       fields: [annualClosings.finalizedBy],
       references: [user.id],
+    }),
+  })
+);
+
+export const nebilagaEntriesRelations = relations(
+  nebilagaEntries,
+  ({ one }) => ({
+    workspace: one(workspaces, {
+      fields: [nebilagaEntries.workspaceId],
+      references: [workspaces.id],
+    }),
+    fiscalPeriod: one(fiscalPeriods, {
+      fields: [nebilagaEntries.fiscalPeriodId],
+      references: [fiscalPeriods.id],
     }),
   })
 );
@@ -1400,6 +1471,9 @@ export type AnnualClosing = typeof annualClosings.$inferSelect;
 export type NewAnnualClosing = typeof annualClosings.$inferInsert;
 export type AnnualClosingStatus = (typeof annualClosingStatusEnum.enumValues)[number];
 export type ClosingPackage = (typeof closingPackageEnum.enumValues)[number];
+
+export type NebilagaEntry = typeof nebilagaEntries.$inferSelect;
+export type NewNebilagaEntry = typeof nebilagaEntries.$inferInsert;
 
 export type WorkspaceAllowedEmail = typeof workspaceAllowedEmails.$inferSelect;
 export type NewWorkspaceAllowedEmail = typeof workspaceAllowedEmails.$inferInsert;
