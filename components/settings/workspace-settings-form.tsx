@@ -254,12 +254,7 @@ export function WorkspaceSettingsForm({
                   id="slug"
                   placeholder="abcd"
                   maxLength={4}
-                  disabled={isSubmitting}
-                  {...register("slug", {
-                    onChange: (e) => {
-                      e.target.value = e.target.value.toLowerCase();
-                    },
-                  })}
+                  disabled
                 />
                 <FieldDescription>
                   4 tecken (a-z, 0-9). Används i webbadressen
